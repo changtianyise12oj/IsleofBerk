@@ -1,6 +1,6 @@
-package com.GACMD.isleofberk.common.entity.world.gen;
+package com.GACMD.isleofberk.world.gen;
 
-import com.GACMD.isleofberk.common.entity.world.feature.ModPlacedFeatures;
+import com.GACMD.isleofberk.world.feature.ModPlacedFeatures;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;

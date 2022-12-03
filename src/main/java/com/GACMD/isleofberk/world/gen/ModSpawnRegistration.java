@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.common.entity.world.gen;
+package com.GACMD.isleofberk.world.gen;
 
 import com.GACMD.isleofberk.registery.ModEntities;
 import net.minecraft.resources.ResourceKey;

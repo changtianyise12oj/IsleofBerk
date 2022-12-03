@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.common.entity.world.feature;
+package com.GACMD.isleofberk.world.feature;
 
 import com.GACMD.isleofberk.registery.ModBlocks;
 import net.minecraft.core.Holder;

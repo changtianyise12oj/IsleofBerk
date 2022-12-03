@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.common.entity.world.feature;
+package com.GACMD.isleofberk.world.feature;
 
 import net.minecraft.world.level.levelgen.placement.*;
 import java.util.List;

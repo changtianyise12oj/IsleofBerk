@@ -1,8 +1,7 @@
-package com.GACMD.isleofberk.common.entity.world.feature;
+package com.GACMD.isleofberk.world.feature;
 
 import net.minecraft.core.Holder;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
-import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.*;
 

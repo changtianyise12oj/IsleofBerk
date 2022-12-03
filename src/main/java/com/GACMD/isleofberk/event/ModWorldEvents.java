@@ -1,8 +1,8 @@
 package com.GACMD.isleofberk.event;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.common.entity.world.gen.ModOreGeneration;
-import com.GACMD.isleofberk.common.entity.world.gen.ModSpawnRegistration;
+import com.GACMD.isleofberk.world.gen.ModOreGeneration;
+import com.GACMD.isleofberk.world.gen.ModSpawnRegistration;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

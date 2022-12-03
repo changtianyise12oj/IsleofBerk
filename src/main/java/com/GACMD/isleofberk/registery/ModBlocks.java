@@ -23,11 +23,11 @@ public class ModBlocks {
 
     public static final RegistryObject<Block> BELZIUM_BLOCK = registerBlock("belzium_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
-                    .strength(8f).requiresCorrectToolForDrops()), ModTab.IOB_TAB);
+                    .strength(8f)), ModTab.IOB_TAB);
 
     public static final RegistryObject<Block> BELZIUM_ORE = registerBlock("belzium_ore",
-            () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE)
-                    .strength(8f).requiresCorrectToolForDrops()), ModTab.IOB_TAB);
+            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
+                    .strength(8f)), ModTab.IOB_TAB);
 
     private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
