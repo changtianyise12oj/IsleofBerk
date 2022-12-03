@@ -16,10 +16,16 @@ public final class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, IsleofBerk.MOD_ID);
 
     /**
-     * ORES
+     * METALS & GEMS
      */
 
     public static final RegistryObject<Item> BELZIUM = ITEMS.register("belzium", () ->
+            new Item(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+
+    public static final RegistryObject<Item> RAW_GRONCKLE_IRON = ITEMS.register("raw_gronckle_iron", () ->
+            new Item(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+
+    public static final RegistryObject<Item> GRONCKLE_IRON = ITEMS.register("gronckle_iron", () ->
             new Item(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
 
     /**

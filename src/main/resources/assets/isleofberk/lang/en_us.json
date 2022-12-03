@@ -37,6 +37,15 @@
     "item.isleofberk.monstrous_nightmare_egg": "§dMonstrous Nightmare Egg",
     "item.isleofberk.zippleback_egg": "§dHideous Zippleback Egg",
 
+    "item.isleofberk.belzium": "Belzium",
+    "item.isleofberk.gronckle_iron": "Gronckle Iron",
+    "item.isleofberk.raw_gronckle_iron": "Raw Gronckle Iron",
+
+    "block.isleofberk.belziom_ore": "Belzium Ore",
+    "block.isleofberk.belziom_block": "Belzium Block",
+    "block.isleofberk.gronckle_iron_block": "Gronckle Iron Block",
+    "block.isleofberk.raw_gronckle_iron_block": "Raw Gronckle Iron Block",
+
     "iob.belzium.warn": "Dragon is too heavy, reduce inventory items to 4",
     "iob.belzium.not own": "Sorry, you do not own this Dragon",
     "iob.dragonAir.needSaddle": "This Dragon needs a saddle or it could drop you in mid air",
