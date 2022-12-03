@@ -1,0 +1,16 @@
+{
+    "itemGroup.isleofberk": "Isle of Berk",
+    "item.isleofberk.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.light_fury_spawn_egg": "استدعاء غضب النهار",
+    "item.isleofberk.night_fury_spawn_egg": "استدعاء غضب الليل",
+    "item.isleofberk.speed_stinger_spawn_egg": "استدعاء اللادغ السريع",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "استدعاء اللادغ السريع القائد",
+    "item.isleofberk.stinger_spawn_egg": "استدعاء اللاسع",
+
+    "entity.isleofberk.light_fury": "غضب النهار",
+    "entity.isleofberk.night_fury": "غضب الليل",
+    "entity.isleofberk.speed_stinger": "اللادغ السريع",
+    "entity.isleofberk.speed_stinger_leader": "اللادغ السريع القائد",
+    "entity.isleofberk.stinger": "اللاسع"
+}

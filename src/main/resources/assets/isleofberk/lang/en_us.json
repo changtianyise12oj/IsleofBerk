@@ -1,0 +1,82 @@
+{
+    "itemGroup.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.deadly_nadder_spawn_egg": "§dDeadly Nadder",
+    "item.isleofberk.gronckle_spawn_egg": "§dGronckle",
+    "item.isleofberk.light_fury_spawn_egg": "§dLight Fury",
+    "item.isleofberk.hideous_zippleback__spawn_egg": "§dHideous ZippleBack",
+    "item.isleofberk.nightfury_spawn_egg": "§dNight Fury",
+    "item.isleofberk.speed_stinger_spawn_egg": "§dSpeed Stinger",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "§dLead Speed Stinger",
+    "item.isleofberk.stinger_spawn_egg": "§dStinger",
+    "item.isleofberk.terrible_terror_spawn_egg": "§dTerrible Terror",
+    "item.isleofberk.triple_stryke_spawn_egg": "§dTriple Stryke",
+
+    "entity.isleofberk.deadly_nadder": "Deadly Nadder",
+    "entity.isleofberk.gronckle": "Gronckle",
+    "entity.isleofberk.light_fury": "Light Fury",
+    "entity.isleofberk.night_fury": "Night Fury",
+    "entity.isleofberk.speed_stinger": "Speed Stinger",
+    "entity.isleofberk.speed_stinger_leader": "Lead Speed Stinger",
+    "entity.isleofberk.stinger": "Stinger",
+    "entity.isleofberk.terrible_terror": "Terrible Terror",
+    "entity.isleofberk.triple_stryke": "Triple Stryke",
+
+    "item.isleofberk.terrible_terror_egg": "§dTerrible Terror Egg",
+    "item.isleofberk.speed_stinger_egg": "§dSpeed Stinger Egg",
+    "item.isleofberk.speed_stinger_egg_floutscout": "§dFloutscout Speed Stinger Egg",
+    "item.isleofberk.speed_stinger_egg_ice_breaker": "§dIce Breaker Speed Stinger Egg",
+    "item.isleofberk.speed_stinger_egg_sweet_sting": "§dSweet Sting Speed Stinger Egg",
+
+    "item.isleofberk.night_fury_egg": "§dNight Fury Egg",
+    "item.isleofberk.light_fury_egg": "§dLight Fury Egg",
+    "item.isleofberk.triple_stryke_egg": "§dTriple Stryke Egg",
+    "item.isleofberk.gronckle_egg": "§dGronckle Egg",
+    "item.isleofberk.nadder_egg": "§dDeadly Nadder Egg",
+    "item.isleofberk.stinger_egg": "§dStinger Egg",
+    "item.isleofberk.monstrous_nightmare_egg": "§dMonstrous Nightmare Egg",
+    "item.isleofberk.zippleback_egg": "§dHideous Zippleback Egg",
+
+    "iob.belzium.warn": "Dragon is too heavy, reduce inventory items to 4",
+    "iob.belzium.not own": "Sorry, you do not own this Dragon",
+    "iob.dragonAir.needSaddle": "This Dragon needs a saddle or it could drop you in mid air",
+    "iob.dragonGround.needSaddle": "The Dragon's back is hurting, equip a saddle",
+
+    "iob.mode.sit": "Sit",
+    "iob.mode.notsitting": "Stand Up",
+
+    "iob.dragon_sitting": "Dragon Sit Button",
+    "iob.gui.dragon.hunger": "Hunger",
+
+    "iob.command.wandering": "Your Dragon is now wandering",
+    "iob.command.sitting": "Your Dragon is now sitting",
+    "iob.command.following": "Your Dragon is now following you",
+    "iob.command.seatLock.on": "Seat Lock: Enabled",
+    "iob.command.seatLock.off": "Seat Lock: Disabled",
+
+    "egg.warm.toHatch": "Egg is okay and incubating",
+    "egg.cold.toHatch": "Egg is cold and failing to incubate",
+
+    "item.egg.tame.hatchling": "Will hatch after a while. Tame Dragon ASAP.",
+
+    "iob.speed_stinger.owned": "You own this Speed Stinger",
+    "iob.speed_stinger.not_owned": "You do not own this Speed Stinger",
+
+    "iob.baby.owned": "You own this baby dragon",
+    "iob.baby.not_owned": "You do not own this baby dragon",
+    "iob.only.owner.breed": "Only owner can feed suspicious stew to breed this dragon",
+
+    "key.isleofberk.keyAbility": "Fire Ability",
+    "key.isleofberk.keySecondAbility": "Special Ability",
+    "key.isleofberk.keyDown": "Fly Down",
+
+    "nightfury_spawn_egg_info": "Tier 4 §5§lStrike Class §rDragon",
+    "triple_stryke_spawn_egg_info": "Tier 3 §5§lStrike Class §rDragon",
+    "gronckle_spawn_egg_info": "Tier 2 §4§lBoulder Class §rDragon",
+    "nadder_spawn_egg_info": "Tier 2 §b§lTracker Class §rDragon",
+    "stinger_spawn_egg_info": "Tier 2 §8Uknown Class §rDragon",
+    "terrible_terror_spawn_egg_info": "Tier 1 §c§lStoker Class §rDragon",
+    "speed_stinger_spawn_egg_info": "Tier 4 §6§lSharp Class §rDragon",
+    "speed_stinger_leader_spawn_egg_info": "Tier 5 §6§lSharp Class §rDragon"
+}
+

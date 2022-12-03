@@ -1,0 +1,16 @@
+{
+    "itemGroup.isleofberk": "Isle of Berk",
+    "item.isleofberk.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.light_fury_spawn_egg": "Hemelveeg Spawn Ei",
+    "item.isleofberk.night_fury_spawn_egg": "Helleveeg Spawn Ei",
+    "item.isleofberk.speed_stinger_spawn_egg": "Snelsteker Spawn Ei",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "Leider Snelsteker Spawn Ei",
+    "item.isleofberk.stinger_spawn_egg": "Steker Spawn Ei",
+
+    "entity.isleofberk.light_fury": "Hemelveeg",
+    "entity.isleofberk.night_fury": "Helleveeg",
+    "entity.isleofberk.speed_stinger": "Snelsteker",
+    "entity.isleofberk.speed_stinger_leader": "Leider Snelsteker",
+    "entity.isleofberk.stinger": "Steker"
+}

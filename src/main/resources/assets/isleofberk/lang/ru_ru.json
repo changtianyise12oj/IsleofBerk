@@ -1,0 +1,16 @@
+{
+    "itemGroup.isleofberk": "Isle of Berk",
+    "item.isleofberk.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.light_fury_spawn_egg": "Яйцо призыва дневной фурии",
+    "item.isleofberk.night_fury_spawn_egg": "Яйцо призыва ночной фурии",
+    "item.isleofberk.speed_stinger_spawn_egg": "Яйцо призыва скорожала",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "Яйцо призыва вожака скорожалов",
+    "item.isleofberk.stinger_spawn_egg": "Яйцо призыва жала",
+
+    "entity.isleofberk.light_fury": "Дневная Фурия",
+    "entity.isleofberk.night_fury": "Ночная Фурия",
+    "entity.isleofberk.speed_stinger": "Скорожал",
+    "entity.isleofberk.speed_stinger_leader": "Вожак Скорожалов",
+    "entity.isleofberk.stinger": "Жало"
+}

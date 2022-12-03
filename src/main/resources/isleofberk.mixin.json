@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.GACMD.isleofberk.client.player",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "MixinPlayerRender"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "isleofberk.mixin-refmap.json"
+}

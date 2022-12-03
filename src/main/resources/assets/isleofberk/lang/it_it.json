@@ -1,0 +1,15 @@
+{    "itemGroup.isleofberk": "Isle of Berk",
+    "item.isleofberk.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.light_fury_spawn_egg": "Uova di Spawn di Furia Chiara",
+    "item.isleofberk.night_fury_spawn_egg": "Uova di Spawn di Furia Buia",
+    "item.isleofberk.speed_stinger_spawn_egg": "Uova di Spawn di Pungirapido",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "Uova di Spawn di Alfa Pungirapido",
+    "item.isleofberk.stinger_spawn_egg": "Uova di Spawn di Stinger",
+
+    "entity.isleofberk.light_fury": "Furia Chiara",
+    "entity.isleofberk.night_fury": "Furia Buia",
+    "entity.isleofberk.speed_stinger": "Pungirapido",
+    "entity.isleofberk.speed_stinger_leader": "Alfa Pungirapido",
+    "entity.isleofberk.stinger": "Stinger"
+}

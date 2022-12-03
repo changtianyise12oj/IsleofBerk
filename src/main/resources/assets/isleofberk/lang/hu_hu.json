@@ -1,0 +1,16 @@
+{
+    "itemGroup.isleofberk": "Isle of Berk",
+    "item.isleofberk.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.light_fury_spawn_egg": "Fényfúriaidéző tojás",
+    "item.isleofberk.night_fury_spawn_egg": "Éjfúriaidéző tojás",
+    "item.isleofberk.speed_stinger_spawn_egg": "Fürge Fullánkot idéző tojás",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "Fürge Fullánk-vezért idéző tojás",
+    "item.isleofberk.stinger_spawn_egg": "Fullánkidéző tojás",
+
+    "entity.isleofberk.light_fury": "Fényfúria",
+    "entity.isleofberk.night_fury": "Éjfúria",
+    "entity.isleofberk.speed_stinger": "Fürge Fullánk",
+    "entity.isleofberk.speed_stinger_leader": "Fürge Fullánk-vezér",
+    "entity.isleofberk.stinger": "Fullánk"
+}

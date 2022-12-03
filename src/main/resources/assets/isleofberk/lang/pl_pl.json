@@ -1,0 +1,16 @@
+{
+    "itemGroup.isleofberk": "Isle of Berk",
+    "item.isleofberk.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.light_fury_spawn_egg": "Jajo przyzywające Białą Furię",
+    "item.isleofberk.night_fury_spawn_egg": "Jajo przyzywające Nocną Furię",
+    "item.isleofberk.speed_stinger_spawn_egg": "Jajo przyzywające Szybkiego Szpica",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "Jajo przyzywające Lidera Szybkich Szpiców",
+    "item.isleofberk.stinger_spawn_egg": "Jajo przyzywające Żądlarza",
+
+    "entity.isleofberk.light_fury": "Biała Furia",
+    "entity.isleofberk.night_fury": "Nocna Furia",
+    "entity.isleofberk.speed_stinger": "Szybki Szpic",
+    "entity.isleofberk.speed_stinger_leader": "Lider Szybkich Szpiców",
+    "entity.isleofberk.stinger": "Żądlarz"
+}

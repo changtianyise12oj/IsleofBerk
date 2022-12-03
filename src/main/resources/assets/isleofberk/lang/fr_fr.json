@@ -1,0 +1,17 @@
+{
+    "itemGroup.isleofberk": "Isle of Berk",
+    "item.isleofberk.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.light_fury_spawn_egg": "Oeuf d'Apparition de Furie Éclair",
+    "item.isleofberk.night_fury_spawn_egg": "Oeuf d'Apparition de Furie Nocturne",
+    "item.isleofberk.speed_stinger_spawn_egg": "Oeuf d'Apparition de Vélocidard",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "Oeuf d'Apparition de Vélocidard Leader",
+    "item.isleofberk.stinger_spawn_egg": "Oeuf d'Apparition de Stinger",
+    "item.isleofberk.hideous_zippleback_spawn_egg": "Oeuf d'Apparition de Hideous Zippleback",
+
+    "entity.isleofberk.light_fury": "Furie Éclair",
+    "entity.isleofberk.night_fury": "Furie Nocturne",
+    "entity.isleofberk.speed_stinger": "Vélocidard",
+    "entity.isleofberk.speed_stinger_leader": "Vélocidard Leader",
+    "entity.isleofberk.stinger": "Stinger"
+}

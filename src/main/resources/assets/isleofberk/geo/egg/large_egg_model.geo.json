@@ -1,0 +1,104 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 32,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "Egg1",
+					"pivot": [0, 3, 0],
+					"cubes": [
+						{"origin": [-5, 1, -5], "size": [10, 7, 10], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "EggB",
+					"parent": "Egg1",
+					"pivot": [0, 0, -4],
+					"rotation": [-90, 0, 0],
+					"cubes": [
+						{"origin": [-4, 0, -5], "size": [8, 8, 1], "uv": [30, 0]}
+					]
+				},
+				{
+					"name": "EggT1",
+					"parent": "Egg1",
+					"pivot": [0, 8, -4],
+					"rotation": [-90, 0, 0],
+					"cubes": [
+						{"origin": [-4, 8, -7], "size": [8, 8, 4], "uv": [0, 17]}
+					]
+				},
+				{
+					"name": "EggT2",
+					"parent": "Egg1",
+					"pivot": [0, 11, -3],
+					"rotation": [-90, 0, 0],
+					"cubes": [
+						{"origin": [-3, 11, -5], "size": [6, 6, 2], "uv": [24, 17]}
+					]
+				},
+				{
+					"name": "Spikes",
+					"parent": "Egg1",
+					"pivot": [-4, 11, -4]
+				},
+				{
+					"name": "SpikeS2",
+					"parent": "Spikes",
+					"pivot": [0, 11, 0],
+					"rotation": [-180, -45, 180]
+				},
+				{
+					"name": "EggSpikes3",
+					"parent": "SpikeS2",
+					"pivot": [-5.65685, 11, 0],
+					"rotation": [0, 0, 25],
+					"cubes": [
+						{"origin": [-8.65685, 2, 0], "size": [6, 14, 0], "uv": [52, 0]}
+					]
+				},
+				{
+					"name": "EggSpikes4",
+					"parent": "SpikeS2",
+					"pivot": [5.17157, 11, 0],
+					"rotation": [0, 0, -25],
+					"cubes": [
+						{"origin": [2.17157, 2, 0], "size": [6, 14, 0], "uv": [52, 0], "mirror": true}
+					]
+				},
+				{
+					"name": "SpikeS3",
+					"parent": "Spikes",
+					"pivot": [-4, 11, -4],
+					"rotation": [0, -45, 0]
+				},
+				{
+					"name": "EggSpikes1",
+					"parent": "SpikeS3",
+					"pivot": [-4, 11, -4],
+					"rotation": [0, 0, 25],
+					"cubes": [
+						{"origin": [-7, 2, -4], "size": [6, 14, 0], "uv": [52, 0]}
+					]
+				},
+				{
+					"name": "EggSpikes2",
+					"parent": "SpikeS3",
+					"pivot": [6.82843, 11, -4],
+					"rotation": [0, 0, -25],
+					"cubes": [
+						{"origin": [3.82843, 2, -4], "size": [6, 14, 0], "uv": [52, 0], "mirror": true}
+					]
+				}
+			]
+		}
+	]
+}

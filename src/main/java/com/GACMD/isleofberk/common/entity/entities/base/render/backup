@@ -1,0 +1,182 @@
+package com.GACMD.isleofberk.common.entity.AI;
+
+//edit of vanilla FollowOwnerGoal
+
+import net.minecraft.Level.entity.LivingEntity;
+import net.minecraft.Level.entity.TamableAnimal;
+import net.minecraft.Level.entity.ai.goal.Goal;
+import net.minecraft.Level.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.Level.entity.ai.navigation.GroundPathNavigation;
+import net.minecraft.Level.entity.ai.navigation.PathNavigation;
+import net.minecraft.Level.level.LevelReader;
+import net.minecraft.Level.level.pathfinder.BlockPathTypes;
+
+import java.util.EnumSet;
+
+public class FollowOwnerNoTPGoal extends Goal {
+
+    private final TamableAnimal tamable;
+    private LivingEntity owner;
+    private final LevelReader level;
+    private final double speedModifier;
+    private final PathNavigation navigation;
+    private int timeToRecalcPath;
+    private final float stopDistance;
+    private final float startDistance;
+    private float oldWaterCost;
+    private final boolean canFly;
+
+    public FollowOwnerNoTPGoal(TamableAnimal pTamable, double pSpeedModifier, float pStartDistance, float pStopDistance, boolean pCanFly) {
+        this.tamable = pTamable;
+        this.level = pTamable.level;
+        this.speedModifier = pSpeedModifier;
+        this.navigation = pTamable.getNavigation();
+        this.startDistance = pStartDistance;
+        this.stopDistance = pStopDistance;
+        this.canFly = pCanFly;
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        if (!(pTamable.getNavigation() instanceof GroundPathNavigation) && !(pTamable.getNavigation() instanceof FlyingPathNavigation)) {
+            throw new IllegalArgumentException("Unsupported mob type for FollowOwnerGoal");
+        }
+    }
+
+    /**
+     * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+     * method as well.
+     */
+    public boolean canUse() {
+        LivingEntity livingentity = this.tamable.getOwner();
+        if (livingentity == null) {
+            return false;
+        } else if (livingentity.isSpectator()) {
+            return false;
+        } else if (this.tamable.isOrderedToSit()) {
+            return false;
+        } else if (this.tamable.distanceToSqr(livingentity) < (double)(this.startDistance * this.startDistance)) {
+            return false;
+        } else {
+            this.owner = livingentity;
+            return true;
+        }
+    }
+
+    /**
+     * Returns whether an in-progress EntityAIBase should continue executing
+     */
+    public boolean canContinueToUse() {
+        if (this.navigation.isDone()) {
+            return false;
+        } else if (this.tamable.isOrderedToSit()) {
+            return false;
+        } else {
+            return !(this.tamable.distanceToSqr(this.owner) <= (double)(this.stopDistance * this.stopDistance));
+        }
+    }
+
+    /**
+     * Execute a one shot task or start executing a continuous task
+     */
+    public void start() {
+        this.timeToRecalcPath = 0;
+        this.oldWaterCost = this.tamable.getPathfindingMalus(BlockPathTypes.WATER);
+        this.tamable.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+    }
+
+    /**
+     * Reset the task's internal state. Called when this task is interrupted by another one
+     */
+    public void stop() {
+        this.owner = null;
+        this.navigation.stop();
+        this.tamable.setPathfindingMalus(BlockPathTypes.WATER, this.oldWaterCost);
+    }
+
+    /**
+     * Keep ticking a continuous task that has already been started
+     */
+    public void tick() {
+        this.tamable.getLookControl().setLookAt(this.owner, 10.0F, (float)this.tamable.getMaxHeadXRot());
+        if (--this.timeToRecalcPath <= 0) {
+            this.timeToRecalcPath = this.m_183277_(10);
+            if (!this.tamable.isLeashed() && !this.tamable.isPassenger()) {
+                if (this.tamable.distanceToSqr(this.owner) >= 250.0D) {
+                    this.navigation.stop();
+                } else {
+                    this.navigation.moveTo(this.owner, this.speedModifier);
+                }
+
+
+            }
+        }
+    }
+}
+
+    public void switchNavigator(boolean onLand) {
+        if (onLand) {
+            this.moveControl = new MoveControl(this);
+            this.navigation = new GroundPathNavigation(this, level);
+            setIsFlying(false);
+            setIsHovering(false);
+            isLandNavigator = true;
+        } else {
+            this.moveControl = new FlyingDragonMoveControl(this);
+            this.navigation = new DragonFlyingPathNavigation(this, level);
+            isLandNavigator = false;
+        }
+    }
+
+    //            if (dragon.isHovering() && dragon.isFlying()) {
+    //                currentBodyPitch = toRadians(0);
+    ////                currentBodyPitch = approachValue(currentBodyPitch, toRadians(0));
+    //            } else if (dragon.isGoingUp()) {
+    //                currentBodyPitch = toRadians(35);
+    ////                currentBodyPitch = approachValue(currentBodyPitch, toRadians(35));
+    //            } else if (xRot0 < -20) {
+    //                currentBodyPitch = toRadians(35);
+    ////                currentBodyPitch = approachValue(currentBodyPitch, toRadians(35));
+    //            } else if (xRot0 < 0 && xRot0 > -20) {
+    //                currentBodyPitch = toRadians(25);
+    ////                currentBodyPitch = approachValue(currentBodyPitch, toRadians(25));
+    //            } else if (xRot0 > 0 && xRot0 < 20) {
+    //                currentBodyPitch = toRadians(0);
+    ////                currentBodyPitch = approachValue(currentBodyPitch, toRadians(0));
+    //            } else if (xRot0 > 15 && xRot0 < 30) {
+    //                currentBodyPitch = toRadians(-15);
+    ////                currentBodyPitch = approachValue(currentBodyPitch, toRadians(-15));
+    //            } else if (xRot0 > 30) {
+    //                currentBodyPitch = toRadians(-30);
+    ////                currentBodyPitch = approachValue(currentBodyPitch, toRadians(-30));
+    //            }
+
+    //    private <E extends IAnimatable> PlayState flightRotationController(AnimationEvent<E> event) {
+    //        if (isFlying()) {
+    //            if (isHovering() && isFlying()) {
+    //                event.getController().setAnimation(new AnimationBuilder().addAnimation("Rot0", true)); 0
+    //                return PlayState.CONTINUE;
+    //            }
+    //            if (this.xRotO < -20 || isGoingUp()) {
+    //                event.getController().setAnimation(new AnimationBuilder().addAnimation("RotFlyUp", true)); - 35
+    //                return PlayState.CONTINUE;
+    //            }
+    //            if (this.xRotO < 0 && this.xRotO > -20) {
+    //                event.getController().setAnimation(new AnimationBuilder().addAnimation("RotUp", true)); - 25
+    //                return PlayState.CONTINUE;
+    //            }
+    //            if (this.xRotO > 0 && this.xRotO < 20) {
+    //                event.getController().setAnimation(new AnimationBuilder().addAnimation("Rot0", true)); 0
+    //                return PlayState.CONTINUE;
+    //            }
+    //            if (this.xRotO > 15 && this.xRotO < 30) {
+    //                event.getController().setAnimation(new AnimationBuilder().addAnimation("RotMidDive", true)); 15
+    //                return PlayState.CONTINUE;
+    //            }
+    //            if (this.xRotO > 30) {
+    //                event.getController().setAnimation(new AnimationBuilder().addAnimation("RotDive", true)); 30
+    //                return PlayState.CONTINUE;
+    //            }
+    //        }
+    //        event.getController().setAnimation(new AnimationBuilder().addAnimation("Rot0", true)); 0
+    //        return PlayState.CONTINUE;
+    //    }
+
+

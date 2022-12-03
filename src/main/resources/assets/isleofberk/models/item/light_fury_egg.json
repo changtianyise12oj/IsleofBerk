@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "isleofberk:item/eggs/light_fury"
+  }
+}

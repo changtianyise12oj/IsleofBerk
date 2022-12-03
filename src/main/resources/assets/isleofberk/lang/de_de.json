@@ -1,0 +1,16 @@
+{
+    "itemGroup.isleofberk": "Isle of Berk",
+    "item.isleofberk.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.light_fury_spawn_egg": "Tagschatten-Spawn-Ei",
+    "item.isleofberk.night_fury_spawn_egg": "Nachtschatten-Spawn-Ei",
+    "item.isleofberk.speed_stinger_spawn_egg": "Schneller-Stachel-Spawn-Ei",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "Schnelle-Stachel-Spawn-Ei",
+    "item.isleofberk.stinger_spawn_egg": "Stinger-Spawn-Ei",
+
+    "entity.isleofberk.light_fury": "Tagschatten",
+    "entity.isleofberk.night_fury": "Nachtschatten",
+    "entity.isleofberk.speed_stinger": "Schneller Stachel",
+    "entity.isleofberk.speed_stinger_leader": "Schnelle Stachel",
+    "entity.isleofberk.stinger": "Stinger"
+}

@@ -1,0 +1,16 @@
+{
+    "itemGroup.isleofberk": "Isle of Berk",
+    "item.isleofberk.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.light_fury_spawn_egg": "Ovo de Invocação de Fúria da Luz",
+    "item.isleofberk.night_fury_spawn_egg": "Ovo de Invocação de Fúria da Noite",
+    "item.isleofberk.speed_stinger_spawn_egg": "Ovo de Invocação de Ferrão Veloz",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "Ovo de Invocação de Ferrão Veloz Alpha",
+    "item.isleofberk.stinger_spawn_egg": "Ovo de Invocação de Ferrão",
+
+    "entity.isleofberk.light_fury": "Fúria da Luz",
+    "entity.isleofberk.night_fury": "Fúria da Noite",
+    "entity.isleofberk.speed_stinger": "Ferrão Veloz",
+    "entity.isleofberk.speed_stinger_leader": "Ferrão Veloz Alfa",
+    "entity.isleofberk.stinger": "Ferrão"
+}

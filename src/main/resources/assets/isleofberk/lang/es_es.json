@@ -1,0 +1,16 @@
+{
+    "itemGroup.isleofberk": "Isle of Berk",
+    "item.isleofberk.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.light_fury_spawn_egg": "Huevo de Desove de Furia Luminosa",
+    "item.isleofberk.night_fury_spawn_egg": "Huevo de Desove de Furia Nocturna",
+    "item.isleofberk.speed_stinger_spawn_egg": "Huevo de Desove de Aguijón Veloz",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "Huevo de Desove de Alfa Aguijón Veloz",
+    "item.isleofberk.stinger_spawn_egg": "Huevo de Desove de Aguijón",
+
+    "entity.isleofberk.light_fury": "Furia Luminosa",
+    "entity.isleofberk.night_fury": "Furia Nocturna",
+    "entity.isleofberk.speed_stinger": "Aguijón Veloz",
+    "entity.isleofberk.speed_stinger_leader": "Alfa Aguijón Veloz",
+    "entity.isleofberk.stinger": "Aguijón"
+}

@@ -1,0 +1,55 @@
+{
+  "entity.night_fury.growl": {
+    "sounds": [
+      "isleofberk:entity/night_fury/growl_0"
+    ]
+  },
+  "entity.night_fury.hurt": {
+    "sounds": [
+      "isleofberk:entity/night_fury/hurt_0",
+      "isleofberk:entity/night_fury/hurt_1"
+    ]
+  },
+  "entity.night_fury.death": {
+    "sounds": [
+      "isleofberk:entity/night_fury/death_0"
+    ]
+  },
+  "entity.night_fury.bite": {
+    "sounds": [
+      "isleofberk:entity/night_fury/bite_0"
+    ]
+  },
+  "entity.speed_stinger.growl": {
+    "sounds": [
+      "isleofberk:entity/speed_stinger/growl_1",
+      "isleofberk:entity/speed_stinger/growl_2",
+      "isleofberk:entity/speed_stinger/growl_3",
+    ]
+  },
+  "entity.speed_stinger.hurt": {
+    "sounds": [
+      "isleofberk:entity/speed_stinger/hurt_1",
+      "isleofberk:entity/speed_stinger/hurt_2",
+      "isleofberk:entity/speed_stinger/hurt_3"
+    ]
+  },
+  "entity.speed_stinger.death": {
+    "sounds": [
+      "isleofberk:entity/speed_stinger/death_1",
+      "isleofberk:entity/speed_stinger/death_2"
+    ]
+  },
+  "entity.speed_stinger.bite": {
+    "sounds": [
+      "isleofberk:entity/night_fury/bite_0",
+      "isleofberk:entity/night_fury/bite_1"
+    ]
+  },
+  "entity.speed_stinger.sting": {
+    "sounds": [
+      "isleofberk:entity/night_fury/sting_1",
+      "isleofberk:entity/night_fury/sting_2"
+    ]
+  }
+}

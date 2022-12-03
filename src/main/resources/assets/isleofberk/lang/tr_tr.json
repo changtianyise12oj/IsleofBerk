@@ -1,0 +1,16 @@
+{
+    "itemGroup.isleofberk": "Isle of Berk",
+    "item.isleofberk.isleofberk": "Isle of Berk",
+
+    "item.isleofberk.light_fury_spawn_egg": "Işığın Öfkesi Yumurtası",
+    "item.isleofberk.night_fury_spawn_egg": "Gecenin Öfkesi Yumurtası",
+    "item.isleofberk.speed_stinger_spawn_egg": "Arı Gibi Sokan Yumurtası",
+    "item.isleofberk.speed_stinger_leader_spawn_egg": "Lider Arı Gibi Sokan Yumurtası",
+    "item.isleofberk.stinger_spawn_egg": "Sokan Yumurtası",
+
+    "entity.isleofberk.light_fury": "Işığın Öfkesi",
+    "entity.isleofberk.night_fury": "Gecenin Öfkesi",
+    "entity.isleofberk.speed_stinger": "Arı Gibi Sokan",
+    "entity.isleofberk.speed_stinger_leader": "Lider Arı Gibi Sokan",
+    "entity.isleofberk.stinger": "Sokan"
+}
