@@ -7,12 +7,12 @@ import com.GACMD.isleofberk.common.entity.entities.AI.ground.DragonWaterAvoiding
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.common.entity.entities.AI.target.DragonOwnerHurtTargetGoal;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.dragons.speedstingerleader.SpeedStingerLeader;
+import com.GACMD.isleofberk.common.entity.entities.dragons.speedstingerleader.SpeedStingerLeaderEntity;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.SpeedStingerEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.util.Util;
-import com.GACMD.isleofberk.registery.ModEntities;
-import com.GACMD.isleofberk.registery.ModItems;
+import com.GACMD.isleofberk.init.init.EntityInit;
+import com.GACMD.isleofberk.init.init.ItemInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -26,7 +26,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -78,11 +77,13 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
-public class SpeedStinger extends ADragonBase {
+public class SpeedStingerEntity extends ADragonBase {
 
     /**
      * 1. Find the leader closest to the speed stinger,
@@ -94,9 +95,9 @@ public class SpeedStinger extends ADragonBase {
      * <p>
      * 1. add advancements like unit type such as. 0:FRONT, 1:FLANKER, 2:GUARD,
      */
-    private static final EntityDataAccessor<Optional<UUID>> LEADER_UUID = SynchedEntityData.defineId(SpeedStinger.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Optional<UUID>> LEADER_UUID = SynchedEntityData.defineId(SpeedStingerEntity.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final Optional<Object> ABSENT_LEADER = Optional.empty();
-    private static final EntityDataAccessor<Byte> UNIT_TYPE = SynchedEntityData.defineId(SpeedStinger.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Byte> UNIT_TYPE = SynchedEntityData.defineId(SpeedStingerEntity.class, EntityDataSerializers.BYTE);
 
     AnimationFactory factory = new AnimationFactory(this);
 
@@ -159,8 +160,8 @@ public class SpeedStinger extends ADragonBase {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<SpeedStinger>(this, "speed_stinger_controller", 5, this::basicMovementController));
-        data.addAnimationController(new AnimationController<SpeedStinger>(this, "speed_stinger_controller_attacks", 0, this::attackController));
+        data.addAnimationController(new AnimationController<SpeedStingerEntity>(this, "speed_stinger_controller", 5, this::basicMovementController));
+        data.addAnimationController(new AnimationController<SpeedStingerEntity>(this, "speed_stinger_controller_attacks", 0, this::attackController));
     }
 
     @Override
@@ -169,7 +170,7 @@ public class SpeedStinger extends ADragonBase {
         return !level.getBlockState(solidPos).isAir();
     }
 
-    public SpeedStinger(EntityType<? extends SpeedStinger> animal, Level world) {
+    public SpeedStingerEntity(EntityType<? extends SpeedStingerEntity> animal, Level world) {
         super(animal, world);
         this.xpReward = 25;
     }
@@ -179,10 +180,41 @@ public class SpeedStinger extends ADragonBase {
      *
      * @param pAnimal The animal entity to be spawned
      */
-    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pAnimal, LevelAccessor pLevel, MobSpawnType pReason, BlockPos pPos, Random pRandom) {
-        return pLevel.getBlockState(pPos.below()).is(BlockTags.SAND) ||
-                pLevel.getBlockState(pPos.below()).is(BlockTags.LEAVES) || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS) ||
-                pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_PICKAXE) || pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_SHOVEL);
+//    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pAnimal, LevelAccessor pLevel, MobSpawnType pReason, BlockPos pPos, Random pRandom) {
+//        return pLevel.getBlockState(pPos.below()).is(BlockTags.SAND) ||
+//                pLevel.getBlockState(pPos.below()).is(BlockTags.LEAVES) || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS) ||
+//                pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_PICKAXE) || pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_SHOVEL)
+//                || (pLevel.getBlockState(pPos.below()).is(Blocks.CAVE_AIR));
+//    }
+
+//    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pBat, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
+//        if (pPos.getY() >= pLevel.getSeaLevel()) {
+//            return false;
+//        } else {
+//            int $$5 = pLevel.getMaxLocalRawBrightness(pPos);
+//            int $$6 = 4;
+//            if (isHalloween()) {
+//                $$6 = 7;
+//            } else if (pRandom.nextBoolean()) {
+//                return false;
+//            }
+//
+//            return $$5 > pRandom.nextInt($$6) ? false : checkMobSpawnRules(pBat, pLevel, pSpawnType, pPos, pRandom);
+//        }
+//    }
+
+    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pAnimal, ServerLevelAccessor pLevel, MobSpawnType pReason, BlockPos pPos, Random pRandom) {
+//        return pPos.getY() <= pLevel.getSeaLevel() - 33 && pLevel.getRawBrightness(pPos, 0) == 0 && pLevel.getBlockState(pPos).is(Blocks.WATER);
+//        return pPos.getY() <= pLevel.getSeaLevel() - 33 && pLevel.getRawBrightness(pPos, 0) == 0 && pLevel.getBlockState(pPos).is(Blocks.CAVE_AIR);
+        return pReason == MobSpawnType.SPAWNER || !pLevel.canSeeSky(pPos) && pPos.getY() <= 60 && checkMonsterSpawnRules(pAnimal, pLevel, pReason, pPos, pRandom);
+
+    }
+
+    private static boolean isHalloween() {
+        LocalDate $$0 = LocalDate.now();
+        int $$1 = $$0.get(ChronoField.DAY_OF_MONTH);
+        int $$2 = $$0.get(ChronoField.MONTH_OF_YEAR);
+        return $$2 == 10 && $$1 >= 20 || $$2 == 11 && $$1 <= 3;
     }
 
 
@@ -197,11 +229,15 @@ public class SpeedStinger extends ADragonBase {
         }
     }
 
-    public static boolean checkMonsterSpawnRules(EntityType<? extends SpeedStinger> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
-        return isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
+    public static boolean checkMonsterSpawnRules(EntityType<? extends Animal> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
+        return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
     }
 
-    public static boolean checkAnyLightMonsterSpawnRules(EntityType<? extends SpeedStinger> pType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
+//    public static boolean checkMonsterSpawnRules(EntityType<? extends Animal> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
+//        return isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
+//    }
+
+    public static boolean checkAnyLightMonsterSpawnRules(EntityType<? extends SpeedStingerEntity> pType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
         return checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
     }
 
@@ -421,7 +457,7 @@ public class SpeedStinger extends ADragonBase {
 
 
     private void findPotentialLeader() {
-        SpeedStingerLeader speedStingerLeaderEntity = level.getNearestEntity(level.getEntitiesOfClass(SpeedStingerLeader.class, getTargetSearchArea(this.getFollowDistance())),
+        SpeedStingerLeaderEntity speedStingerLeaderEntity = level.getNearestEntity(level.getEntitiesOfClass(SpeedStingerLeaderEntity.class, getTargetSearchArea(this.getFollowDistance())),
                 TargetingConditions.forNonCombat(), this, this.getX(), this.getEyeY(), this.getZ());
         if (speedStingerLeaderEntity != null) {
             if (!isSpeedStingerLeaderClass()) setLeaderViaUUID(speedStingerLeaderEntity.getUUID());
@@ -433,8 +469,8 @@ public class SpeedStinger extends ADragonBase {
         this.setLeaderViaUUID(Optional.empty());
     }
 
-    private SpeedStingerLeader nearestLeader() {
-        return level.getNearestEntity(level.getEntitiesOfClass(SpeedStingerLeader.class, getTargetSearchArea(this.getFollowDistance())),
+    private SpeedStingerLeaderEntity nearestLeader() {
+        return level.getNearestEntity(level.getEntitiesOfClass(SpeedStingerLeaderEntity.class, getTargetSearchArea(this.getFollowDistance())),
                 TargetingConditions.forNonCombat(), this, this.getX(), this.getEyeY(), this.getZ());
     }
 
@@ -560,10 +596,10 @@ public class SpeedStinger extends ADragonBase {
     @Override
     protected void dropCustomDeathLoot(DamageSource pSource, int pLooting, boolean pRecentlyHit) {
         super.dropCustomDeathLoot(pSource, pLooting, pRecentlyHit);
-        ItemStack itemstack0 = new ItemStack(ModItems.SPEED_STINGER_EGG.get(), 1);
-        ItemStack itemstack1 = new ItemStack(ModItems.SPEED_STINGER_EGG_FLOUTSCOOUT.get(), 1);
-        ItemStack itemstack2 = new ItemStack(ModItems.SPEED_STINGER_EGG_ICE_BREAKER.get(), 1);
-        ItemStack itemstack3 = new ItemStack(ModItems.SPEED_STINGER_EGG_SWEET_STING.get(), 1);
+        ItemStack itemstack0 = new ItemStack(ItemInit.SPEED_STINGER_EGG.get(), 1);
+        ItemStack itemstack1 = new ItemStack(ItemInit.SPEED_STINGER_EGG_FLOUTSCOOUT.get(), 1);
+        ItemStack itemstack2 = new ItemStack(ItemInit.SPEED_STINGER_EGG_ICE_BREAKER.get(), 1);
+        ItemStack itemstack3 = new ItemStack(ItemInit.SPEED_STINGER_EGG_SWEET_STING.get(), 1);
 
         if (random.nextBoolean()) {
             if (getDragonVariant() == 0) {
@@ -610,7 +646,7 @@ public class SpeedStinger extends ADragonBase {
 
     @org.jetbrains.annotations.Nullable
     public ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {
-        SpeedStingerEgg dragon = ModEntities.SPEED_STINGER_EGG.get().create(level);
+        SpeedStingerEgg dragon = EntityInit.SPEED_STINGER_EGG.get().create(level);
         return dragon;
     }
 
@@ -649,11 +685,11 @@ public class SpeedStinger extends ADragonBase {
 
     protected class SpeedStingerCustomMeleeAttackGoal extends MeleeAttackGoal {
 
-        SpeedStinger speedStinger;
+        SpeedStingerEntity speedStingerEntity;
 
         public SpeedStingerCustomMeleeAttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
             super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
-            this.speedStinger = (SpeedStinger) pMob;
+            this.speedStingerEntity = (SpeedStingerEntity) pMob;
         }
 
         //        @Override
@@ -673,11 +709,11 @@ public class SpeedStinger extends ADragonBase {
 
     protected class SpeedStingerCustomLeapAttackGoal extends LeapAtTargetGoal {
 
-        SpeedStinger speedStinger;
+        SpeedStingerEntity speedStingerEntity;
 
-        public SpeedStingerCustomLeapAttackGoal(SpeedStinger speedStinger, float pYd) {
-            super(speedStinger, pYd);
-            this.speedStinger = speedStinger;
+        public SpeedStingerCustomLeapAttackGoal(SpeedStingerEntity speedStingerEntity, float pYd) {
+            super(speedStingerEntity, pYd);
+            this.speedStingerEntity = speedStingerEntity;
         }
 
 
@@ -687,20 +723,20 @@ public class SpeedStinger extends ADragonBase {
          */
         @Override
         public boolean canUse() {
-            if (this.speedStinger.isVehicle()) {
+            if (this.speedStingerEntity.isVehicle()) {
                 return false;
             } else {
-                this.target = this.speedStinger.getTarget();
+                this.target = this.speedStingerEntity.getTarget();
                 if (this.target == null) {
                     return false;
                 } else {
-                    double d0 = Math.sqrt(this.speedStinger.distanceToSqr(this.target.getX(), 0, this.target.getZ()));
+                    double d0 = Math.sqrt(this.speedStingerEntity.distanceToSqr(this.target.getX(), 0, this.target.getZ()));
 //                    if (!(d0 < 4.0D) && !(d0 > 16.0D)) {
                     if (d0 > 6) {
-                        if (!this.speedStinger.isOnGround()) {
+                        if (!this.speedStingerEntity.isOnGround()) {
                             return false;
                         } else {
-                            return this.speedStinger.getRandom().nextInt(reducedTickDelay(75)) == 0;
+                            return this.speedStingerEntity.getRandom().nextInt(reducedTickDelay(75)) == 0;
                         }
                     } else {
                         return false;
@@ -714,18 +750,18 @@ public class SpeedStinger extends ADragonBase {
          * Execute a one shot task or start executing a continuous task
          */
         public void start() {
-            Vec3 vec3 = this.speedStinger.getDeltaMovement();
-            Vec3 vec31 = new Vec3(this.target.getX() - this.speedStinger.getX(), 0.0D, this.target.getZ() - this.speedStinger.getZ());
+            Vec3 vec3 = this.speedStingerEntity.getDeltaMovement();
+            Vec3 vec31 = new Vec3(this.target.getX() - this.speedStingerEntity.getX(), 0.0D, this.target.getZ() - this.speedStingerEntity.getZ());
             if (vec31.lengthSqr() > 1.0E-7D) {
                 vec31 = vec31.normalize().scale(0.8D).add(vec3.scale(0.5D));
             }
 
-            this.speedStinger.setDeltaMovement(vec31.x, (double) this.yd, vec31.z);
+            this.speedStingerEntity.setDeltaMovement(vec31.x, (double) this.yd, vec31.z);
         }
     }
 
     static class SpeedStingerPathNavigation extends GroundPathNavigation {
-        SpeedStingerPathNavigation(SpeedStinger speedStinger, Level level) {
+        SpeedStingerPathNavigation(SpeedStingerEntity speedStinger, Level level) {
             super(speedStinger, level);
         }
 
@@ -746,10 +782,10 @@ public class SpeedStinger extends ADragonBase {
 
     private class SpeedStingerPlayerSupport extends Goal {
 
-        SpeedStinger speedStinger;
+        SpeedStingerEntity speedStinger;
         Player player;
 
-        public SpeedStingerPlayerSupport(SpeedStinger speedStinger) {
+        public SpeedStingerPlayerSupport(SpeedStingerEntity speedStinger) {
             this.speedStinger = speedStinger;
             this.player = (Player) speedStinger.getOwner();
         }
