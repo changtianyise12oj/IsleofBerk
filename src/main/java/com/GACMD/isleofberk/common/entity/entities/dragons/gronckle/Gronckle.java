@@ -54,7 +54,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
     protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_RAM = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_BURP = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Boolean> MARK_BURPED = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.BOOLEAN);
 
     public Gronckle(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -126,15 +125,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         return PlayState.STOP;
     }
 
-    private <E extends IAnimatable> PlayState burpController(AnimationEvent<E> event) {
-        if (isMarkBurped()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Breath"));
-            return PlayState.CONTINUE;
-        }
-
-        return PlayState.STOP;
-    }
-
     private <E extends IAnimatable> PlayState turnController(AnimationEvent<E> event) {
         int turnState = this.getRotationState();
         if (turnState != 0) {
@@ -169,7 +159,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<Gronckle>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<Gronckle>(this, "attack_Controller", 0, this::attackController));
-        data.addAnimationController(new AnimationController<Gronckle>(this, "burp_Controller", 0, this::burpController));
         data.addAnimationController(new AnimationController<Gronckle>(this, "turnController", 24, this::turnController));
     }
 
@@ -178,7 +167,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         super.defineSynchedData();
         this.entityData.define(TICK_SINCE_LAST_RAM, 0);
         this.entityData.define(TICK_SINCE_LAST_BURP, 0);
-        this.entityData.define(MARK_BURPED, false);
     }
 
     @Override
@@ -186,7 +174,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("ticks_since_burp", getTicksSinceBurp());
         pCompound.putInt("ticks_since_ram_attack", getTicksSincePlayerLastRamAttack());
-        pCompound.putBoolean("markBurped", isMarkBurped());
     }
 
     @Override
@@ -194,15 +181,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         super.readAdditionalSaveData(pCompound);
         this.setTicksSinceBurp(pCompound.getInt("ticks_since_burp"));
         this.setTicksSincePlayerLastRamAttack(pCompound.getInt("ticks_since_ram_attack"));
-        this.setMarkBurped(pCompound.getBoolean("markBurped"));
-    }
-
-    public boolean isMarkBurped() {
-        return this.entityData.get(MARK_BURPED);
-    }
-
-    public void setMarkBurped(boolean burped) {
-        this.entityData.set(MARK_BURPED, burped);
     }
 
     public int getTicksSincePlayerLastRamAttack() {
@@ -404,12 +382,12 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 this.playSound(SoundEvents.PLAYER_BURP, 1, 1);
                 this.playSound(SoundEvents.GENERIC_BURN, 1, 1);
                 this.shootGronckIron(itemStack);
-                setTicksSinceBurp(20);
                 spawnTamingParticles(false);
             } else {
                 spawnTamingParticles(false);
                 this.playSound(SoundEvents.LAVA_POP, 1, 1);
             }
+            setTicksSinceBurp(20);
         }
 
         if (ticksSinceLastBiteAttack >= 0) {
@@ -424,15 +402,27 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             ticksSinceLastRamAttack--;
         }
 
+        System.out.println("GRONCKLE BURP TICKS: " + getTicksSinceBurp());
+        System.out.println("STONE FED TICKS: " + ticksSinceLastStoneFed);
+        if (isMarkFired()) {
+            System.out.println("");
+            System.out.println("");
+            System.out.println("");
+            System.out.println("MARK FIRED: " + isMarkFired());
+            System.out.println("");
+            System.out.println("");
+        }
+
+
         if (getTicksSinceBurp() > 0) {
             setTicksSinceBurp(getTicksSinceBurp() - 1);
         }
 
-        if (getTicksSinceBurp() < 2) {
-            setMarkFired(false);
-        } else {
-            setMarkFired(true);
-        }
+//        if (getTicksSinceBurp() < 3) {
+//            setMarkFired(false);
+//        } else {
+//            setMarkFired(true);
+//        }
 
         if (getTicksSincePlayerLastRamAttack() >= 0) {
             setTicksSincePlayerLastRamAttack(getTicksSincePlayerLastRamAttack() - 1);
