@@ -21,7 +21,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -51,10 +50,9 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
     protected int ticksSinceLastRamAttack = 0;
     protected int ticksSinceLastBiteAttack = 0;
-    protected int ticksSinceLastStoneFed = 0;
 
     protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_RAM = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_BURP = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> TICKS_SINCE_STONE_FED = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
 
     public Gronckle(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -158,7 +156,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<Gronckle>(this, "basic_MovementController", 2, this::basicMovementController));
+        data.addAnimationController(new AnimationController<Gronckle>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<Gronckle>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<Gronckle>(this, "turnController", 24, this::turnController));
     }
@@ -167,21 +165,21 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(TICK_SINCE_LAST_RAM, 0);
-        this.entityData.define(TICK_SINCE_LAST_BURP, 0);
+        this.entityData.define(TICKS_SINCE_STONE_FED, 0);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("ticks_since_burp", getTicksSinceBurp());
         pCompound.putInt("ticks_since_ram_attack", getTicksSincePlayerLastRamAttack());
+        pCompound.putInt("ticks_since_last_stone_fed", getStoneDigestionTicks());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.setTicksSinceBurp(pCompound.getInt("ticks_since_burp"));
         this.setTicksSincePlayerLastRamAttack(pCompound.getInt("ticks_since_ram_attack"));
+        this.setTicksSincelastStoneFed(pCompound.getInt("ticks_since_last_stone_fed"));
     }
 
     public int getTicksSincePlayerLastRamAttack() {
@@ -192,12 +190,12 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         entityData.set(TICK_SINCE_LAST_RAM, ticksSinceLastRamAttack);
     }
 
-    public int getTicksSinceBurp() {
-        return entityData.get(TICK_SINCE_LAST_BURP);
+    public int getStoneDigestionTicks() {
+        return entityData.get(TICKS_SINCE_STONE_FED);
     }
 
-    public void setTicksSinceBurp(int ticksSinceLastBurp) {
-        entityData.set(TICK_SINCE_LAST_BURP, ticksSinceLastBurp);
+    public void setTicksSincelastStoneFed(int ticksSinceLastRamAttack) {
+        entityData.set(TICKS_SINCE_STONE_FED, ticksSinceLastRamAttack);
     }
 
     @Nullable
@@ -265,11 +263,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     }
 
     @Override
-    protected void doPlayerRide(Player pPlayer) {
-        super.doPlayerRide(pPlayer);
-    }
-
-    @Override
     public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack stack = pPlayer.getItemInHand(pHand);
         Item item = stack.getItem();
@@ -277,7 +270,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         if (isTame()) {
             if (!isDragonSleeping() || isDragonSitting()) {
                 if (!stack.isEmpty()) {
-                    if (ticksSinceLastStoneFed <= 0) {
+                    if (getStoneDigestionTicks() <= 0) {
                         if (item == Blocks.BASALT.asItem() ||
                                 item == Blocks.DEEPSLATE.asItem() ||
                                 item == Blocks.GRANITE.asItem() ||
@@ -285,7 +278,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                                 item == Blocks.DIORITE.asItem()
                         ) {
                             stack.shrink(1);
-                            ticksSinceLastStoneFed += Util.secondsToTicks(3);
+                            setTicksSincelastStoneFed(Util.secondsToTicks(3));
                             this.playSound(SoundEvents.DONKEY_EAT, 1, 1);
                         }
                     }
@@ -377,48 +370,43 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     public void tick() {
         super.tick();
         ItemStack itemStack = new ItemStack(ModItems.RAW_GRONCKLE_IRON.get(), 1);
-        if (ticksSinceLastStoneFed == 10) {
+        if (getStoneDigestionTicks() == 10) {
             if (random.nextInt(45) == 1) {
                 this.playSound(SoundEvents.PLAYER_BURP, 1, 1);
                 this.playSound(SoundEvents.GENERIC_BURN, 1, 1);
                 this.shootGronckIron(itemStack);
+                setTicksSinceLastFire(20);
                 spawnTamingParticles(false);
             } else {
                 spawnTamingParticles(false);
                 this.playSound(SoundEvents.LAVA_POP, 1, 1);
             }
-            setTicksSinceBurp(20);
         }
 
+        System.out.println("last fire: " + getTicksSinceLastFire());
+        System.out.println("stone digest: " + getStoneDigestionTicks());
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("mark fire: " + isMarkFired());
+
+
+        if (getStoneDigestionTicks() > 0) {
+            setTicksSincelastStoneFed(getStoneDigestionTicks()-1);
+        }
+
+        if (getTicksSinceLastFire() > 0) {
+            setTicksSinceLastFire(getTicksSinceLastFire()-1);
+        }
         if (ticksSinceLastBiteAttack >= 0) {
             ticksSinceLastBiteAttack--;
-        }
-
-        if (ticksSinceLastStoneFed > 0) {
-            ticksSinceLastStoneFed--;
         }
 
         if (ticksSinceLastRamAttack >= 0) {
             ticksSinceLastRamAttack--;
         }
 
-//        System.out.println("GRONCKLE BURP TICKS: " + getTicksSinceBurp());
-//        System.out.println("STONE FED TICKS: " + ticksSinceLastStoneFed);
-//        if (isMarkFired()) {
-//            System.out.println("");
-//            System.out.println("");
-//            System.out.println("");
-//            System.out.println("MARK FIRED: " + isMarkFired());
-//            System.out.println("");
-//            System.out.println("");
-//        }
-
-
-        if (getTicksSinceBurp() >= 0) {
-            setTicksSinceBurp(getTicksSinceBurp() - 1);
-        }
-
-        if (getTicksSinceBurp() < 3) {
+        if (getTicksSinceLastFire() < 2) {
             setMarkFired(false);
         } else {
             setMarkFired(true);
@@ -445,11 +433,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         } else if (this.tier4()) {
             setExplosionStrength(4);
         }
-    }
-
-    @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
-        return super.hurt(pSource, pAmount);
     }
 
     @Override
