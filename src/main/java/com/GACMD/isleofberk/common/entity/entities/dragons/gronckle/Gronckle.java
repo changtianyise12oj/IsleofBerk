@@ -21,6 +21,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -158,7 +159,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<Gronckle>(this, "basic_MovementController", 2, this::basicMovementController));
-        data.addAnimationController(new AnimationController<Gronckle>(this, "attack_Controller", 0, this::attackController));
+        data.addAnimationController(new AnimationController<Gronckle>(this, "attack_controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<Gronckle>(this, "turnController", 24, this::turnController));
     }
 
@@ -414,7 +415,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 //        }
 
 
-        if (getTicksSinceBurp() > 0) {
+        if (getTicksSinceBurp() >= 0) {
             setTicksSinceBurp(getTicksSinceBurp() - 1);
         }
 
@@ -445,6 +446,12 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         } else if (this.tier4()) {
             setExplosionStrength(4);
         }
+    }
+
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        setMarkFired(true);
+        return super.hurt(pSource, pAmount);
     }
 
     @Override
