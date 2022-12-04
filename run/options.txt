@@ -69,7 +69,7 @@ glDebugVerbosity:1
 skipMultiplayerWarning:false
 skipRealms32bitWarning:false
 hideMatchedNames:true
-joinedFirstServer:false
+joinedFirstServer:true
 hideBundleTutorial:false
 syncChunkWrites:true
 showAutosaveIndicator:true
@@ -97,7 +97,7 @@ key_key.fullscreen:key.keyboard.f11
 key_key.spectatorOutlines:key.keyboard.unknown
 key_key.swapOffhand:key.keyboard.f
 key_key.saveToolbarActivator:key.keyboard.c
-key_key.loadToolbarActivator:key.keyboard.z
+key_key.loadToolbarActivator:key.keyboard.x
 key_key.advancements:key.keyboard.l
 key_key.hotbar.1:key.keyboard.1
 key_key.hotbar.2:key.keyboard.2
@@ -110,8 +110,8 @@ key_key.hotbar.8:key.keyboard.8
 key_key.hotbar.9:key.keyboard.9
 key_key.isleofberk.keyDown:key.keyboard.left.alt
 key_key.isleofberk.keyAbility:key.keyboard.r
-key_key.isleofberk.s_keyAbility:key.keyboard.x
-soundCategory_master:0.03807947
+key_key.isleofberk.s_keyAbility:key.keyboard.v
+soundCategory_master:0.147351
 soundCategory_music:0.0
 soundCategory_record:1.0
 soundCategory_weather:1.0
