@@ -188,11 +188,11 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         super.tick();
 
         if (this.tier1()) {
-            setExplosionStrength(0);
-        } else if (this.tier2()) {
             setExplosionStrength(3);
-        } else if (this.tier3()) {
+        } else if (this.tier2()) {
             setExplosionStrength(4);
+        } else if (this.tier3()) {
+            setExplosionStrength(5);
         } else if (this.tier4()) {
             setExplosionStrength(7);
         }
