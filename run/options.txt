@@ -24,7 +24,7 @@ fov:0.0
 screenEffectScale:1.0
 fovEffectScale:1.0
 gamma:0.5
-renderDistance:12
+renderDistance:2
 simulationDistance:12
 entityDistanceScaling:1.0
 guiScale:0
@@ -110,7 +110,7 @@ key_key.hotbar.8:key.keyboard.8
 key_key.hotbar.9:key.keyboard.9
 key_key.isleofberk.keyDown:key.keyboard.left.alt
 key_key.isleofberk.keyAbility:key.keyboard.r
-key_key.isleofberk.s_keyAbility:key.keyboard.v
+key_key.isleofberk.keySpecialAbility:key.keyboard.x
 soundCategory_master:0.147351
 soundCategory_music:0.0
 soundCategory_record:1.0

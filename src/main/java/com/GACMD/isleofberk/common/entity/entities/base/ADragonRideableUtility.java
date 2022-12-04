@@ -231,33 +231,36 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             }
         }
 
-        // can be ridden when phase 2 is reached and is not pissed
-        // first passenger seat(controller) is reserved to owner
-
-        if (!isBreedingFood(itemstack) && !isFoodEdibleToDragon(itemstack)) {//  && !isDragonBelziumHeld(itemstack)
-            if (!isTame() && canBeTameRidden(pPlayer)) {
-                this.doPlayerRide(pPlayer);
-                if (pPlayer.isCreative())
-                    this.tameWithName(pPlayer);
-                return InteractionResult.sidedSuccess(this.level.isClientSide);
-            } else if (isTame()) {
-                // if tamed and owned by the original owner player, ride normally
-                if (pPlayer == this.getOwner()) {
-                    this.doPlayerRide(pPlayer);
-                    return InteractionResult.sidedSuccess(this.level.isClientSide);
-
-                    // non owner players can ride on the rear this dragon if owner is riding it aswell
-                    // make sure only owners ride the first passenger slot (index 0 which is the pilot)
-                    // seatLock is disabled using sit
-                } else if (pPlayer != getOwner() && !isSeatLocked() && getControllingPassenger() == this.getOwner()) {
-                    this.doPlayerRide(pPlayer);
-                    return InteractionResult.sidedSuccess(this.level.isClientSide);
-
-                }
-            }
+        if (!isBreedingFood(itemstack) && !isFoodEdibleToDragon(itemstack)) {
+            rideInteract(pPlayer, pHand, itemstack);
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
+
+
         return super.mobInteract(pPlayer, pHand);
 
+    }
+
+    protected void rideInteract(Player pPlayer, InteractionHand pHand, ItemStack itemstack) {
+        // can be ridden when phase 2 is reached and is not pissed
+        // first passenger seat(controller) is reserved to owner
+        if (!isTame() && canBeTameRidden(pPlayer)) {
+            this.doPlayerRide(pPlayer);
+            if (pPlayer.isCreative())
+                this.tameWithName(pPlayer);
+        } else if (isTame()) {
+            // if tamed and owned by the original owner player, ride normally
+            if (pPlayer == this.getOwner()) {
+                this.doPlayerRide(pPlayer);
+
+                // non owner players can ride on the rear this dragon if owner is riding it aswell
+                // make sure only owners ride the first passenger slot (index 0 which is the pilot)
+                // seatLock is disabled using sit
+            } else if (pPlayer != getOwner() && !isSeatLocked() && getControllingPassenger() == this.getOwner()) {
+                this.doPlayerRide(pPlayer);
+
+            }
+        }
     }
 
     protected void addSmokeParticles() {

@@ -56,11 +56,10 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
         return this.entityData.get(MARK_FIRED);
     }
 
-    public void setMarkFired(boolean incapacitated) {
-        this.entityData.set(MARK_FIRED, incapacitated);
+    public void setMarkFired(boolean fired) {
+        this.entityData.set(MARK_FIRED, fired);
     }
 
-    // Variant
     public int getTicksSinceLastFire() {
         return this.entityData.get(TICK_SINCE_LAST_FIRE);
     }
