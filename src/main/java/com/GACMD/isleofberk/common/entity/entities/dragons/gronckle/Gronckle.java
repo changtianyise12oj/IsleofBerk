@@ -418,11 +418,11 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             setTicksSinceBurp(getTicksSinceBurp() - 1);
         }
 
-//        if (getTicksSinceBurp() < 3) {
-//            setMarkFired(false);
-//        } else {
-//            setMarkFired(true);
-//        }
+        if (getTicksSinceBurp() < 3) {
+            setMarkFired(false);
+        } else {
+            setMarkFired(true);
+        }
 
         if (getTicksSincePlayerLastRamAttack() >= 0) {
             setTicksSincePlayerLastRamAttack(getTicksSincePlayerLastRamAttack() - 1);
