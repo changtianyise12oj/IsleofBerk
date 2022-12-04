@@ -142,7 +142,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     }
 
-
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
