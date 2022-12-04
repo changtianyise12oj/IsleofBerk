@@ -402,16 +402,16 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             ticksSinceLastRamAttack--;
         }
 
-        System.out.println("GRONCKLE BURP TICKS: " + getTicksSinceBurp());
-        System.out.println("STONE FED TICKS: " + ticksSinceLastStoneFed);
-        if (isMarkFired()) {
-            System.out.println("");
-            System.out.println("");
-            System.out.println("");
-            System.out.println("MARK FIRED: " + isMarkFired());
-            System.out.println("");
-            System.out.println("");
-        }
+//        System.out.println("GRONCKLE BURP TICKS: " + getTicksSinceBurp());
+//        System.out.println("STONE FED TICKS: " + ticksSinceLastStoneFed);
+//        if (isMarkFired()) {
+//            System.out.println("");
+//            System.out.println("");
+//            System.out.println("");
+//            System.out.println("MARK FIRED: " + isMarkFired());
+//            System.out.println("");
+//            System.out.println("");
+//        }
 
 
         if (getTicksSinceBurp() > 0) {
