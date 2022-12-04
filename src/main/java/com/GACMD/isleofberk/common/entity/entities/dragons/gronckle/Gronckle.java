@@ -432,9 +432,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             setMarkFired(true);
         }
 
-        System.out.println("GRONCKLE BURP TICKS: " + getTicksSinceBurp());
-        System.out.println("STONE FED TICKS: " + ticksSinceLastStoneFed);
-
         if (getTicksSincePlayerLastRamAttack() >= 0) {
             setTicksSincePlayerLastRamAttack(getTicksSincePlayerLastRamAttack() - 1);
         }
