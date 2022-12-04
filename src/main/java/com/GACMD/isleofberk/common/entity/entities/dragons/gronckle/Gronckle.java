@@ -298,7 +298,13 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         if (isTame()) {
             if (!stack.isEmpty()) {
                 if (stack.getCount() > 8 && ticksSinceLastStoneFed <= 0) {
-                    if (item == Blocks.BASALT.asItem()) {
+                    if (
+                            item == Blocks.BASALT.asItem() ||
+                            item == Blocks.DEEPSLATE.asItem() ||
+                            item == Blocks.GRANITE.asItem() ||
+                            item == Blocks.STONE.asItem() ||
+                            item == Blocks.DIORITE.asItem()
+                    ) {
                         stack.shrink(8);
                         ticksSinceLastStoneFed += Util.secondsToTicks(3);
                         this.playSound(SoundEvents.DONKEY_EAT, 1, 1);
@@ -343,7 +349,11 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     @Override
     protected void rideInteract(Player pPlayer, InteractionHand pHand, ItemStack itemstack) {
         Item item = itemstack.getItem();
-        if (item != Blocks.BASALT.asItem())
+        if (item != Blocks.BASALT.asItem() ||
+                item != Blocks.STONE.asItem() ||
+                item != Blocks.DIORITE.asItem() ||
+                item != Blocks.GRANITE.asItem() ||
+                item != Blocks.DEEPSLATE.asItem())
             super.rideInteract(pPlayer, pHand, itemstack);
     }
 
