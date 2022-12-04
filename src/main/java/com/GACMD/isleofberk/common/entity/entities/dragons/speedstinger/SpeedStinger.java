@@ -398,8 +398,7 @@ public class SpeedStinger extends ADragonBase {
         Holder<Biome> biome = pLevel.getBiome(new BlockPos(this.position()));
         // if it spawns below ground probably less than y 70 set to black, regardless of the position of the biome it spawned in
         // surface biomes on biomeloading event is still considered lush caves
-        // spawning is still set on caves though
-        if (this.getY() < 60) {
+        if (this.getY() < 0) {
             return 1;
         } else {
             if (biome.is(Biomes.TAIGA) || biome.is(Biomes.SNOWY_TAIGA) || biome.is(Biomes.OLD_GROWTH_PINE_TAIGA) || biome.is(Biomes.OLD_GROWTH_SPRUCE_TAIGA) || biome.is(Biomes.STONY_SHORE)) {
