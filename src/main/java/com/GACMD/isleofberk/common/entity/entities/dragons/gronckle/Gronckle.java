@@ -277,14 +277,14 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         if (isTame()) {
             if (!isDragonSleeping() || isDragonSitting()) {
                 if (!stack.isEmpty()) {
-                    if (stack.getCount() > 8 && ticksSinceLastStoneFed <= 0) {
+                    if (ticksSinceLastStoneFed <= 0) {
                         if (item == Blocks.BASALT.asItem() ||
                                 item == Blocks.DEEPSLATE.asItem() ||
                                 item == Blocks.GRANITE.asItem() ||
                                 item == Blocks.STONE.asItem() ||
                                 item == Blocks.DIORITE.asItem()
                         ) {
-                            stack.shrink(8);
+                            stack.shrink(1);
                             ticksSinceLastStoneFed += Util.secondsToTicks(3);
                             this.playSound(SoundEvents.DONKEY_EAT, 1, 1);
                         }
@@ -376,9 +376,9 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     @Override
     public void tick() {
         super.tick();
-        ItemStack itemStack = new ItemStack(ModItems.RAW_GRONCKLE_IRON.get(), 2);
+        ItemStack itemStack = new ItemStack(ModItems.RAW_GRONCKLE_IRON.get(), 1);
         if (ticksSinceLastStoneFed == 10) {
-            if (random.nextInt(2) == 1) {
+            if (random.nextInt(45) == 1) {
                 this.playSound(SoundEvents.PLAYER_BURP, 1, 1);
                 this.playSound(SoundEvents.GENERIC_BURN, 1, 1);
                 this.shootGronckIron(itemStack);
