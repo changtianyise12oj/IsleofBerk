@@ -185,7 +185,7 @@ public class SpeedStinger extends ADragonBase {
         return pLevel.getBlockState(pPos.below()).is(BlockTags.SAND) ||
                 pLevel.getBlockState(pPos.below()).is(BlockTags.LEAVES) || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS) ||
                 pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_PICKAXE) || pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_SHOVEL)
-                || (pLevel.getBlockState(pPos.below()).is(Blocks.CAVE_AIR) && pPos.getY() < 0);
+                || (pLevel.getBlockState(pPos.below()).is(Blocks.CAVE_AIR) && pPos.getY() < 0 && !pLevel.canSeeSky(pPos));
     }
 
 //    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pBat, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
