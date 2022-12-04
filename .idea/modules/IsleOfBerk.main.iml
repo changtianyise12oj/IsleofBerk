@@ -18,8 +18,11 @@
     <option name="platformVersion" value="40.1.80" />
     <option name="srgType" value="TSRG" />
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager">
+    <output url="file:///production/IsleofBerk.main" />
+    <output-test url="file:///test/IsleofBerk.main" />
     <exclude-output />
+    <orderEntry type="jdk" jdkName="17 (4)" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

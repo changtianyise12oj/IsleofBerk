@@ -18,7 +18,9 @@
     <option name="platformVersion" value="40.1.80" />
     <option name="srgType" value="TSRG" />
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
+  <component name="NewModuleRootManager">
+    <output url="file:///production/IsleofBerk.test" />
+    <output-test url="file:///test/IsleofBerk.test" />
     <exclude-output />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
