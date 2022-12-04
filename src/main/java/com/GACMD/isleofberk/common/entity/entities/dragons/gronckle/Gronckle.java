@@ -159,7 +159,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<Gronckle>(this, "basic_MovementController", 2, this::basicMovementController));
-        data.addAnimationController(new AnimationController<Gronckle>(this, "attack_controller", 0, this::attackController));
+        data.addAnimationController(new AnimationController<Gronckle>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<Gronckle>(this, "turnController", 24, this::turnController));
     }
 
@@ -278,12 +278,11 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             if (!isDragonSleeping() || isDragonSitting()) {
                 if (!stack.isEmpty()) {
                     if (stack.getCount() > 8 && ticksSinceLastStoneFed <= 0) {
-                        if (
-                                item == Blocks.BASALT.asItem() ||
-                                        item == Blocks.DEEPSLATE.asItem() ||
-                                        item == Blocks.GRANITE.asItem() ||
-                                        item == Blocks.STONE.asItem() ||
-                                        item == Blocks.DIORITE.asItem()
+                        if (item == Blocks.BASALT.asItem() ||
+                                item == Blocks.DEEPSLATE.asItem() ||
+                                item == Blocks.GRANITE.asItem() ||
+                                item == Blocks.STONE.asItem() ||
+                                item == Blocks.DIORITE.asItem()
                         ) {
                             stack.shrink(8);
                             ticksSinceLastStoneFed += Util.secondsToTicks(3);
@@ -450,7 +449,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
-        setMarkFired(true);
         return super.hurt(pSource, pAmount);
     }
 
