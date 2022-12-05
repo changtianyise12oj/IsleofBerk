@@ -7,6 +7,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 import java.util.Arrays;
@@ -14,6 +15,10 @@ import java.util.List;
 import java.util.Objects;
 
 public class ModSpawnRegistration {
+
+    public static void SSspawnOnCaves(final LivingSpawnEvent.CheckSpawn event) {
+
+    }
 
     // default probability is 0.007F
     // mesa seed 172070159003879
@@ -82,31 +87,6 @@ public class ModSpawnRegistration {
                 2, 1, 1, 0.07F, Biomes.STONY_SHORE, Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
                 Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST);
 
-//        // TODO: SPEED STINGER
-//        // cave
-//        addMobSpawn(event, List.of(Biome.BiomeCategory.UNDERGROUND),
-//                MobCategory.CREATURE, ModEntities.SPEED_STINGER_LEADER.get(),
-//                1, 1, 1, 0.70F); // 0.15F 0.025f
-//
-//        // taiga
-//        addMobSpawn(event, List.of(Biome.BiomeCategory.TAIGA),
-//                MobCategory.CREATURE, ModEntities.SPEED_STINGER_LEADER.get(),
-//                1, 1, 1, 0.70F); // 0.15F 0.025f
-//
-//        // taiga
-//        addMobSpawn(event, List.of(Biome.BiomeCategory.SWAMP),
-//                MobCategory.CREATURE, ModEntities.SPEED_STINGER_LEADER.get(),
-//                1, 1, 1, 0.70F); // 0.15F 0.025f
-//
-//        // ice
-//        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.SPEED_STINGER_LEADER.get(),
-//                1, 1, 1, 0.70F, Biomes.FROZEN_OCEAN, Biomes.FROZEN_PEAKS,
-//                Biomes.FROZEN_RIVER, Biomes.DEEP_FROZEN_OCEAN);
-//
-//        // jungle
-//        addMobSpawn(event,List.of(Biome.BiomeCategory.JUNGLE), MobCategory.CREATURE, ModEntities.SPEED_STINGER_LEADER.get(),
-//                1, 1, 1, 0.70F);
-
     }
 
     /**
@@ -126,6 +106,23 @@ public class ModSpawnRegistration {
             event.getSpawns().creatureGenerationProbability(probability);
             event.getSpawns().addSpawn(mobCategory, spawnerData1);
         }
+    }
+
+    /**
+     * Adds entity spawning via BiomeDictionary so dragons spawn on biomes from other mods
+     *
+     * @param event       biomeloading event
+     * @param entityType  the entity to spawn
+     * @param weight      the cost of entity per spawn, less weight less spawning
+     * @param probability ranged from 0 to 1; how many of them will spawn
+     */
+    private static void addMobSpawnAllBiomes(BiomeLoadingEvent event, MobCategory mobCategory, EntityType<?> entityType,
+                                             int weight, int minGroupSize, int maxGroupSize,
+                                             float probability) {
+        MobSpawnSettings.SpawnerData spawnerData1 = new MobSpawnSettings.SpawnerData(entityType, weight, minGroupSize, maxGroupSize);
+
+        event.getSpawns().creatureGenerationProbability(probability);
+        event.getSpawns().addSpawn(mobCategory, spawnerData1);
     }
 
     private static void addMobSpawnWithBlackList(BiomeLoadingEvent event, List<Biome.BiomeCategory> categories, List<Biome.BiomeCategory> blacklist,

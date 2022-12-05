@@ -327,8 +327,9 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 item != Blocks.STONE.asItem() &&
                 item != Blocks.DIORITE.asItem() &&
                 item != Blocks.GRANITE.asItem() &&
-                item != Blocks.DEEPSLATE.asItem())
+                item != Blocks.DEEPSLATE.asItem()) {
             super.rideInteract(pPlayer, pHand, itemstack);
+        }
     }
 
     /**
@@ -385,14 +386,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 this.playSound(SoundEvents.LAVA_POP, 1, 1);
             }
         }
-
-        System.out.println("last fire: " + getTicksSinceLastFire());
-        System.out.println("stone digest: " + getStoneDigestionTicks());
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("mark fire: " + isMarkFired());
-
 
         if (getStoneDigestionTicks() > 0) {
             setTicksSincelastStoneFed(getStoneDigestionTicks()-1);
