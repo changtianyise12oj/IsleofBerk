@@ -63,8 +63,6 @@ public class SpeedStingerLeader extends SpeedStinger {
         return PlayState.CONTINUE;
     }
 
-    // animation.SpeedStinger.Sting
-    // animation.SpeedStinger.HeadBite
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
         if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
             if (getCurrentAttackType() == 0) {
@@ -184,7 +182,7 @@ public class SpeedStingerLeader extends SpeedStinger {
         return groupMembers;
     }
 
-    public boolean groupFull() {
+    public boolean isGroupFull() {
         return getGroupMembers().size() > 15;
     }
 

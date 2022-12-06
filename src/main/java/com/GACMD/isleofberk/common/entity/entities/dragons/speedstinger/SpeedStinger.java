@@ -471,11 +471,6 @@ public class SpeedStinger extends ADragonBase {
         this.setLeaderViaUUID(Optional.empty());
     }
 
-    private SpeedStingerLeader nearestLeader() {
-        return level.getNearestEntity(level.getEntitiesOfClass(SpeedStingerLeader.class, getTargetSearchArea(this.getFollowDistance())),
-                TargetingConditions.forNonCombat(), this, this.getX(), this.getEyeY(), this.getZ());
-    }
-
     @Override
     protected int getExperienceReward(Player pPlayer) {
         return 150;
@@ -540,9 +535,8 @@ public class SpeedStinger extends ADragonBase {
                         }
                     }
                 }
-                // tame easily when baby but not when taming adult
             }
-
+            // tame easily when baby but not when taming adult
         } else {
             if (itemstack.isEmpty()) {
                 String owned = "iob.speed_stinger.owned";
@@ -681,16 +675,10 @@ public class SpeedStinger extends ADragonBase {
         } else {
             jumpTicks = 0;
         }
-//        if (this.getTarget() != null) {
-//            circleEntity(getTarget(), 6, 1.25F, true, tickCount, 6, 1);
-//        }
     }
 
-//    protected PathNavigation createNavigation(Level pLevel) {
-//        return new SpeedStingerPathNavigation(this, level);
-//    }
 
-    protected class SpeedStingerCustomMeleeAttackGoal extends MeleeAttackGoal {
+    protected static class SpeedStingerCustomMeleeAttackGoal extends MeleeAttackGoal {
 
         SpeedStinger speedStingerEntity;
 
@@ -699,22 +687,9 @@ public class SpeedStinger extends ADragonBase {
             this.speedStingerEntity = (SpeedStinger) pMob;
         }
 
-        //        @Override
-//        protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {
-//            if (random.nextInt(5) == 0) {
-//                stingAttack(pEnemy);
-//                super.checkAndPerformAttack(pEnemy, pDistToEnemySqr);
-//            } else {
-//                super.checkAndPerformAttack(pEnemy, pDistToEnemySqr);
-//            }
-//        }
-//
-//        private void stingAttack(LivingEntity pEnemy) {
-//            pEnemy.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, Util.secondsToTicks(5)));
-//        }
     }
 
-    protected class SpeedStingerCustomLeapAttackGoal extends LeapAtTargetGoal {
+    protected static class SpeedStingerCustomLeapAttackGoal extends LeapAtTargetGoal {
 
         SpeedStinger speedStingerEntity;
 
@@ -764,52 +739,6 @@ public class SpeedStinger extends ADragonBase {
             }
 
             this.speedStingerEntity.setDeltaMovement(vec31.x, (double) this.yd, vec31.z);
-        }
-    }
-
-    static class SpeedStingerPathNavigation extends GroundPathNavigation {
-        SpeedStingerPathNavigation(SpeedStinger speedStinger, Level level) {
-            super(speedStinger, level);
-        }
-
-        protected boolean hasValidPathType(BlockPathTypes p_26467_) {
-            if (p_26467_ == BlockPathTypes.WATER) {
-                return true;
-            } else if (p_26467_ == BlockPathTypes.LAVA) {
-                return false;
-            } else {
-                return p_26467_ != BlockPathTypes.OPEN;
-            }
-        }
-
-        public boolean isStableDestination(BlockPos pPos) {
-            return this.level.getBlockState(pPos).is(Blocks.WATER) || super.isStableDestination(pPos);
-        }
-    }
-
-    private class SpeedStingerPlayerSupport extends Goal {
-
-        SpeedStinger speedStinger;
-        Player player;
-
-        public SpeedStingerPlayerSupport(SpeedStinger speedStinger) {
-            this.speedStinger = speedStinger;
-            this.player = (Player) speedStinger.getOwner();
-        }
-
-        @Override
-        public boolean canUse() {
-            return speedStinger.isTame() && player != null && !isDragonSitting() && isDragonFollowing();
-        }
-
-        @Override
-        public void tick() {
-            Vec3 bodyOrigin = player.position();
-            double x = -Math.sin(player.getYRot() * Math.PI / 180) * 2.4;
-            double y = player.getY();
-            double z = Math.cos(player.getYRot() * Math.PI / 180) * 2.4;
-            Vec3 pos = bodyOrigin.add(new Vec3(x, y, z));
-            speedStinger.navigation.moveTo(pos.x() - 40, pos.y(), pos.z() - 40, 1.4F);
         }
     }
 }
