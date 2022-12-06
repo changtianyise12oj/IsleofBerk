@@ -8,7 +8,12 @@ import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.small.ADrago
 import com.GACMD.isleofberk.common.items.DragonEggItem;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -92,6 +97,25 @@ public class SpeedStingerEgg extends ADragonSmallEggBase {
             }
         }
         return false;
+    }
+
+    /**
+     * Only speed stingers ahve set variants when hatched
+     */
+    protected void hatch() {
+        ADragonBase dragonResult = getDragonEggResult();
+        assert dragonResult != null;
+        dragonResult.setAge(-100000);
+        dragonResult.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+        dragonResult.setFoodTameLimiterBar(40);
+        dragonResult.setDragonVariant(getDragonVariant());
+        this.level.addFreshEntity(dragonResult);
+        this.discard();
+        if (this.level instanceof ServerLevel) {
+            ((ServerLevel) this.level).sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, getBlockParticle().defaultBlockState()), this.getX(), this.getY(0.6666666666666666D), this.getZ(), particleEggShellCount(), (double) (this.getBbWidth() / 3.0F), (double) (this.getBbHeight() / 3.0F), (double) (this.getBbWidth() / 3.0F), 0.10D);
+        }
+        if (level.isClientSide)
+            level.playLocalSound(position().x(), position().y(), position().z(), SoundEvents.TURTLE_EGG_HATCH, SoundSource.NEUTRAL, 1, 1, false);
     }
 
     @Override

@@ -37,7 +37,6 @@ public class DragonEggItem extends Item {
         this.eggSpecies = eggSpecies;
     }
 
-    // set the variatn on the uuid
     public int getVariant() {
         return variantItem;
     }
@@ -68,7 +67,6 @@ public class DragonEggItem extends Item {
         assert eggEntity != null;
         eggEntity.setOwnerUUID(Objects.requireNonNull(pContext.getPlayer()).getUUID());
         eggEntity.moveTo(pContext.getClickLocation());
-        eggEntity.setDragonVariant(variantItem);
         if (!level.isClientSide()) {
             level.addFreshEntity(eggEntity);
             eggEntity.setCustomName(playerHeldItem.getHoverName());

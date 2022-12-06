@@ -316,6 +316,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
                 }
                 this.tryCheckInsideBlocks();
             } else {
+                this.setRotationState(0);
                 super.travel(pTravelVector);
             }
         }

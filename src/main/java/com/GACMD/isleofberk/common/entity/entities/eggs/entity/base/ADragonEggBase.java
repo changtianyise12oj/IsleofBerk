@@ -290,7 +290,7 @@ public class ADragonEggBase extends LivingEntity implements IAnimatable {
         dragonResult.setAge(-100000);
         dragonResult.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
         dragonResult.setFoodTameLimiterBar(40);
-        dragonResult.setDragonVariant(getDragonVariant());
+        dragonResult.setDragonVariant(random.nextInt(dragonResult.getMaxAmountOfVariants()));
         this.level.addFreshEntity(dragonResult);
         this.discard();
         if (this.level instanceof ServerLevel) {
@@ -309,7 +309,6 @@ public class ADragonEggBase extends LivingEntity implements IAnimatable {
         if (!isRemoved()) {
             if (!level.isClientSide()) {
                 DragonEggItem item = getItemVersion();
-                item.setVariant(this.getDragonVariant());
                 this.spawnAtLocation(item);
                 this.discard();
                 return true;
