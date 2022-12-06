@@ -133,35 +133,31 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             }
             // hunger limits the player's phase one progress. Dragons don't eat when they are full.
             // thus preventing the quick tame of dragon's
-            if (this.getHunger() < this.getMaxHunger()) {
-                this.modifyHunger(nutrition);
-                this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
+            this.heal(nutrition);
+            this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
 //                this.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), getX(), getY(), getZ(), 1, 1, 1);
-                addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
+            addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
+            if (!pPlayer.getAbilities().instabuild) {
+                itemstack.shrink(1);
             }
 
             // tame easily when baby but harder regular taming when adult
             if (!isTame()) {
-                if (getHunger() < getMaxHunger()) {
-                    if (isFoodEdibleToDragon(itemstack)) {
-                        this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
-                        if (!pPlayer.getAbilities().instabuild) {
-                            itemstack.shrink(1);
-                        }
-                        if (!isBaby() && tamingItem(itemstack)) {
-                            this.modifyPhaseProgress(getDragonProgressSpeed());
+                if (isFoodEdibleToDragon(itemstack)) {
+                    this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                    if (!isBaby() && tamingItem(itemstack)) {
+                        this.modifyPhaseProgress(getDragonProgressSpeed());
+                    } else {
+                        if (this.random.nextInt(7) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+                            this.tame(pPlayer);
+                            this.navigation.stop();
+                            this.setTarget((LivingEntity) null);
+                            this.level.broadcastEntityEvent(this, (byte) 7);
                         } else {
-                            if (this.random.nextInt(7) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
-                                this.tame(pPlayer);
-                                this.navigation.stop();
-                                this.setTarget((LivingEntity) null);
-                                this.level.broadcastEntityEvent(this, (byte) 7);
-                            } else {
-                                this.level.broadcastEntityEvent(this, (byte) 6);
-                            }
+                            this.level.broadcastEntityEvent(this, (byte) 6);
                         }
                     }
                 }
@@ -172,12 +168,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                 // add regen particles similar to villagers to tell the player visually that hey I'm ready for phase 2 taming
                 // also helps for taming dragons that are incapacitated (Tier 3)
                 addEffect(new MobEffectInstance(MobEffects.REGENERATION, Util.secondsToTicks(120)));
-            }
-
-            // add smoke particles to dragons that are full
-            if (isFUll()) {
-                addSmokeParticles();
-                if (!isTame()) ;
             }
         }
     }
@@ -269,7 +259,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
     @Override
     public boolean canEatWithFoodOnHand(boolean pIgnoreHunger) {
-        return pIgnoreHunger || !isFUll();
+        return true;
     }
 
     /**

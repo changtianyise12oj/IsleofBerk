@@ -279,7 +279,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
         int nutrition = Objects.requireNonNull(itemstack.getItem().getFoodProperties()).getNutrition();
         this.heal(nutrition);
-        if (this.getHunger() < this.getMaxHunger()) this.modifyHunger(nutrition);
     }
 
     protected void ridePlayer(Player player) {

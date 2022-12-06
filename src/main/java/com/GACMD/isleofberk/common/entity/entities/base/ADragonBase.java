@@ -73,7 +73,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected static final EntityDataAccessor<Integer> DISTURB_TICKS = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DISTURB_TICKS_ABILITY = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DRAGON_OVERLAY = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> HUNGER_BAR = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> PHASE_ONE_PROGRESS = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> TITAN_WING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_INCAPACITATED = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
@@ -121,7 +120,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.define(DISTURB_TICKS_ABILITY, 0);
         this.entityData.define(DRAGON_OVERLAY, 0);
         this.entityData.define(COMMANDS, 0);
-        this.entityData.define(HUNGER_BAR, 70);
         this.entityData.define(PHASE_ONE_PROGRESS, 0);
         this.entityData.define(TITAN_WING, false);
         this.entityData.define(IS_INCAPACITATED, false);
@@ -141,7 +139,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("hunger", this.getHunger());
         pCompound.putInt("phase_one_progress", this.getPhaseOneProgress());
         pCompound.putInt("disturb_ticks", this.getSleepDisturbTicks());
         pCompound.putInt("disturb_ticks_ability", this.getAbilityDisturbTicks());
@@ -163,7 +160,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.setHunger(pCompound.getInt("hunger"));
         this.setPhaseOneProgress(pCompound.getInt("phase_one_progress"));
         this.setSleepDisturbTicks(pCompound.getInt("disturb_ticks"));
         this.setAbilityDisturbTicksAbility(pCompound.getInt("disturb_ticks_ability"));
@@ -349,15 +345,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     public boolean canEatWithFoodOnHand(boolean pIgnoreHunger) {
-        return this.isInvulnerable() || pIgnoreHunger || this.getHunger() < 100 && getTarget() != null;
-    }
-
-    public int getHunger() {
-        return this.entityData.get(HUNGER_BAR);
-    }
-
-    public void setHunger(int hunger_bar) {
-        this.entityData.set(HUNGER_BAR, hunger_bar);
+        return this.isInvulnerable() || pIgnoreHunger && getTarget() != null;
     }
 
     /**
@@ -630,10 +618,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         super.tame(pPlayer);
     }
 
-    public boolean isFUll() {
-        return getHunger() >= getMaxHunger();
-    }
-
     public boolean isNocturnal() {
         return false;
     }
@@ -724,9 +708,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         if (level.isClientSide()) {
             updateClientControls();
         }
-
-        if (level.random.nextInt(100) == 1)
-            this.modifyHunger(-1);
 
         if (!isDragonIncapacitated() && random.nextInt(150) == 1 && getHealth() < getMaxHealth()) {
             this.heal(5);
@@ -944,11 +925,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     public void setHomePos(BlockPos homePos) {
         this.homePos = homePos;
-    }
-
-    public void modifyHunger(int x) {
-        int i = Mth.clamp(this.getHunger() + x, 0, this.getMaxHunger());
-        this.setHunger(i);
     }
 
     public void modifyPhaseProgress(int x) {

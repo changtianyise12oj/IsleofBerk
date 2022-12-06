@@ -86,7 +86,6 @@ public class ModSpawnRegistration {
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.NIGHT_FURY.get(),
                 2, 1, 1, 0.07F, Biomes.STONY_SHORE, Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
                 Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST);
-
     }
 
     /**
