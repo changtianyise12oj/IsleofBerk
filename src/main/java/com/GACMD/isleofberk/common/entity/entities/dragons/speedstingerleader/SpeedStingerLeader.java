@@ -97,7 +97,7 @@ public class SpeedStingerLeader extends SpeedStinger {
     }
 
     @Override
-    protected boolean tamingItem(ItemStack stack) {
+    protected boolean isItemStackForTaming(ItemStack stack) {
         return stack.is(Items.RABBIT);
     }
 

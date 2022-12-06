@@ -233,7 +233,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     }
 
     @Override
-    public boolean tamingItem(ItemStack pStack) {
+    public boolean isItemStackForTaming(ItemStack pStack) {
         return pStack.is(Items.SALMON) || pStack.is(Items.COD) || pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH);
     }
 
@@ -279,7 +279,9 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
         int nutrition = Objects.requireNonNull(itemstack.getItem().getFoodProperties()).getNutrition();
         this.heal(nutrition);
-        if (this.getHunger() < this.getMaxHunger()) this.modifyHunger(nutrition);
+        if (this.getFoodTameLimiterBar() < this.getFoodTamingPhaseMaximumLevel()) {
+            this.modifyFoodTamingThreshold(nutrition);
+        }
     }
 
     protected void ridePlayer(Player player) {
@@ -477,7 +479,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     @Override
     protected void pickUpItem(ItemEntity pItemEntity) {
         ItemStack itemstack = pItemEntity.getItem();
-        if (this.canHoldItem(itemstack) && tamingItem(itemstack)) {
+        if (this.canHoldItem(itemstack) && isItemStackForTaming(itemstack)) {
             int i = itemstack.getCount();
             if (i > 1) {
                 this.dropItemStack(itemstack.split(i - 1));
@@ -593,7 +595,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             ItemStack itemStack = dragonBase.getItemBySlot(EquipmentSlot.MAINHAND);
             if (!itemEntityList.isEmpty() && itemStack.isEmpty()) {
                 ItemEntity itemEntity = itemEntityList.iterator().next();
-                if (dragonBase.tamingItem(itemEntity.getItem())) {
+                if (dragonBase.isItemStackForTaming(itemEntity.getItem())) {
                     dragonBase.getNavigation().moveTo(itemEntity, 1.2F);
                 }
             }
@@ -607,7 +609,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             if (!itemEntityList.isEmpty() && itemStack.isEmpty()) {
                 ItemEntity itemEntity = itemEntityList.iterator().next();
                 if (dragonBase.getSensing().hasLineOfSight(itemEntity)) {
-                    if (dragonBase.tamingItem(itemEntity.getItem())) {
+                    if (dragonBase.isItemStackForTaming(itemEntity.getItem())) {
                         dragonBase.getNavigation().moveTo(itemEntity, 1.2F);
                     }
                 }

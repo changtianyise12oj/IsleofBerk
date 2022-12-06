@@ -49,6 +49,16 @@ public class UntamedDragonCircleFlightGoal extends ADragonBaseBaseFlyingRideable
             return false;
         }
 
+        // make taming easier
+        if(dragon.getFoodTameLimiterBar() > 0) {
+            return false;
+        }
+
+        // make taming easier
+        if(dragon.getPhase1Progress() > 0) {
+            return false;
+        }
+
         return true;
     }
 

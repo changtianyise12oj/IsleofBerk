@@ -304,7 +304,7 @@ public class SpeedStinger extends ADragonBase {
     }
 
     @Override
-    protected boolean tamingItem(ItemStack stack) {
+    protected boolean isItemStackForTaming(ItemStack stack) {
         return stack.is(Items.RABBIT);
     }
 
@@ -502,19 +502,12 @@ public class SpeedStinger extends ADragonBase {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
         if (!itemstack.isEmpty()) {
-            if (this.isFoodEdibleToDragon(itemstack) && canEatWithFoodOnHand(true) && isTame()) {
-                int nutrition = itemstack.getItem().getFoodProperties().getNutrition();
-                // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
-                if (getHealth() < getMaxHealth()) {
+            int nutrition = itemstack.getItem().getFoodProperties().getNutrition();
+            // hunger limits the player's phase one progress. Dragons don't eat when they are full.
+            // thus preventing the quick tame of dragon's
+            if (!isTame()) {
+                if (this.getHealth() < getMaxHealth()) {
                     this.heal(nutrition);
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
-                }
-                // hunger limits the player's phase one progress. Dragons don't eat when they are full.
-                // thus preventing the quick tame of dragon's
-                if (this.getHunger() < this.getMaxHunger()) {
-                    this.modifyHunger(nutrition);
                     this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
                     this.addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
                     if (!pPlayer.getAbilities().instabuild) {
@@ -522,12 +515,10 @@ public class SpeedStinger extends ADragonBase {
                     }
                 }
 
-                // tame easily when baby but not when taming adult
-            } else {
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
                 if (isBaby() && isFoodEdibleToDragon(itemstack)) {
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
                     if (this.random.nextInt(7) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
                         this.tame(pPlayer);
                         this.navigation.stop();
@@ -539,7 +530,19 @@ public class SpeedStinger extends ADragonBase {
                         this.level.broadcastEntityEvent(this, (byte) 6);
                     }
                 }
+            } else {
+                if (this.isFoodEdibleToDragon(itemstack) && canEatWithFoodOnHand(true)) {
+                    // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
+                    if (getHealth() < getMaxHealth()) {
+                        this.heal(nutrition);
+                        if (!pPlayer.getAbilities().instabuild) {
+                            itemstack.shrink(1);
+                        }
+                    }
+                }
+                // tame easily when baby but not when taming adult
             }
+
         } else {
             if (itemstack.isEmpty()) {
                 String owned = "iob.speed_stinger.owned";
@@ -560,7 +563,9 @@ public class SpeedStinger extends ADragonBase {
                 return InteractionResult.SUCCESS;
             }
         }
-        return super.mobInteract(pPlayer, pHand);
+        return super.
+
+                mobInteract(pPlayer, pHand);
     }
 
     public void circleEntity(Entity target, float radius, float speed, boolean direction, int circleFrame, float offset, float moveSpeedMultiplier) {

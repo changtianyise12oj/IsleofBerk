@@ -114,7 +114,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     }
 
     /**
-     * Default one is currently used by stingers
+     * Separate one is currently used by speed stingers
      * Separated the method for different taming interactions with dragons
      *
      * @param pPlayer
@@ -124,50 +124,57 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     protected void foodTamingInteraction(Player pPlayer, InteractionHand pHand, ItemStack itemstack) {
         if (!itemstack.isEmpty()) {
             int nutrition = itemstack.getItem().getFoodProperties().getNutrition();
-            // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
-            if (getHealth() < getMaxHealth() && isTame()) {
-                this.heal(nutrition);
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-            }
-            // hunger limits the player's phase one progress. Dragons don't eat when they are full.
+            // phase 1 progress limits the player's phase one progress. Dragons don't eat when they are full.
             // thus preventing the quick tame of dragon's
-            if (this.getHunger() < this.getMaxHunger()) {
-                this.modifyHunger(nutrition);
-                this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
-//                this.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), getX(), getY(), getZ(), 1, 1, 1);
-                addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-            }
-
-            // tame easily when baby but harder regular taming when adult
+            // dragon that is subject for taming will not fly away
             if (!isTame()) {
-                if (getHunger() < getMaxHunger()) {
-                    if (isFoodEdibleToDragon(itemstack)) {
+                if (itemstack.is(tameItem())) {
+                    if (this.getFoodTameLimiterBar() < this.getFoodTamingPhaseMaximumLevel()) {
+                        // food limits how much you can feed currently fills up faster
+                        this.modifyFoodTamingThreshold(nutrition * 3);
+                        // phase 1 max(100), if full, allows you to ride til tamed, grows slower
+                        this.modifyPhase1Progress(getDragonProgressSpeed());
                         this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
+                        addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
                         if (!pPlayer.getAbilities().instabuild) {
                             itemstack.shrink(1);
                         }
-                        if (!isBaby() && tamingItem(itemstack)) {
-                            this.modifyPhaseProgress(getDragonProgressSpeed());
+                    }
+                }
+            } else {
+                // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
+                if (getHealth() < getMaxHealth()) {
+                    this.heal(nutrition);
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                }
+            }
+
+            // tame easily when baby but harder, regular taming when adult
+            if (!isTame()) {
+                if (isFoodEdibleToDragon(itemstack)) {
+                    this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
+
+                    if (isBaby() && isItemStackForTaming(itemstack)) {
+                        if (this.random.nextInt(7) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+                            this.tame(pPlayer);
+                            this.navigation.stop();
+                            this.setTarget((LivingEntity) null);
+                            this.level.broadcastEntityEvent(this, (byte) 7);
+                            if (!pPlayer.getAbilities().instabuild) {
+                                itemstack.shrink(1);
+                            }
                         } else {
-                            if (this.random.nextInt(7) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
-                                this.tame(pPlayer);
-                                this.navigation.stop();
-                                this.setTarget((LivingEntity) null);
-                                this.level.broadcastEntityEvent(this, (byte) 7);
-                            } else {
-                                this.level.broadcastEntityEvent(this, (byte) 6);
+                            this.level.broadcastEntityEvent(this, (byte) 6);
+                            if (!pPlayer.getAbilities().instabuild) {
+                                itemstack.shrink(1);
                             }
                         }
                     }
                 }
             }
 
-            // TODO: may seem not working
             if (isPhaseTwo() && !isTame()) {
                 // add regen particles similar to villagers to tell the player visually that hey I'm ready for phase 2 taming
                 // also helps for taming dragons that are incapacitated (Tier 3)
@@ -175,7 +182,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             }
 
             // add smoke particles to dragons that are full
-            if (isFUll()) {
+            if (isTamingPhaseBarFull()) {
                 addSmokeParticles();
                 if (!isTame()) ;
             }
@@ -269,7 +276,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
     @Override
     public boolean canEatWithFoodOnHand(boolean pIgnoreHunger) {
-        return pIgnoreHunger || !isFUll();
+        return pIgnoreHunger || !isTamingPhaseBarFull();
     }
 
     /**
@@ -695,6 +702,9 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         } else {
             noSaddleRideTicks = 0;
         }
+
+        System.out.println("Food tame threshold" + getFoodTameLimiterBar());
+        System.out.println("phase 2 progress" + getPhase1Progress());
 
         if (canCarryCargo()) {
             if (getControllingPassenger() != null && getControllingPassenger() instanceof Player && !this.isSeatLocked() && isTame()) {

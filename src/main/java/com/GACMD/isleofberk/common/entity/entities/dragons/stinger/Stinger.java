@@ -200,11 +200,6 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     }
 
     @Override
-    protected void foodTamingInteraction(Player pPlayer, InteractionHand pHand, ItemStack itemstack) {
-        super.foodTamingInteraction(pPlayer, pHand, itemstack);
-    }
-
-    @Override
     public void tick() {
         super.tick();
         if (isUsingAbility()) {

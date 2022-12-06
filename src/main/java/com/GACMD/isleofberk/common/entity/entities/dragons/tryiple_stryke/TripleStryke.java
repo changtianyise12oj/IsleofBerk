@@ -377,8 +377,8 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     @Override
-    protected boolean tamingItem(ItemStack stack) {
-        return super.tamingItem(stack);
+    protected boolean isItemStackForTaming(ItemStack stack) {
+        return super.isItemStackForTaming(stack);
     }
 
     public static class TripleStrykeCustomMeleeAttackGoal extends DragonMeleeAttackGoal {

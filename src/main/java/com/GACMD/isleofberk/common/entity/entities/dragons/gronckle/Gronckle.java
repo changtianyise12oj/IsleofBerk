@@ -378,10 +378,9 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 this.playSound(SoundEvents.GENERIC_BURN, 1, 1);
                 this.shootGronckIron(itemStack);
                 setTicksSinceLastFire(20);
-                spawnTamingParticles(false);
                 addParticlesAroundSelf(ParticleTypes.LAVA);
+                addParticlesAroundSelf(ParticleTypes.LARGE_SMOKE);
             } else {
-                spawnTamingParticles(false);
                 addParticlesAroundSelf(ParticleTypes.LARGE_SMOKE);
                 this.playSound(SoundEvents.LAVA_POP, 1, 1);
             }
