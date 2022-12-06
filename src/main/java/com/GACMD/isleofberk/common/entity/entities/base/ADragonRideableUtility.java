@@ -96,7 +96,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         super.registerGoals();
         this.goalSelector.addGoal(1, new TeleportToOwnerWhenFarAway(this));
         this.goalSelector.addGoal(1, new DragonRideTilTamed(this, 1));
-//        this.goalSelector.addGoal(1, new DragonSleepGoal(this));
     }
 
     /**
@@ -151,7 +150,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                 }
             }
 
-            // tame easily when baby but harder, regular taming when adult
+            // tame easily when baby but, regular taming when adult
             if (!isTame()) {
                 if (isFoodEdibleToDragon(itemstack)) {
                     this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
@@ -299,45 +298,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             pPlayer.displayClientMessage(new TranslatableComponent(DRAGON_NEEDS_SADDLE), false);
         }
         return super.tameWithName(pPlayer);
-    }
-
-    // ========== Get Facing Coords ==========
-
-    /**
-     * Returns the BlockPos in front or behind this entity (using its rotation angle) with the given distance, use a negative distance for behind.
-     **/
-    public BlockPos getFacingPosition(double distance) {
-        return this.getFacingPosition(this, distance, 0D);
-    }
-
-    /**
-     * Returns the BlockPos in front or behind the provided entity with the given distance and angle offset (in degrees), use a negative distance for behind.
-     **/
-    public BlockPos getFacingPosition(Entity entity, double distance, double angleOffset) {
-        return this.getFacingPosition(entity.getX(), entity.getY(), entity.getZ(), distance, entity.getYRot() + angleOffset);
-    }
-
-    /**
-     * Returns the BlockPos in front or behind the provided XYZ coords with the given distance and angle (in degrees), use a negative distance for behind.
-     **/
-    public BlockPos getFacingPosition(double x, double y, double z, double distance, double angle) {
-        angle = Math.toRadians(angle);
-        double xAmount = -Math.sin(angle);
-        double zAmount = Math.cos(angle);
-        return new BlockPos(x + (distance * xAmount), y, z + (distance * zAmount));
-    }
-
-    /**
-     * Returns the XYZ in front or behind the provided XYZ coords with the given distance and angle (in degrees), use a negative distance for behind.
-     **/
-    public Vec3 getFacingPositionDouble(double x, double y, double z, double distance, double angle) {
-        if (distance == 0) {
-            distance = 1;
-        }
-        angle = Math.toRadians(angle);
-        double xAmount = -Math.sin(angle);
-        double zAmount = Math.cos(angle);
-        return new Vec3(x + (distance * xAmount), y, z + (distance * zAmount));
     }
 
     /**

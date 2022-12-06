@@ -955,10 +955,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
                 pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH) || (item.isEdible() && item.getFoodProperties().isMeat() && item.getFoodProperties() != null) && !pStack.isEmpty();
     }
 
-//    protected boolean isDragonBelziumHeld(ItemStack pStack) {
-//        return pStack.is(ItemInit.BELZIUM.get());
-//    }
-
     public int getMaxTemper() {
         return 100;
     }
@@ -981,21 +977,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.setPhase1Progress(i);
     }
 
-    /**
-     * When an entity spooks this dragon, attack
-     *
-     * @param player
-     */
-    public void setSpookedBy(Player player) {
-        level.addParticle(ParticleTypes.ANGRY_VILLAGER, getX(), getY(), getZ(), 0, 0, 0);
-        this.setTarget(player);
-    }
-
     public void makeMad() {
-//        SoundEvent soundevent = this.getAngrySound();
-//        if (soundevent != null) {
-//            this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
-//        }
+
     }
 
     @Override

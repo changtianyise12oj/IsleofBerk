@@ -281,7 +281,3 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
 }
-// set invisible during the day
-//        if(!level.isNight() && !isTame()) {
-//            this.addEffect( new MobEffectInstance(MobEffects.INVISIBILITY, 5, 1,  true, true));
-//        }

@@ -96,9 +96,6 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
                 fireProjectile(riderLook, throat);
             }
         }
-//        Vec3 throat = getThroatPos(this);
-//        level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat.x, throat.y, throat.z, 1, 1, 1);
-
 
     }
 

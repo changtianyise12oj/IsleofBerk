@@ -79,8 +79,6 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
                     body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
 
                     if (hasDynamicYawAndRoll()) {
-//                        float f = Mth.rotLerp(partialTicks, dragon.yBodyRotO, dragon.yBodyRot);
-//                        float f1 = Mth.rotLerp(partialTicks, dragon.yHeadRotO, dragon.yHeadRot);
                         float f = Mth.rotLerp(partialTicks, dragon.yBodyRotO, dragon.yBodyRot);
                         float f1 = Mth.rotLerp(partialTicks, dragon.yHeadRotO, dragon.yHeadRot);
                         changeInYaw = (f1 - f) * ((float) Math.PI / 180F) * -1.5F;
@@ -106,103 +104,6 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
         }
     }
 
-//    /**
-//     * Mojang yaw pitch and roll and Geckolib yaw pitch and roll are inversed, use negative and positive values
-//     */
-//    protected void
-//    modifyPitch(GeoModel model, T dragon, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder,
-//                int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-//        GeoBone bone = getBone(model, getMainBodyBone()).get();
-//        if (dragon.getPassengers().size() < 2) {
-//            if (dragon.isFlying()) {
-//                if (dragon.getControllingPassenger() instanceof Player pilot) {
-//                    // approach to 0 if not boosting
-//                    // approach to maxRise if boosting
-//                    if (dragon.isGoingUp() && boostedBodyPitch >= -40) {
-//                        boostedBodyPitch -= 1;
-//                    } else if (!dragon.isGoingUp()) {
-//                        boostedBodyPitch = Mth.approach(boostedBodyPitch, 0, -1);
-//                    }
-//
-//                    // +90 dive -90 rise
-//                    currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, getMaxRise());
-////                    System.out.println("currentBodyPitch: " + currentBodyPitch);
-////                    System.out.println("boostedBodyPitch: " + boostedBodyPitch);
-////                    System.out.println("-finalBodyPitch: " + -finalBodyPitch);
-////                    System.out.println("-finalBodyPitch radians: " + -finalBodyPitch);
-////                    finalBodyPitch -40: is dive max
-////                    finalBodyPitch 40: is riseMax
-//                    finalBodyPitch = currentBodyPitch + boostedBodyPitch;
-//                    bone.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
-//
-//                    if (hasDynamicYawAndRoll()) {
-//                        //TODO: wonder why pitch is smooth but yaw is not
-//                        float changeInYaw = dragon.yHeadRotO - dragon.yHeadRot;
-////                        float changeInYaw = Util.angleDifference(dragon.yHeadRotO, dragon.yHeadRot);
-//                        if (changeInYaw < 0) {
-//                            currentBodyYaw -= 0.0001F;
-//                        } else if (changeInYaw > 0) {
-//                            currentBodyYaw += 0.0001F;
-//                        }
-//
-//                        float changeInYawForRoll = dragon.yHeadRot - dragon.yHeadRotO;
-//                        if (changeInYawForRoll < 0) {
-//                            currentBodyYawForRoll -= 0.00001F;
-//                        } else if (changeInYawForRoll > 0) {
-//                            currentBodyYawForRoll += 0.00001F;
-//                        }
-//
-//                        // setTheYaw of the rotation
-////                        bone.setRotationY(toRadians(-pilot.getYRot()));
-//
-////                         the rotation is based on yaw
-//                        bone.setRotationZ(-toRadians(Mth.clamp(changeInYawForRoll, -40, 40)));
-//                    }
-//                }
-//            }
-//
-//            if (!dragon.isFlying()) {
-//                boostedBodyPitch = 0;
-//                currentBodyPitch = 0;
-//                finalBodyPitch = 0;
-//
-//                currentBodyYawForRoll = 0;
-//                currentBodyYaw = 0;
-//            }
-//
-//        }
-//    }
-
-    public float getCurrentBodyPitch() {
-        return currentBodyPitch;
-    }
-
-    public void setCurrentBodyPitch(float currentBodyPitch) {
-        this.currentBodyPitch = currentBodyPitch;
-    }
-
-    public float getCurrentBodyYaw() {
-        return currentBodyYaw;
-    }
-
-    public void setCurrentBodyYaw(float currentBodyYaw) {
-        this.currentBodyYaw = currentBodyYaw;
-    }
-
-    public float getCurrentBodyYawForRoll() {
-        return currentBodyYawForRoll;
-    }
-
-    public void setCurrentBodyYawForRoll(float currentBodyYawForRoll) {
-        this.currentBodyYawForRoll = currentBodyYawForRoll;
-    }
-
-    void approachValue(GeoBone bone, float current, float goal) {
-        if (current < goal) {
-            bone.setRotationX(current + 1);
-        }
-    }
-
     public boolean hasDynamicYawAndRoll() {
         return true;
     }
@@ -214,20 +115,7 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
     protected int getMinRise() {
         return -40;
     }
-
-    /**
-     * Used to clamp a given value between a Minimum and Maximum value.
-     *
-     * @param val The given Value to be clamped.
-     * @param min The Minimum value the given value should have.
-     * @param max The Maximum value the given value should have.
-     * @return A Value based on the given Value, while ensuring its fitting the Minimum to Maximum range.
-     */
-    private float clamp(float val, float min, float max) {
-        return Math.max(min, Math.min(max, val));
-    }
 }
-
 
 //    /**
 //     * This method is used to modify the models of Entities. It gets called between the rotation values thus making it ideal for manipulations that require rotation updates.

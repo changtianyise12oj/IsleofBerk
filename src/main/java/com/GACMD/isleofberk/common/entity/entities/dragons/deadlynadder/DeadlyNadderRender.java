@@ -12,12 +12,6 @@ import software.bernie.geckolib3.geo.render.built.GeoModel;
 
 public class DeadlyNadderRender extends BaseRendererFlying<DeadlyNadder> {
 
-    public String leftWingBone = "leftWingArm";
-    public String rightWingBone = "rightWingArm";
-    public String rightCalw = "rightCalw";
-    public String rightClaw = "leftCalw";
-    public String Claw = "Claw";
-
     public DeadlyNadderRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new DeadlyNadderModel(renderManager));
         this.addLayer(new DeadlyNadderWingLayer<>(this, renderManager));
@@ -27,7 +21,6 @@ public class DeadlyNadderRender extends BaseRendererFlying<DeadlyNadder> {
         return 1f;
     }
 
-    //    @Override
     public float getBabyScale() {
         return 0.4F;
     }
@@ -46,26 +39,6 @@ public class DeadlyNadderRender extends BaseRendererFlying<DeadlyNadder> {
             stack.scale(getScale(), getScale(), getScale()); // 0.23f
         }
     }
-
-    private static float getBoundedScale(float scale, float min, float max) {
-        return min + scale * (max - min);
-    }
-
-    //    @Override
-    protected String getLeftEyeBodyBone() {
-        return "leftEye";
-    }
-
-    //    @Override
-    protected String getRightEyeBodyBone() {
-        return "rightEye";
-    }
-
-    //    @Override
-    public String getDragonFolder() {
-        return "deadly_nadder";
-    }
-
 
     @Override
     public float getSaddleX() {

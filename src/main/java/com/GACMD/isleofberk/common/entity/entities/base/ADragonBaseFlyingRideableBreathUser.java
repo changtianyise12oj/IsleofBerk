@@ -98,11 +98,9 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
 
 
         // regen secondary fuel regardless, it only holds 25 units
-//        if (getHunger() >= getMaxHunger() * 0.75) {
         if (getRandom().nextInt(250) == 1) {
             modifySecondaryFuel(4);
         }
-//        }
 
         if (getControllingPassenger() != null && getControllingPassenger() instanceof Player rider && canUseBreathNormally()) {
             Vec3 throat = getThroatPos(this);
@@ -116,19 +114,6 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
                 fireSecondary(riderLook, throat);
             }
         }
-
-        // when hunger is less than half and if fuel is greater than half of the max, reduce
-//        if (getHunger() < 50) {
-//            if (random.nextInt(50) == 0)
-//                if (getRemainingFuel() > getRemainingFuel() * 0.50)
-//                    modifyFuel(-5);
-//
-//            if (getRemainingSecondFuel() > getRemainingSecondFuel() * 0.50)
-//                modifySecondaryFuel(-5);
-//        }
-
-//        Vec3 throat = getThroatPos(this);
-//        level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat.x, throat.y, throat.z, 1, 1, 1);
     }
 
     protected void firePrimary(Vec3 riderLook, Vec3 throat) {

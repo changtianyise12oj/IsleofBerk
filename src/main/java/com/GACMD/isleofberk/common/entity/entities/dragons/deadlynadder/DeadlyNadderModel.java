@@ -112,28 +112,31 @@ public class DeadlyNadderModel extends BaseDragonModelFlying<DeadlyNadder> {
         }
 
 
-        if (dragon.getControllingPassenger() instanceof Player pilot) {
-            // HeadTracking
+    }
+}
 
+//        if (dragon.getControllingPassenger() instanceof Player pilot) {
+// HeadTracking
+//
 //            Neck1.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
-
+//
 //            EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 //            Neck1.setRotationX((float) (pilot.getLookAngle().x * ((float) Math.PI / 180F) / 4 * -1));
 //            Neck2.setRotationY((float) (pilot.getLookAngle().y * ((float) Math.PI / 180F) / 4 * -1));
 //            Neck3.setRotationX((float) (pilot.getLookAngle().x  * ((float) Math.PI / 180F) / 4 * -1));
 //            Head.setRotationY((float) (pilot.getLookAngle().y * ((float) Math.PI / 180F) / 4 * -1));
-
-            float rotChange = dragon.getChangeInYaw();
-
-
-            float currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, 40);
-            float currentBodyYaw = Mth.lerp(0.1F, pilot.getYRot(), 40);
+//
+//            float rotChange = dragon.getChangeInYaw();
+//
+//
+//            float currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, 40);
+//            float currentBodyYaw = Mth.lerp(0.1F, pilot.getYRot(), 40);
 //           float currentBodyYaw = pilot.getYRot() - pilot.yRotO;
 //           float currentBodyYawClamp = Mth.clamp(entity.getYRot() - entity.yRotO, -10, 10);
 //
-
-
-            //headtracking
+//
+//
+//            headtracking
 //            Tail1.setRotationY((float) (pilot.getLookAngle().y * ((float) Math.PI / 180F) / 4 * -1));
 //            Tail1.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) * 2);
 //            Tail2.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) * 2);
@@ -141,10 +144,6 @@ public class DeadlyNadderModel extends BaseDragonModelFlying<DeadlyNadder> {
 //            Tail4.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) * 2);
 //            Tail5.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) * 2);
 //            Tail6.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) * 2);
+//
 
-
-//            System.out.println(rotChange);
-        }//            // Tail Tracking
-
-    }
-}
+//        }
