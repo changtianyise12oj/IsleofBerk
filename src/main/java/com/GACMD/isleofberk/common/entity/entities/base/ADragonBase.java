@@ -350,16 +350,23 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     /**
      * there is an extra food taming phase, foodTamingPhaseProogress() is subtracted on ticks(),
+     *
      * @param pIgnoreHunger
      * @return
      */
     public boolean canEatWithFoodOnHand(boolean pIgnoreHunger) {
-        return this.isInvulnerable() || pIgnoreHunger || (this.getFoodTameLimiterBar() < 100 && !isTame()) && getTarget() != null;
+        if (!isTame()) {
+            return this.isInvulnerable() || pIgnoreHunger && getTarget() != null && this.getFoodTameLimiterBar() < 100;
+        } else {
+            return this.isInvulnerable() || pIgnoreHunger && getTarget() != null;
+
+        }
     }
 
     /**
      * foodTamingPhaseProgress() is subtracted on ticks() if not Tamed, it limits how much food you can feed the dragon at food taming phase, then if it reaches max, health potion particles appear
      * if it does, then you can ride/dragon dismounts you then you ride again, repeatedly until you tame it.
+     *
      * @return
      */
     public int getFoodTameLimiterBar() {

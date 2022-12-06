@@ -276,7 +276,11 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
     @Override
     public boolean canEatWithFoodOnHand(boolean pIgnoreHunger) {
-        return pIgnoreHunger || !isTamingPhaseBarFull();
+        if(isTame()) {
+            return true;
+        } else {
+            return pIgnoreHunger || (!isTamingPhaseBarFull());
+        }
     }
 
     /**
@@ -703,8 +707,8 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             noSaddleRideTicks = 0;
         }
 
-        System.out.println("Food tame threshold" + getFoodTameLimiterBar());
-        System.out.println("phase 2 progress" + getPhase1Progress());
+//        System.out.println("Food tame threshold" + getFoodTameLimiterBar());
+//        System.out.println("phase 2 progress" + getPhase1Progress());
 
         if (canCarryCargo()) {
             if (getControllingPassenger() != null && getControllingPassenger() instanceof Player && !this.isSeatLocked() && isTame()) {
