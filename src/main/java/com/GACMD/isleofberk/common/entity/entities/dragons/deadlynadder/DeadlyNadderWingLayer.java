@@ -28,21 +28,13 @@ public class DeadlyNadderWingLayer<T extends DeadlyNadder & IAnimatable> extends
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        RenderType cameo =  RenderType.entityCutout(getNadderEntityTexture(dragon));
         matrixStackIn.pushPose();
-        //Move or scale the model as you see fit
-        if(dragon.isBaby()) {
-            float scale = 2.85f;
-            matrixStackIn.scale(scale * baseRenderer.getScale(), scale * baseRenderer.getScale(), scale * baseRenderer.getScale());
-//        matrixStackIn.translate(-0.88d, 2.6d, -0.90d);
-            matrixStackIn.translate(baseRenderer.getScale() * -0.001, baseRenderer.getScale() * -0.00F, baseRenderer.getScale() * -0F);
+        RenderType cameo = RenderType.entityCutout(getNadderEntityTexture(dragon));
+        if (dragon.isBaby()){
+            matrixStackIn.scale(2.5F, 2.5F, 2.5F);
             this.getRenderer().render(this.getEntityModel().getModel(dragonModel), dragon, partialTicks, cameo, matrixStackIn, bufferIn,
                     bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-        }else {
-            float scale = 1.2f;
-            matrixStackIn.scale(scale * baseRenderer.getScale(), scale * baseRenderer.getScale(), scale * baseRenderer.getScale());
-//        matrixStackIn.translate(-0.88d, 2.6d, -0.90d);
-            matrixStackIn.translate(baseRenderer.getScale() * -0.001, baseRenderer.getScale() * 0.04, baseRenderer.getScale() * -0.05F);
+        } else {
             this.getRenderer().render(this.getEntityModel().getModel(dragonModel), dragon, partialTicks, cameo, matrixStackIn, bufferIn,
                     bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
         }

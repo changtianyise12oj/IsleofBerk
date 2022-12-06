@@ -24,7 +24,7 @@ public class DeadlyNadderRender extends BaseRendererFlying<DeadlyNadder> {
     }
 
     public float getScale() {
-        return 1.1F * 0.85F;
+        return 1f;
     }
 
     //    @Override
@@ -74,26 +74,26 @@ public class DeadlyNadderRender extends BaseRendererFlying<DeadlyNadder> {
 
     @Override
     public float getSaddleY() {
-        return -0.08F;
+        return -0.02F;
     }
 
     @Override
     public float getSaddleZ() {
-        return super.getSaddleZ();
+        return -0.005f;
     }
 
     @Override
     public float getSaddleScaleX() {
-        return 1.2F;
+        return 1.01F;
     }
 
     @Override
     public float getSaddleScaleY() {
-        return 1.2F;
+        return 1.01F;
     }
 
     @Override
     public float getSaddleScaleZ() {
-        return 1.2F;
+        return 1.01F;
     }
 }
