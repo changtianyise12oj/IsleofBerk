@@ -14,11 +14,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class SpeedStingerEggItem extends DragonEggItem {
+public class DragonEggSeparateVariantItem extends DragonEggItem {
 
     int variantItem;
 
-    public SpeedStingerEggItem(Item.Properties pProperties, Supplier<? extends EntityType<? extends LivingEntity>> eggSpecies, int variantItem) {
+    public DragonEggSeparateVariantItem(Item.Properties pProperties, Supplier<? extends EntityType<? extends LivingEntity>> eggSpecies, int variantItem) {
         super(pProperties, eggSpecies);
         this.variantItem = variantItem;
     }
@@ -35,6 +35,7 @@ public class SpeedStingerEggItem extends DragonEggItem {
      * Called when this item is used when targetting a Block
      * if placed, the player will be set as owner in the egg entity and the recurring hatching, used on obtaining speed stinger.
      */
+    @Override
     public @NotNull InteractionResult useOn(UseOnContext pContext) {
         ItemStack playerHeldItem = pContext.getItemInHand();
         BlockPos pos = pContext.getClickedPos();
@@ -42,7 +43,6 @@ public class SpeedStingerEggItem extends DragonEggItem {
         ADragonEggBase eggEntity = (ADragonEggBase) eggSpecies.get().create(level);
         // Set owner
         assert eggEntity != null;
-        eggEntity.setOwnerUUID(Objects.requireNonNull(pContext.getPlayer()).getUUID());
         eggEntity.moveTo(pContext.getClickLocation());
         eggEntity.setDragonVariant(variantItem);
 

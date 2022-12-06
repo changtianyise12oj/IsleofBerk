@@ -3,6 +3,7 @@ package com.GACMD.isleofberk.registery;
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.common.items.DragonEggItem;
 import com.GACMD.isleofberk.common.items.DragonSpawnEggItem;
+import com.GACMD.isleofberk.common.items.DragonEggSeparateVariantItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -62,10 +63,10 @@ public final class ModItems {
 
     // Small
     public static final RegistryObject<DragonEggItem> TERRIBLE_TERROR_EGG = ITEMS.register("terrible_terror_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.TERRIBLE_TERROR_EGG));
-    public static final RegistryObject<DragonEggItem> SPEED_STINGER_EGG = ITEMS.register("speed_stinger_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.SPEED_STINGER_EGG, 0));
-    public static final RegistryObject<DragonEggItem> SPEED_STINGER_EGG_FLOUTSCOOUT = ITEMS.register("speed_stinger_egg_floutscout", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.SPEED_STINGER_EGG, 1));
-    public static final RegistryObject<DragonEggItem> SPEED_STINGER_EGG_ICE_BREAKER = ITEMS.register("speed_stinger_egg_ice_breaker", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.SPEED_STINGER_EGG, 2));
-    public static final RegistryObject<DragonEggItem> SPEED_STINGER_EGG_SWEET_STING = ITEMS.register("speed_stinger_egg_sweet_sting", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.SPEED_STINGER_EGG, 3));
+    public static final RegistryObject<DragonEggItem> SPEED_STINGER_EGG = ITEMS.register("speed_stinger_egg", () -> new DragonEggSeparateVariantItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.SPEED_STINGER_EGG, 0));
+    public static final RegistryObject<DragonEggItem> SPEED_STINGER_EGG_FLOUTSCOOUT = ITEMS.register("speed_stinger_egg_floutscout", () -> new DragonEggSeparateVariantItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.SPEED_STINGER_EGG, 1));
+    public static final RegistryObject<DragonEggItem> SPEED_STINGER_EGG_ICE_BREAKER = ITEMS.register("speed_stinger_egg_ice_breaker", () -> new DragonEggSeparateVariantItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.SPEED_STINGER_EGG, 2));
+    public static final RegistryObject<DragonEggItem> SPEED_STINGER_EGG_SWEET_STING = ITEMS.register("speed_stinger_egg_sweet_sting", () -> new DragonEggSeparateVariantItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.SPEED_STINGER_EGG, 3));
 
     // Medium
     public static final RegistryObject<DragonEggItem> NADDER_EGG = ITEMS.register("nadder_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.NADDER_EGG));

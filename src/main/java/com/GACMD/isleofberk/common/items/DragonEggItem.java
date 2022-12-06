@@ -24,25 +24,10 @@ import java.util.function.Supplier;
 public class DragonEggItem extends Item {
 
     Supplier<? extends EntityType<? extends LivingEntity>> eggSpecies;
-    int variantItem;
 
     public DragonEggItem(Properties pProperties, Supplier<? extends EntityType<? extends LivingEntity>> eggSpecies) {
         super(pProperties);
         this.eggSpecies = eggSpecies;
-    }
-
-    public DragonEggItem(Properties pProperties, Supplier<? extends EntityType<? extends LivingEntity>> eggSpecies, int variantItem) {
-        super(pProperties);
-        this.variantItem = variantItem;
-        this.eggSpecies = eggSpecies;
-    }
-
-    public int getVariant() {
-        return variantItem;
-    }
-
-    public void setVariant(int variant) {
-        this.variantItem = variant;
     }
 
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
@@ -65,7 +50,6 @@ public class DragonEggItem extends Item {
         ADragonEggBase eggEntity = (ADragonEggBase) eggSpecies.get().create(level);
         // set owner
         assert eggEntity != null;
-        eggEntity.setOwnerUUID(Objects.requireNonNull(pContext.getPlayer()).getUUID());
         eggEntity.moveTo(pContext.getClickLocation());
         if (!level.isClientSide()) {
             level.addFreshEntity(eggEntity);
