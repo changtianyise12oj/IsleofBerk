@@ -75,6 +75,22 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         return true;
     }
 
+    /**
+     * 1:x chance when the bar will add value at random per tick
+     * @return
+     */
+    protected int breathBarRegenSpeed() {
+        return 40;
+    }
+
+    /**
+     * the amount it adds per breath bar growth
+     * @return
+     */
+    protected int breathBarRegenAmount() {
+        return 4;
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -92,8 +108,8 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         }
 
         // regen fuel regardless of hunger bar
-        if (getRandom().nextInt(50) == 1) {
-            modifyFuel(2);
+        if (getRandom().nextInt(breathBarRegenSpeed()) == 1) {
+            modifyFuel(breathBarRegenAmount());
         }
 
 
