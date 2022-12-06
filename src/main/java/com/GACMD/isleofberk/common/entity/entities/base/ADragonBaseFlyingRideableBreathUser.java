@@ -37,7 +37,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
     }
 
     public int getMaxFuel() {
-        return 300;
+        return 150;
     }
 
     public int getRemainingSecondFuel() {
@@ -82,7 +82,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         if (isUsingAbility()) {
             if (getControllingPassenger() != null && getControllingPassenger() instanceof Player player) {
 //                if (!player.isCreative())
-                modifyFuel(-1);
+                    modifyFuel(-1);
             } else {
                 modifyFuel(-1);
             }
@@ -91,13 +91,19 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
             modifySecondaryFuel(-1);
         }
 
-        if (getRandom().nextInt(50) == 1) {
-            modifyFuel(2);
+        // regen fuel if hunger bar is nearly full
+        if (getHunger() >= getMaxHunger() * 0.75) {
+            if (getRandom().nextInt(50) == 1) {
+                modifyFuel(2);
+            }
         }
 
-        if (getRandom().nextInt(250) == 1) {
-            modifySecondaryFuel(4);
-        }
+        // regen secondary fuel regardless, it only holds 25 units
+//        if (getHunger() >= getMaxHunger() * 0.75) {
+            if (getRandom().nextInt(250) == 1) {
+                modifySecondaryFuel(4);
+            }
+//        }
 
         if (getControllingPassenger() != null && getControllingPassenger() instanceof Player rider && canUseBreathNormally()) {
             Vec3 throat = getThroatPos(this);
@@ -128,7 +134,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
 
     protected void firePrimary(Vec3 riderLook, Vec3 throat) {
         FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
-        fireProj.shoot(riderLook, 1F, 4F);
+        fireProj.shoot(riderLook, 1F, 2F);
         level.addFreshEntity(fireProj);
     }
 

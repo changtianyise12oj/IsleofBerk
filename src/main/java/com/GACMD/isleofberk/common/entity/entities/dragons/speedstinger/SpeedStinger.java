@@ -511,6 +511,17 @@ public class SpeedStinger extends ADragonBase {
                         itemstack.shrink(1);
                     }
                 }
+                // hunger limits the player's phase one progress. Dragons don't eat when they are full.
+                // thus preventing the quick tame of dragon's
+                if (this.getHunger() < this.getMaxHunger()) {
+                    this.modifyHunger(nutrition);
+                    this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
+                    this.addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                }
+
                 // tame easily when baby but not when taming adult
             } else {
                 if (!pPlayer.getAbilities().instabuild) {

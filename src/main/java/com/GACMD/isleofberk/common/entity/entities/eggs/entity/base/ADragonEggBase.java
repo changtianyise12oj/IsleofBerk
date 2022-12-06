@@ -289,6 +289,7 @@ public class ADragonEggBase extends LivingEntity implements IAnimatable {
         assert dragonResult != null;
         dragonResult.setAge(-100000);
         dragonResult.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+        dragonResult.setHunger(40);
         dragonResult.setDragonVariant(getDragonVariant());
         this.level.addFreshEntity(dragonResult);
         this.discard();
