@@ -86,9 +86,10 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
                         playerBoltBlastPendingScale++;
                     }
 
-                    // reset to 0 blast if R is held too long to prevent collecting of overcharged breath attacks
+                    // slowly decrement to 13% blast if R is held too long to prevent collecting of overcharged breath attacks
                     if (playerBoltBlastPendingStopThreshold > ticksLimit * 1.10) {
-                        setPlayerBoltBlastPendingScale(0);
+                        if(playerBoltBlastPendingScale > ticksLimit * 0.30)
+                        setPlayerBoltBlastPendingScale(playerBoltBlastPendingScale-=3);
                     }
                 } else if (playerBoltBlastPendingScale > 0) {
                     playerBoltBlastPendingScale--;
