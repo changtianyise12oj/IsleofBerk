@@ -280,4 +280,20 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return 0.2F;
     }
 
+    public boolean tier1() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.10 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.30;
+    }
+
+    public boolean tier2() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.30 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.60;
+    }
+
+    public boolean tier3() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.60 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast();
+    }
+
+    public boolean tier4() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast();
+    }
+
 }
