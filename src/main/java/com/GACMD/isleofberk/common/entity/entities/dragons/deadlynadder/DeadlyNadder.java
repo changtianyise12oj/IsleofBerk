@@ -311,7 +311,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public int getExplosionStrength() {
-        return 0;
+        return 1;
     }
 
     @Override
