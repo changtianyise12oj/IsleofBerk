@@ -65,14 +65,14 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
             double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
             for (double j = 0; j < dist; j++) {
                 double coeff = j / dist;
-                ParticleOptions particleOptions = ParticleTypes.SMALL_FLAME;
+                ParticleOptions particleOptions = ParticleTypes.FLAME;
                 level.addParticle(particleOptions, true,
                         (double) (xo + deltaX * coeff),
                         (double) (yo + deltaY * coeff) + 1.0F,
                         (double) (zo + deltaZ * coeff),
-                        0.0525f * (random.nextFloat() - 0.5f),
-                        0.0525f * (random.nextFloat() - 0.5f),
-                        0.0525f * (random.nextFloat() - 0.5f));
+                        0.1525f * (random.nextFloat() - 0.5f),
+                        0.1525f * (random.nextFloat() - 0.5f),
+                        0.1525f * (random.nextFloat() - 0.5f));
             }
         }
     }
