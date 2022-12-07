@@ -97,9 +97,9 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
                 }
             }
 
-            System.out.println("playerBoltBlastPendingScale " + playerBoltBlastPendingScale);
-            System.out.println("playerBoltBlastPendingStopThreshold " + playerBoltBlastPendingStopThreshold);
-            System.out.println("ticksLimit " + ticksLimit);
+//            System.out.println("playerBoltBlastPendingScale " + playerBoltBlastPendingScale);
+//            System.out.println("playerBoltBlastPendingStopThreshold " + playerBoltBlastPendingStopThreshold);
+//            System.out.println("ticksLimit " + ticksLimit);
 
             if (getTicksSinceLastFire() > 0) {
                 setTicksSinceLastFire(getTicksSinceLastFire() - 1);
