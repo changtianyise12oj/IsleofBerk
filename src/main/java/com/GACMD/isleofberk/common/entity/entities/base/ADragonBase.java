@@ -18,6 +18,7 @@ import com.GACMD.isleofberk.common.entity.network.message.ControlMessageAbility;
 import com.GACMD.isleofberk.common.entity.network.message.ControlMessageGoingDown;
 import com.GACMD.isleofberk.common.entity.network.message.ControlMessageJumping;
 import com.GACMD.isleofberk.common.entity.network.message.ControlMessageSECONDAbility;
+import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModKeyBinds;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -561,6 +562,12 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
      */
     protected int getAggressionType() {
         return 0;
+    }
+
+    @Override
+    public void setInLove(@javax.annotation.Nullable Player pPlayer) {
+        this.setInLoveTime(Util.mcDaysToMinutes(10));
+        super.setInLove(pPlayer);
     }
 
     @Override
