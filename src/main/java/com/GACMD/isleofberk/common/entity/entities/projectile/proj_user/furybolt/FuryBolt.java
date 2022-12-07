@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
+import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearBoltProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.google.common.collect.Sets;
@@ -89,26 +90,6 @@ public class FuryBolt extends BaseLinearBoltProjectile implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
-    }
-
-    public void playParticles() {
-        for (int i = 0; i < 1; i++) {
-            Vec3 vec3 = this.getDeltaMovement();
-            double deltaX = vec3.x;
-            double deltaY = vec3.y;
-            double deltaZ = vec3.z;
-            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
-            for (double j = 0; j < dist; j++) {
-                double coeff = j / dist;
-                level.addParticle(getTrailParticle(), true,
-                        (float) (xo + deltaX * coeff),
-                        (float) (yo + deltaY * coeff) + 0.1,
-                        (float) (zo + deltaZ * coeff),
-                        0.0225f * (random.nextFloat() - 0.5f),
-                        0.0225f * (random.nextFloat() - 0.5f),
-                        0.0225f * (random.nextFloat() - 0.5f));
-            }
-        }
     }
 
     @Override

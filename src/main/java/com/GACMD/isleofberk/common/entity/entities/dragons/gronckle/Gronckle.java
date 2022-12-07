@@ -6,6 +6,8 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideabl
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.GronkleEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
+import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt.FireBolt;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
@@ -468,6 +470,26 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     @Override
     public float getRideCameraDistanceVert() {
         return 0.2F;
+    }
+
+    /**
+     * biggest without looking weird is 1.25F
+     *
+     * @param scalableParticleType
+     */
+    public void scaleParticleSize(ScalableParticleType scalableParticleType, BaseLinearFlightProjectile projectile) {
+        int scale = 0;
+        if (projectile.getDamageTier() == 1) {
+            scale += 0.65f;
+        } else if (projectile.getDamageTier() == 2) {
+            scale += 0.75f;
+        } else if (projectile.getDamageTier() == 3) {
+            scale += 0.85f;
+        } else if (projectile.getDamageTier() == 4) {
+            scale += 1.10f;
+        }
+
+        scalableParticleType.setScale(scale);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.base;
 
+import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -120,6 +121,26 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
         }
 
         return 24;
+    }
+
+    /**
+     * biggest without looking weird is 1.25F
+     *
+     * @param scalableParticleType
+     */
+    public void scaleParticleSize(ScalableParticleType scalableParticleType, BaseLinearFlightProjectile projectile) {
+        int scale = 0;
+        if (projectile.getDamageTier() == 1) {
+            scale += 0.65f;
+        } else if (projectile.getDamageTier() == 2) {
+            scale += 0.75f;
+        } else if (projectile.getDamageTier() == 3) {
+            scale += 0.85f;
+        } else if (projectile.getDamageTier() == 4) {
+            scale += 1.05f;
+        }
+
+        scalableParticleType.setScale(scale);
     }
 
 

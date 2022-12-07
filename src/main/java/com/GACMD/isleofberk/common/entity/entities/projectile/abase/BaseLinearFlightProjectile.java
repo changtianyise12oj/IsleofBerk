@@ -2,6 +2,9 @@ package com.GACMD.isleofberk.common.entity.entities.projectile.abase;
 
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
+import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,7 +30,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import java.util.function.Predicate;
 
 public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjectile {
-    public ADragonBase dragon;
+    public ADragonBaseFlyingRideableProjUser dragon;
     public double ticksExisted;
     protected int strengthRadius;
     protected Vec3 start;
@@ -44,7 +47,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
         super(type, level);
     }
 
-    protected BaseLinearFlightProjectile(EntityType<? extends AbstractHurtingProjectile> type, ADragonBaseFlyingRideable owner, Vec3 start, Vec3 end, Level level, int strengthRadius) {
+    protected BaseLinearFlightProjectile(EntityType<? extends AbstractHurtingProjectile> type, ADragonBaseFlyingRideableProjUser owner, Vec3 start, Vec3 end, Level level, int strengthRadius) {
         super(type, level);
         this.dragon = owner;
         this.strengthRadius = strengthRadius;
@@ -214,6 +217,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
             this.xRotO = this.getYRot();
         }
     }
+
     public void shoot(Vec3 end, float partialTicks) {
         shoot(end, partialTicks, 1);
     }
@@ -230,7 +234,26 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
     protected abstract Explosion explode(ADragonBase dragon, double x, double y, double z, float explosionStrength, boolean flag, Explosion.BlockInteraction blockInteraction);
 
     public void playParticles() {
-
+        for (int i = 0; i < 1; i++) {
+            Vec3 vec3 = this.getDeltaMovement();
+            double deltaX = vec3.x;
+            double deltaY = vec3.y;
+            double deltaZ = vec3.z;
+            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
+            if (getTrailParticle() instanceof ScalableParticleType scalableParticleType) {
+                dragon.scaleParticleSize(scalableParticleType, this);
+                for (double j = 0; j < dist; j++) {
+                    double coeff = j / dist;
+                    level.addParticle(getTrailParticle(), true,
+                            (float) (xo + deltaX * coeff),
+                            (float) (yo + deltaY * coeff) + 0.1,
+                            (float) (zo + deltaZ * coeff),
+                            0.0225f * (random.nextFloat() - 0.5f),
+                            0.0225f * (random.nextFloat() - 0.5f),
+                            0.0225f * (random.nextFloat() - 0.5f));
+                }
+            }
+        }
     }
 
     @Override

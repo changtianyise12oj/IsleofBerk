@@ -83,6 +83,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
         return (color & 0xFF) / 255f;
     }
 
+    @Override
     public void playParticles() {
         for (int i = 0; i < 1; i++) {
             Vec3 vec3 = this.getDeltaMovement();
