@@ -179,7 +179,8 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             FuryBolt bolt = new FuryBolt(this, throat, riderLook, level, getExplosionStrength());
             bolt.shoot(riderLook, 1F);
             level.addFreshEntity(bolt);
-            playerBoltBlastPendingScale = 0;
+            setPlayerBoltBlastPendingScale(0);
+            setPlayerBoltBlastPendingStopThreshold(0);
         }
     }
 

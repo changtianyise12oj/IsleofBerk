@@ -3,7 +3,9 @@ package com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bo
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
+import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearBoltProjectile;
+import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
@@ -108,6 +110,24 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
     @Override
     public float getBrightness() {
         return 0;
+    }
+
+    /**
+     * biggest without looking weird is 1.25F
+     *
+     * @param scalableParticleType
+     */
+    @Override
+    public void scaleParticleSize(ScalableParticleType scalableParticleType, BaseLinearFlightProjectile projectile) {
+        if (projectile.getDamageTier() == 1) {
+            scalableParticleType.setScale(0.15f);
+        } else if (projectile.getDamageTier() == 2) {
+            scalableParticleType.setScale(0.25f);
+        } else if (projectile.getDamageTier() == 3) {
+            scalableParticleType.setScale(0.55f);
+        } else if (projectile.getDamageTier() == 4) {
+            scalableParticleType.setScale(0.85f);
+        }
     }
 
     /**

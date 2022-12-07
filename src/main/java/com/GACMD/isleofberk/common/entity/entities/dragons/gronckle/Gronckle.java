@@ -255,17 +255,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     }
 
     @Override
-    protected void fireProjectile(Vec3 riderLook, Vec3 throat) {
-        if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
-            setTicksSinceLastFire(20);
-            FireBolt bolt = new FireBolt(this, throat, riderLook, level, getExplosionStrength());
-            bolt.shoot(riderLook, 1F);
-            level.addFreshEntity(bolt);
-            playerBoltBlastPendingScale = 0;
-        }
-    }
-
-    @Override
     public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack stack = pPlayer.getItemInHand(pHand);
         Item item = stack.getItem();

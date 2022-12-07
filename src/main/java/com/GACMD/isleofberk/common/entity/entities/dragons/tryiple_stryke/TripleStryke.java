@@ -293,18 +293,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         super.swing(pHand);
     }
 
-    // add nadder arrows, fix mark fired by using ticks
-    @Override
-    protected void fireProjectile(Vec3 riderLook, Vec3 throat) {
-        if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
-            setTicksSinceLastFire(20);
-            FireBolt bolt = new FireBolt(this, throat, riderLook, level, getExplosionStrength());
-            bolt.shoot(riderLook, 1F);
-            level.addFreshEntity(bolt);
-            playerBoltBlastPendingScale = 0;
-        }
-    }
-
     @Override
     public void tick() {
         super.tick();

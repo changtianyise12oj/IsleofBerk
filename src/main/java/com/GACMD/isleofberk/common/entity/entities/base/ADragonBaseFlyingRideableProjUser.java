@@ -1,7 +1,7 @@
 package com.GACMD.isleofberk.common.entity.entities.base;
 
-import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
+import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt.FireBolt;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -21,6 +21,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
 
     int explosionStrength;
     public int playerBoltBlastPendingScale = 0;
+    public int playerBoltBlastPendingStopThreshold = 0;
     protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_FIRE = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> MARK_FIRED = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.BOOLEAN);
 
@@ -77,11 +78,27 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
             Vec3 riderLook = rider.getViewVector(1);
 
             int ticksLimit = getMaxPlayerBoltBlast();
-            if (isUsingAbility() && getControllingPassenger() != null && playerBoltBlastPendingScale <= ticksLimit + 1) {
-                playerBoltBlastPendingScale++;
-            } else if (playerBoltBlastPendingScale > 0) {
-                playerBoltBlastPendingScale--;
+            if (getControllingPassenger() != null) {
+                if (isUsingAbility()) {
+                    playerBoltBlastPendingStopThreshold++;
+
+                    if (playerBoltBlastPendingScale <= ticksLimit + 1 && playerBoltBlastPendingStopThreshold < ticksLimit * 1.10) {
+                        playerBoltBlastPendingScale++;
+                    }
+
+                    // reset to 0 blast if R is held too long to prevent collecting of overcharged breath attacks
+                    if (playerBoltBlastPendingStopThreshold > ticksLimit * 1.10) {
+                        setPlayerBoltBlastPendingScale(0);
+                    }
+                } else if (playerBoltBlastPendingScale > 0) {
+                    playerBoltBlastPendingScale--;
+                    playerBoltBlastPendingStopThreshold--;
+                }
             }
+
+            System.out.println("playerBoltBlastPendingScale " + playerBoltBlastPendingScale);
+            System.out.println("playerBoltBlastPendingStopThreshold " + playerBoltBlastPendingStopThreshold);
+            System.out.println("ticksLimit " + ticksLimit);
 
             if (getTicksSinceLastFire() > 0) {
                 setTicksSinceLastFire(getTicksSinceLastFire() - 1);
@@ -96,8 +113,11 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
             if (canFireProj()) {
                 fireProjectile(riderLook, throat);
             }
-        }
 
+            if(!isUsingAbility()) {
+                setPlayerBoltBlastPendingStopThreshold(0);
+            }
+        }
     }
 
     /**
@@ -128,15 +148,34 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     }
 
     protected void fireProjectile(Vec3 riderLook, Vec3 throat) {
-
+        if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
+            setTicksSinceLastFire(20);
+            FireBolt bolt = new FireBolt(this, throat, riderLook, level, getExplosionStrength());
+            bolt.shoot(riderLook, 1F);
+            level.addFreshEntity(bolt);
+            setPlayerBoltBlastPendingScale(0);
+            setPlayerBoltBlastPendingStopThreshold(0);
+        }
     }
 
     public int getPlayerBoltBlastPendingScale() {
         return playerBoltBlastPendingScale;
     }
 
+    public void setPlayerBoltBlastPendingScale(int playerBoltBlastPendingScale) {
+        this.playerBoltBlastPendingScale = playerBoltBlastPendingScale;
+    }
+
+    public int getPlayerBoltBlastPendingStopThreshold() {
+        return playerBoltBlastPendingStopThreshold;
+    }
+
+    public void setPlayerBoltBlastPendingStopThreshold(int playerBoltBlastPendingStopThreshold) {
+        this.playerBoltBlastPendingStopThreshold = playerBoltBlastPendingStopThreshold;
+    }
+
     public int getMaxPlayerBoltBlast() {
-        return 15;
+        return 60;
     }
 
     public boolean tier1() {
