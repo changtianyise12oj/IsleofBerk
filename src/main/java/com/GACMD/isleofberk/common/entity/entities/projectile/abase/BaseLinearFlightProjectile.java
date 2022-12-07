@@ -30,7 +30,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import java.util.function.Predicate;
 
 public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjectile {
-    public ADragonBaseFlyingRideableProjUser dragon;
+    public ADragonRideableUtility dragon;
     public double ticksExisted;
     protected int strengthRadius;
     protected Vec3 start;
@@ -47,7 +47,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
         super(type, level);
     }
 
-    protected BaseLinearFlightProjectile(EntityType<? extends AbstractHurtingProjectile> type, ADragonBaseFlyingRideableProjUser owner, Vec3 start, Vec3 end, Level level, int strengthRadius) {
+    protected BaseLinearFlightProjectile(EntityType<? extends AbstractHurtingProjectile> type, ADragonRideableUtility owner, Vec3 start, Vec3 end, Level level, int strengthRadius) {
         super(type, level);
         this.dragon = owner;
         this.strengthRadius = strengthRadius;
@@ -241,7 +241,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
             double deltaZ = vec3.z;
             double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
             if (getTrailParticle() instanceof ScalableParticleType scalableParticleType) {
-                dragon.scaleParticleSize(scalableParticleType, this);
+                scaleParticleSize(scalableParticleType, this);
                 for (double j = 0; j < dist; j++) {
                     double coeff = j / dist;
                     level.addParticle(getTrailParticle(), true,
@@ -253,6 +253,23 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                             0.0225f * (random.nextFloat() - 0.5f));
                 }
             }
+        }
+    }
+
+    /**
+     * biggest without looking weird is 1.25F
+     *
+     * @param scalableParticleType
+     */
+    public void scaleParticleSize(ScalableParticleType scalableParticleType, BaseLinearFlightProjectile projectile) {
+        if (projectile.getDamageTier() == 1) {
+            scalableParticleType.setScale(0.15f);
+        } else if (projectile.getDamageTier() == 2) {
+            scalableParticleType.setScale(0.55f);
+        } else if (projectile.getDamageTier() == 3) {
+            scalableParticleType.setScale(0.85f);
+        } else if (projectile.getDamageTier() == 4) {
+            scalableParticleType.setScale(1.25f);
         }
     }
 

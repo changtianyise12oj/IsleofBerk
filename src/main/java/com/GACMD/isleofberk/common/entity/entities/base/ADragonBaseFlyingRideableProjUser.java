@@ -123,27 +123,6 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
         return 24;
     }
 
-    /**
-     * biggest without looking weird is 1.25F
-     *
-     * @param scalableParticleType
-     */
-    public void scaleParticleSize(ScalableParticleType scalableParticleType, BaseLinearFlightProjectile projectile) {
-        int scale = 0;
-        if (projectile.getDamageTier() == 1) {
-            scale += 0.65f;
-        } else if (projectile.getDamageTier() == 2) {
-            scale += 0.75f;
-        } else if (projectile.getDamageTier() == 3) {
-            scale += 0.85f;
-        } else if (projectile.getDamageTier() == 4) {
-            scale += 1.05f;
-        }
-
-        scalableParticleType.setScale(scale);
-    }
-
-
     public boolean canFireProj() {
         return !this.isBaby();
     }
@@ -161,15 +140,15 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     }
 
     public boolean tier1() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.15 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.30;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.10 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.30;
     }
 
     public boolean tier2() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.60 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.60;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.50 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.80;
     }
 
     public boolean tier3() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.70 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast();
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.80 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast();
     }
 
     public boolean tier4() {

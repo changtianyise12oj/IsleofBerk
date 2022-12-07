@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.common.entity.entities.AI.taming.DragonRideTilTamed;
 import com.GACMD.isleofberk.common.entity.entities.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerror;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
+import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
