@@ -119,15 +119,15 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
      */
     @Override
     public void scaleParticleSize(ScalableParticleType scalableParticleType, BaseLinearFlightProjectile projectile) {
-        if (projectile.getDamageTier() == 1) {
-            scalableParticleType.setScale(0.15f);
-        } else if (projectile.getDamageTier() == 2) {
-            scalableParticleType.setScale(0.25f);
-        } else if (projectile.getDamageTier() == 3) {
-            scalableParticleType.setScale(0.55f);
-        } else if (projectile.getDamageTier() == 4) {
-            scalableParticleType.setScale(0.85f);
-        }
+//        if (projectile.getDamageTier() == 1) {
+//            scalableParticleType.setScale(0.15f);
+//        } else if (projectile.getDamageTier() == 2) {
+//            scalableParticleType.setScale(0.25f);
+//        } else if (projectile.getDamageTier() == 3) {
+//            scalableParticleType.setScale(0.55f);
+//        } else if (projectile.getDamageTier() == 4) {
+//            scalableParticleType.setScale(0.85f);
+//        }
     }
 
     /**

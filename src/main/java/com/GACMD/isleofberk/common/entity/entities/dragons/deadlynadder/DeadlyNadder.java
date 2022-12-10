@@ -324,7 +324,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     }
 
     protected double rider1YOffSet() {
-        return 1.5D;
+        return 1.7D;
     }
 
     protected double rider1ZOffSet() {

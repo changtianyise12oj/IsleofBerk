@@ -7,12 +7,12 @@ import net.minecraft.core.particles.SimpleParticleType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FireBoltParticle<T extends ScalableParticleType> extends GlowParticle {
+public class FireBoltParticle<T extends SimpleParticleType> extends GlowParticle {
 
     protected final SpriteSet spriteSet;
-    protected ScalableParticleType scalableParticle;
+    protected SimpleParticleType scalableParticle;
 
-    protected FireBoltParticle(ClientLevel level, double xOriginal, double yOriginal, double zOriginal, double xVelocity, double yVelocity, double zVelocity, SpriteSet spriteSet, ScalableParticleType scalableParticle) {
+    protected FireBoltParticle(ClientLevel level, double xOriginal, double yOriginal, double zOriginal, double xVelocity, double yVelocity, double zVelocity, SpriteSet spriteSet, SimpleParticleType scalableParticle) {
         super(level, xOriginal, yOriginal, zOriginal, xVelocity, yVelocity, zVelocity, spriteSet);
         this.lifetime = 12;
         this.spriteSet = spriteSet;
@@ -36,7 +36,7 @@ public class FireBoltParticle<T extends ScalableParticleType> extends GlowPartic
             super.tick();
             this.setSpriteFromAge(this.spriteSet);
         }
-        this.scale(scalableParticle.getScale());
+//        this.scale(scalableParticle.getScale());
 
     }
 
@@ -45,7 +45,7 @@ public class FireBoltParticle<T extends ScalableParticleType> extends GlowPartic
         return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
-    public static class FireBoltParticleProvider implements ParticleProvider<ScalableParticleType> {
+    public static class FireBoltParticleProvider implements ParticleProvider<SimpleParticleType> {
         SpriteSet spriteSet;
 
         public FireBoltParticleProvider(SpriteSet spriteSet) {
@@ -54,7 +54,7 @@ public class FireBoltParticle<T extends ScalableParticleType> extends GlowPartic
 
         @Nullable
         @Override
-        public Particle createParticle(ScalableParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+        public Particle createParticle(SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
             return new FireBoltParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, this.spriteSet, pType);
         }
     }

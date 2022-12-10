@@ -326,7 +326,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         }
 
         if (this.tier1()) {
-            setExplosionStrength(0);
+            setExplosionStrength(1);
         } else if (this.tier2()) {
             setExplosionStrength(1);
         } else if (this.tier3()) {
@@ -503,4 +503,8 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         scalableParticleType.setScale(scale);
     }
 
+    @Override
+    public int getMaxPlayerBoltBlast() {
+        return 68;
+    }
 }

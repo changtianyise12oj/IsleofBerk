@@ -244,7 +244,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     @Override
     public int getMaxPlayerBoltBlast() {
-        return 40;
+        return 75;
     }
 
     @Override

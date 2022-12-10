@@ -47,7 +47,7 @@ public class DeadlyNadderRender extends BaseRendererFlying<DeadlyNadder> {
 
     @Override
     public float getSaddleY() {
-        return -0.02F;
+        return -0F;
     }
 
     @Override

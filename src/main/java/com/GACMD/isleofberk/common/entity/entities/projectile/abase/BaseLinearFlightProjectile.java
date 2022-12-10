@@ -242,8 +242,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
             double deltaY = vec3.y;
             double deltaZ = vec3.z;
             double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
-            if (getTrailParticle() instanceof ScalableParticleType scalableParticleType) {
-                scaleParticleSize(scalableParticleType, this);
+//                scaleParticleSize(getTrailParticle(), this);
                 for (double j = 0; j < dist; j++) {
                     double coeff = j / dist;
                     level.addParticle(getTrailParticle(), true,
@@ -253,7 +252,6 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                             0.0225f * (random.nextFloat() - 0.5f),
                             0.0225f * (random.nextFloat() - 0.5f),
                             0.0225f * (random.nextFloat() - 0.5f));
-                }
             }
         }
     }

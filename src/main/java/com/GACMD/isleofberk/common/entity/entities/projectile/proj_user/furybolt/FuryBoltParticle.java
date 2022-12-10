@@ -1,15 +1,16 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.furybolt;
 
+import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
+import net.minecraft.core.particles.SimpleParticleType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class FuryBoltParticle<T extends ScalableParticleType> extends GlowParticle {
+public class FuryBoltParticle<T extends SimpleParticleType> extends GlowParticle {
 
     protected final SpriteSet spriteSet;
-    protected ScalableParticleType scalableParticle;
+    protected SimpleParticleType scalableParticle;
 
     protected FuryBoltParticle(ClientLevel level, double xOriginal, double yOriginal, double zOriginal, double xVelocity, double yVelocity, double zVelocity, SpriteSet spriteSet, T scalableParticle) {
         super(level, xOriginal, yOriginal, zOriginal, xVelocity, yVelocity, zVelocity, spriteSet);
@@ -36,7 +37,7 @@ public class FuryBoltParticle<T extends ScalableParticleType> extends GlowPartic
             this.setSpriteFromAge(this.spriteSet);
         }
 
-        this.scale(scalableParticle.getScale());
+//        this.scale(scalableParticle.getScale());
 
     }
 
@@ -45,7 +46,7 @@ public class FuryBoltParticle<T extends ScalableParticleType> extends GlowPartic
         return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
-    public static class FuryBoltParticleProvider implements ParticleProvider<ScalableParticleType> {
+    public static class FuryBoltParticleProvider implements ParticleProvider<SimpleParticleType> {
         SpriteSet spriteSet;
 
         public FuryBoltParticleProvider(SpriteSet spriteSet) {
@@ -54,7 +55,7 @@ public class FuryBoltParticle<T extends ScalableParticleType> extends GlowPartic
 
         @Nullable
         @Override
-        public Particle createParticle(@NotNull ScalableParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
+        public Particle createParticle(@NotNull SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
             return new FuryBoltParticle(pLevel, pX, pY, pZ, pXSpeed, pYSpeed, pZSpeed, this.spriteSet, pType);
         }
     }
