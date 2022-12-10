@@ -1,8 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.abase;
 
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import net.minecraft.core.particles.ParticleTypes;
@@ -63,6 +61,8 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
             this.yPower = end.y() / d0 * 0.20D; // 0.30D
             this.zPower = end.z() / d0 * 0.20D; // 0.30D
         }
+
+        // add two constructors
     }
 
     /**
@@ -194,7 +194,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
 
         playParticles();
 //         kill entity when ticks exceed 250 to remove lag
-        if (ticksExisted > threshHolfOrDeletion()) {
+        if (ticksExisted > threshHoldForDeletion()) {
             this.discard();
             ticksExisted = 0;
         }
@@ -207,9 +207,11 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
         if (partialTicks == 1) {
             float pVelocity = 5;
             Vec3 endVec = (new Vec3(end.x() * pVelocity, end.y() * pVelocity, end.z() * pVelocity));
-            Vec3 vec3 = (endVec).normalize().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy).scale((double) pVelocity);
 
+            // plays particles
+            Vec3 vec3 = (endVec).normalize().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy).scale((double) pVelocity);
             this.setDeltaMovement(vec3);
+
             double d0 = end.horizontalDistance();
             this.setYRot((float) (Mth.atan2(end.x, end.z) * (double) (180F / (float) Math.PI)));
             this.setXRot((float) (Mth.atan2(end.y, d0) * (double) (180F / (float) Math.PI)));
@@ -227,7 +229,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
      *
      * @return
      */
-    protected int threshHolfOrDeletion() {
+    protected int threshHoldForDeletion() {
         return 300;
     }
 

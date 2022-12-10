@@ -89,7 +89,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
 
     @Override
-    protected int threshHolfOrDeletion() {
+    protected int threshHoldForDeletion() {
         return 180;
     }
 

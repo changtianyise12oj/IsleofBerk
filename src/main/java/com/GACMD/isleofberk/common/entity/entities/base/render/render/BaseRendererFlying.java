@@ -1,9 +1,9 @@
 package com.GACMD.isleofberk.common.entity.entities.base.render.render;
 
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
-import com.GACMD.isleofberk.common.entity.entities.base.render.layer.LayerDragonPilot;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -26,12 +26,11 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
 
     protected BaseRendererFlying(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
-        this.addLayer(new LayerDragonPilot<>(this, renderManager));
     }
 
     @Override
     public void render(GeoModel model, T dragon, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        if (!dragon.isRenderedOnGUI())
+        if (!dragon.isRenderedOnGUI() || !Minecraft.getInstance().isPaused())
             modifyPitch(model, dragon, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         // Lastly we super the render method.
         super.render(model, dragon, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);

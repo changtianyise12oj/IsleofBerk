@@ -10,6 +10,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -73,8 +74,8 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     @Override
     public void tick() {
         super.tick();
+        Vec3 throat = getThroatPos(this);
         if (getControllingPassenger() != null && getControllingPassenger() instanceof Player rider) {
-            Vec3 throat = getThroatPos(this);
             Vec3 riderLook = rider.getViewVector(1);
 
             int ticksLimit = getMaxPlayerBoltBlast();
@@ -119,6 +120,24 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
                 setPlayerBoltBlastPendingStopThreshold(0);
             }
         }
+
+//        if (random.nextInt(150) == 1) {
+//            setTicksSinceLastFire(20);
+//            FireBolt bolt = new FireBolt(this, throat, this.position().add(0, 2,0), level, 3);
+//            bolt.setDamageTier(2);
+//            bolt.shoot(this.position().add(0, 2,0), 1F, 1F);
+//            level.addFreshEntity(bolt);
+//        }
+
+
+        // walay shoot ang normal
+        // buhat ug separate constructor for AI firebolt
+//        if(random.nextInt(100) == 1) {
+//            Vec3 vec3 = this.getViewVector(1.0F);
+//            LargeFireball largefireball = new LargeFireball(level, this, 0, 3, 0, 3);
+//            largefireball.setPos(this.getX() + vec3.x * 4.0D, this.getY(0.5D) + 0.5D, largefireball.getZ() + vec3.z * 4.0D);
+//            level.addFreshEntity(largefireball);
+//        }
     }
 
     /**

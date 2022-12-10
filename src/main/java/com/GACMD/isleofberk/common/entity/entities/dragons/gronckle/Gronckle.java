@@ -292,7 +292,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             double d1 = getThroatPos(this).y() - this.getY();
             double d2 = getThroatPos(this).z() - this.getZ();
             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-            shoot(itementity, d0, d1 + d3 * (double) 0.2F, d2, 0.5F, (float) (14 - 3));
+            shootItem(itementity, d0, d1 + d3 * (double) 0.2F, d2, 0.5F, (float) (14 - 3));
             if (captureDrops() != null) captureDrops().add(itementity);
             else
                 this.level.addFreshEntity(itementity);
@@ -300,7 +300,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         }
     }
 
-    public void shoot(ItemEntity itemEntity, double pX, double pY, double pZ, float pVelocity, float pInaccuracy) {
+    public void shootItem(ItemEntity itemEntity, double pX, double pY, double pZ, float pVelocity, float pInaccuracy) {
         Vec3 vec3 = (new Vec3(pX, pY, pZ)).normalize().add(this.random.nextGaussian() * (double) 0.0075F * (double) pInaccuracy, this.random.nextGaussian() * (double) 0.0075F * (double) pInaccuracy, this.random.nextGaussian() * (double) 0.0075F * (double) pInaccuracy).scale((double) pVelocity);
         itemEntity.setDeltaMovement(vec3);
         double d0 = vec3.horizontalDistance();
