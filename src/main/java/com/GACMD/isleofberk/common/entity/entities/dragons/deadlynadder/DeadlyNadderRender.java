@@ -69,4 +69,9 @@ public class DeadlyNadderRender extends BaseRendererFlying<DeadlyNadder> {
     public float getSaddleScaleZ() {
         return 1.01F;
     }
+
+    @Override
+    public String getDragonFolder() {
+        return "deadly_nadder";
+    }
 }

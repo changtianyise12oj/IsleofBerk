@@ -10,19 +10,5 @@ public class BaseDragonModelFlying<T extends ADragonBaseFlyingRideable & IAnimat
         super();
     }
 
-    @Override
-    public void setMolangQueries(IAnimatable animatable, double currentTick) {
-//        MolangParser parser = GeckoLibCache.getInstance().parser;
-//        Minecraft minecraftInstance = Minecraft.getInstance();
-//        if (!(animatable instanceof ADragonBaseFlyingRideable)) {
-//            return;
-//        }
-//
-//        if(animatable instanceof ADragonBaseFlyingRideable dragon) {
-//            parser.setValue("query.xRot", dragon.getXRot());
-//            parser.setValue("query.xRot0", dragon.xRotO);
-//        }
 
-        super.setMolangQueries(animatable, currentTick);
-    }
 }
