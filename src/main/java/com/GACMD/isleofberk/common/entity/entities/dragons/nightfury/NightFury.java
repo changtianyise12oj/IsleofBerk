@@ -189,9 +189,9 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         super.tick();
 
         if (this.tier1()) {
-            setExplosionStrength(3);
+            setExplosionStrength(1);
         } else if (this.tier2()) {
-            setExplosionStrength(4);
+            setExplosionStrength(3);
         } else if (this.tier3()) {
             setExplosionStrength(5);
         } else if (this.tier4()) {
@@ -244,7 +244,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     @Override
     public int getMaxPlayerBoltBlast() {
-        return 75;
+        return 100;
     }
 
     @Override
