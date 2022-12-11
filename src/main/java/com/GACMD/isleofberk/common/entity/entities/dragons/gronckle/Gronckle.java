@@ -411,7 +411,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         }
 
         if (this.tier1()) {
-            setExplosionStrength(2);
+            setExplosionStrength(1);
         } else if (this.tier2()) {
             setExplosionStrength(3);
         } else if (this.tier3()) {

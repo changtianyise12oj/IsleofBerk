@@ -37,6 +37,7 @@ public class FireBoltParticle<T extends SimpleParticleType> extends GlowParticle
             this.setSpriteFromAge(this.spriteSet);
         }
 //        this.scale(scalableParticle.getScale());
+        this.scale(0.65F);
 
     }
 

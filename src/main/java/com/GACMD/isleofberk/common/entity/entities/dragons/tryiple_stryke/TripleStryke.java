@@ -326,7 +326,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         }
 
         if (this.tier1()) {
-            setExplosionStrength(1);
+            setExplosionStrength(0);
         } else if (this.tier2()) {
             setExplosionStrength(1);
         } else if (this.tier3()) {
