@@ -253,6 +253,11 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     }
 
     @Override
+    public boolean isBreedingFood(ItemStack pStack) {
+        return pStack.is(Items.COD);
+    }
+
+    @Override
     public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
@@ -264,7 +269,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             return InteractionResult.SUCCESS;
             // mount the dragon to player if it is not unceremoniously dismounted
             // plan to temporary hide(despawn?) the terror then unhide(respawn?) if the player appears close by
-        } else if (item != Items.STICK && !isBaby()) { //  && isDragonBelziumHeld(itemstack)
+        } else if (item != Items.STICK && !isBaby() && isTame()) { //  && isDragonBelziumHeld(itemstack)
             ridePlayer(pPlayer);
             return InteractionResult.SUCCESS;
         }
@@ -312,11 +317,9 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         }
     }
 
-    int rideToTameTicks;
 
     public void updateTerrorLatch(Entity vehicle) {
         if (vehicle instanceof Player player) {
-            if (!isTame()) rideToTameTicks++;
 
             int passengerIndex = vehicle.getPassengers().indexOf(this);
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, Util.secondsToTicks(60), passengerIndex, false, false));
@@ -350,11 +353,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             this.setYBodyRot(((Player) vehicle).yBodyRot);
             this.setYHeadRot(((Player) vehicle).yHeadRot);
 
-            // players without taming items may pickup and borrow the terror for climbing obstacles
-            // but if ridden enough, the terror becomes your tamed pet permanently and have pet benefits
-//            if (rideToTameTicks > Util.secondsToTicks(75)) this.tame(player);
-            if (rideToTameTicks > Util.secondsToTicks(90)) this.tame(player);
-
             // try to dismount
             if (player.isShiftKeyDown() && player.getPassengers().iterator().next() == this && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved()) {
                 this.setLastMountedPlayerUUID(null);
@@ -373,7 +371,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             }
 
 //            // remove movement speed if on ground
-            // disabled fish eyes effects are horrible
+            // disabled fish lens eyes effects are horrible
 //            if (isPlayerOnGround(player))
 //                player.removeEffect(MobEffects.MOVEMENT_SPEED);
         }
