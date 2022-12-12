@@ -1,44 +1,32 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.deadlynadder;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.common.entity.entities.base.render.render.BaseRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.renderers.geo.GeoLayerRenderer;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
-/**
- * Separate wing layer for nadders since their wings are rendered with a different cutOutWithNoCull
- * @param <T>
- */
+@OnlyIn(Dist.CLIENT)
 public class DeadlyNadderWingLayer<T extends DeadlyNadder & IAnimatable> extends GeoLayerRenderer<T> {
 
-    BaseRenderer<T> baseRenderer;
     private final ResourceLocation dragonModel = new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/deadly_nadder.geo.json");
 
     public DeadlyNadderWingLayer(IGeoRenderer<T> entityRendererIn, EntityRendererProvider.Context renderManager) {
         super(entityRendererIn);
-        this.baseRenderer = (BaseRenderer<T>) entityRendererIn;
     }
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        matrixStackIn.pushPose();
         RenderType cameo = RenderType.entityCutout(getNadderEntityTexture(dragon));
-        if (dragon.isBaby()){
-            matrixStackIn.scale(2.5F, 2.5F, 2.5F);
             this.getRenderer().render(this.getEntityModel().getModel(dragonModel), dragon, partialTicks, cameo, matrixStackIn, bufferIn,
                     bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-        } else {
-            this.getRenderer().render(this.getEntityModel().getModel(dragonModel), dragon, partialTicks, cameo, matrixStackIn, bufferIn,
-                    bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-        }
-        matrixStackIn.popPose();
     }
 
     protected ResourceLocation getNadderEntityTexture(DeadlyNadder entity) {

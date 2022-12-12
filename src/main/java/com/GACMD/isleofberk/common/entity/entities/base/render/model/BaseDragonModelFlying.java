@@ -4,11 +4,10 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideabl
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import software.bernie.geckolib3.core.IAnimatable;
 
+/** UNUSED */
 public class BaseDragonModelFlying<T extends ADragonBaseFlyingRideable & IAnimatable> extends BaseDragonModel<T> {
 
     public BaseDragonModelFlying(EntityRendererProvider.Context renderManager) {
         super();
     }
-
-
 }

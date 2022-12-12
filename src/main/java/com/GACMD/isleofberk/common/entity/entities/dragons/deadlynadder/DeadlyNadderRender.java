@@ -7,22 +7,16 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
-import software.bernie.geckolib3.geo.render.built.GeoModel;
 
+@OnlyIn(Dist.CLIENT)
 public class DeadlyNadderRender extends BaseRendererFlying<DeadlyNadder> {
 
     public DeadlyNadderRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new DeadlyNadderModel(renderManager));
         this.addLayer(new DeadlyNadderWingLayer<>(this, renderManager));
-    }
-
-    public float getScale() {
-        return 1f;
-    }
-
-    public float getBabyScale() {
-        return 0.4F;
     }
 
     @Override
@@ -31,47 +25,11 @@ public class DeadlyNadderRender extends BaseRendererFlying<DeadlyNadder> {
     }
 
     @Override
-    public void render(GeoModel model, DeadlyNadder deadlyNadder, float partialTicks, RenderType type, PoseStack stack, @Nullable MultiBufferSource bufferIn, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        super.render(model, deadlyNadder, partialTicks, type, stack, bufferIn, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        if (deadlyNadder.isBaby()) {
-            stack.scale(getScale(), getScale(), getScale());
-        } else {
-            stack.scale(getScale(), getScale(), getScale()); // 0.23f
-        }
-    }
-
-    @Override
-    public float getSaddleX() {
-        return 0;
-    }
-
-    @Override
-    public float getSaddleY() {
-        return -0F;
-    }
-
-    @Override
-    public float getSaddleZ() {
-        return -0.005f;
-    }
-
-    @Override
-    public float getSaddleScaleX() {
-        return 1.01F;
-    }
-
-    @Override
-    public float getSaddleScaleY() {
-        return 1.01F;
-    }
-
-    @Override
-    public float getSaddleScaleZ() {
-        return 1.01F;
-    }
-
-    @Override
     public String getDragonFolder() {
         return "deadly_nadder";
+    }
+    @Override
+    protected String getMainBodyBone() {
+        return "rotation";
     }
 }

@@ -7,22 +7,14 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class SpeedStingerRender extends BaseRenderer<SpeedStinger> {
-
 
 	public SpeedStingerRender(EntityRendererProvider.Context renderManager){
 		super(renderManager, new SpeedStingerModel());
-	}
-
-	@Override
-	public float getScale() {
-		return 1.1F;
-	}
-
-	@Override
-	public float getBabyScale() {
-		return 0.3F;
 	}
 
 	@Override
@@ -30,16 +22,6 @@ public class SpeedStingerRender extends BaseRenderer<SpeedStinger> {
                                     MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn,
                                     ResourceLocation textureLocation) {
 		return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
-	}
-
-	@Override
-	protected String getLeftEyeBodyBone() {
-		return "leftTeethlower2";
-	}
-
-	@Override
-	protected String getRightEyeBodyBone() {
-		return "rightTeethlower3";
 	}
 
 	@Override

@@ -7,9 +7,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
 
+@OnlyIn(Dist.CLIENT)
 public class StingerRender extends BaseRenderer<Stinger> {
 
     public StingerRender(EntityRendererProvider.Context renderManager) {
@@ -21,26 +24,6 @@ public class StingerRender extends BaseRenderer<Stinger> {
                                     MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn,
                                     ResourceLocation textureLocation) {
         return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
-    }
-
-    @Override
-    public float getScale() {
-        return 1F;
-    }
-
-    @Override
-    public float getBabyScale() {
-        return 1F;
-    }
-
-    @Override
-    protected String getLeftEyeBodyBone() {
-        return "leftEye";
-    }
-
-    @Override
-    protected String getRightEyeBodyBone() {
-        return "rightEye";
     }
 
     @Override
@@ -56,35 +39,4 @@ public class StingerRender extends BaseRenderer<Stinger> {
     public void render(GeoModel model, Stinger animatable, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         super.render(model, animatable, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
-
-    @Override
-    public float getSaddleX() {
-        return super.getSaddleX();
-    }
-
-    @Override
-    public float getSaddleY() {
-        return super.getSaddleY();
-    }
-
-    @Override
-    public float getSaddleZ() {
-        return super.getSaddleZ();
-    }
-
-    @Override
-    public float getSaddleScaleX() {
-        return super.getSaddleScaleX();
-    }
-
-    @Override
-    public float getSaddleScaleY() {
-        return super.getSaddleScaleY();
-    }
-
-    @Override
-    public float getSaddleScaleZ() {
-        return super.getSaddleScaleZ();
-    }
-
 }

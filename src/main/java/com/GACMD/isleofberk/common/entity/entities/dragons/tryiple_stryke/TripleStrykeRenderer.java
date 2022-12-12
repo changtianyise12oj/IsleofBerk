@@ -7,22 +7,14 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
+@OnlyIn(Dist.CLIENT)
 public class TripleStrykeRenderer extends BaseRendererFlying<TripleStryke> {
 
     public TripleStrykeRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new TripleStrykeModel(renderManager));
-//        this.addLayer(new TSStingerLayer(this));
-    }
-
-    @Override
-    public float getBabyScale() {
-        return 0.6F;
-    }
-
-    @Override
-    public float getScale() {
-        return 1.47F;
     }
 
     @Override
@@ -36,46 +28,8 @@ public class TripleStrykeRenderer extends BaseRendererFlying<TripleStryke> {
         return "main";
     }
 
-    protected String getLeftEyeBodyBone() {
-        return "EyeL";
-    }
-
-    protected String getRightEyeBodyBone() {
-        return "EyeR";
-    }
-
     @Override
     public String getDragonFolder() {
         return "triple_stryke";
-    }
-
-    @Override
-    public float getSaddleX() {
-        return super.getSaddleX();
-    }
-
-    @Override
-    public float getSaddleY() {
-        return -0.01F;
-    }
-
-    @Override
-    public float getSaddleZ() {
-        return super.getSaddleZ();
-    }
-
-    @Override
-    public float getSaddleScaleX() {
-        return 0.7f;
-    }
-
-    @Override
-    public float getSaddleScaleY() {
-        return 0.7F;
-    }
-
-    @Override
-    public float getSaddleScaleZ() {
-        return 0.7F;
     }
 }
