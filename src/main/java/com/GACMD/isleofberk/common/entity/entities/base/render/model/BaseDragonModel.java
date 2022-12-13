@@ -1,6 +1,7 @@
 package com.GACMD.isleofberk.common.entity.entities.base.render.model;
 
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -43,6 +44,10 @@ public class BaseDragonModel<T extends ADragonBase & IAnimatable> extends Animat
 
         GeoBone head = getGeoBone("head");
         GeoBone root = getGeoBone("root");
+
+        if(dragon instanceof ADragonRideableUtility dragonRideableUtility && !dragonRideableUtility.guiLocked()) {
+            getGeoBone( "Bags").setHidden(!dragonRideableUtility.hasChest());
+        }
 
         float adultSize = this.getAdultSize();
         float babySize = this.getBabySize();

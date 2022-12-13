@@ -10,7 +10,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.LargeFireball;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -89,18 +88,14 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
 
                     // slowly decrement to 13% blast if R is held too long to prevent collecting of overcharged breath attacks
                     if (playerBoltBlastPendingStopThreshold > ticksLimit * 1.05) {
-                        if(playerBoltBlastPendingScale > ticksLimit * 0.30)
-                        setPlayerBoltBlastPendingScale(playerBoltBlastPendingScale-=4);
+                        if (playerBoltBlastPendingScale > ticksLimit * 0.30)
+                            setPlayerBoltBlastPendingScale(playerBoltBlastPendingScale -= 4);
                     }
                 } else if (playerBoltBlastPendingScale > 0) {
                     playerBoltBlastPendingScale--;
                     playerBoltBlastPendingStopThreshold--;
                 }
             }
-
-//            System.out.println("playerBoltBlastPendingScale " + playerBoltBlastPendingScale);
-//            System.out.println("playerBoltBlastPendingStopThreshold " + playerBoltBlastPendingStopThreshold);
-//            System.out.println("ticksLimit " + ticksLimit);
 
             if (getTicksSinceLastFire() > 0) {
                 setTicksSinceLastFire(getTicksSinceLastFire() - 1);
@@ -113,25 +108,14 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
             }
 
             if (canFireProj()) {
-                fireProjectile(riderLook, throat);
+                playerFireProjectile(riderLook, throat);
             }
 
-            if(!isUsingAbility()) {
+            if (!isUsingAbility()) {
                 setPlayerBoltBlastPendingStopThreshold(0);
             }
         }
 
-//        if (random.nextInt(150) == 1) {
-//            setTicksSinceLastFire(20);
-//            FireBolt bolt = new FireBolt(this, throat, this.position().add(0, 2,0), level, 3);
-//            bolt.setDamageTier(2);
-//            bolt.shoot(this.position().add(0, 2,0), 1F, 1F);
-//            level.addFreshEntity(bolt);
-//        }
-
-
-        // walay shoot ang normal
-        // buhat ug separate constructor for AI firebolt
 //        if(random.nextInt(100) == 1) {
 //            Vec3 vec3 = this.getViewVector(1.0F);
 //            LargeFireball largefireball = new LargeFireball(level, this, 0, 3, 0, 3);
@@ -167,11 +151,22 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
         return !this.isBaby();
     }
 
-    protected void fireProjectile(Vec3 riderLook, Vec3 throat) {
+    protected void playerFireProjectile(Vec3 riderLook, Vec3 throat) {
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
             setTicksSinceLastFire(20);
             FireBolt bolt = new FireBolt(this, throat, riderLook, level, getExplosionStrength());
             bolt.shoot(riderLook, 1F);
+            level.addFreshEntity(bolt);
+            setPlayerBoltBlastPendingScale(0);
+            setPlayerBoltBlastPendingStopThreshold(0);
+        }
+    }
+
+    public void dragonShootProjectile(Vec3 dragonLook, Vec3 throat) {
+        if ((tier1() || tier2() || tier3() || tier4())) {
+            setTicksSinceLastFire(20);
+            FireBolt bolt = new FireBolt(this, throat, dragonLook, level, getExplosionStrength());
+            bolt.shoot(dragonLook, 1F);
             level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);

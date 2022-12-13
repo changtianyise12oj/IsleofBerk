@@ -46,30 +46,6 @@ public class MonstrousNightmareRender extends BaseRendererFlying<MonstrousNightm
         return "monstrous_nightmare";
     }
 
-    @Override
-    public float getSaddleY() {
-        return 0.7F;
-    }
-
-    @Override
-    public float getSaddleZ() {
-        return 0.7F;
-    }
-
-    @Override
-    public float getSaddleScaleX() {
-        return 0.7f;
-    }
-
-    @Override
-    public float getSaddleScaleY() {
-        return super.getSaddleScaleY();
-    }
-
-    @Override
-    public float getSaddleScaleZ() {
-        return super.getSaddleScaleZ();
-    }
 
 
 }

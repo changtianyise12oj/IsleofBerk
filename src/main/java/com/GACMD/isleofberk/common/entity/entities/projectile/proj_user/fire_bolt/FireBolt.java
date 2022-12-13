@@ -2,6 +2,7 @@ package com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bo
 
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearBoltProjectile;
@@ -23,6 +24,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.Explosion;
@@ -69,6 +71,24 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
 
     public FireBolt(ADragonBaseFlyingRideableProjUser owner, Vec3 throat, Vec3 end, Level level, int strengthRadius) {
         super(ModEntities.FIRE_BOLT.get(), owner, throat, end, level, strengthRadius);
+    }
+
+    public FireBolt(ADragonBaseFlyingRideableProjUser owner, double pOffsetX, double pOffsetY, double pOffsetZ, Level pLevel, int strengthRadius) {
+        this(ModEntities.FIRE_BOLT.get(), pLevel);
+        this.dragon = owner;
+        this.strengthRadius = strengthRadius;
+        this.setOwner(owner);
+        this.setRot(owner.getYRot(), owner.getXRot());
+
+        this.moveTo(owner.getX(), owner.getY(), owner.getZ(), this.getYRot(), this.getXRot());
+        this.reapplyPosition();
+        double d0 = Math.sqrt(pOffsetX * pOffsetX + pOffsetY * pOffsetY + pOffsetZ * pOffsetZ);
+        if (d0 != 0.0D) {
+            this.xPower = pOffsetX / d0 * 0.1D;
+            this.yPower = pOffsetY / d0 * 0.1D;
+            this.zPower = pOffsetZ / d0 * 0.1D;
+        }
+
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {

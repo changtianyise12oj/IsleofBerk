@@ -173,7 +173,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     @Override
-    protected void fireProjectile(Vec3 riderLook, Vec3 throat) {
+    protected void playerFireProjectile(Vec3 riderLook, Vec3 throat) {
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
             setTicksSinceLastFire(20);
             FuryBolt bolt = new FuryBolt(this, throat, riderLook, level, getExplosionStrength());

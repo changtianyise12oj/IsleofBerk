@@ -239,7 +239,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @Override
-    protected void fireSecondary(Vec3 riderLook, Vec3 throat) {
+    public void fireSecondary(Vec3 riderLook, Vec3 throat) {
         performRangedAttack(riderLook, 1);
     }
 

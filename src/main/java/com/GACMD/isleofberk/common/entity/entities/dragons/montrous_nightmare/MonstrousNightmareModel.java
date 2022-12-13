@@ -1,14 +1,14 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.montrous_nightmare;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.common.entity.entities.base.render.model.BaseDragonModelFlying;
+import com.GACMD.isleofberk.common.entity.entities.base.render.model.BaseDragonModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 
-public class MonstrousNightmareModel extends BaseDragonModelFlying<MonstrousNightmare> {
+public class MonstrousNightmareModel extends BaseDragonModel<MonstrousNightmare> {
     public MonstrousNightmareModel(EntityRendererProvider.Context renderManager) {
-        super(renderManager);
+
     }
 
     @Override

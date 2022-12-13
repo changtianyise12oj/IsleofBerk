@@ -40,9 +40,6 @@ public class BaseRenderer<T extends ADragonBase & IAnimatable> extends GeoEntity
     @Override
     public void render(GeoModel model, T dragon, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         super.render(model, dragon, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        if(dragon instanceof ADragonRideableUtility dragonRideableUtility && !dragonRideableUtility.guiLocked()) {
-            getBone(model, "Bags").get().setHidden(!dragonRideableUtility.hasChest());
-        }
     }
     // dragon textures location
     public String getDragonFolder() {

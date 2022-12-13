@@ -24,16 +24,6 @@ public class ZippleBackRenderer extends BaseRendererFlying<ZippleBack> {
     }
 
     @Override
-    public float getScale() {
-        return super.getScale();
-    }
-
-    @Override
-    public float getBabyScale() {
-        return super.getBabyScale();
-    }
-
-    @Override
     public void render(GeoModel model, ZippleBack animatable, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         super.render(model, animatable, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
@@ -43,29 +33,5 @@ public class ZippleBackRenderer extends BaseRendererFlying<ZippleBack> {
         return "zippleback";
     }
 
-    @Override
-    public float getSaddleY() {
-        return 0.7F;
-    }
-
-    @Override
-    public float getSaddleZ() {
-        return 0.7F;
-    }
-
-    @Override
-    public float getSaddleScaleX() {
-        return 0.7f;
-    }
-
-    @Override
-    public float getSaddleScaleY() {
-        return super.getSaddleScaleY();
-    }
-
-    @Override
-    public float getSaddleScaleZ() {
-        return super.getSaddleScaleZ();
-    }
 
 }

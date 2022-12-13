@@ -61,8 +61,23 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
             this.yPower = end.y() / d0 * 0.20D; // 0.30D
             this.zPower = end.z() / d0 * 0.20D; // 0.30D
         }
+    }
 
-        // add two constructors
+    public BaseLinearFlightProjectile(EntityType<? extends AbstractHurtingProjectile> pEntityType, ADragonRideableUtility owner, double pX, double pY, double pZ, double pOffsetX, double pOffsetY, double pOffsetZ, Level pLevel, int strengthRadius) {
+        this(pEntityType, pLevel);
+        this.dragon = owner;
+        this.strengthRadius = strengthRadius;
+        this.setOwner(owner);
+
+        this.moveTo(pX, pY, pZ, this.getYRot(), this.getXRot());
+        this.reapplyPosition();
+        double d0 = Math.sqrt(pOffsetX * pOffsetX + pOffsetY * pOffsetY + pOffsetZ * pOffsetZ);
+        if (d0 != 0.0D) {
+            this.xPower = pOffsetX / d0 * 0.1D;
+            this.yPower = pOffsetY / d0 * 0.1D;
+            this.zPower = pOffsetZ / d0 * 0.1D;
+        }
+
     }
 
     /**
@@ -209,12 +224,33 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
             Vec3 endVec = (new Vec3(end.x() * pVelocity, end.y() * pVelocity, end.z() * pVelocity));
 
             // plays particles
+            // use rotation and endpoint
             Vec3 vec3 = (endVec).normalize().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy).scale((double) pVelocity);
             this.setDeltaMovement(vec3);
 
             double d0 = end.horizontalDistance();
             this.setYRot((float) (Mth.atan2(end.x, end.z) * (double) (180F / (float) Math.PI)));
             this.setXRot((float) (Mth.atan2(end.y, d0) * (double) (180F / (float) Math.PI)));
+            this.yRotO = this.getYRot();
+            this.xRotO = this.getYRot();
+        }
+    }
+
+    /**
+     * Shooting projectiles for mobs
+     */
+    public void AIshoot(ADragonBase dragon, Vec3 end, float partialTicks, float pInaccuracy) {
+        if (partialTicks == 1) {
+            float pVelocity = 5;
+            Vec3 look = dragon.getLookAngle().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy).scale((double) pVelocity);
+
+            this.setDeltaMovement(look);
+
+            System.out.println("end" + end);
+            System.out.println("look" + look);
+            double d0 = look.horizontalDistance();
+            this.setYRot((float) (Mth.atan2(look.x, look.z) * (double) (180F / (float) Math.PI)));
+            this.setXRot((float) (Mth.atan2(look.y, d0) * (double) (180F / (float) Math.PI)));
             this.yRotO = this.getYRot();
             this.xRotO = this.getYRot();
         }

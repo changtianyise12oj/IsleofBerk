@@ -1,7 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.base.render.render;
 
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
-import com.GACMD.isleofberk.common.entity.entities.base.render.layer.LayerDragonPilot;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -29,7 +28,6 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
 
     protected BaseRendererFlying(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
-        this.addLayer(new LayerDragonPilot<>(this, renderManager));
     }
 
     @Override
