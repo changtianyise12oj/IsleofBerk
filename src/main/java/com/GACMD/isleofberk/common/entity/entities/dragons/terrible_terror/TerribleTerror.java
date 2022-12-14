@@ -637,8 +637,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 }
             }
         }
-
-        System.out.println(ticksSinceEaten);
     }
 
     @Override
