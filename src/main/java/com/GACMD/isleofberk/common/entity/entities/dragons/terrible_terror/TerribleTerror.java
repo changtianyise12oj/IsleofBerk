@@ -11,9 +11,11 @@ import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBa
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;
 import com.GACMD.isleofberk.common.entity.network.ControlNetwork;
-import com.GACMD.isleofberk.common.entity.network.message.DragonRideMessage;
+import com.GACMD.isleofberk.common.entity.network.message.*;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModKeyBinds;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -33,7 +35,10 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -47,6 +52,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -232,12 +239,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     public boolean isItemStackForTaming(ItemStack pStack) {
-        return pStack.is(Items.SALMON) || pStack.is(Items.COD) || pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH);
-    }
-
-    @Override
-    protected Item tameItem() {
-        return Items.SALMON;
+        return pStack.is(Items.SALMON) || pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -261,17 +263,53 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         Item item = itemstack.getItem();
 
         if (item.isEdible() && !isBreedingFood(itemstack)) {
-            ItemOnMouth(new ItemStack(item));
-            if (!isTame())
-                this.tameWithName(pPlayer);
+
+            ItemStack stack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+            if (stack.isEmpty()) {
+                this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(item));
+            }
+            if (!isTame()) {
+                if (isItemStackForTaming(itemstack) && random.nextInt(8) == 1) {
+                    this.tameWithName(pPlayer);
+                    this.level.broadcastEntityEvent(this, (byte) 7);
+                } else {
+                    this.level.broadcastEntityEvent(this, (byte) 6);
+                }
+            }
             return InteractionResult.SUCCESS;
             // mount the dragon to player if it is not unceremoniously dismounted
             // plan to temporary hide(despawn?) the terror then unhide(respawn?) if the player appears close by
         } else if (item != Items.STICK && !isBaby() && isTame()) { //  && isDragonBelziumHeld(itemstack)
             ridePlayer(pPlayer);
-            return InteractionResult.SUCCESS;
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return super.mobInteract(pPlayer, pHand);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void updateClientControls() {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.options.keyJump.isDown()) {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(true));
+        } else {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(false));
+        }
+        if (ModKeyBinds.keyAbilty.isDown()) {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageTerribleTerrorAbility(true));
+        } else {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageTerribleTerrorAbility(false));
+        }
+        if (ModKeyBinds.keySecondAbilty.isDown()) {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(true));
+        } else {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(false));
+        }
+        if (ModKeyBinds.keyDown.isDown()) {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(true));
+        } else {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(false));
+        }
+
     }
 
     @Override
@@ -409,10 +447,10 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public Vec3 getTerror0ThroatPosViaPlayer(Player entity) {
         Vec3 vehiclePosition = entity.position();
         double offsetX, offsetY, offsetZ;
-            float radius = 0.4F;
-            offsetX = (radius * -Math.sin(((Player) entity).yBodyRot * Math.PI / 180));
-            offsetZ = (radius * Math.cos(((Player) entity).yBodyRot * Math.PI / 180));
-            offsetY = 2.2D;
+        float radius = 0.4F;
+        offsetX = (radius * -Math.sin(((Player) entity).yBodyRot * Math.PI / 180));
+        offsetZ = (radius * Math.cos(((Player) entity).yBodyRot * Math.PI / 180));
+        offsetY = 2.2D;
         Vec3 throatPos = new Vec3(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
         return throatPos;
     }
@@ -468,27 +506,23 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
         if (getVehicle() != null && getVehicle() instanceof Player vehicle) {
             Vec3 vehicleLook = vehicle.getViewVector(1);
-            if(this == vehicle.getPassengers().get(0)) {
+            if (this == vehicle.getPassengers().get(0)) {
                 Vec3 throat0 = getTerror0ThroatPosViaPlayer(vehicle);
-                if(isUsingAbility() && canUseBreath())
-                firePrimary(vehicleLook, throat0);
+                if (isUsingAbility() && canUseBreath())
+                    firePrimary(vehicleLook, throat0);
 //                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat0.x, throat0.y, throat0.z, 1,1,1);
-            }else if(this == vehicle.getPassengers().get(1)) {
+            } else if (this == vehicle.getPassengers().get(1)) {
                 Vec3 throat1 = getTerror1ThroatPosViaPlayer(vehicle);
-                if(isUsingAbility() && canUseBreath())
-                firePrimary(vehicleLook, throat1);
+                if (isUsingAbility() && canUseBreath())
+                    firePrimary(vehicleLook, throat1);
 //                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat1.x, throat1.y, throat1.z, 1,1,1);
-            } else if(this == vehicle.getPassengers().get(2)) {
+            } else if (this == vehicle.getPassengers().get(2)) {
                 Vec3 throat2 = getTerror2ThroatPosViaPlayer(vehicle);
-                if(isUsingAbility() && canUseBreath())
-                firePrimary(vehicleLook, throat2);
+                if (isUsingAbility() && canUseBreath())
+                    firePrimary(vehicleLook, throat2);
 //                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat2.x, throat2.y, throat2.z, 1,1,1);
             }
         }
-
-//        vehicle is found
-//        System.out.println("terror vehicle " + this.getVehicle());
-//        System.out.println("terror is using ability " + isUsingAbility());
     }
 
     @Override

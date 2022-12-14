@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.base;
 
+import com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerror;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import net.minecraft.nbt.CompoundTag;
@@ -145,7 +146,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         }
 
         if (getTarget() != null) {
-            if (!(getControllingPassenger() instanceof Player)) {
+            if (!(getControllingPassenger() instanceof Player) || (!(getVehicle() instanceof Player) && this instanceof TerribleTerror)) {
                 if (getRandom().nextInt(25) == 1 && fBreathingTickst <= 0 && getRemainingFuel() > 0) {
                     fBreathingTickst = Util.secondsToTicks(1);
                 }
@@ -158,7 +159,11 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
             }
         }
 
-        if(fBreathingTickst <= 0 && getControllingPassenger() == null) {
+        if (this instanceof TerribleTerror terribleTerror) {
+            if (fBreathingTickst <= 0 && !(getVehicle() instanceof Player)) {
+                setIsUsingAbility(false);
+            }
+        } else if (fBreathingTickst <= 0 && (getControllingPassenger() == null)) {
             setIsUsingAbility(false);
         }
     }
