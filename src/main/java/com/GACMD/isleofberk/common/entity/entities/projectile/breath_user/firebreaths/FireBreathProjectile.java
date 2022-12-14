@@ -41,7 +41,7 @@ import java.util.Set;
 public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
 
-    private static final EntityDataAccessor<Boolean> IS_SMALL = SynchedEntityData.defineId(TerribleTerror.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> PROJECTILE_SIZE = SynchedEntityData.defineId(TerribleTerror.class, EntityDataSerializers.INT);
 
     public FireBreathProjectile(EntityType<? extends FireBreathProjectile> projectile, Level level) {
         super(projectile, level);
@@ -54,27 +54,27 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
     @Override
     protected void defineSynchedData() {
-        this.entityData.define(IS_SMALL, false);
+        this.entityData.define(PROJECTILE_SIZE, 1);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.setIsProjectileSmall(pCompound.getBoolean("is_small"));
+        this.setProjectileSize(pCompound.getInt("projectile_size"));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putBoolean("is_small", this.isProjectileSmall());
+        pCompound.putInt("projectile_size", this.projectileSize());
     }
 
-    public boolean isProjectileSmall() {
-        return this.entityData.get(IS_SMALL);
+    public int projectileSize() {
+        return this.entityData.get(PROJECTILE_SIZE);
     }
 
-    public void setIsProjectileSmall(boolean isSmall) {
-        this.entityData.set(IS_SMALL, isSmall);
+    public void setProjectileSize(int sizeTier) {
+        this.entityData.set(PROJECTILE_SIZE, sizeTier);
 
     }
 
@@ -84,7 +84,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
     }
 
     public void playParticles() {
-        if (!isProjectileSmall()) {
+        if (projectileSize() == 1) {
             for (int i = 0; i < 1; i++) {
                 Vec3 vec3 = this.getDeltaMovement();
                 double deltaX = vec3.x;
@@ -103,7 +103,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
                             0.1525f * (random.nextFloat() - 0.5f));
                 }
             }
-        } else {
+        } else if (projectileSize() == 0) {
             for (int i = 0; i < 1; i++) {
                 Vec3 vec3 = this.getDeltaMovement();
                 double deltaX = vec3.x;
@@ -122,6 +122,25 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
                             0.001525f * (random.nextFloat() - 0.3f));
                 }
             }
+        } else if (projectileSize() == 2) {
+            for (int i = 0; i < 1; i++) {
+                Vec3 vec3 = this.getDeltaMovement();
+                double deltaX = vec3.x;
+                double deltaY = vec3.y;
+                double deltaZ = vec3.z;
+                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 8);
+                for (double j = 0; j < dist; j++) {
+                    double coeff = j / dist;
+                    ParticleOptions particleOptions = ParticleTypes.FLAME;
+                    level.addParticle(particleOptions, true,
+                            (double) (xo + deltaX * coeff),
+                            (double) (yo + deltaY * coeff) + 1.0F,
+                            (double) (zo + deltaZ * coeff),
+                            0.1525f * (random.nextFloat() - 0.5f),
+                            0.1525f * (random.nextFloat() - 0.5f),
+                            0.1525f * (random.nextFloat() - 0.5f));
+                }
+            }
         }
     }
 
@@ -137,7 +156,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
     @Override
     protected int threshHoldForDeletion() {
-        if(isProjectileSmall()) {
+        if (projectileSize() == 0) {
             return 1;
         } else {
             return 180;

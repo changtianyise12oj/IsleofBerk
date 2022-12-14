@@ -15,7 +15,6 @@ import com.GACMD.isleofberk.common.entity.network.message.DragonRideMessage;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -495,7 +494,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     @Override
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
         FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
-        fireProj.setIsProjectileSmall(true);
+        fireProj.setProjectileSize(0);
         fireProj.shoot(riderLook, 1F, 7F);
         level.addFreshEntity(fireProj);
     }
