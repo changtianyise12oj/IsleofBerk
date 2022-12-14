@@ -488,8 +488,8 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         }
 
 //        vehicle is found
-        System.out.println("terror vehicle " + this.getVehicle());
-        System.out.println("terror is using ability " + isUsingAbility());
+//        System.out.println("terror vehicle " + this.getVehicle());
+//        System.out.println("terror is using ability " + isUsingAbility());
     }
 
     @Override
