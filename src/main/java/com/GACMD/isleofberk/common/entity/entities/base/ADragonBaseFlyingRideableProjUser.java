@@ -123,7 +123,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
         if (getTarget() != null) {
             if (!(getControllingPassenger() instanceof Player)) {
                 if (getRandom().nextInt(25) == 1) {
-                    setPlayerBoltBlastPendingScale((int) (getMaxPlayerBoltBlast() * 0.85F));
+                    setPlayerBoltBlastPendingScale((int) (getMaxPlayerBoltBlast() * getAIProjPowerPercentage()));
                     dragonShootProjectile(getViewVector(1F), getThroatPos(this));
                     ticksSinceLastProjShoot = Util.secondsToTicks(1);
                 }
@@ -139,6 +139,10 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
 //            largefireball.setPos(this.getX() + vec3.x * 4.0D, this.getY(0.5D) + 0.5D, largefireball.getZ() + vec3.z * 4.0D);
 //            level.addFreshEntity(largefireball);
 //        }
+    }
+
+    protected float getAIProjPowerPercentage() {
+        return 0.85F;
     }
 
     /**

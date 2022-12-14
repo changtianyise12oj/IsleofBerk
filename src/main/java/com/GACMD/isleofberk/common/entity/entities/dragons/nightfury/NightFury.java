@@ -297,4 +297,8 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast();
     }
 
+    @Override
+    protected float getAIProjPowerPercentage() {
+        return 0.35F;
+    }
 }
