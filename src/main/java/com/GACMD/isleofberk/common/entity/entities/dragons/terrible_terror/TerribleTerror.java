@@ -421,7 +421,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             }
         }
 
-        if (getVehicle() != null && getVehicle() instanceof Player vehicle && !canUseBreathNormally()) {
+        if (getVehicle() != null && getVehicle() instanceof Player vehicle) {
             Vec3 throat = getThroatPos(this);
             Vec3 vehicleLook = vehicle.getViewVector(1);
 //            level.addParticle(ParticleTypes.HEART, throat.x,throat.y,throat.z,1,1,1);
@@ -432,6 +432,13 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 level.addFreshEntity(fireProj);
             }
         }
+    }
+
+    @Override
+    public void firePrimary(Vec3 riderLook, Vec3 throat) {
+        FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level, true);
+        fireProj.shoot(riderLook, 1F, 7F);
+        level.addFreshEntity(fireProj);
     }
 
     @org.jetbrains.annotations.Nullable

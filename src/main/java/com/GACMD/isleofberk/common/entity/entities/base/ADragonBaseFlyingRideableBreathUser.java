@@ -137,7 +137,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         }
 
 
-        System.out.println(fBreathingTickst);
+//        System.out.println(fBreathingTickst);
 
         if (fBreathingTickst > 0) {
             fBreathingTickst--;
