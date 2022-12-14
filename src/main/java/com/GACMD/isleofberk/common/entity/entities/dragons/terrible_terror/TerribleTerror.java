@@ -39,8 +39,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.TropicalFish;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -86,7 +84,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         EntityType<?> entitytype = p_30437_.getType();
         return entitytype == EntityType.TROPICAL_FISH || entitytype == EntityType.PUFFERFISH || entitytype == EntityType.COD || entitytype == EntityType.SALMON || entitytype == EntityType.RABBIT || entitytype == EntityType.CHICKEN;
     };
-
 
 
     AnimationFactory factory = new AnimationFactory(this);
@@ -238,11 +235,17 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new DragonOwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.goalSelector.addGoal(11, new TerrorFeedOnGroundGoal(this));
     }
 
     @Override
     public boolean isItemStackForTaming(ItemStack pStack) {
         return pStack.is(Items.SALMON) || pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH);
+    }
+
+    @Override
+    public boolean isFoodEdibleToDragon(ItemStack pStack) {
+        return super.isFoodEdibleToDragon(pStack);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -265,7 +268,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
 
-        if (item.isEdible() && !isBreedingFood(itemstack)) {
+        if (item.isEdible()) {
 
             ItemStack stack = this.getItemBySlot(EquipmentSlot.MAINHAND);
             if (stack.isEmpty()) {
@@ -282,7 +285,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             return InteractionResult.SUCCESS;
             // mount the dragon to player if it is not unceremoniously dismounted
             // plan to temporary hide(despawn?) the terror then unhide(respawn?) if the player appears close by
-        } else if (item != Items.STICK && !isBaby() && isTame()) { //  && isDragonBelziumHeld(itemstack)
+        } else if (item != Items.STICK && !isBaby() && isTame() && !isItemStackForTaming(itemstack) && !isBreedingFood(itemstack)) { //  && isDragonBelziumHeld(itemstack)
             ridePlayer(pPlayer);
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
@@ -592,6 +595,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         }
     }
 
+
     private boolean canEat(ItemStack pItemStack) {
         return pItemStack.getItem().isEdible() && this.getTarget() == null && this.onGround && !this.isSleeping();
     }
@@ -615,6 +619,17 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
                     }
 
+                    Player player = level.getNearestPlayer(this, 8);
+                    if (!isTame()) {
+                        if (player != null) {
+                            if (isItemStackForTaming(itemstack) && random.nextInt(5) == 1) {
+                                this.tameWithName(player);
+                                this.level.broadcastEntityEvent(this, (byte) 7);
+                            } else {
+                                this.level.broadcastEntityEvent(this, (byte) 6);
+                            }
+                        }
+                    }
                     this.ticksSinceEaten = 0;
                 } else if (this.ticksSinceEaten > 599 && this.random.nextFloat() < 0.1F) {
                     this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
@@ -692,7 +707,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             ItemStack itemStack = dragonBase.getItemBySlot(EquipmentSlot.MAINHAND);
             if (!itemEntityList.isEmpty() && itemStack.isEmpty()) {
                 ItemEntity itemEntity = itemEntityList.iterator().next();
-                if (dragonBase.isItemStackForTaming(itemEntity.getItem())) {
+                if (dragonBase.isFoodEdibleToDragon(itemEntity.getItem())) {
                     dragonBase.getNavigation().moveTo(itemEntity, 1.2F);
                 }
             }
@@ -706,7 +721,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             if (!itemEntityList.isEmpty() && itemStack.isEmpty()) {
                 ItemEntity itemEntity = itemEntityList.iterator().next();
                 if (dragonBase.getSensing().hasLineOfSight(itemEntity)) {
-                    if (dragonBase.isItemStackForTaming(itemEntity.getItem())) {
+                    if (dragonBase.isFoodEdibleToDragon(itemEntity.getItem())) {
                         dragonBase.getNavigation().moveTo(itemEntity, 1.2F);
                     }
                 }
