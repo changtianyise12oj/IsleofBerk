@@ -1,6 +1,7 @@
 package com.GACMD.isleofberk.common.entity.entities.base;
 
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;
+import com.GACMD.isleofberk.common.entity.util.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -15,6 +16,8 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
 
     private static final EntityDataAccessor<Integer> FRST_FUEL = SynchedEntityData.defineId(ADragonBaseFlyingRideableBreathUser.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SEC_FUEL = SynchedEntityData.defineId(ADragonBaseFlyingRideableBreathUser.class, EntityDataSerializers.INT);
+
+    public int fBreathingTickst = 0;
 
     public ADragonBaseFlyingRideableBreathUser(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -77,6 +80,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
 
     /**
      * 1:x chance when the bar will add value at random per tick
+     *
      * @return
      */
     protected int breathBarRegenSpeed() {
@@ -85,6 +89,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
 
     /**
      * the amount it adds per breath bar growth
+     *
      * @return
      */
     protected int breathBarRegenAmount() {
@@ -130,10 +135,35 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
                 fireSecondary(riderLook, throat);
             }
         }
+
+
+        System.out.println(fBreathingTickst);
+
+        if (fBreathingTickst > 0) {
+            fBreathingTickst--;
+        }
+
+        if (getTarget() != null) {
+            if (!(getControllingPassenger() instanceof Player)) {
+                if (getRandom().nextInt(25) == 1 && fBreathingTickst <= 0 && getRemainingFuel() > 0) {
+                    fBreathingTickst = Util.secondsToTicks(1);
+                }
+
+                if (fBreathingTickst > 0) {
+                    firePrimary(getViewVector(1F), getThroatPos(this));
+                    setIsUsingAbility(true);
+                    modifyFuel(-1);
+                }
+            }
+        }
+
+        if(fBreathingTickst <= 0) {
+            setIsUsingAbility(false);
+        }
     }
 
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
-        FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
+        FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level, false);
         fireProj.shoot(riderLook, 1F, 7F);
         level.addFreshEntity(fireProj);
     }

@@ -11,32 +11,50 @@ import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.geo.render.built.GeoBone;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-/** used only for getGoeBone method */
+/**
+ * used only for getGoeBone method
+ */
 @OnlyIn(Dist.CLIENT)
 public class BaseDragonModel<T extends ADragonBase & IAnimatable> extends AnimatedGeoModel<T> {
 
     // override if dragon is different size than modelled
-    protected float getAdultSize() { return 1; }
-    protected float getTitanSize() { return 1.4f; }
-    protected float getBabySize() { return 0.4f; }
-    protected float getBabyHeadSize() { return 1.5f; }
+    protected float getAdultSize() {
+        return 1;
+    }
 
-    protected GeoBone getGeoBone(String name)
-    {
+    protected float getTitanSize() {
+        return 1.4f;
+    }
+
+    protected float getBabySize() {
+        return 0.4f;
+    }
+
+    protected float getBabyHeadSize() {
+        return 1.5f;
+    }
+
+    protected GeoBone getGeoBone(String name) {
         IBone bone = this.getAnimationProcessor().getBone(name);
-        if(bone instanceof GeoBone geoBone)
+        if (bone instanceof GeoBone geoBone)
             return geoBone;
         return null;
     }
 
     @Override
-    public ResourceLocation getModelLocation(T object) {return null; }
+    public ResourceLocation getModelLocation(T object) {
+        return null;
+    }
 
     @Override
-    public ResourceLocation getTextureLocation(T object) { return null; }
+    public ResourceLocation getTextureLocation(T object) {
+        return null;
+    }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(T animatable) {return null; }
+    public ResourceLocation getAnimationFileLocation(T animatable) {
+        return null;
+    }
 
     @Override
     public void setLivingAnimations(T dragon, Integer uniqueID, AnimationEvent customPredicate) {
@@ -45,8 +63,8 @@ public class BaseDragonModel<T extends ADragonBase & IAnimatable> extends Animat
         GeoBone head = getGeoBone("head");
         GeoBone root = getGeoBone("root");
 
-        if(dragon instanceof ADragonRideableUtility dragonRideableUtility && !dragonRideableUtility.guiLocked()) {
-            getGeoBone( "Bags").setHidden(!dragonRideableUtility.hasChest());
+        if (dragon instanceof ADragonRideableUtility dragonRideableUtility && !dragonRideableUtility.guiLocked()) {
+            getGeoBone("Bags").setHidden(!dragonRideableUtility.hasChest());
         }
 
         float adultSize = this.getAdultSize();
@@ -55,15 +73,17 @@ public class BaseDragonModel<T extends ADragonBase & IAnimatable> extends Animat
         float titanSize = this.getTitanSize();
 
         // sets scale for baby and adult
-        if (dragon.isBaby()) {
-            root.setScale(babySize, babySize, babySize);
-            head.setScale(babyHeadSize, babyHeadSize, babyHeadSize);
+        if (head != null && root != null) {
+            if (dragon.isBaby()) {
+                root.setScale(babySize, babySize, babySize);
+                head.setScale(babyHeadSize, babyHeadSize, babyHeadSize);
 
-        } else if (dragon.isTitanWing()) {
-            root.setScale(titanSize, titanSize, titanSize);
+            } else if (dragon.isTitanWing()) {
+                root.setScale(titanSize, titanSize, titanSize);
 
-        }else {
-            root.setScale(adultSize, adultSize, adultSize);
+            } else {
+                root.setScale(adultSize, adultSize, adultSize);
+            }
         }
     }
 }

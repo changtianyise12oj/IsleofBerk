@@ -24,7 +24,6 @@ public class DragonMeleeAttackGoal extends Goal {
     private double pathedTargetZ;
     private int ticksUntilNextPathRecalculation;
     private int ticksUntilNextAttack;
-    private int ticksSinceLastProjShoot;
     private final int attackInterval = 20;
     private long lastCanUseCheck;
     private static final long COOLDOWN_BETWEEN_CAN_USE_CHECKS = 20L;
@@ -162,37 +161,8 @@ public class DragonMeleeAttackGoal extends Goal {
 
             this.ticksUntilNextAttack = Math.max(this.ticksUntilNextAttack - 1, 0);
             this.checkAndPerformAttack(livingentity, d0);
-
-            // probably scale the hitbox too
-            // use in melee AI
-            if (dragon.getControllingPassenger() == null) {
-                if (dragon instanceof ADragonBaseFlyingRideableProjUser dragonProj) {
-                    if (dragonProj.getRandom().nextInt(25) == 1) {
-                        dragonProj.setPlayerBoltBlastPendingScale((int) (dragonProj.getMaxPlayerBoltBlast() * 0.85F));
-                        dragonProj.dragonShootProjectile(dragonProj.getViewVector(1F), dragonProj.getThroatPos(dragonProj));
-                        ticksSinceLastProjShoot = Util.secondsToTicks(4);
-                    }
-                }
-
-                if (dragon instanceof ADragonBaseFlyingRideableBreathUser dragonBreath) {
-                    if (dragonBreath.getRandom().nextInt(25) == 1) {
-                        ((ADragonBaseFlyingRideableBreathUser) dragon).firePrimary(dragonBreath.getViewVector(1F), dragonBreath.getThroatPos(dragonBreath));
-                        dragonBreath.modifyFuel(-1);
-                    }
-
-                    if(dragon instanceof DeadlyNadder nadder) {
-                        if(nadder.getRandom().nextInt(10) == 1) {
-                            nadder.fireSecondary(nadder.getViewVector(1F), nadder.getThroatPos(nadder));
-                            nadder.modifySecondaryFuel(-1);
-                        }
-                    }
-                }
-            }
         }
 
-        if (ticksSinceLastProjShoot > 0) {
-            ticksSinceLastProjShoot--;
-        }
     }
 
     protected void checkAndPerformAttack(LivingEntity pEnemy, double pDistToEnemySqr) {

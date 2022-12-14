@@ -37,12 +37,15 @@ import java.util.Set;
 
 public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
+    boolean isSmall;
+
     public FireBreathProjectile(EntityType<? extends FireBreathProjectile> projectile, Level level) {
         super(projectile, level);
     }
 
-    public FireBreathProjectile(ADragonBaseFlyingRideable dragonOwner, Vec3 throat, Vec3 end, Level level) {
+    public FireBreathProjectile(ADragonBaseFlyingRideable dragonOwner, Vec3 throat, Vec3 end, Level level, boolean isSmall) {
         super(ModEntities.FIRE_PROJ.get(), dragonOwner, throat, end, level, 1);
+        this.isSmall=isSmall;
 
     }
 
@@ -57,22 +60,43 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
     }
 
     public void playParticles() {
-        for (int i = 0; i < 1; i++) {
-            Vec3 vec3 = this.getDeltaMovement();
-            double deltaX = vec3.x;
-            double deltaY = vec3.y;
-            double deltaZ = vec3.z;
-            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
-            for (double j = 0; j < dist; j++) {
-                double coeff = j / dist;
-                ParticleOptions particleOptions = ParticleTypes.FLAME;
-                level.addParticle(particleOptions, true,
-                        (double) (xo + deltaX * coeff),
-                        (double) (yo + deltaY * coeff) + 1.0F,
-                        (double) (zo + deltaZ * coeff),
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f));
+        if(!isSmall) {
+            for (int i = 0; i < 1; i++) {
+                Vec3 vec3 = this.getDeltaMovement();
+                double deltaX = vec3.x;
+                double deltaY = vec3.y;
+                double deltaZ = vec3.z;
+                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
+                for (double j = 0; j < dist; j++) {
+                    double coeff = j / dist;
+                    ParticleOptions particleOptions = ParticleTypes.FLAME;
+                    level.addParticle(particleOptions, true,
+                            (double) (xo + deltaX * coeff),
+                            (double) (yo + deltaY * coeff) + 1.0F,
+                            (double) (zo + deltaZ * coeff),
+                            0.1525f * (random.nextFloat() - 0.5f),
+                            0.1525f * (random.nextFloat() - 0.5f),
+                            0.1525f * (random.nextFloat() - 0.5f));
+                }
+            }
+        } else {
+            for (int i = 0; i < 1; i++) {
+                Vec3 vec3 = this.getDeltaMovement();
+                double deltaX = vec3.x;
+                double deltaY = vec3.y;
+                double deltaZ = vec3.z;
+                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
+                for (double j = 0; j < dist; j++) {
+                    double coeff = j / dist;
+                    ParticleOptions particleOptions = ParticleTypes.SMALL_FLAME;
+                    level.addParticle(particleOptions, true,
+                            (double) (xo + deltaX * coeff),
+                            (double) (yo + deltaY * coeff) + 1.0F,
+                            (double) (zo + deltaZ * coeff),
+                            0.1525f * (random.nextFloat() - 0.3f),
+                            0.1525f * (random.nextFloat() - 0.3f),
+                            0.1525f * (random.nextFloat() - 0.3f));
+                }
             }
         }
     }
@@ -86,7 +110,6 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
     protected @NotNull ParticleOptions getTrailParticle() {
         return ParticleRegistrar.FLAME.get();
     }
-
 
     @Override
     protected int threshHoldForDeletion() {

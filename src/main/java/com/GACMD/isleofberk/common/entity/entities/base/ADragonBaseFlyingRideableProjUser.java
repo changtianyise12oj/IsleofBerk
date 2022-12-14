@@ -2,6 +2,7 @@ package com.GACMD.isleofberk.common.entity.entities.base;
 
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt.FireBolt;
+import com.GACMD.isleofberk.common.entity.util.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -14,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable {
+    private int ticksSinceLastProjShoot = 0;
 
     public ADragonBaseFlyingRideableProjUser(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -113,6 +115,21 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
 
             if (!isUsingAbility()) {
                 setPlayerBoltBlastPendingStopThreshold(0);
+            }
+        }
+
+        // probably scale the hitbox too
+        // use in melee AI
+        if (getTarget() != null) {
+            if (!(getControllingPassenger() instanceof Player)) {
+                if (getRandom().nextInt(25) == 1) {
+                    setPlayerBoltBlastPendingScale((int) (getMaxPlayerBoltBlast() * 0.85F));
+                    dragonShootProjectile(getViewVector(1F), getThroatPos(this));
+                    ticksSinceLastProjShoot = Util.secondsToTicks(1);
+                }
+                if (ticksSinceLastProjShoot > 0) {
+                    ticksSinceLastProjShoot--;
+                }
             }
         }
 

@@ -427,7 +427,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 //            level.addParticle(ParticleTypes.HEART, throat.x,throat.y,throat.z,1,1,1);
 
             if (isUsingAbility() && canUseBreath()) {
-                FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, vehicleLook, level);
+                FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, vehicleLook, level, true);
                 fireProj.shoot(vehicleLook, 1F);
                 level.addFreshEntity(fireProj);
             }
