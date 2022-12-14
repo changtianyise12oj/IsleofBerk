@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 public class AggressionToPlayersGoal<T extends LivingEntity> extends TargetGoal {
 
     /**
-     * 0 : none; 1: weapon; 2: armor or weapon 3: always, only be obtained via eggs
+     * 0 : none; 1: weapon; 2: armor or weapon 3: always
      */
     int agressionType = 0;
     ADragonBase dragonBase;

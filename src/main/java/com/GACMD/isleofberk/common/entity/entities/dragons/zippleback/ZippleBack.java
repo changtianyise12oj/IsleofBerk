@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.zippleback;
 
+import com.GACMD.isleofberk.common.entity.entities.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -25,5 +26,11 @@ public class ZippleBack extends ADragonBaseFlyingRideable {
                 .add(Attributes.ATTACK_DAMAGE, 15F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.targetSelector.addGoal(1, new T4DragonPotionRequirement(this, 1));
     }
 }
