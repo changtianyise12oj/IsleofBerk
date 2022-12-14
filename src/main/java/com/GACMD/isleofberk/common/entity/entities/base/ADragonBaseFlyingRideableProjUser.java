@@ -10,6 +10,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -120,7 +122,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
 
         // probably scale the hitbox too
         // use in melee AI
-        if (getTarget() != null) {
+        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal)) {
             if (!(getControllingPassenger() instanceof Player)) {
                 if (getRandom().nextInt(25) == 1) {
                     setPlayerBoltBlastPendingScale((int) (getMaxPlayerBoltBlast() * getAIProjPowerPercentage()));

@@ -40,6 +40,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.TropicalFish;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -83,8 +84,10 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     public static final Predicate<LivingEntity> PREY_SELECTOR = (p_30437_) -> {
         EntityType<?> entitytype = p_30437_.getType();
-        return entitytype == EntityType.RABBIT || entitytype == EntityType.CHICKEN;
+        return entitytype == EntityType.TROPICAL_FISH || entitytype == EntityType.PUFFERFISH || entitytype == EntityType.COD || entitytype == EntityType.SALMON || entitytype == EntityType.RABBIT || entitytype == EntityType.CHICKEN;
     };
+
+
 
     AnimationFactory factory = new AnimationFactory(this);
     static final Predicate<ItemEntity> ALLOWED_ITEMS = (stack) -> {
@@ -228,7 +231,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
 //        this.goalSelector.addGoal(1, new DragonRideTilTamed(this, 1));
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
-        this.targetSelector.addGoal(2, new NonTameRandomTargetGoal<>(this, Animal.class, false, PREY_SELECTOR));
+        this.targetSelector.addGoal(2, new NonTameRandomTargetGoal<>(this, LivingEntity.class, false, PREY_SELECTOR));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));

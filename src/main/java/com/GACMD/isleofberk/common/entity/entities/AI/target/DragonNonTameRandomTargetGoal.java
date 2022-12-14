@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.AI.target;
 
+import com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerror;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
@@ -33,13 +34,25 @@ public class DragonNonTameRandomTargetGoal<T extends LivingEntity> extends Neare
     }
 
     protected void findTarget() {
-        if (this.targetType != Player.class && this.targetType != ServerPlayer.class && tamableMob.getPassengers().getClass().getClasses() != targetType.getClasses()) {
-            this.target = this.mob.level.getNearestEntity(this.mob.level.getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), (p_148152_) -> {
-                return true;
-            }), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+        // if terrible terror check if mob is in water to avoid glitched water movements
+        if (tamableMob instanceof TerribleTerror) {
+            if (target != null && !target.isInWater() || !target.isUnderWater()) {
+                if (this.targetType != Player.class && this.targetType != ServerPlayer.class && tamableMob.getPassengers().getClass().getClasses() != targetType.getClasses()) {
+                    this.target = this.mob.level.getNearestEntity(this.mob.level.getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), (target) -> {
+                        return true;
+                    }), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+                } else {
+                    this.target = this.mob.level.getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+                }
+            }
         } else {
-            this.target = this.mob.level.getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+            if (this.targetType != Player.class && this.targetType != ServerPlayer.class && tamableMob.getPassengers().getClass().getClasses() != targetType.getClasses()) {
+                this.target = this.mob.level.getNearestEntity(this.mob.level.getEntitiesOfClass(this.targetType, this.getTargetSearchArea(this.getFollowDistance()), (target) -> {
+                    return true;
+                }), this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+            } else {
+                this.target = this.mob.level.getNearestPlayer(this.targetConditions, this.mob, this.mob.getX(), this.mob.getEyeY(), this.mob.getZ());
+            }
         }
-
     }
 }

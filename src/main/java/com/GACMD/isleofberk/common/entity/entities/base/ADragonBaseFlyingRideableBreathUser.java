@@ -9,23 +9,16 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.function.Predicate;
 
 public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideable {
 
     private static final EntityDataAccessor<Integer> FRST_FUEL = SynchedEntityData.defineId(ADragonBaseFlyingRideableBreathUser.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SEC_FUEL = SynchedEntityData.defineId(ADragonBaseFlyingRideableBreathUser.class, EntityDataSerializers.INT);
-
-    public static final Predicate<LivingEntity> PREY_SELECTOR = (p_30437_) -> {
-        EntityType<?> entitytype = p_30437_.getType();
-        return entitytype == EntityType.TROPICAL_FISH || entitytype == EntityType.PUFFERFISH || entitytype == EntityType.COD || entitytype == EntityType.SALMON;
-    };
-
 
     public int fBreathingTickst = 0;
 
@@ -77,11 +70,6 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("remaining_fuel", getRemainingFuel());
         pCompound.putInt("remaining_fuel2", getRemainingSecondFuel());
-    }
-
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
     }
 
     /**
@@ -159,7 +147,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
             fBreathingTickst--;
         }
 
-        if (getTarget() != null) {
+        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal)) {
             if (!(getControllingPassenger() instanceof Player) || (!(getVehicle() instanceof Player) && this instanceof TerribleTerror)) {
                 if (getRandom().nextInt(25) == 1 && fBreathingTickst <= 0 && getRemainingFuel() > 0) {
                     fBreathingTickst = Util.secondsToTicks(1);
