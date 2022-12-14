@@ -12,7 +12,7 @@ import software.bernie.geckolib3.geo.render.built.GeoModel;
 
 public class ZippleBackRenderer extends BaseRendererFlying<ZippleBack> {
 
-    protected ZippleBackRenderer(EntityRendererProvider.Context renderManager) {
+    public ZippleBackRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new ZippleBackModel());
     }
 
@@ -28,10 +28,15 @@ public class ZippleBackRenderer extends BaseRendererFlying<ZippleBack> {
         super.render(model, animatable, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
 
+//    @Override
+//    public String getDragonFolder() {
+//        return "zippleback";
+//    }
+
+
     @Override
     public String getDragonFolder() {
-        return "zippleback";
+        return "night_fury";
     }
-
 
 }

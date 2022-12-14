@@ -1,8 +1,10 @@
 package com.GACMD.isleofberk.common.entity.entities.eggs.entity;
 
+import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.large.ADragonLargeEggBase;
 import com.GACMD.isleofberk.common.items.DragonEggItem;
+import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -26,6 +28,11 @@ public class ZippleBackEgg extends ADragonLargeEggBase {
     @Override
     public boolean canBeCollidedWith() {
         return true;
+    }
+
+    @Override
+    protected ADragonBase getDragonEggResult() {
+        return ModEntities.ZIPPLEBACK.get().create(this.level);
     }
 
     @Override

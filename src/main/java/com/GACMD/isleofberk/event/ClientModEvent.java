@@ -7,12 +7,16 @@ import com.GACMD.isleofberk.client.gui.event.ModGuiOverlays;
 import com.GACMD.isleofberk.client.gui.event.RiderInventoryHandler;
 import com.GACMD.isleofberk.common.entity.entities.dragons.deadlynadder.DeadlyNadderRender;
 import com.GACMD.isleofberk.common.entity.entities.dragons.gronckle.GronckleRender;
+import com.GACMD.isleofberk.common.entity.entities.dragons.lightfury.LightFuryRender;
+import com.GACMD.isleofberk.common.entity.entities.dragons.montrous_nightmare.MonstrousNightmare;
+import com.GACMD.isleofberk.common.entity.entities.dragons.montrous_nightmare.MonstrousNightmareRender;
 import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFuryRender;
 import com.GACMD.isleofberk.common.entity.entities.dragons.speedstinger.SpeedStingerRender;
 import com.GACMD.isleofberk.common.entity.entities.dragons.speedstingerleader.SpeedStingerLeaderRender;
 import com.GACMD.isleofberk.common.entity.entities.dragons.stinger.StingerRender;
 import com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerrorRender;
 import com.GACMD.isleofberk.common.entity.entities.dragons.tryiple_stryke.TripleStrykeRenderer;
+import com.GACMD.isleofberk.common.entity.entities.dragons.zippleback.ZippleBackRenderer;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.large.ADragonLargeEggRenderer;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.medium.MediumEggRenderer;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.small.SmallEggRenderer;
@@ -65,6 +69,9 @@ public final class ClientModEvent {
         event.registerEntityRenderer(ModEntities.GRONCKLE.get(), GronckleRender::new);
         event.registerEntityRenderer(ModEntities.SPEED_STINGER.get(), SpeedStingerRender::new);
         event.registerEntityRenderer(ModEntities.SPEED_STINGER_LEADER.get(), SpeedStingerLeaderRender::new);
+        event.registerEntityRenderer(ModEntities.MONSTROUS_NIGHTMARE.get(), MonstrousNightmareRender::new);
+        event.registerEntityRenderer(ModEntities.LIGHT_FURY.get(), LightFuryRender::new);
+        event.registerEntityRenderer(ModEntities.ZIPPLEBACK.get(), ZippleBackRenderer::new);
 
         // breath_weapons
         event.registerEntityRenderer(ModEntities.FURY_BOLT.get(), FuryBoltRender::new);

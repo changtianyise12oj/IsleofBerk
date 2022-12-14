@@ -17,6 +17,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -145,10 +146,15 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return dragon;
     }
 
-
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
+    }
+
+    // cannot breed night fury. they are too powerful
+    @Override
+    public boolean isBreedingFood(ItemStack pStack) {
+        return false;
     }
 
     /**

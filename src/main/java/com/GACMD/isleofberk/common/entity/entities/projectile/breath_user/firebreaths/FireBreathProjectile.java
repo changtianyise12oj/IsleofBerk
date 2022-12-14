@@ -2,6 +2,7 @@ package com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.fireb
 
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerror;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
@@ -9,8 +10,10 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -37,20 +40,41 @@ import java.util.Set;
 
 public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
-    boolean isSmall;
+
+    private static final EntityDataAccessor<Boolean> IS_SMALL = SynchedEntityData.defineId(TerribleTerror.class, EntityDataSerializers.BOOLEAN);
 
     public FireBreathProjectile(EntityType<? extends FireBreathProjectile> projectile, Level level) {
         super(projectile, level);
     }
 
-    public FireBreathProjectile(ADragonBaseFlyingRideable dragonOwner, Vec3 throat, Vec3 end, Level level, boolean isSmall) {
+    public FireBreathProjectile(ADragonBaseFlyingRideable dragonOwner, Vec3 throat, Vec3 end, Level level) {
         super(ModEntities.FIRE_PROJ.get(), dragonOwner, throat, end, level, 1);
-        this.isSmall=isSmall;
 
     }
 
     @Override
     protected void defineSynchedData() {
+        this.entityData.define(IS_SMALL, false);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        this.setIsProjectileSmall(pCompound.getBoolean("is_small"));
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("is_small", this.isProjectileSmall());
+    }
+
+    public boolean isProjectileSmall() {
+        return this.entityData.get(IS_SMALL);
+    }
+
+    public void setIsProjectileSmall(boolean isSmall) {
+        this.entityData.set(IS_SMALL, isSmall);
 
     }
 
@@ -60,7 +84,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
     }
 
     public void playParticles() {
-        if(!isSmall) {
+        if (!isProjectileSmall()) {
             for (int i = 0; i < 1; i++) {
                 Vec3 vec3 = this.getDeltaMovement();
                 double deltaX = vec3.x;
@@ -85,17 +109,17 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
                 double deltaX = vec3.x;
                 double deltaY = vec3.y;
                 double deltaZ = vec3.z;
-                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
+                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 1);
                 for (double j = 0; j < dist; j++) {
                     double coeff = j / dist;
                     ParticleOptions particleOptions = ParticleTypes.SMALL_FLAME;
                     level.addParticle(particleOptions, true,
                             (double) (xo + deltaX * coeff),
-                            (double) (yo + deltaY * coeff) + 1.0F,
+                            (double) (yo + deltaY * coeff),
                             (double) (zo + deltaZ * coeff),
-                            0.1525f * (random.nextFloat() - 0.3f),
-                            0.1525f * (random.nextFloat() - 0.3f),
-                            0.1525f * (random.nextFloat() - 0.3f));
+                            0.001525f * (random.nextFloat() - 0.3f),
+                            0.001525f * (random.nextFloat() - 0.3f),
+                            0.001525f * (random.nextFloat() - 0.3f));
                 }
             }
         }
@@ -113,7 +137,11 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
     @Override
     protected int threshHoldForDeletion() {
-        return 180;
+        if(isProjectileSmall()) {
+            return 1;
+        } else {
+            return 180;
+        }
     }
 
     @Override
@@ -134,7 +162,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
      * @see net.minecraft.world.level.Explosion
      * @see Explosion#explode()
      */
-    public Explosion explode( ADragonBase pEntity, double pX, double pY, double pZ, float pExplosionRadius, boolean pCausesFire, Explosion.BlockInteraction pMode) {
+    public Explosion explode(ADragonBase pEntity, double pX, double pY, double pZ, float pExplosionRadius, boolean pCausesFire, Explosion.BlockInteraction pMode) {
         return this.explode(pEntity, null, null, pX, pY, pZ, pExplosionRadius, pCausesFire, pMode);
     }
 

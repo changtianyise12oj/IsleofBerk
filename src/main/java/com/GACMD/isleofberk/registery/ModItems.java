@@ -57,6 +57,15 @@ public final class ModItems {
     public static final RegistryObject<DragonSpawnEggItem> GRONCKLE_SPAWN_EGG = ITEMS.register("gronckle_spawn_egg", () ->
             new DragonSpawnEggItem(ModEntities.GRONCKLE, 0xffffff, 0xffffff,"gronckle_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
 
+    public static final RegistryObject<DragonSpawnEggItem> MONSTROUS_NIGHTMARE_SPAWN_EGG = ITEMS.register("monstrous_nightmare_spawn_egg", () ->
+            new DragonSpawnEggItem(ModEntities.MONSTROUS_NIGHTMARE, 0xffffff, 0xffffff,"monstrous_nightmare_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+
+    public static final RegistryObject<DragonSpawnEggItem> ZIPPLEBACK_SPAWN_EGG = ITEMS.register("zippleback_spawn_egg", () ->
+            new DragonSpawnEggItem(ModEntities.ZIPPLEBACK, 0xffffff, 0xffffff,"zippleback_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+
+    public static final RegistryObject<DragonSpawnEggItem> LIGHT_FURY_SPAWN_EGG = ITEMS.register("lightfury_spawn_egg", () ->
+            new DragonSpawnEggItem(ModEntities.LIGHT_FURY, 0xffffff, 0xffffff,"lightfury_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+
     /**
      * EGG ITEMS
      */

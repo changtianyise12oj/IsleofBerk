@@ -8,12 +8,14 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.TerribleTerrorEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;
 import com.GACMD.isleofberk.common.entity.network.ControlNetwork;
 import com.GACMD.isleofberk.common.entity.network.message.DragonRideMessage;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -32,10 +34,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -401,11 +400,58 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
-        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 2.4;
-        double y = 1.5;
-        double z = Math.cos(this.getYRot() * Math.PI / 180) * 2.4;
+        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 0.5D;
+        double y = 0.5D;
+        double z = Math.cos(this.getYRot() * Math.PI / 180) * 0.5D;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x, y, z));
         return throatPos;
+    }
+
+    public Vec3 getTerror0ThroatPosViaPlayer(Player entity) {
+        Vec3 vehiclePosition = entity.position();
+        double offsetX, offsetY, offsetZ;
+            float radius = 0.4F;
+            offsetX = (radius * -Math.sin(((Player) entity).yBodyRot * Math.PI / 180));
+            offsetZ = (radius * Math.cos(((Player) entity).yBodyRot * Math.PI / 180));
+            offsetY = 2.2D;
+        Vec3 throatPos = new Vec3(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
+        return throatPos;
+    }
+
+    public Vec3 getTerror1ThroatPosViaPlayer(Player entity) {
+        Vec3 vehiclePosition = entity.position();
+        double offsetX, offsetY, offsetZ;
+        float radius = 0.4F;
+        float angle = (float) (Math.PI / 180) * ((Player) entity).yBodyRot - 95;
+        offsetX = (radius * Math.sin(Math.PI + angle));
+        offsetZ = (radius * Math.cos(angle));
+        offsetY = 1.4D;
+        Vec3 throatPos = new Vec3(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
+        return throatPos;
+
+    }
+
+    public Vec3 getTerror2ThroatPosViaPlayer(Player entity) {
+        Vec3 vehiclePosition = entity.position();
+        double offsetX, offsetY, offsetZ;
+        float radius = 0.4F;
+        float angle = (float) (Math.PI / 180) * ((Player) entity).yBodyRot + 95;
+        offsetX = (radius * Math.sin(Math.PI + angle));
+        offsetZ = (radius * Math.cos(angle));
+        offsetY = 1.4D;
+        Vec3 throatPos = new Vec3(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
+        return throatPos;
+
+    }
+
+    @Override
+    public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
+        return 5;
+    }
+
+    @Override
+    public int getMaxFuel() {
+        return 150;
     }
 
     @Override
@@ -422,21 +468,34 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         }
 
         if (getVehicle() != null && getVehicle() instanceof Player vehicle) {
-            Vec3 throat = getThroatPos(this);
             Vec3 vehicleLook = vehicle.getViewVector(1);
-//            level.addParticle(ParticleTypes.HEART, throat.x,throat.y,throat.z,1,1,1);
-
-            if (isUsingAbility() && canUseBreath()) {
-                FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, vehicleLook, level, true);
-                fireProj.shoot(vehicleLook, 1F);
-                level.addFreshEntity(fireProj);
+            if(this == vehicle.getPassengers().get(0)) {
+                Vec3 throat0 = getTerror0ThroatPosViaPlayer(vehicle);
+                if(isUsingAbility() && canUseBreath())
+                firePrimary(vehicleLook, throat0);
+//                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat0.x, throat0.y, throat0.z, 1,1,1);
+            }else if(this == vehicle.getPassengers().get(1)) {
+                Vec3 throat1 = getTerror1ThroatPosViaPlayer(vehicle);
+                if(isUsingAbility() && canUseBreath())
+                firePrimary(vehicleLook, throat1);
+//                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat1.x, throat1.y, throat1.z, 1,1,1);
+            } else if(this == vehicle.getPassengers().get(2)) {
+                Vec3 throat2 = getTerror2ThroatPosViaPlayer(vehicle);
+                if(isUsingAbility() && canUseBreath())
+                firePrimary(vehicleLook, throat2);
+//                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat2.x, throat2.y, throat2.z, 1,1,1);
             }
         }
+
+//        vehicle is found
+        System.out.println("terror vehicle " + this.getVehicle());
+        System.out.println("terror is using ability " + isUsingAbility());
     }
 
     @Override
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
-        FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level, true);
+        FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
+        fireProj.setIsProjectileSmall(true);
         fireProj.shoot(riderLook, 1F, 7F);
         level.addFreshEntity(fireProj);
     }

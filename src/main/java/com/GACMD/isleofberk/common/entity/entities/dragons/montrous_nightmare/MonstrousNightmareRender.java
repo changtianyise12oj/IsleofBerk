@@ -12,7 +12,7 @@ import software.bernie.geckolib3.geo.render.built.GeoModel;
 
 public class MonstrousNightmareRender extends BaseRendererFlying<MonstrousNightmare> {
 
-    protected MonstrousNightmareRender(EntityRendererProvider.Context renderManager) {
+    public MonstrousNightmareRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MonstrousNightmareModel(renderManager));
     }
 
@@ -41,11 +41,16 @@ public class MonstrousNightmareRender extends BaseRendererFlying<MonstrousNightm
     public void render(GeoModel model, MonstrousNightmare animatable, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         super.render(model, animatable, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
+//    @Override
+//    public String getDragonFolder() {
+//        return "monstrous_nightmare";
+//    }
+
+
     @Override
     public String getDragonFolder() {
-        return "monstrous_nightmare";
+        return "night_fury";
     }
-
 
 
 }

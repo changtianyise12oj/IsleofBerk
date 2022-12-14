@@ -138,6 +138,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
 
 
 //        System.out.println(fBreathingTickst);
+//        System.out.println("dragon is using ability " + isUsingAbility());
 
         if (fBreathingTickst > 0) {
             fBreathingTickst--;
@@ -157,13 +158,13 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
             }
         }
 
-        if(fBreathingTickst <= 0) {
+        if(fBreathingTickst <= 0 && getControllingPassenger() == null) {
             setIsUsingAbility(false);
         }
     }
 
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
-        FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level, false);
+        FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
         fireProj.shoot(riderLook, 1F, 7F);
         level.addFreshEntity(fireProj);
     }

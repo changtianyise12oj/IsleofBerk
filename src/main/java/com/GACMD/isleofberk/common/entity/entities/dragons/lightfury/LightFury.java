@@ -1,18 +1,29 @@
-package com.GACMD.isleofberk.common.entity.entities.dragons.montrous_nightmare;
+package com.GACMD.isleofberk.common.entity.entities.dragons.lightfury;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
+import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFury;
+import com.GACMD.isleofberk.registery.ModEntities;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.ForgeMod;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
+public class LightFury extends NightFury {
 
-    public MonstrousNightmare(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
+    public LightFury(EntityType<? extends NightFury> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel level, @NotNull AgeableMob parent) {
+        NightFury dragon = ModEntities.NIGHT_FURY.get().create(level);
+        return dragon;
     }
 
     //  Attributes
