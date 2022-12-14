@@ -579,7 +579,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     @Override
     protected void pickUpItem(ItemEntity pItemEntity) {
         ItemStack itemstack = pItemEntity.getItem();
-        if (this.canHoldItem(itemstack) && isItemStackForTaming(itemstack)) {
+        if (this.canHoldItem(itemstack) && isFoodEdibleToDragon(itemstack)) {
             int i = itemstack.getCount();
             if (i > 1) {
                 this.dropItemStack(itemstack.split(i - 1));
@@ -637,6 +637,8 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 }
             }
         }
+
+        System.out.println(ticksSinceEaten);
     }
 
     @Override
@@ -697,7 +699,10 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             } else {
                 return true;
             }
-            return true;
+
+            ItemStack itemstack = dragonBase.getItemBySlot(EquipmentSlot.MAINHAND);
+            return itemstack.isEmpty() || dragonBase.ticksSinceEaten > 0;
+
         }
 
         @Override
