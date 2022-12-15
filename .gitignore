@@ -17,3 +17,5 @@ src/api/
 src/main/resources/assets/isleofberk/geo/dragons/nightfury1.geo.json
 *.txt
 *.gz
+run/logs/debug.log
+run/logs/latest.log
