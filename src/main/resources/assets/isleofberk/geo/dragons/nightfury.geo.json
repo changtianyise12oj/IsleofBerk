@@ -3,21 +3,13 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-<<<<<<< HEAD
-				"identifier": "geometry.night_fury",
-				"texture_width": 512,
-				"texture_height": 256,
-				"visible_bounds_width": 32,
-				"visible_bounds_height": 21,
-				"visible_bounds_offset": [0, 3.5, 0]
-=======
+
 				"identifier": "geometry.NightFuryModel",
 				"texture_width": 256,
 				"texture_height": 192,
 				"visible_bounds_width": 19,
 				"visible_bounds_height": 5,
 				"visible_bounds_offset": [0, 1.5, 0]
->>>>>>> e2759c70dbb808b92a2b058a255430c927d7e744
 			},
 			"bones": [
 				{
@@ -25,7 +17,6 @@
 					"pivot": [0, 0, 0]
 				},
 				{
-<<<<<<< HEAD
 					"name": "BodyRotX",
 					"parent": "root",
 					"pivot": [0, 24, 0],
@@ -33,11 +24,6 @@
 					"cubes": [
 						{"origin": [-14, 21, -15], "size": [28, 28, 30], "uv": [0, 0], "mirror": true}
 					]
-=======
-					"name": "rotation",
-					"parent": "root",
-					"pivot": [0, 25, 0]
->>>>>>> e2759c70dbb808b92a2b058a255430c927d7e744
 				},
 				{
 					"name": "Chest",
