@@ -38,21 +38,21 @@ public class ModSpawnRegistration {
         // cave
         addMobSpawn(event, List.of(Biome.BiomeCategory.UNDERGROUND),
                 MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                3, 4, 1, 0.08F); // 0.15F 0.025f
+                3, 3, 4, 0.08F); // 0.15F 0.025f
 
         // taiga
         addMobSpawn(event, List.of(Biome.BiomeCategory.TAIGA),
                 MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                3, 4, 1, 0.08F); // 0.15F 0.025f
+                3, 3, 4, 0.08F); // 0.15F 0.025f
 
         // ice
         addMobSpawnOnSpecificBiomes(event, MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                3, 4, 1, 0.08F, Biomes.FROZEN_OCEAN, Biomes.FROZEN_PEAKS,
+                3, 3, 4, 0.08F, Biomes.FROZEN_OCEAN, Biomes.FROZEN_PEAKS,
                 Biomes.FROZEN_RIVER, Biomes.DEEP_FROZEN_OCEAN);
 
         // jungle
         addMobSpawn(event,List.of(Biome.BiomeCategory.JUNGLE), MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                3, 4, 1, 0.08F);
+                3, 3, 4, 0.08F);
 
         // TODO: TERRIBLE TERROR
         addMobSpawn(event, List.of(Biome.BiomeCategory.BEACH, Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.DESERT),

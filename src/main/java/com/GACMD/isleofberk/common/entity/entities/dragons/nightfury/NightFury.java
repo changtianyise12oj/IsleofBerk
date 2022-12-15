@@ -13,10 +13,13 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -76,7 +79,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             }
             if (event.isMoving() && !shouldStopMovingIndependently()) {
                 if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.walk", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
 
                 } else {
@@ -181,12 +184,18 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        this.setDragonVariant(getMaxAmountOfVariants());
         return pSpawnData;
     }
 
     @Override
+    public int getMaxAmountOfVariants() {
+        return 4;
+    }
+
+    @Override
     public float getRideCameraDistanceBack() {
-        return 7;
+        return 9;
     }
 
     @Override
@@ -268,6 +277,14 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
         }
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        if(getDisplayName().toString() == "Toothless") {
+            setDragonVariant(101);
+        }
+        return super.mobInteract(pPlayer, pHand);
     }
 
     @Override
