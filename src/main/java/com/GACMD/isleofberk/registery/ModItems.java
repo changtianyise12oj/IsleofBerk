@@ -5,7 +5,6 @@ import com.GACMD.isleofberk.common.items.DragonEggItem;
 import com.GACMD.isleofberk.common.items.DragonSpawnEggItem;
 import com.GACMD.isleofberk.common.items.DragonEggSeparateVariantItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.PickaxeItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -20,7 +19,6 @@ public final class ModItems {
     /**
      * METALS & GEMS
      */
-
     public static final RegistryObject<Item> BELZIUM = ITEMS.register("belzium", () ->
             new Item(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
 
@@ -29,18 +27,6 @@ public final class ModItems {
 
     public static final RegistryObject<Item> GRONCKLE_IRON = ITEMS.register("gronckle_iron", () ->
             new Item(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
-
-    /**
-     * Tools
-     */
-
-    public static final RegistryObject<Item> GRONCKLE_IRON_PICKAXE = ITEMS.register("gronckle_iron_pickaxe",
-            () -> new PickaxeItem(ModToolTiers.GRONCKLE_IRON, 2, 3f,
-                    new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
-
-    public static final RegistryObject<Item> BELZIUM_PICKAXE = ITEMS.register("belzium_pickaxe",
-            () -> new PickaxeItem(ModToolTiers.BELZIUM, 2, 3f,
-                    new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     /**
      * SPAWN EGG ITEMS
