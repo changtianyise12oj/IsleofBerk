@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 [16Dec2022 04:52:56.412] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 1.18, --assetsDir, C:\Users\Jexel\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 40.1.80, --fml.mcVersion, 1.18.2, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20220404.173914]
 [16Dec2022 04:52:56.418] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 9.1.3+9.1.3+main.9b69c82a starting: java version 17.0.1 by Eclipse Adoptium
 [16Dec2022 04:52:56.600] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Jexel/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%2323!/ Service=ModLauncher Env=CLIENT
@@ -22,6 +23,8 @@
 [16Dec2022 04:53:13.941] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: Default, Mod Resources
 [16Dec2022 04:53:14.170] [Worker-Main-7/WARN] [net.minecraft.client.sounds.SoundManager/]: Invalid sounds.json in resourcepack: 'Mod Resources'
 =======
+=======
+>>>>>>> parent of 7687e17 (Fuck)
 [15Dec2022 18:16:42.257] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 1.18, --assetsDir, C:\Users\ghano\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 40.1.80, --fml.mcVersion, 1.18.2, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20220404.173914]
 [15Dec2022 18:16:42.265] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 9.1.3+9.1.3+main.9b69c82a starting: java version 17.0.5 by Eclipse Adoptium
 [15Dec2022 18:16:42.546] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/ghano/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%2323!/ Service=ModLauncher Env=CLIENT
@@ -43,6 +46,9 @@
 [15Dec2022 18:17:03.405] [Render thread/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: []
 [15Dec2022 18:17:05.493] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: Default, Mod Resources
 [15Dec2022 18:17:06.021] [Worker-Main-14/WARN] [net.minecraft.client.sounds.SoundManager/]: Invalid sounds.json in resourcepack: 'Mod Resources'
+<<<<<<< HEAD
+>>>>>>> parent of 7687e17 (Fuck)
+=======
 >>>>>>> parent of 7687e17 (Fuck)
 com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 28 column 6 path $..sounds[3]
 	at com.google.gson.internal.Streams.parse(Streams.java:60) ~[gson-2.8.9.jar%2343!/:?]
@@ -73,6 +79,7 @@ Caused by: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLeni
 	at com.google.gson.internal.Streams.parse(Streams.java:48) ~[gson-2.8.9.jar%2343!/:?]
 	... 16 more
 <<<<<<< HEAD
+<<<<<<< HEAD
 [16Dec2022 04:53:15.046] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
 [16Dec2022 04:53:30.158] [Forge Version Check/WARN] [net.minecraftforge.fml.VersionChecker/]: Failed to process update information
 java.net.http.HttpConnectTimeoutException: HTTP connect timed out
@@ -91,6 +98,8 @@ Caused by: java.net.ConnectException: HTTP connect timed out
 	at jdk.internal.net.http.HttpClientImpl.purgeTimeoutsAndReturnNextDeadline(HttpClientImpl.java:1270) ~[java.net.http:?]
 	at jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:899) ~[java.net.http:?]
 =======
+=======
+>>>>>>> parent of 7687e17 (Fuck)
 [15Dec2022 18:17:07.945] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
 [15Dec2022 18:17:09.869] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: OUTDATED Current: 40.1.80 Target: 40.1.86
 [15Dec2022 18:17:22.122] [Worker-Main-16/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Unable to load model: 'isleofberk:gronckle_iron_pickaxe#inventory' referenced from: isleofberk:gronckle_iron_pickaxe#inventory: java.io.FileNotFoundException: isleofberk:models/item/gronckle_iron_pickaxe.json
@@ -190,4 +199,7 @@ Caused by: java.net.ConnectException: HTTP connect timed out
 [15Dec2022 18:21:30.797] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
 [15Dec2022 18:21:30.797] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
 [15Dec2022 18:21:30.797] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+<<<<<<< HEAD
+>>>>>>> parent of 7687e17 (Fuck)
+=======
 >>>>>>> parent of 7687e17 (Fuck)

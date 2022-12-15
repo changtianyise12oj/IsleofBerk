@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 [16Dec2022 04:52:56.412] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 1.18, --assetsDir, C:\Users\Jexel\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 40.1.80, --fml.mcVersion, 1.18.2, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20220404.173914]
 [16Dec2022 04:52:56.418] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 9.1.3+9.1.3+main.9b69c82a starting: java version 17.0.1 by Eclipse Adoptium
 [16Dec2022 04:52:56.436] [main/DEBUG] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Found launch services [fmlclientdev,forgeclient,minecraft,forgegametestserverdev,fmlserveruserdev,fmlclient,fmldatauserdev,forgeserverdev,forgeserveruserdev,forgeclientdev,forgeclientuserdev,forgeserver,forgedatadev,fmlserver,fmlclientuserdev,fmlserverdev,forgedatauserdev,testharness,forgegametestserveruserdev]
@@ -221,6 +222,8 @@
 [16Dec2022 04:53:10.879] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Buffer.address: available
 [16Dec2022 04:53:10.881] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: direct buffer constructor: unavailable
 =======
+=======
+>>>>>>> parent of 7687e17 (Fuck)
 [15Dec2022 18:16:42.257] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 1.18, --assetsDir, C:\Users\ghano\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 40.1.80, --fml.mcVersion, 1.18.2, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20220404.173914]
 [15Dec2022 18:16:42.265] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 9.1.3+9.1.3+main.9b69c82a starting: java version 17.0.5 by Eclipse Adoptium
 [15Dec2022 18:16:42.289] [main/DEBUG] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Found launch services [fmlclientdev,forgeclient,minecraft,forgegametestserverdev,fmlserveruserdev,fmlclient,fmldatauserdev,forgeserverdev,forgeserveruserdev,forgeclientdev,forgeclientuserdev,forgeserver,forgedatadev,fmlserver,fmlclientuserdev,fmlserverdev,forgedatauserdev,testharness,forgegametestserveruserdev]
@@ -442,6 +445,9 @@
 [15Dec2022 18:16:58.569] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.copyMemory: available
 [15Dec2022 18:16:58.570] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Buffer.address: available
 [15Dec2022 18:16:58.571] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: direct buffer constructor: unavailable
+<<<<<<< HEAD
+>>>>>>> parent of 7687e17 (Fuck)
+=======
 >>>>>>> parent of 7687e17 (Fuck)
 java.lang.UnsupportedOperationException: Reflective setAccessible(true) disabled
 	at io.netty.util.internal.ReflectionUtil.trySetAccessible(ReflectionUtil.java:31) ~[netty-all-4.1.68.Final.jar%2335!/:4.1.68.Final]
@@ -470,10 +476,15 @@ java.lang.UnsupportedOperationException: Reflective setAccessible(true) disabled
 	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
 	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
 <<<<<<< HEAD
+<<<<<<< HEAD
 [16Dec2022 04:53:10.955] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Bits.unaligned: available, true
 [16Dec2022 04:53:10.887] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for geckolib3
 [16Dec2022 04:53:10.955] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.javafmlmod.AutomaticEventSubscriber/LOADING]: Auto-subscribing software.bernie.example.GeckoLibMod to FORGE
 [16Dec2022 04:53:10.956] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable
+=======
+[15Dec2022 18:16:58.598] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Bits.unaligned: available, true
+[15Dec2022 18:16:58.602] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable
+>>>>>>> parent of 7687e17 (Fuck)
 =======
 [15Dec2022 18:16:58.598] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Bits.unaligned: available, true
 [15Dec2022 18:16:58.602] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable
@@ -506,6 +517,7 @@ java.lang.IllegalAccessException: class io.netty.util.internal.PlatformDependent
 	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
 	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
 	at java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:165) [?:?]
+<<<<<<< HEAD
 <<<<<<< HEAD
 [16Dec2022 04:53:10.957] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.DirectByteBuffer.<init>(long, int): unavailable
 [16Dec2022 04:53:10.957] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: sun.misc.Unsafe: available
@@ -558,6 +570,8 @@ java.lang.IllegalAccessException: class io.netty.util.internal.PlatformDependent
 [16Dec2022 04:53:14.146] [Worker-Main-6/DEBUG] [software.bernie.geckolib3.GeckoLib/]: Attempting to load animation file geckolib3:animations/bat.animation.json...
 [16Dec2022 04:53:14.170] [Worker-Main-7/WARN] [net.minecraft.client.sounds.SoundManager/]: Invalid sounds.json in resourcepack: 'Mod Resources'
 =======
+=======
+>>>>>>> parent of 7687e17 (Fuck)
 [15Dec2022 18:16:58.605] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.DirectByteBuffer.<init>(long, int): unavailable
 [15Dec2022 18:16:58.605] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: sun.misc.Unsafe: available
 [15Dec2022 18:16:58.606] [modloading-worker-0/DEBUG] [io.netty.util.internal.PlatformDependent/]: maxDirectMemory: 3722444800 bytes (maybe)
@@ -604,6 +618,9 @@ java.lang.IllegalAccessException: class io.netty.util.internal.PlatformDependent
 [15Dec2022 18:17:05.696] [modloading-worker-0/DEBUG] [net.minecraftforge.fml.config.ConfigFileTypeHandler/CONFIG]: Watching TOML config file C:\Users\ghano\Desktop\iob\IsleofBerk\run\config\forge-common.toml for changes
 [15Dec2022 18:17:05.696] [modloading-worker-0/DEBUG] [net.minecraftforge.common.ForgeConfig/FORGEMOD]: Loaded forge config file forge-common.toml
 [15Dec2022 18:17:06.021] [Worker-Main-14/WARN] [net.minecraft.client.sounds.SoundManager/]: Invalid sounds.json in resourcepack: 'Mod Resources'
+<<<<<<< HEAD
+>>>>>>> parent of 7687e17 (Fuck)
+=======
 >>>>>>> parent of 7687e17 (Fuck)
 com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 28 column 6 path $..sounds[3]
 	at com.google.gson.internal.Streams.parse(Streams.java:60) ~[gson-2.8.9.jar%2343!/:?]
@@ -633,6 +650,7 @@ Caused by: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLeni
 	at com.google.gson.internal.bind.TypeAdapters$27.read(TypeAdapters.java:655) ~[gson-2.8.9.jar%2343!/:?]
 	at com.google.gson.internal.Streams.parse(Streams.java:48) ~[gson-2.8.9.jar%2343!/:?]
 	... 16 more
+<<<<<<< HEAD
 <<<<<<< HEAD
 [16Dec2022 04:53:14.259] [Worker-Main-6/DEBUG] [software.bernie.geckolib3.GeckoLib/]: Animation file geckolib3:animations/bat.animation.json processed
 [16Dec2022 04:53:14.260] [Worker-Main-6/DEBUG] [software.bernie.geckolib3.GeckoLib/]: Attempting to load animation file geckolib3:animations/bike.animation.json...
@@ -697,6 +715,8 @@ Caused by: java.net.ConnectException: HTTP connect timed out
 	at jdk.internal.net.http.HttpClientImpl.purgeTimeoutsAndReturnNextDeadline(HttpClientImpl.java:1270) ~[java.net.http:?]
 	at jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:899) ~[java.net.http:?]
 =======
+=======
+>>>>>>> parent of 7687e17 (Fuck)
 [15Dec2022 18:17:06.496] [Worker-Main-12/DEBUG] [software.bernie.geckolib3.GeckoLib/]: Attempting to load animation file geckolib3:animations/bat.animation.json...
 [15Dec2022 18:17:06.658] [Worker-Main-12/DEBUG] [software.bernie.geckolib3.GeckoLib/]: Animation file geckolib3:animations/bat.animation.json processed
 [15Dec2022 18:17:06.659] [Worker-Main-12/DEBUG] [software.bernie.geckolib3.GeckoLib/]: Attempting to load animation file geckolib3:animations/bike.animation.json...
@@ -1028,4 +1048,7 @@ Caused by: java.net.ConnectException: HTTP connect timed out
 [15Dec2022 18:21:30.797] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
 [15Dec2022 18:21:31.192] [Server thread/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Found existing serverconfig directory : .\saves\New World (1)\serverconfig
 [15Dec2022 18:21:31.192] [Server thread/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Unloading configs type SERVER
+<<<<<<< HEAD
+>>>>>>> parent of 7687e17 (Fuck)
+=======
 >>>>>>> parent of 7687e17 (Fuck)
