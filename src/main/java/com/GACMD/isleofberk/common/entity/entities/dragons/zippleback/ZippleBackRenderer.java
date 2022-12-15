@@ -24,17 +24,6 @@ public class ZippleBackRenderer extends BaseRendererFlying<ZippleBack> {
     }
 
     @Override
-    public void render(GeoModel model, ZippleBack animatable, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        super.render(model, animatable, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-    }
-
-//    @Override
-//    public String getDragonFolder() {
-//        return "zippleback";
-//    }
-
-
-    @Override
     public String getDragonFolder() {
         return "night_fury";
     }

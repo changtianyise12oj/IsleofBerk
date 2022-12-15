@@ -10,7 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class NightFuryModel extends BaseDragonModel<NightFury> {
 
     @Override
-    protected float getAdultSize() { return 0.5f; }
+    protected float getAdultSize() { return 1.1f; }
 
     @Override
     public ResourceLocation getModelLocation(NightFury entity) {
@@ -20,7 +20,7 @@ public class NightFuryModel extends BaseDragonModel<NightFury> {
 
     @Override
     public ResourceLocation getTextureLocation(NightFury entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/night_fury/night_fury.png");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/night_fury/toothless.png");
 
     }
 

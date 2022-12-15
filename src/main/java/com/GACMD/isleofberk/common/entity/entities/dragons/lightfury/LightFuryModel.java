@@ -8,17 +8,14 @@ import net.minecraft.resources.ResourceLocation;
 public class LightFuryModel extends BaseDragonModel<LightFury> {
 
     @Override
-    protected float getAdultSize() { return 0.5f; }
-
-    @Override
     public ResourceLocation getModelLocation(LightFury entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/nightfury.geo.json");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/light_fury.geo.json");
 
     }
 
     @Override
     public ResourceLocation getTextureLocation(LightFury entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/night_fury/night_fury.png");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/light_fury/fight_fury_1.png");
 
     }
 

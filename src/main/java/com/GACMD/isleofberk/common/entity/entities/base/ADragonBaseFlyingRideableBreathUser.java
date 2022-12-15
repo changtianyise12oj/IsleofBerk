@@ -147,7 +147,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
             fBreathingTickst--;
         }
 
-        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal)) {
+        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal) && (getTarget() instanceof Player player && !player.isCreative())) {
             if (!(getControllingPassenger() instanceof Player) || (!(getVehicle() instanceof Player) && this instanceof TerribleTerror)) {
                 if (getRandom().nextInt(25) == 1 && fBreathingTickst <= 0 && getRemainingFuel() > 0) {
                     fBreathingTickst = Util.secondsToTicks(1);
