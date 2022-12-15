@@ -1,7 +1,8 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.abase;
 
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
+import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -27,7 +28,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import java.util.function.Predicate;
 
 public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjectile {
-    public ADragonBase dragon;
+    public ADragonRideableUtility dragon;
     public double ticksExisted;
     protected int strengthRadius;
     protected Vec3 start;
@@ -44,7 +45,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
         super(type, level);
     }
 
-    protected BaseLinearFlightProjectile(EntityType<? extends AbstractHurtingProjectile> type, ADragonBaseFlyingRideable owner, Vec3 start, Vec3 end, Level level, int strengthRadius) {
+    protected BaseLinearFlightProjectile(EntityType<? extends AbstractHurtingProjectile> type, ADragonRideableUtility owner, Vec3 start, Vec3 end, Level level, int strengthRadius) {
         super(type, level);
         this.dragon = owner;
         this.strengthRadius = strengthRadius;
@@ -60,6 +61,23 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
             this.yPower = end.y() / d0 * 0.20D; // 0.30D
             this.zPower = end.z() / d0 * 0.20D; // 0.30D
         }
+    }
+
+    public BaseLinearFlightProjectile(EntityType<? extends AbstractHurtingProjectile> pEntityType, ADragonRideableUtility owner, double pX, double pY, double pZ, double pOffsetX, double pOffsetY, double pOffsetZ, Level pLevel, int strengthRadius) {
+        this(pEntityType, pLevel);
+        this.dragon = owner;
+        this.strengthRadius = strengthRadius;
+        this.setOwner(owner);
+
+        this.moveTo(pX, pY, pZ, this.getYRot(), this.getXRot());
+        this.reapplyPosition();
+        double d0 = Math.sqrt(pOffsetX * pOffsetX + pOffsetY * pOffsetY + pOffsetZ * pOffsetZ);
+        if (d0 != 0.0D) {
+            this.xPower = pOffsetX / d0 * 0.1D;
+            this.yPower = pOffsetY / d0 * 0.1D;
+            this.zPower = pOffsetZ / d0 * 0.1D;
+        }
+
     }
 
     /**
@@ -191,7 +209,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
 
         playParticles();
 //         kill entity when ticks exceed 250 to remove lag
-        if (ticksExisted > threshHolfOrDeletion()) {
+        if (ticksExisted > threshHoldForDeletion()) {
             this.discard();
             ticksExisted = 0;
         }
@@ -204,9 +222,12 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
         if (partialTicks == 1) {
             float pVelocity = 5;
             Vec3 endVec = (new Vec3(end.x() * pVelocity, end.y() * pVelocity, end.z() * pVelocity));
-            Vec3 vec3 = (endVec).normalize().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy).scale((double) pVelocity);
 
+            // plays particles
+            // use rotation and endpoint
+            Vec3 vec3 = (endVec).normalize().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy).scale((double) pVelocity);
             this.setDeltaMovement(vec3);
+
             double d0 = end.horizontalDistance();
             this.setYRot((float) (Mth.atan2(end.x, end.z) * (double) (180F / (float) Math.PI)));
             this.setXRot((float) (Mth.atan2(end.y, d0) * (double) (180F / (float) Math.PI)));
@@ -214,6 +235,27 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
             this.xRotO = this.getYRot();
         }
     }
+
+    /**
+     * Shooting projectiles for mobs
+     */
+    public void AIshoot(ADragonBase dragon, Vec3 end, float partialTicks, float pInaccuracy) {
+        if (partialTicks == 1) {
+            float pVelocity = 5;
+            Vec3 look = dragon.getLookAngle().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy).scale((double) pVelocity);
+
+            this.setDeltaMovement(look);
+
+            System.out.println("end" + end);
+            System.out.println("look" + look);
+            double d0 = look.horizontalDistance();
+            this.setYRot((float) (Mth.atan2(look.x, look.z) * (double) (180F / (float) Math.PI)));
+            this.setXRot((float) (Mth.atan2(look.y, d0) * (double) (180F / (float) Math.PI)));
+            this.yRotO = this.getYRot();
+            this.xRotO = this.getYRot();
+        }
+    }
+
     public void shoot(Vec3 end, float partialTicks) {
         shoot(end, partialTicks, 1);
     }
@@ -223,14 +265,48 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
      *
      * @return
      */
-    protected int threshHolfOrDeletion() {
+    protected int threshHoldForDeletion() {
         return 300;
     }
 
     protected abstract Explosion explode(ADragonBase dragon, double x, double y, double z, float explosionStrength, boolean flag, Explosion.BlockInteraction blockInteraction);
 
     public void playParticles() {
+        for (int i = 0; i < 1; i++) {
+            Vec3 vec3 = this.getDeltaMovement();
+            double deltaX = vec3.x;
+            double deltaY = vec3.y;
+            double deltaZ = vec3.z;
+            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
+//                scaleParticleSize(getTrailParticle(), this);
+                for (double j = 0; j < dist; j++) {
+                    double coeff = j / dist;
+                    level.addParticle(getTrailParticle(), true,
+                            (float) (xo + deltaX * coeff),
+                            (float) (yo + deltaY * coeff) + 0.1,
+                            (float) (zo + deltaZ * coeff),
+                            0.0225f * (random.nextFloat() - 0.5f),
+                            0.0225f * (random.nextFloat() - 0.5f),
+                            0.0225f * (random.nextFloat() - 0.5f));
+            }
+        }
+    }
 
+    /**
+     * biggest without looking weird is 1.25F
+     *
+     * @param scalableParticleType
+     */
+    public void scaleParticleSize(ScalableParticleType scalableParticleType, BaseLinearFlightProjectile projectile) {
+        if (projectile.getDamageTier() == 1) {
+            scalableParticleType.setScale(0.15f);
+        } else if (projectile.getDamageTier() == 2) {
+            scalableParticleType.setScale(0.55f);
+        } else if (projectile.getDamageTier() == 3) {
+            scalableParticleType.setScale(0.85f);
+        } else if (projectile.getDamageTier() == 4) {
+            scalableParticleType.setScale(1.25f);
+        }
     }
 
     @Override

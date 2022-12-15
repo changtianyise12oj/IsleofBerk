@@ -8,11 +8,14 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.TerribleTerrorEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;
 import com.GACMD.isleofberk.common.entity.network.ControlNetwork;
-import com.GACMD.isleofberk.common.entity.network.message.DragonRideMessage;
+import com.GACMD.isleofberk.common.entity.network.message.*;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModKeyBinds;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -36,7 +39,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -49,6 +51,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -78,8 +82,9 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     public static final Predicate<LivingEntity> PREY_SELECTOR = (p_30437_) -> {
         EntityType<?> entitytype = p_30437_.getType();
-        return entitytype == EntityType.RABBIT || entitytype == EntityType.CHICKEN;
+        return entitytype == EntityType.TROPICAL_FISH || entitytype == EntityType.PUFFERFISH || entitytype == EntityType.COD || entitytype == EntityType.SALMON || entitytype == EntityType.RABBIT || entitytype == EntityType.CHICKEN;
     };
+
 
     AnimationFactory factory = new AnimationFactory(this);
     static final Predicate<ItemEntity> ALLOWED_ITEMS = (stack) -> {
@@ -223,23 +228,24 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
 //        this.goalSelector.addGoal(1, new DragonRideTilTamed(this, 1));
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
-        this.targetSelector.addGoal(2, new NonTameRandomTargetGoal<>(this, Animal.class, false, PREY_SELECTOR));
+        this.targetSelector.addGoal(2, new NonTameRandomTargetGoal<>(this, LivingEntity.class, false, PREY_SELECTOR));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new DragonOwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
+        this.goalSelector.addGoal(11, new TerrorFeedOnGroundGoal(this));
     }
 
     @Override
-    public boolean tamingItem(ItemStack pStack) {
-        return pStack.is(Items.SALMON) || pStack.is(Items.COD) || pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH);
+    public boolean isItemStackForTaming(ItemStack pStack) {
+        return pStack.is(Items.SALMON) || pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH);
     }
 
     @Override
-    protected Item tameItem() {
-        return Items.SALMON;
+    public boolean isFoodEdibleToDragon(ItemStack pStack) {
+        return super.isFoodEdibleToDragon(pStack);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -253,22 +259,63 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     }
 
     @Override
+    public boolean isBreedingFood(ItemStack pStack) {
+        return pStack.is(Items.COD);
+    }
+
+    @Override
     public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
 
-        if (item.isEdible() && !isBreedingFood(itemstack)) {
-            ItemOnMouth(new ItemStack(item));
-            if (!isTame())
-                this.tameWithName(pPlayer);
+        if (item.isEdible()) {
+
+            ItemStack stack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+            if (stack.isEmpty()) {
+                this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(item));
+            }
+            if (!isTame()) {
+                if (isItemStackForTaming(itemstack) && random.nextInt(8) == 1) {
+                    this.tameWithName(pPlayer);
+                    this.level.broadcastEntityEvent(this, (byte) 7);
+                } else {
+                    this.level.broadcastEntityEvent(this, (byte) 6);
+                }
+            }
             return InteractionResult.SUCCESS;
             // mount the dragon to player if it is not unceremoniously dismounted
             // plan to temporary hide(despawn?) the terror then unhide(respawn?) if the player appears close by
-        } else if (item != Items.STICK && !isBaby()) { //  && isDragonBelziumHeld(itemstack)
+        } else if (item != Items.STICK && !isBaby() && isTame() && !isItemStackForTaming(itemstack) && !isBreedingFood(itemstack)) { //  && isDragonBelziumHeld(itemstack)
             ridePlayer(pPlayer);
-            return InteractionResult.SUCCESS;
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return super.mobInteract(pPlayer, pHand);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void updateClientControls() {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.options.keyJump.isDown()) {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(true));
+        } else {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(false));
+        }
+        if (ModKeyBinds.keyAbilty.isDown()) {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageTerribleTerrorAbility(true));
+        } else {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageTerribleTerrorAbility(false));
+        }
+        if (ModKeyBinds.keySecondAbilty.isDown()) {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(true));
+        } else {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(false));
+        }
+        if (ModKeyBinds.keyDown.isDown()) {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(true));
+        } else {
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(false));
+        }
+
     }
 
     @Override
@@ -279,7 +326,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
         int nutrition = Objects.requireNonNull(itemstack.getItem().getFoodProperties()).getNutrition();
         this.heal(nutrition);
-        if (this.getHunger() < this.getMaxHunger()) this.modifyHunger(nutrition);
     }
 
     protected void ridePlayer(Player player) {
@@ -313,11 +359,9 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         }
     }
 
-    int rideToTameTicks;
 
     public void updateTerrorLatch(Entity vehicle) {
         if (vehicle instanceof Player player) {
-            if (!isTame()) rideToTameTicks++;
 
             int passengerIndex = vehicle.getPassengers().indexOf(this);
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, Util.secondsToTicks(60), passengerIndex, false, false));
@@ -351,11 +395,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             this.setYBodyRot(((Player) vehicle).yBodyRot);
             this.setYHeadRot(((Player) vehicle).yHeadRot);
 
-            // players without taming items may pickup and borrow the terror for climbing obstacles
-            // but if ridden enough, the terror becomes your tamed pet permanently and have pet benefits
-//            if (rideToTameTicks > Util.secondsToTicks(75)) this.tame(player);
-            if (rideToTameTicks > Util.secondsToTicks(90)) this.tame(player);
-
             // try to dismount
             if (player.isShiftKeyDown() && player.getPassengers().iterator().next() == this && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved()) {
                 this.setLastMountedPlayerUUID(null);
@@ -374,7 +413,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             }
 
 //            // remove movement speed if on ground
-            // disabled fish eyes effects are horrible
+            // disabled fish lens eyes effects are horrible
 //            if (isPlayerOnGround(player))
 //                player.removeEffect(MobEffects.MOVEMENT_SPEED);
         }
@@ -404,11 +443,58 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
-        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 2.4;
-        double y = 1.5;
-        double z = Math.cos(this.getYRot() * Math.PI / 180) * 2.4;
+        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 0.5D;
+        double y = 0.5D;
+        double z = Math.cos(this.getYRot() * Math.PI / 180) * 0.5D;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x, y, z));
         return throatPos;
+    }
+
+    public Vec3 getTerror0ThroatPosViaPlayer(Player entity) {
+        Vec3 vehiclePosition = entity.position();
+        double offsetX, offsetY, offsetZ;
+        float radius = 0.4F;
+        offsetX = (radius * -Math.sin(((Player) entity).yBodyRot * Math.PI / 180));
+        offsetZ = (radius * Math.cos(((Player) entity).yBodyRot * Math.PI / 180));
+        offsetY = 2.2D;
+        Vec3 throatPos = new Vec3(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
+        return throatPos;
+    }
+
+    public Vec3 getTerror1ThroatPosViaPlayer(Player entity) {
+        Vec3 vehiclePosition = entity.position();
+        double offsetX, offsetY, offsetZ;
+        float radius = 0.4F;
+        float angle = (float) (Math.PI / 180) * ((Player) entity).yBodyRot - 95;
+        offsetX = (radius * Math.sin(Math.PI + angle));
+        offsetZ = (radius * Math.cos(angle));
+        offsetY = 1.4D;
+        Vec3 throatPos = new Vec3(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
+        return throatPos;
+
+    }
+
+    public Vec3 getTerror2ThroatPosViaPlayer(Player entity) {
+        Vec3 vehiclePosition = entity.position();
+        double offsetX, offsetY, offsetZ;
+        float radius = 0.4F;
+        float angle = (float) (Math.PI / 180) * ((Player) entity).yBodyRot + 95;
+        offsetX = (radius * Math.sin(Math.PI + angle));
+        offsetZ = (radius * Math.cos(angle));
+        offsetY = 1.4D;
+        Vec3 throatPos = new Vec3(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
+        return throatPos;
+
+    }
+
+    @Override
+    public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
+        return 5;
+    }
+
+    @Override
+    public int getMaxFuel() {
+        return 150;
     }
 
     @Override
@@ -424,17 +510,33 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             }
         }
 
-        if (getVehicle() != null && getVehicle() instanceof Player vehicle && !canUseBreathNormally()) {
-            Vec3 throat = getThroatPos(this);
+        if (getVehicle() != null && getVehicle() instanceof Player vehicle) {
             Vec3 vehicleLook = vehicle.getViewVector(1);
-//            level.addParticle(ParticleTypes.HEART, throat.x,throat.y,throat.z,1,1,1);
-
-            if (isUsingAbility() && canUseBreath()) {
-                FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, vehicleLook, level);
-                fireProj.shoot(vehicleLook, 1F);
-                level.addFreshEntity(fireProj);
+            if (this == vehicle.getPassengers().get(0)) {
+                Vec3 throat0 = getTerror0ThroatPosViaPlayer(vehicle);
+                if (isUsingAbility() && canUseBreath())
+                    firePrimary(vehicleLook, throat0);
+//                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat0.x, throat0.y, throat0.z, 1,1,1);
+            } else if (this == vehicle.getPassengers().get(1)) {
+                Vec3 throat1 = getTerror1ThroatPosViaPlayer(vehicle);
+                if (isUsingAbility() && canUseBreath())
+                    firePrimary(vehicleLook, throat1);
+//                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat1.x, throat1.y, throat1.z, 1,1,1);
+            } else if (this == vehicle.getPassengers().get(2)) {
+                Vec3 throat2 = getTerror2ThroatPosViaPlayer(vehicle);
+                if (isUsingAbility() && canUseBreath())
+                    firePrimary(vehicleLook, throat2);
+//                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat2.x, throat2.y, throat2.z, 1,1,1);
             }
         }
+    }
+
+    @Override
+    public void firePrimary(Vec3 riderLook, Vec3 throat) {
+        FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
+        fireProj.setProjectileSize(0);
+        fireProj.shoot(riderLook, 1F, 7F);
+        level.addFreshEntity(fireProj);
     }
 
     @org.jetbrains.annotations.Nullable
@@ -477,7 +579,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     @Override
     protected void pickUpItem(ItemEntity pItemEntity) {
         ItemStack itemstack = pItemEntity.getItem();
-        if (this.canHoldItem(itemstack) && tamingItem(itemstack)) {
+        if (this.canHoldItem(itemstack) && isFoodEdibleToDragon(itemstack)) {
             int i = itemstack.getCount();
             if (i > 1) {
                 this.dropItemStack(itemstack.split(i - 1));
@@ -492,6 +594,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             this.ticksSinceEaten = 0;
         }
     }
+
 
     private boolean canEat(ItemStack pItemStack) {
         return pItemStack.getItem().isEdible() && this.getTarget() == null && this.onGround && !this.isSleeping();
@@ -516,6 +619,17 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
                     }
 
+                    Player player = level.getNearestPlayer(this, 8);
+                    if (!isTame()) {
+                        if (player != null) {
+                            if (isItemStackForTaming(itemstack) && random.nextInt(5) == 1) {
+                                this.tameWithName(player);
+                                this.level.broadcastEntityEvent(this, (byte) 7);
+                            } else {
+                                this.level.broadcastEntityEvent(this, (byte) 6);
+                            }
+                        }
+                    }
                     this.ticksSinceEaten = 0;
                 } else if (this.ticksSinceEaten > 599 && this.random.nextFloat() < 0.1F) {
                     this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
@@ -583,7 +697,10 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             } else {
                 return true;
             }
-            return true;
+
+            ItemStack itemstack = dragonBase.getItemBySlot(EquipmentSlot.MAINHAND);
+            return itemstack.isEmpty() || dragonBase.ticksSinceEaten > 0;
+
         }
 
         @Override
@@ -593,7 +710,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             ItemStack itemStack = dragonBase.getItemBySlot(EquipmentSlot.MAINHAND);
             if (!itemEntityList.isEmpty() && itemStack.isEmpty()) {
                 ItemEntity itemEntity = itemEntityList.iterator().next();
-                if (dragonBase.tamingItem(itemEntity.getItem())) {
+                if (dragonBase.isFoodEdibleToDragon(itemEntity.getItem())) {
                     dragonBase.getNavigation().moveTo(itemEntity, 1.2F);
                 }
             }
@@ -607,7 +724,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             if (!itemEntityList.isEmpty() && itemStack.isEmpty()) {
                 ItemEntity itemEntity = itemEntityList.iterator().next();
                 if (dragonBase.getSensing().hasLineOfSight(itemEntity)) {
-                    if (dragonBase.tamingItem(itemEntity.getItem())) {
+                    if (dragonBase.isFoodEdibleToDragon(itemEntity.getItem())) {
                         dragonBase.getNavigation().moveTo(itemEntity, 1.2F);
                     }
                 }

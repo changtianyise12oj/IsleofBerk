@@ -4,10 +4,10 @@ import com.GACMD.isleofberk.common.entity.entities.AI.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.common.entity.entities.AI.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.common.entity.entities.AI.IOBRandomLookAroundGoal;
 import com.GACMD.isleofberk.common.entity.entities.AI.breed.DragonBreedGoal;
-import com.GACMD.isleofberk.common.entity.entities.AI.target.DragonMeleeAttackGoal;
 import com.GACMD.isleofberk.common.entity.entities.AI.ground.DragonWaterAvoidingRandomStrollGoal;
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.common.entity.entities.AI.target.DragonHurtByTargetGoal;
+import com.GACMD.isleofberk.common.entity.entities.AI.target.DragonMeleeAttackGoal;
 import com.GACMD.isleofberk.common.entity.entities.AI.target.DragonOwnerHurtTargetGoal;
 import com.GACMD.isleofberk.common.entity.entities.AI.water.DragonFloatGoal;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.StingerEgg;
@@ -18,6 +18,7 @@ import com.GACMD.isleofberk.common.entity.network.message.ControlMessageAbility;
 import com.GACMD.isleofberk.common.entity.network.message.ControlMessageGoingDown;
 import com.GACMD.isleofberk.common.entity.network.message.ControlMessageJumping;
 import com.GACMD.isleofberk.common.entity.network.message.ControlMessageSECONDAbility;
+import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModKeyBinds;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -73,7 +74,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected static final EntityDataAccessor<Integer> DISTURB_TICKS = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DISTURB_TICKS_ABILITY = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> DRAGON_OVERLAY = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> HUNGER_BAR = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> FOOD_TAMING_LIMITER_BAR = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> PHASE_ONE_PROGRESS = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> TITAN_WING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_INCAPACITATED = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
@@ -121,7 +122,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.define(DISTURB_TICKS_ABILITY, 0);
         this.entityData.define(DRAGON_OVERLAY, 0);
         this.entityData.define(COMMANDS, 0);
-        this.entityData.define(HUNGER_BAR, 70);
+        this.entityData.define(FOOD_TAMING_LIMITER_BAR, 0);
         this.entityData.define(PHASE_ONE_PROGRESS, 0);
         this.entityData.define(TITAN_WING, false);
         this.entityData.define(IS_INCAPACITATED, false);
@@ -141,8 +142,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("hunger", this.getHunger());
-        pCompound.putInt("phase_one_progress", this.getPhaseOneProgress());
+        pCompound.putInt("food_taming_threshold", this.getFoodTameLimiterBar());
+        pCompound.putInt("phase_1_progress", this.getPhase1Progress());
         pCompound.putInt("disturb_ticks", this.getSleepDisturbTicks());
         pCompound.putInt("disturb_ticks_ability", this.getAbilityDisturbTicks());
         pCompound.putInt("variant", this.getDragonVariant());
@@ -163,8 +164,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.setHunger(pCompound.getInt("hunger"));
-        this.setPhaseOneProgress(pCompound.getInt("phase_one_progress"));
+        this.setFoodTameLimiterBar(pCompound.getInt("food_taming_threshold"));
+        this.setPhase1Progress(pCompound.getInt("phase_1_progress"));
         this.setSleepDisturbTicks(pCompound.getInt("disturb_ticks"));
         this.setAbilityDisturbTicksAbility(pCompound.getInt("disturb_ticks_ability"));
         this.setDragonVariant(pCompound.getInt("variant"));
@@ -202,8 +203,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public static boolean checkAnimalSpawnRules(EntityType<? extends Animal> pAnimal, LevelAccessor pLevel, MobSpawnType pReason, BlockPos pPos, Random pRandom) {
         return pLevel.getBlockState(pPos.below()).is(BlockTags.ANIMALS_SPAWNABLE_ON) || pLevel.getBlockState(pPos.below()).is(BlockTags.SAND) ||
                 pLevel.getBlockState(pPos.below()).is(BlockTags.LEAVES) || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS) ||
-                pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_PICKAXE) || pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_SHOVEL);
-//        return true;
+                pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_PICKAXE) || pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_SHOVEL) && pLevel.canSeeSky(pPos);
     }
 
     protected static boolean isBrightEnoughToSpawn(BlockAndTintGetter p_186210_, BlockPos p_186211_) {
@@ -349,16 +349,33 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.set(IS_MALE, male);
     }
 
+    /**
+     * there is an extra food taming phase, foodTamingPhaseProogress() is subtracted on ticks(),
+     *
+     * @param pIgnoreHunger
+     * @return
+     */
     public boolean canEatWithFoodOnHand(boolean pIgnoreHunger) {
-        return this.isInvulnerable() || pIgnoreHunger || this.getHunger() < 100 && getTarget() != null;
+        if (!isTame()) {
+            return this.isInvulnerable() || pIgnoreHunger && getTarget() != null && this.getFoodTameLimiterBar() < 100;
+        } else {
+            return this.isInvulnerable() || pIgnoreHunger && getTarget() != null;
+
+        }
     }
 
-    public int getHunger() {
-        return this.entityData.get(HUNGER_BAR);
+    /**
+     * foodTamingPhaseProgress() is subtracted on ticks() if not Tamed, it limits how much food you can feed the dragon at food taming phase, then if it reaches max, health potion particles appear
+     * if it does, then you can ride/dragon dismounts you then you ride again, repeatedly until you tame it.
+     *
+     * @return
+     */
+    public int getFoodTameLimiterBar() {
+        return this.entityData.get(FOOD_TAMING_LIMITER_BAR);
     }
 
-    public void setHunger(int hunger_bar) {
-        this.entityData.set(HUNGER_BAR, hunger_bar);
+    public void setFoodTameLimiterBar(int food) {
+        this.entityData.set(FOOD_TAMING_LIMITER_BAR, food);
     }
 
     /**
@@ -366,11 +383,11 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
      *
      * @return
      */
-    public int getPhaseOneProgress() {
+    public int getPhase1Progress() {
         return this.entityData.get(PHASE_ONE_PROGRESS);
     }
 
-    public void setPhaseOneProgress(int phase_progress) {
+    public void setPhase1Progress(int phase_progress) {
         this.entityData.set(PHASE_ONE_PROGRESS, phase_progress);
     }
 
@@ -396,10 +413,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     public boolean isPhaseTwo() {
-        return this.getPhaseOneProgress() > 95;
+        return this.getPhase1Progress() >= 100;
     }
 
-    public int getMaxHunger() {
+    public int getFoodTamingPhaseMaximumLevel() {
         return 100;
     }
 
@@ -535,7 +552,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return Items.BEEF;
     }
 
-    protected boolean tamingItem(ItemStack stack) {
+    protected boolean isItemStackForTaming(ItemStack stack) {
         return stack.is(tameItem());
     }
 
@@ -545,6 +562,12 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
      */
     protected int getAggressionType() {
         return 0;
+    }
+
+    @Override
+    public void setInLove(@javax.annotation.Nullable Player pPlayer) {
+        this.setInLoveTime(Util.mcDaysToMinutes(10));
+        super.setInLove(pPlayer);
     }
 
     @Override
@@ -631,8 +654,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         super.tame(pPlayer);
     }
 
-    public boolean isFUll() {
-        return getHunger() >= getMaxHunger();
+    public boolean isTamingPhaseBarFull() {
+        return getFoodTameLimiterBar() >= getFoodTamingPhaseMaximumLevel();
     }
 
     public boolean isNocturnal() {
@@ -726,9 +749,17 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             updateClientControls();
         }
 
-        if (level.random.nextInt(100) == 1)
-            this.modifyHunger(-1);
+        if (!isTame()) {
+            // used in tamingFood levels
+            if (level.random.nextInt(85) == 1) {
+                this.modifyFoodTamingThreshold(-1);
+            }
 
+            // gradually reduce if player isn't consistent about their taming
+            if (level.random.nextInt(600) == 1 && getPhase1Progress() < 95) {
+                this.modifyPhase1Progress(-1);
+            }
+        }
         if (!isDragonIncapacitated() && random.nextInt(150) == 1 && getHealth() < getMaxHealth()) {
             this.heal(5);
         }
@@ -931,10 +962,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
                 pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH) || (item.isEdible() && item.getFoodProperties().isMeat() && item.getFoodProperties() != null) && !pStack.isEmpty();
     }
 
-//    protected boolean isDragonBelziumHeld(ItemStack pStack) {
-//        return pStack.is(ItemInit.BELZIUM.get());
-//    }
-
     public int getMaxTemper() {
         return 100;
     }
@@ -947,31 +974,18 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.homePos = homePos;
     }
 
-    public void modifyHunger(int x) {
-        int i = Mth.clamp(this.getHunger() + x, 0, this.getMaxHunger());
-        this.setHunger(i);
+    public void modifyFoodTamingThreshold(int x) {
+        int i = Mth.clamp(this.getFoodTameLimiterBar() + x, 0, this.getFoodTamingPhaseMaximumLevel());
+        this.setFoodTameLimiterBar(i);
     }
 
-    public void modifyPhaseProgress(int x) {
-        int i = Mth.clamp(this.getPhaseOneProgress() + x, 0, 100);
-        this.setPhaseOneProgress(i);
-    }
-
-    /**
-     * When an entity spooks this dragon, attack
-     *
-     * @param player
-     */
-    public void setSpookedBy(Player player) {
-        level.addParticle(ParticleTypes.ANGRY_VILLAGER, getX(), getY(), getZ(), 0, 0, 0);
-        this.setTarget(player);
+    public void modifyPhase1Progress(int x) {
+        int i = Mth.clamp(this.getPhase1Progress() + x, 0, 100);
+        this.setPhase1Progress(i);
     }
 
     public void makeMad() {
-//        SoundEvent soundevent = this.getAngrySound();
-//        if (soundevent != null) {
-//            this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
-//        }
+
     }
 
     @Override
@@ -1042,7 +1056,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     /**
-     *
      * @param dragon
      * @param entity
      * @param projectile
@@ -1060,7 +1073,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             CriteriaTriggers.TAME_ANIMAL.trigger((ServerPlayer) pPlayer, this);
         }
 
-        modifyPhaseProgress(100);
+        modifyPhase1Progress(100);
 
         this.level.broadcastEntityEvent(this, (byte) 7);
         return true;

@@ -3,8 +3,9 @@
 
     "item.isleofberk.deadly_nadder_spawn_egg": "§dDeadly Nadder",
     "item.isleofberk.gronckle_spawn_egg": "§dGronckle",
-    "item.isleofberk.light_fury_spawn_egg": "§dLight Fury",
-    "item.isleofberk.hideous_zippleback__spawn_egg": "§dHideous ZippleBack",
+    "item.isleofberk.lightfury_spawn_egg": "§dLight Fury",
+    "item.isleofberk.zippleback_spawn_egg": "§dHideous ZippleBack",
+    "item.isleofberk.monstrous_nightmare_spawn_egg": "§dMonstrous Nightmare",
     "item.isleofberk.nightfury_spawn_egg": "§dNight Fury",
     "item.isleofberk.speed_stinger_spawn_egg": "§dSpeed Stinger",
     "item.isleofberk.speed_stinger_leader_spawn_egg": "§dLead Speed Stinger",
@@ -80,6 +81,9 @@
     "key.isleofberk.keyDown": "Fly Down",
 
     "nightfury_spawn_egg_info": "Tier 4 §5§lStrike Class §rDragon",
+    "lightfury_spawn_egg_info": "Tier 4 §5§lStrike Class §rDragon",
+    "zippleback_spawn_egg_info": "Tier 4 §5§lMystery Class §rDragon",
+    "monstrous_nightmare_spawn_egg_info": "Tier 4 §5§lStoker Class §rDragon",
     "triple_stryke_spawn_egg_info": "Tier 3 §5§lStrike Class §rDragon",
     "gronckle_spawn_egg_info": "Tier 2 §4§lBoulder Class §rDragon",
     "nadder_spawn_egg_info": "Tier 2 §b§lTracker Class §rDragon",

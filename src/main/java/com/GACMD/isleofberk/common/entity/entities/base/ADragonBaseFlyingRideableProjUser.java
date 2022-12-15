@@ -1,6 +1,8 @@
 package com.GACMD.isleofberk.common.entity.entities.base;
 
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
+import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt.FireBolt;
+import com.GACMD.isleofberk.common.entity.util.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -8,11 +10,14 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable {
+    private int ticksSinceLastProjShoot = 0;
 
     public ADragonBaseFlyingRideableProjUser(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -20,6 +25,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
 
     int explosionStrength;
     public int playerBoltBlastPendingScale = 0;
+    public int playerBoltBlastPendingStopThreshold = 0;
     protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_FIRE = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> MARK_FIRED = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.BOOLEAN);
 
@@ -56,11 +62,10 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
         return this.entityData.get(MARK_FIRED);
     }
 
-    public void setMarkFired(boolean incapacitated) {
-        this.entityData.set(MARK_FIRED, incapacitated);
+    public void setMarkFired(boolean fired) {
+        this.entityData.set(MARK_FIRED, fired);
     }
 
-    // Variant
     public int getTicksSinceLastFire() {
         return this.entityData.get(TICK_SINCE_LAST_FIRE);
     }
@@ -72,15 +77,28 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     @Override
     public void tick() {
         super.tick();
+        Vec3 throat = getThroatPos(this);
         if (getControllingPassenger() != null && getControllingPassenger() instanceof Player rider) {
-            Vec3 throat = getThroatPos(this);
             Vec3 riderLook = rider.getViewVector(1);
 
             int ticksLimit = getMaxPlayerBoltBlast();
-            if (isUsingAbility() && getControllingPassenger() != null && playerBoltBlastPendingScale <= ticksLimit + 1) {
-                playerBoltBlastPendingScale++;
-            } else if (playerBoltBlastPendingScale > 0) {
-                playerBoltBlastPendingScale--;
+            if (getControllingPassenger() != null) {
+                if (isUsingAbility()) {
+                    playerBoltBlastPendingStopThreshold++;
+
+                    if (playerBoltBlastPendingScale <= ticksLimit + 1 && playerBoltBlastPendingStopThreshold < ticksLimit * 1.10) {
+                        playerBoltBlastPendingScale++;
+                    }
+
+                    // slowly decrement to 13% blast if R is held too long to prevent collecting of overcharged breath attacks
+                    if (playerBoltBlastPendingStopThreshold > ticksLimit * 1.05) {
+                        if (playerBoltBlastPendingScale > ticksLimit * 0.30)
+                            setPlayerBoltBlastPendingScale(playerBoltBlastPendingScale -= 4);
+                    }
+                } else if (playerBoltBlastPendingScale > 0) {
+                    playerBoltBlastPendingScale--;
+                    playerBoltBlastPendingStopThreshold--;
+                }
             }
 
             if (getTicksSinceLastFire() > 0) {
@@ -94,13 +112,39 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
             }
 
             if (canFireProj()) {
-                fireProjectile(riderLook, throat);
+                playerFireProjectile(riderLook, throat);
+            }
+
+            if (!isUsingAbility()) {
+                setPlayerBoltBlastPendingStopThreshold(0);
             }
         }
-//        Vec3 throat = getThroatPos(this);
-//        level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat.x, throat.y, throat.z, 1, 1, 1);
 
+        // probably scale the hitbox too
+        // use in melee AI
+        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal)) {
+            if (!(getControllingPassenger() instanceof Player)) {
+                if (getRandom().nextInt(25) == 1) {
+                    setPlayerBoltBlastPendingScale((int) (getMaxPlayerBoltBlast() * getAIProjPowerPercentage()));
+                    dragonShootProjectile(getViewVector(1F), getThroatPos(this));
+                    ticksSinceLastProjShoot = Util.secondsToTicks(1);
+                }
+                if (ticksSinceLastProjShoot > 0) {
+                    ticksSinceLastProjShoot--;
+                }
+            }
+        }
 
+//        if(random.nextInt(100) == 1) {
+//            Vec3 vec3 = this.getViewVector(1.0F);
+//            LargeFireball largefireball = new LargeFireball(level, this, 0, 3, 0, 3);
+//            largefireball.setPos(this.getX() + vec3.x * 4.0D, this.getY(0.5D) + 0.5D, largefireball.getZ() + vec3.z * 4.0D);
+//            level.addFreshEntity(largefireball);
+//        }
+    }
+
+    protected float getAIProjPowerPercentage() {
+        return 0.85F;
     }
 
     /**
@@ -126,33 +170,62 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
         return 24;
     }
 
-
     public boolean canFireProj() {
         return !this.isBaby();
     }
 
-    protected void fireProjectile(Vec3 riderLook, Vec3 throat) {
+    protected void playerFireProjectile(Vec3 riderLook, Vec3 throat) {
+        if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
+            setTicksSinceLastFire(20);
+            FireBolt bolt = new FireBolt(this, throat, riderLook, level, getExplosionStrength());
+            bolt.shoot(riderLook, 1F);
+            level.addFreshEntity(bolt);
+            setPlayerBoltBlastPendingScale(0);
+            setPlayerBoltBlastPendingStopThreshold(0);
+        }
+    }
 
+    public void dragonShootProjectile(Vec3 dragonLook, Vec3 throat) {
+        if ((tier1() || tier2() || tier3() || tier4())) {
+            setTicksSinceLastFire(20);
+            FireBolt bolt = new FireBolt(this, throat, dragonLook, level, getExplosionStrength());
+            bolt.shoot(dragonLook, 1F);
+            level.addFreshEntity(bolt);
+            setPlayerBoltBlastPendingScale(0);
+            setPlayerBoltBlastPendingStopThreshold(0);
+        }
     }
 
     public int getPlayerBoltBlastPendingScale() {
         return playerBoltBlastPendingScale;
     }
 
+    public void setPlayerBoltBlastPendingScale(int playerBoltBlastPendingScale) {
+        this.playerBoltBlastPendingScale = playerBoltBlastPendingScale;
+    }
+
+    public int getPlayerBoltBlastPendingStopThreshold() {
+        return playerBoltBlastPendingStopThreshold;
+    }
+
+    public void setPlayerBoltBlastPendingStopThreshold(int playerBoltBlastPendingStopThreshold) {
+        this.playerBoltBlastPendingStopThreshold = playerBoltBlastPendingStopThreshold;
+    }
+
     public int getMaxPlayerBoltBlast() {
-        return 15;
+        return 60;
     }
 
     public boolean tier1() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.15 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.30;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.50 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.70;
     }
 
     public boolean tier2() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.60 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.60;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.70 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.85;
     }
 
     public boolean tier3() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.70 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast();
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.85 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast();
     }
 
     public boolean tier4() {

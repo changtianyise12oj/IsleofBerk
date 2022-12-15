@@ -1,16 +1,16 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.skrill;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.common.entity.entities.base.render.model.BaseDragonModelFlying;
+import com.GACMD.isleofberk.common.entity.entities.base.render.model.BaseDragonModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 
-public class SkrillModel extends BaseDragonModelFlying<Skrill> {
+public class SkrillModel extends BaseDragonModel<Skrill> {
 
 
     public SkrillModel(EntityRendererProvider.Context renderManager) {
-        super(renderManager);
+
     }
 
     @Override

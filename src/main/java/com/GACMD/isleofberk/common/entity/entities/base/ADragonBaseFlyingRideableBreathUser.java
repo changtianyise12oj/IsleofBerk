@@ -1,12 +1,16 @@
 package com.GACMD.isleofberk.common.entity.entities.base;
 
+import com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerror;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;
+import com.GACMD.isleofberk.common.entity.util.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -15,6 +19,8 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
 
     private static final EntityDataAccessor<Integer> FRST_FUEL = SynchedEntityData.defineId(ADragonBaseFlyingRideableBreathUser.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SEC_FUEL = SynchedEntityData.defineId(ADragonBaseFlyingRideableBreathUser.class, EntityDataSerializers.INT);
+
+    public int fBreathingTickst = 0;
 
     public ADragonBaseFlyingRideableBreathUser(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -37,7 +43,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
     }
 
     public int getMaxFuel() {
-        return 150;
+        return 250;
     }
 
     public int getRemainingSecondFuel() {
@@ -75,6 +81,24 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         return true;
     }
 
+    /**
+     * 1:x chance when the bar will add value at random per tick
+     *
+     * @return
+     */
+    protected int breathBarRegenSpeed() {
+        return 40;
+    }
+
+    /**
+     * the amount it adds per breath bar growth
+     *
+     * @return
+     */
+    protected int breathBarRegenAmount() {
+        return 4;
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -82,7 +106,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         if (isUsingAbility()) {
             if (getControllingPassenger() != null && getControllingPassenger() instanceof Player player) {
 //                if (!player.isCreative())
-                    modifyFuel(-1);
+                modifyFuel(-1);
             } else {
                 modifyFuel(-1);
             }
@@ -91,19 +115,16 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
             modifySecondaryFuel(-1);
         }
 
-        // regen fuel if hunger bar is nearly full
-        if (getHunger() >= getMaxHunger() * 0.75) {
-            if (getRandom().nextInt(50) == 1) {
-                modifyFuel(2);
-            }
+        // regen fuel regardless of hunger bar
+        if (getRandom().nextInt(breathBarRegenSpeed()) == 1) {
+            modifyFuel(breathBarRegenAmount());
         }
 
+
         // regen secondary fuel regardless, it only holds 25 units
-//        if (getHunger() >= getMaxHunger() * 0.75) {
-            if (getRandom().nextInt(250) == 1) {
-                modifySecondaryFuel(4);
-            }
-//        }
+        if (getRandom().nextInt(250) == 1) {
+            modifySecondaryFuel(4);
+        }
 
         if (getControllingPassenger() != null && getControllingPassenger() instanceof Player rider && canUseBreathNormally()) {
             Vec3 throat = getThroatPos(this);
@@ -118,27 +139,45 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
             }
         }
 
-        // when hunger is less than half and if fuel is greater than half of the max, reduce
-//        if (getHunger() < 50) {
-//            if (random.nextInt(50) == 0)
-//                if (getRemainingFuel() > getRemainingFuel() * 0.50)
-//                    modifyFuel(-5);
-//
-//            if (getRemainingSecondFuel() > getRemainingSecondFuel() * 0.50)
-//                modifySecondaryFuel(-5);
-//        }
 
-//        Vec3 throat = getThroatPos(this);
-//        level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat.x, throat.y, throat.z, 1, 1, 1);
+//        System.out.println(fBreathingTickst);
+//        System.out.println("dragon is using ability " + isUsingAbility());
+
+        if (fBreathingTickst > 0) {
+            fBreathingTickst--;
+        }
+
+        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal)) {
+            if (!(getControllingPassenger() instanceof Player) || (!(getVehicle() instanceof Player) && this instanceof TerribleTerror)) {
+                if (getRandom().nextInt(25) == 1 && fBreathingTickst <= 0 && getRemainingFuel() > 0) {
+                    fBreathingTickst = Util.secondsToTicks(1);
+                }
+
+                if (fBreathingTickst > 0) {
+                    firePrimary(getViewVector(1F), getThroatPos(this));
+                    setIsUsingAbility(true);
+                    modifyFuel(-1);
+                }
+            }
+        }
+
+        if (this instanceof TerribleTerror terribleTerror) {
+            if (fBreathingTickst <= 0 && !(getVehicle() instanceof Player)) {
+                setIsUsingAbility(false);
+            }
+        } else if (fBreathingTickst <= 0 && (getControllingPassenger() == null)) {
+            setIsUsingAbility(false);
+        }
     }
 
-    protected void firePrimary(Vec3 riderLook, Vec3 throat) {
+    public void firePrimary(Vec3 riderLook, Vec3 throat) {
         FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
-        fireProj.shoot(riderLook, 1F, 2F);
+        fireProj.shoot(riderLook, 1F, 7F);
+        fireProj.setProjectileSize(2);
         level.addFreshEntity(fireProj);
     }
 
-    protected void fireSecondary(Vec3 riderLook, Vec3 throat) {
+    public void fireSecondary(Vec3 riderLook, Vec3 throat) {
 
     }
 

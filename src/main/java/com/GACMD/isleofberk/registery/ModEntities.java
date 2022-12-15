@@ -3,12 +3,15 @@ package com.GACMD.isleofberk.registery;
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.common.entity.entities.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.common.entity.entities.dragons.gronckle.Gronckle;
+import com.GACMD.isleofberk.common.entity.entities.dragons.lightfury.LightFury;
+import com.GACMD.isleofberk.common.entity.entities.dragons.montrous_nightmare.MonstrousNightmare;
 import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.common.entity.entities.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.common.entity.entities.dragons.speedstingerleader.SpeedStingerLeader;
 import com.GACMD.isleofberk.common.entity.entities.dragons.stinger.Stinger;
 import com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerror;
 import com.GACMD.isleofberk.common.entity.entities.dragons.tryiple_stryke.TripleStryke;
+import com.GACMD.isleofberk.common.entity.entities.dragons.zippleback.ZippleBack;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.*;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison.ZipBreathProjectile;
@@ -62,6 +65,18 @@ public class ModEntities {
     public static final RegistryObject<EntityType<DeadlyNadder>> DEADLY_NADDER = ENTITIES.register("deadly_nadder",
             () -> EntityType.Builder.of(DeadlyNadder::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "deadly_nadder").toString()));
+
+    public static final RegistryObject<EntityType<LightFury>> LIGHT_FURY = ENTITIES.register("light_fury",
+            () -> EntityType.Builder.of(LightFury::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "light_fury").toString()));
+
+    public static final RegistryObject<EntityType<MonstrousNightmare>> MONSTROUS_NIGHTMARE = ENTITIES.register("monstrous_nightmare",
+            () -> EntityType.Builder.of(MonstrousNightmare::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "monstrous_nightmare").toString()));
+
+    public static final RegistryObject<EntityType<ZippleBack>> ZIPPLEBACK = ENTITIES.register("zippleback",
+            () -> EntityType.Builder.of(ZippleBack::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "zippleback").toString()));
 
     // projectiles
     public static final RegistryObject<EntityType<FuryBolt>> FURY_BOLT = ENTITIES.register("fury_bolt",

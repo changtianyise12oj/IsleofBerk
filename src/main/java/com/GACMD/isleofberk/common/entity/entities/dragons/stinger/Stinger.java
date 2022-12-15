@@ -41,9 +41,10 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
-    StingerPart subParts[];
+    StingerPart[] subParts;
     StingerPart stingerRamOffset;
 
     private <E extends IAnimatable> PlayState predicate1(AnimationEvent<E> event) {
@@ -56,7 +57,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     }
 
     @Override
-    protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
+    protected float getStandingEyeHeight(@NotNull Pose pPose, @NotNull EntityDimensions pSize) {
         return pPose == Pose.SLEEPING ? 0.2F : pSize.height * 1.65F;
     }
 
@@ -113,7 +114,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     }
 
     @Override
-    public void recreateFromPacket(ClientboundAddMobPacket mobPacket) {
+    public void recreateFromPacket(@NotNull ClientboundAddMobPacket mobPacket) {
         super.recreateFromPacket(mobPacket);
         PartEntity<?>[] stingerPart = this.getParts();
 
@@ -124,7 +125,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public @NotNull Packet<?> getAddEntityPacket() {
         return new ClientboundAddMobPacket(this);
     }
 
@@ -170,8 +171,6 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     private void knockBack(List<Entity> pEntities) {
         double d0 = (this.stingerRamOffset.getBoundingBox().minX + this.stingerRamOffset.getBoundingBox().maxX) / 2.0D;
         double d1 = (this.stingerRamOffset.getBoundingBox().minZ + this.stingerRamOffset.getBoundingBox().maxZ) / 2.0D;
-        Vec3 prevPos = this.position();
-        Vec3 newPos = prevPos;
 
         for (Entity entity : pEntities) {
             if (entity instanceof LivingEntity && entity != this.getPassengers() && (entity.xOld == entity.getX() || entity.zOld == entity.getZ())) {
@@ -197,11 +196,6 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
             }
         }
 
-    }
-
-    @Override
-    protected void foodTamingInteraction(Player pPlayer, InteractionHand pHand, ItemStack itemstack) {
-        super.foodTamingInteraction(pPlayer, pHand, itemstack);
     }
 
     @Override
@@ -331,7 +325,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         return 0.2F;
     }
 
-    public class StingerPart extends PartEntity<Stinger> {
+    public static class StingerPart extends PartEntity<Stinger> {
 
         Stinger parent;
         EntityDimensions size;
@@ -368,16 +362,15 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         @Override
         public boolean hurt(DamageSource pSource, float pAmount) { //  && pSource.getEntity().getVehicle() != parent
             Entity entity = pSource.getEntity();
-            if (entity instanceof LivingEntity) {
-                LivingEntity rider = (LivingEntity) entity;
-                if (pSource == DamageSource.mobAttack(rider) && rider.getVehicle() == parent) {
+            if (entity instanceof LivingEntity rider) {
+                if (pSource.equals(DamageSource.mobAttack(rider)) && rider.getVehicle() == parent) {
                     return false;
                 }
             }
-            return isInvulnerableTo(pSource) && !(entity.getVehicle() == parent) ? false : parent.hurt(pSource, pAmount);
+            return (!isInvulnerableTo(pSource) || Objects.requireNonNull(entity).getVehicle() == parent) && parent.hurt(pSource, pAmount);
         }
 
-        public boolean is(Entity pEntity) {
+        public boolean is(@NotNull Entity pEntity) {
             return this == pEntity || this.parent == pEntity;
         }
 
@@ -385,7 +378,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
             throw new UnsupportedOperationException();
         }
 
-        public EntityDimensions getDimensions(Pose pPose) {
+        public @NotNull EntityDimensions getDimensions(@NotNull Pose pPose) {
             return this.size;
         }
 

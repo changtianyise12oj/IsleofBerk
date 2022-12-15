@@ -1,10 +1,12 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt;
 
-import com.GACMD.isleofberk.common.blocks.DragonSoulFire;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
+import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearBoltProjectile;
+import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
@@ -22,6 +24,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.Explosion;
@@ -70,6 +73,24 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
         super(ModEntities.FIRE_BOLT.get(), owner, throat, end, level, strengthRadius);
     }
 
+    public FireBolt(ADragonBaseFlyingRideableProjUser owner, double pOffsetX, double pOffsetY, double pOffsetZ, Level pLevel, int strengthRadius) {
+        this(ModEntities.FIRE_BOLT.get(), pLevel);
+        this.dragon = owner;
+        this.strengthRadius = strengthRadius;
+        this.setOwner(owner);
+        this.setRot(owner.getYRot(), owner.getXRot());
+
+        this.moveTo(owner.getX(), owner.getY(), owner.getZ(), this.getYRot(), this.getXRot());
+        this.reapplyPosition();
+        double d0 = Math.sqrt(pOffsetX * pOffsetX + pOffsetY * pOffsetY + pOffsetZ * pOffsetZ);
+        if (d0 != 0.0D) {
+            this.xPower = pOffsetX / d0 * 0.1D;
+            this.yPower = pOffsetY / d0 * 0.1D;
+            this.zPower = pOffsetZ / d0 * 0.1D;
+        }
+
+    }
+
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 //        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.projectile.spin", true));
         return PlayState.CONTINUE;
@@ -89,26 +110,6 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
-    }
-
-    public void playParticles() {
-        for (int i = 0; i < 1; i++) {
-            Vec3 vec3 = this.getDeltaMovement();
-            double deltaX = vec3.x;
-            double deltaY = vec3.y;
-            double deltaZ = vec3.z;
-            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
-            for (double j = 0; j < dist; j++) {
-                double coeff = j / dist;
-                level.addParticle(getTrailParticle(), true,
-                        (float) (xo + deltaX * coeff),
-                        (float) (yo + deltaY * coeff) + 0.1,
-                        (float) (zo + deltaZ * coeff),
-                        0.0225f * (random.nextFloat() - 0.5f),
-                        0.0225f * (random.nextFloat() - 0.5f),
-                        0.0225f * (random.nextFloat() - 0.5f));
-            }
-        }
     }
 
     @Override
@@ -132,10 +133,28 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
     }
 
     /**
+     * biggest without looking weird is 1.25F
+     *
+     * @param scalableParticleType
+     */
+    @Override
+    public void scaleParticleSize(ScalableParticleType scalableParticleType, BaseLinearFlightProjectile projectile) {
+//        if (projectile.getDamageTier() == 1) {
+//            scalableParticleType.setScale(0.15f);
+//        } else if (projectile.getDamageTier() == 2) {
+//            scalableParticleType.setScale(0.25f);
+//        } else if (projectile.getDamageTier() == 3) {
+//            scalableParticleType.setScale(0.55f);
+//        } else if (projectile.getDamageTier() == 4) {
+//            scalableParticleType.setScale(0.85f);
+//        }
+    }
+
+    /**
      * Custom Explosion method used for making explosions with DragonSoulFire.
      *
      * @return The Explosion Object
-     * @see DragonSoulFire
+     * @see com.GACMD.isleofberk.init.blocks.DragonSoulFire
      * @see Explosion
      * @see Explosion#explode()
      */

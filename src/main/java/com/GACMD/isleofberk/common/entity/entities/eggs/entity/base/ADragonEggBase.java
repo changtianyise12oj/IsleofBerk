@@ -50,7 +50,6 @@ import java.util.UUID;
 
 public class ADragonEggBase extends LivingEntity implements IAnimatable {
     private static final EntityDataAccessor<Integer> DRAGON_VARIANT = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.INT);
-    private static final EntityDataAccessor<Optional<UUID>> OWNER_UUID = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Integer> TICK_HATCH_TIME = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> CAN_HATCH = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.BOOLEAN);
     protected ADragonBase dragonResult;
@@ -88,7 +87,6 @@ public class ADragonEggBase extends LivingEntity implements IAnimatable {
         super.defineSynchedData();
         this.entityData.define(DRAGON_VARIANT, 0);
         this.entityData.define(TICK_HATCH_TIME, 0);
-        this.entityData.define(OWNER_UUID, Optional.empty());
         this.entityData.define(CAN_HATCH, true);
     }
 
@@ -98,9 +96,6 @@ public class ADragonEggBase extends LivingEntity implements IAnimatable {
         pCompound.putInt("dragonVariant", getDragonVariant());
         pCompound.putInt("daysToHatch", getTicksToHatch());
         pCompound.putBoolean("canHatch", canHatch());
-        if (this.getOwnerUUID() != null) {
-            pCompound.putUUID("Owner", this.getOwnerUUID());
-        }
     }
 
     @Override
@@ -109,21 +104,6 @@ public class ADragonEggBase extends LivingEntity implements IAnimatable {
         this.setDragonVariant(pCompound.getInt("dragonVariant"));
         this.setTicksToHatch(pCompound.getInt("daysToHatch"));
         this.setCanHatch(pCompound.getBoolean("canHatch"));
-        UUID uuid;
-        if (pCompound.hasUUID("Owner")) {
-            uuid = pCompound.getUUID("Owner");
-        } else {
-            String s = pCompound.getString("Owner");
-            uuid = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), s);
-        }
-
-        if (uuid != null) {
-            try {
-                this.setOwnerUUID(uuid);
-            } catch (Throwable throwable) {
-                this.setOwnerUUID(uuid);
-            }
-        }
     }
 
     @Override
@@ -150,25 +130,6 @@ public class ADragonEggBase extends LivingEntity implements IAnimatable {
     @Override
     public void setItemSlot(EquipmentSlot pSlot, ItemStack pStack) {
 
-    }
-
-    @Nullable
-    public UUID getOwnerUUID() {
-        return this.entityData.get(OWNER_UUID).orElse((UUID) null);
-    }
-
-    public void setOwnerUUID(@Nullable UUID p_21817_) {
-        this.entityData.set(OWNER_UUID, Optional.ofNullable(p_21817_));
-    }
-
-    @Nullable
-    public LivingEntity getOwner() {
-        try {
-            UUID uuid = this.getOwnerUUID();
-            return uuid == null ? null : this.level.getPlayerByUUID(uuid);
-        } catch (IllegalArgumentException illegalargumentexception) {
-            return null;
-        }
     }
 
     @Override
@@ -289,8 +250,8 @@ public class ADragonEggBase extends LivingEntity implements IAnimatable {
         assert dragonResult != null;
         dragonResult.setAge(-100000);
         dragonResult.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
-        dragonResult.setHunger(40);
-        dragonResult.setDragonVariant(getDragonVariant());
+        dragonResult.setFoodTameLimiterBar(40);
+        dragonResult.setDragonVariant(random.nextInt(dragonResult.getMaxAmountOfVariants()));
         this.level.addFreshEntity(dragonResult);
         this.discard();
         if (this.level instanceof ServerLevel) {
@@ -309,7 +270,6 @@ public class ADragonEggBase extends LivingEntity implements IAnimatable {
         if (!isRemoved()) {
             if (!level.isClientSide()) {
                 DragonEggItem item = getItemVersion();
-                item.setVariant(this.getDragonVariant());
                 this.spawnAtLocation(item);
                 this.discard();
                 return true;

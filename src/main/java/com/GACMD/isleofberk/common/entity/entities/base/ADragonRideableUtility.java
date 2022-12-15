@@ -5,6 +5,8 @@ import com.GACMD.isleofberk.common.entity.entities.AI.TeleportToOwnerWhenFarAway
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.DragonRideTilTamed;
 import com.GACMD.isleofberk.common.entity.entities.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerror;
+import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
+import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -96,7 +98,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         super.registerGoals();
         this.goalSelector.addGoal(1, new TeleportToOwnerWhenFarAway(this));
         this.goalSelector.addGoal(1, new DragonRideTilTamed(this, 1));
-//        this.goalSelector.addGoal(1, new DragonSleepGoal(this));
     }
 
     /**
@@ -114,7 +115,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     }
 
     /**
-     * Default one is currently used by stingers
+     * Separate one is currently used by speed stingers
      * Separated the method for different taming interactions with dragons
      *
      * @param pPlayer
@@ -124,50 +125,57 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     protected void foodTamingInteraction(Player pPlayer, InteractionHand pHand, ItemStack itemstack) {
         if (!itemstack.isEmpty()) {
             int nutrition = itemstack.getItem().getFoodProperties().getNutrition();
-            // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
-            if (getHealth() < getMaxHealth() && isTame()) {
-                this.heal(nutrition);
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-            }
-            // hunger limits the player's phase one progress. Dragons don't eat when they are full.
+            // phase 1 progress limits the player's phase one progress. Dragons don't eat when they are full.
             // thus preventing the quick tame of dragon's
-            if (this.getHunger() < this.getMaxHunger()) {
-                this.modifyHunger(nutrition);
-                this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
-//                this.level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, itemstack), getX(), getY(), getZ(), 1, 1, 1);
-                addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
-                if (!pPlayer.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
-            }
-
-            // tame easily when baby but harder regular taming when adult
+            // dragon that is subject for taming will not fly away
             if (!isTame()) {
-                if (getHunger() < getMaxHunger()) {
-                    if (isFoodEdibleToDragon(itemstack)) {
+                if (itemstack.is(tameItem())) {
+                    if (this.getFoodTameLimiterBar() < this.getFoodTamingPhaseMaximumLevel()) {
+                        // food limits how much you can feed currently fills up faster
+                        this.modifyFoodTamingThreshold(nutrition * 3);
+                        // phase 1 max(100), if full, allows you to ride til tamed, grows slower
+                        this.modifyPhase1Progress(getDragonProgressSpeed());
                         this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
+                        addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
                         if (!pPlayer.getAbilities().instabuild) {
                             itemstack.shrink(1);
                         }
-                        if (!isBaby() && tamingItem(itemstack)) {
-                            this.modifyPhaseProgress(getDragonProgressSpeed());
+                    }
+                }
+            } else {
+                // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
+                if (getHealth() < getMaxHealth()) {
+                    this.heal(nutrition);
+                    if (!pPlayer.getAbilities().instabuild) {
+                        itemstack.shrink(1);
+                    }
+                }
+            }
+
+            // tame easily when baby but, regular taming when adult
+            if (!isTame()) {
+                if (isFoodEdibleToDragon(itemstack)) {
+                    this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
+
+                    if (isBaby() && isItemStackForTaming(itemstack)) {
+                        if (this.random.nextInt(7) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+                            this.tame(pPlayer);
+                            this.navigation.stop();
+                            this.setTarget((LivingEntity) null);
+                            this.level.broadcastEntityEvent(this, (byte) 7);
+                            if (!pPlayer.getAbilities().instabuild) {
+                                itemstack.shrink(1);
+                            }
                         } else {
-                            if (this.random.nextInt(7) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
-                                this.tame(pPlayer);
-                                this.navigation.stop();
-                                this.setTarget((LivingEntity) null);
-                                this.level.broadcastEntityEvent(this, (byte) 7);
-                            } else {
-                                this.level.broadcastEntityEvent(this, (byte) 6);
+                            this.level.broadcastEntityEvent(this, (byte) 6);
+                            if (!pPlayer.getAbilities().instabuild) {
+                                itemstack.shrink(1);
                             }
                         }
                     }
                 }
             }
 
-            // TODO: may seem not working
             if (isPhaseTwo() && !isTame()) {
                 // add regen particles similar to villagers to tell the player visually that hey I'm ready for phase 2 taming
                 // also helps for taming dragons that are incapacitated (Tier 3)
@@ -175,7 +183,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             }
 
             // add smoke particles to dragons that are full
-            if (isFUll()) {
+            if (isTamingPhaseBarFull()) {
                 addSmokeParticles();
                 if (!isTame()) ;
             }
@@ -231,33 +239,36 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             }
         }
 
-        // can be ridden when phase 2 is reached and is not pissed
-        // first passenger seat(controller) is reserved to owner
-
-        if (!isBreedingFood(itemstack) && !isFoodEdibleToDragon(itemstack)) {//  && !isDragonBelziumHeld(itemstack)
-            if (!isTame() && canBeTameRidden(pPlayer)) {
-                this.doPlayerRide(pPlayer);
-                if (pPlayer.isCreative())
-                    this.tameWithName(pPlayer);
-                return InteractionResult.sidedSuccess(this.level.isClientSide);
-            } else if (isTame()) {
-                // if tamed and owned by the original owner player, ride normally
-                if (pPlayer == this.getOwner()) {
-                    this.doPlayerRide(pPlayer);
-                    return InteractionResult.sidedSuccess(this.level.isClientSide);
-
-                    // non owner players can ride on the rear this dragon if owner is riding it aswell
-                    // make sure only owners ride the first passenger slot (index 0 which is the pilot)
-                    // seatLock is disabled using sit
-                } else if (pPlayer != getOwner() && !isSeatLocked() && getControllingPassenger() == this.getOwner()) {
-                    this.doPlayerRide(pPlayer);
-                    return InteractionResult.sidedSuccess(this.level.isClientSide);
-
-                }
-            }
+        if (!isBreedingFood(itemstack) && !isFoodEdibleToDragon(itemstack)) {
+            rideInteract(pPlayer, pHand, itemstack);
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
+
+
         return super.mobInteract(pPlayer, pHand);
 
+    }
+
+    protected void rideInteract(Player pPlayer, InteractionHand pHand, ItemStack itemstack) {
+        // can be ridden when phase 2 is reached and is not pissed
+        // first passenger seat(controller) is reserved to owner
+        if (!isTame() && canBeTameRidden(pPlayer)) {
+            this.doPlayerRide(pPlayer);
+            if (pPlayer.isCreative())
+                this.tameWithName(pPlayer);
+        } else if (isTame()) {
+            // if tamed and owned by the original owner player, ride normally
+            if (pPlayer == this.getOwner()) {
+                this.doPlayerRide(pPlayer);
+
+                // non owner players can ride on the rear this dragon if owner is riding it aswell
+                // make sure only owners ride the first passenger slot (index 0 which is the pilot)
+                // seatLock is disabled using sit
+            } else if (pPlayer != getOwner() && !isSeatLocked() && getControllingPassenger() == this.getOwner()) {
+                this.doPlayerRide(pPlayer);
+
+            }
+        }
     }
 
     protected void addSmokeParticles() {
@@ -266,7 +277,11 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
     @Override
     public boolean canEatWithFoodOnHand(boolean pIgnoreHunger) {
-        return pIgnoreHunger || !isFUll();
+        if(isTame()) {
+            return true;
+        } else {
+            return pIgnoreHunger || (!isTamingPhaseBarFull());
+        }
     }
 
     /**
@@ -285,45 +300,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             pPlayer.displayClientMessage(new TranslatableComponent(DRAGON_NEEDS_SADDLE), false);
         }
         return super.tameWithName(pPlayer);
-    }
-
-    // ========== Get Facing Coords ==========
-
-    /**
-     * Returns the BlockPos in front or behind this entity (using its rotation angle) with the given distance, use a negative distance for behind.
-     **/
-    public BlockPos getFacingPosition(double distance) {
-        return this.getFacingPosition(this, distance, 0D);
-    }
-
-    /**
-     * Returns the BlockPos in front or behind the provided entity with the given distance and angle offset (in degrees), use a negative distance for behind.
-     **/
-    public BlockPos getFacingPosition(Entity entity, double distance, double angleOffset) {
-        return this.getFacingPosition(entity.getX(), entity.getY(), entity.getZ(), distance, entity.getYRot() + angleOffset);
-    }
-
-    /**
-     * Returns the BlockPos in front or behind the provided XYZ coords with the given distance and angle (in degrees), use a negative distance for behind.
-     **/
-    public BlockPos getFacingPosition(double x, double y, double z, double distance, double angle) {
-        angle = Math.toRadians(angle);
-        double xAmount = -Math.sin(angle);
-        double zAmount = Math.cos(angle);
-        return new BlockPos(x + (distance * xAmount), y, z + (distance * zAmount));
-    }
-
-    /**
-     * Returns the XYZ in front or behind the provided XYZ coords with the given distance and angle (in degrees), use a negative distance for behind.
-     **/
-    public Vec3 getFacingPositionDouble(double x, double y, double z, double distance, double angle) {
-        if (distance == 0) {
-            distance = 1;
-        }
-        angle = Math.toRadians(angle);
-        double xAmount = -Math.sin(angle);
-        double zAmount = Math.cos(angle);
-        return new Vec3(x + (distance * xAmount), y, z + (distance * zAmount));
     }
 
     /**
@@ -693,6 +669,9 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             noSaddleRideTicks = 0;
         }
 
+//        System.out.println("Food tame threshold" + getFoodTameLimiterBar());
+//        System.out.println("phase 2 progress" + getPhase1Progress());
+
         if (canCarryCargo()) {
             if (getControllingPassenger() != null && getControllingPassenger() instanceof Player && !this.isSeatLocked() && isTame()) {
                 this.checkInsideBlocks();
@@ -803,5 +782,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     protected boolean canCarryCargo() {
         return false;
     }
+
 }
 

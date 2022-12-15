@@ -3,7 +3,7 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.TerribleTerrorModel",
+				"identifier": "geometry.terrible_terror",
 				"texture_width": 64,
 				"texture_height": 64,
 				"visible_bounds_width": 5,
@@ -12,12 +12,12 @@
 			},
 			"bones": [
 				{
-					"name": "Root",
+					"name": "root",
 					"pivot": [0, 0, 0]
 				},
 				{
 					"name": "Body",
-					"parent": "Root",
+					"parent": "root",
 					"pivot": [0, 8.5, 1],
 					"rotation": [-5, 0, 0],
 					"cubes": [
@@ -229,7 +229,7 @@
 					"pivot": [0, 11, -3]
 				},
 				{
-					"name": "Head",
+					"name": "head",
 					"parent": "HeadTrack2",
 					"pivot": [0, 11.25, -3],
 					"rotation": [-35, 0, 0],
@@ -239,7 +239,7 @@
 				},
 				{
 					"name": "Nose",
-					"parent": "Head",
+					"parent": "head",
 					"pivot": [0, 10.75, -8.75],
 					"rotation": [15, 0, 0],
 					"cubes": [
@@ -275,7 +275,7 @@
 				},
 				{
 					"name": "Jaw",
-					"parent": "Head",
+					"parent": "head",
 					"pivot": [0, 11, -3.75],
 					"rotation": [-2.5, 0, 0],
 					"cubes": [
@@ -293,7 +293,7 @@
 				},
 				{
 					"name": "HeadBase",
-					"parent": "Head",
+					"parent": "head",
 					"pivot": [0, 12.5, -3.85],
 					"rotation": [-25, 0, 0],
 					"cubes": [
@@ -302,7 +302,7 @@
 				},
 				{
 					"name": "leftEye",
-					"parent": "Head",
+					"parent": "head",
 					"pivot": [1.8, 12.75, -5.5],
 					"rotation": [0, 15, -15],
 					"cubes": [
@@ -311,7 +311,7 @@
 				},
 				{
 					"name": "rightEye",
-					"parent": "Head",
+					"parent": "head",
 					"pivot": [-1.8, 12.75, -5.5],
 					"rotation": [0, -15, 15],
 					"cubes": [

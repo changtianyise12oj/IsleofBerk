@@ -7,9 +7,12 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.geo.render.built.GeoModel;
 
+@OnlyIn(Dist.CLIENT)
 public class NightFuryRender extends BaseRendererFlying<NightFury> {
 
     public NightFuryRender(EntityRendererProvider.Context renderManager) {
@@ -25,66 +28,13 @@ public class NightFuryRender extends BaseRendererFlying<NightFury> {
 
     @Override
     public void render(GeoModel model, NightFury animatable, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        if (!animatable.isInvisible())
+        if (!animatable.isInvisible()) {
             super.render(model, animatable, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
-        if (animatable.isBaby()) {
-            matrixStackIn.scale(getBabyScale(), getBabyScale(), getBabyScale());
-        } else {
-            matrixStackIn.scale(getScale() * 3.2f, getScale() * 3.2f, getScale() * 3.2f); // 0.23f
         }
-    }
-
-    public float getScale() {
-        return 0.555F;
-    }
-
-    public float getBabyScale() {
-        return 0.2F;
-    }
-
-    @Override
-    protected String getRightEyeBodyBone() {
-        return "EyesO";
-    }
-
-    @Override
-    protected String getLeftEyeBodyBone() {
-        return "EyesO";
     }
 
     @Override
     public String getDragonFolder() {
         return "night_fury";
-    }
-
-
-    @Override
-    public float getSaddleX() {
-        return super.getSaddleX();
-    }
-
-    @Override
-    public float getSaddleY() {
-        return 0.7F;
-    }
-
-    @Override
-    public float getSaddleZ() {
-        return super.getSaddleZ();
-    }
-
-    @Override
-    public float getSaddleScaleX() {
-        return super.getSaddleScaleX();
-    }
-
-    @Override
-    public float getSaddleScaleY() {
-        return super.getSaddleScaleY();
-    }
-
-    @Override
-    public float getSaddleScaleZ() {
-        return super.getSaddleScaleZ();
     }
 }

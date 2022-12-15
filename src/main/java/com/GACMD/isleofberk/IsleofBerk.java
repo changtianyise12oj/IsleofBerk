@@ -10,7 +10,9 @@ import com.GACMD.isleofberk.registery.ModBlocks;
 import com.GACMD.isleofberk.registery.ModContainerTypes;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -56,7 +58,7 @@ public class IsleofBerk // /kill @e[type=!isleofberk:stinger,type=! player]
 
         event.enqueueWork(() -> {
             SpawnPlacements.register(ModEntities.STINGER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
-            SpawnPlacements.register(ModEntities.SPEED_STINGER_LEADER.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING, SpeedStinger::checkSpeedStingerSpawnRules);
+            SpawnPlacements.register(ModEntities.SPEED_STINGER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpeedStinger::checkSpeedStingerSpawnRules);
             SpawnPlacements.register(ModEntities.NIGHT_FURY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
             SpawnPlacements.register(ModEntities.DEADLY_NADDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
             SpawnPlacements.register(ModEntities.TRIPLE_STRYKE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);

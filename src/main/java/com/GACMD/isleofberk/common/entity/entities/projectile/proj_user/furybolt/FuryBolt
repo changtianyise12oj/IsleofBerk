@@ -3,7 +3,7 @@ package com.GACMD.isleofberk.common.entity.entities.projectile.furybolt;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
-import com.GACMD.isleofberk.common.blocks.DragonSoulFire;
+import com.GACMD.isleofberk.init.blocks.DragonSoulFire;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
@@ -269,7 +269,7 @@ public class FuryBolt extends AbstractHurtingProjectile implements IAnimatable {
      * Custom Explosion method used for making explosions with DragonSoulFire.
      *
      * @return The Explosion Object
-     * @see com.GACMD.isleofberk.common.blocks.DragonSoulFire
+     * @see com.GACMD.isleofberk.init.blocks.DragonSoulFire
      * @see net.minecraft.world.level.Explosion
      * @see Explosion#explode()
      */

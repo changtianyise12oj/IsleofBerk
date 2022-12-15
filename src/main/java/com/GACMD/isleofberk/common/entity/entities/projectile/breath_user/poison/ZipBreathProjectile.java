@@ -1,6 +1,5 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison;
 
-import com.GACMD.isleofberk.common.blocks.DragonSoulFire;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
@@ -84,6 +83,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
         return (color & 0xFF) / 255f;
     }
 
+    @Override
     public void playParticles() {
         for (int i = 0; i < 1; i++) {
             Vec3 vec3 = this.getDeltaMovement();
@@ -251,7 +251,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
      * Custom Explosion method used for making explosions with DragonSoulFire.
      *
      * @return The Explosion Object
-     * @see DragonSoulFire
+     * @see com.GACMD.isleofberk.init.blocks.DragonSoulFire
      * @see Explosion
      * @see Explosion#explode()
      */

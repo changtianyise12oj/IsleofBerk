@@ -239,7 +239,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @Override
-    protected void fireSecondary(Vec3 riderLook, Vec3 throat) {
+    public void fireSecondary(Vec3 riderLook, Vec3 throat) {
         performRangedAttack(riderLook, 1);
     }
 
@@ -311,7 +311,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public int getExplosionStrength() {
-        return 0;
+        return 1;
     }
 
     @Override
@@ -324,7 +324,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     }
 
     protected double rider1YOffSet() {
-        return 1.5D;
+        return 1.7D;
     }
 
     protected double rider1ZOffSet() {
@@ -358,7 +358,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
      * @return
      */
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
-        return 15;
+        return 7;
     }
 
 }

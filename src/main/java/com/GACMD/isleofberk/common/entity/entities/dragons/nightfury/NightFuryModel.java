@@ -1,12 +1,16 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.nightfury;
 
 import com.GACMD.isleofberk.IsleofBerk;
+import com.GACMD.isleofberk.common.entity.entities.base.render.model.BaseDragonModel;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class NightFuryModel extends AnimatedGeoModel<NightFury> {
+@OnlyIn(Dist.CLIENT)
+public class NightFuryModel extends BaseDragonModel<NightFury> {
 
+    @Override
+    protected float getAdultSize() { return 0.5f; }
 
     @Override
     public ResourceLocation getModelLocation(NightFury entity) {
@@ -25,8 +29,8 @@ public class NightFuryModel extends AnimatedGeoModel<NightFury> {
         return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/nightfury.animation.json");
     }
 
-    @Override
+/*    @Override
     public void setLivingAnimations(NightFury entity, Integer uniqueID, AnimationEvent customPredicate) {
         super.setLivingAnimations(entity, uniqueID, customPredicate);
-    }
+    }*/
 }

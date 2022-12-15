@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.TripleStrykeEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt.FireBolt;
 import com.GACMD.isleofberk.common.entity.util.Util;
@@ -141,7 +142,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         return PlayState.STOP;
 
     }
-
 
     // Animation
     @Override
@@ -293,18 +293,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         super.swing(pHand);
     }
 
-    // add nadder arrows, fix mark fired by using ticks
-    @Override
-    protected void fireProjectile(Vec3 riderLook, Vec3 throat) {
-        if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
-            setTicksSinceLastFire(20);
-            FireBolt bolt = new FireBolt(this, throat, riderLook, level, getExplosionStrength());
-            bolt.shoot(riderLook, 1F);
-            level.addFreshEntity(bolt);
-            playerBoltBlastPendingScale = 0;
-        }
-    }
-
     @Override
     public void tick() {
         super.tick();
@@ -378,8 +366,8 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     @Override
-    protected boolean tamingItem(ItemStack stack) {
-        return super.tamingItem(stack);
+    protected boolean isItemStackForTaming(ItemStack stack) {
+        return super.isItemStackForTaming(stack);
     }
 
     public static class TripleStrykeCustomMeleeAttackGoal extends DragonMeleeAttackGoal {
@@ -495,4 +483,28 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         return 1;
     }
 
+    /**
+     * biggest without looking weird is 1.25F
+     *
+     * @param scalableParticleType
+     */
+    public void scaleParticleSize(ScalableParticleType scalableParticleType, BaseLinearFlightProjectile projectile) {
+        int scale = 0;
+        if (projectile.getDamageTier() == 1) {
+            scale += 0.55f;
+        } else if (projectile.getDamageTier() == 2) {
+            scale += 0.65f;
+        } else if (projectile.getDamageTier() == 3) {
+            scale += 0.75f;
+        } else if (projectile.getDamageTier() == 4) {
+            scale += 0.95f;
+        }
+
+        scalableParticleType.setScale(scale);
+    }
+
+    @Override
+    public int getMaxPlayerBoltBlast() {
+        return 68;
+    }
 }

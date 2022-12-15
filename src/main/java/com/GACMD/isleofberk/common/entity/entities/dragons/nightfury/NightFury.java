@@ -17,6 +17,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -145,10 +146,15 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return dragon;
     }
 
-
     @Override
     public AnimationFactory getFactory() {
         return this.factory;
+    }
+
+    // cannot breed night fury. they are too powerful
+    @Override
+    public boolean isBreedingFood(ItemStack pStack) {
+        return false;
     }
 
     /**
@@ -173,13 +179,14 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     @Override
-    protected void fireProjectile(Vec3 riderLook, Vec3 throat) {
+    protected void playerFireProjectile(Vec3 riderLook, Vec3 throat) {
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
             setTicksSinceLastFire(20);
             FuryBolt bolt = new FuryBolt(this, throat, riderLook, level, getExplosionStrength());
             bolt.shoot(riderLook, 1F);
             level.addFreshEntity(bolt);
-            playerBoltBlastPendingScale = 0;
+            setPlayerBoltBlastPendingScale(0);
+            setPlayerBoltBlastPendingStopThreshold(0);
         }
     }
 
@@ -188,11 +195,11 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         super.tick();
 
         if (this.tier1()) {
-            setExplosionStrength(0);
+            setExplosionStrength(1);
         } else if (this.tier2()) {
             setExplosionStrength(3);
         } else if (this.tier3()) {
-            setExplosionStrength(4);
+            setExplosionStrength(5);
         } else if (this.tier4()) {
             setExplosionStrength(7);
         }
@@ -243,7 +250,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     @Override
     public int getMaxPlayerBoltBlast() {
-        return 40;
+        return 100;
     }
 
     @Override
@@ -280,8 +287,24 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return 0.2F;
     }
 
+    public boolean tier1() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.10 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.30;
+    }
+
+    public boolean tier2() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.30 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.60;
+    }
+
+    public boolean tier3() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.60 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast();
+    }
+
+    public boolean tier4() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast();
+    }
+
+    @Override
+    protected float getAIProjPowerPercentage() {
+        return 0.35F;
+    }
 }
-// set invisible during the day
-//        if(!level.isNight() && !isTame()) {
-//            this.addEffect( new MobEffectInstance(MobEffects.INVISIBILITY, 5, 1,  true, true));
-//        }

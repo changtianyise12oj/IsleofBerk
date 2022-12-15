@@ -1,8 +1,10 @@
 package com.GACMD.isleofberk.common.entity.entities.eggs.entity;
 
+import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.medium.ADragonMediumEggBase;
 import com.GACMD.isleofberk.common.items.DragonEggItem;
+import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -29,10 +31,10 @@ public class LightFuryEgg extends ADragonMediumEggBase implements IAnimatable {
         return true;
     }
 
-//    @Override
-//    protected ADragonBase getDragonEggResult() {
-//        return EntityInit.DEADLY_NADDER.get().create(this.level);
-//    }
+    @Override
+    protected ADragonBase getDragonEggResult() {
+        return ModEntities.LIGHT_FURY.get().create(this.level);
+    }
 
     @Override
     public Block getBlockParticle() {

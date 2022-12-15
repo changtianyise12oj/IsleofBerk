@@ -1,19 +1,21 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.deadlynadder;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.common.entity.entities.base.render.model.BaseDragonModelFlying;
+import com.GACMD.isleofberk.common.entity.entities.base.render.model.BaseDragonModel;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
-public class DeadlyNadderModel extends BaseDragonModelFlying<DeadlyNadder> {
+@OnlyIn(Dist.CLIENT)
+public class DeadlyNadderModel extends BaseDragonModel<DeadlyNadder> {
 
     public DeadlyNadderModel(EntityRendererProvider.Context renderManager) {
-        super(renderManager);
+        super();
     }
 
     @Override
@@ -48,7 +50,6 @@ public class DeadlyNadderModel extends BaseDragonModelFlying<DeadlyNadder> {
             case 10:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/blue.png");
         }
-
     }
 
     @Override
@@ -59,92 +60,63 @@ public class DeadlyNadderModel extends BaseDragonModelFlying<DeadlyNadder> {
     @Override
     public void setLivingAnimations(DeadlyNadder dragon, Integer uniqueID, AnimationEvent customPredicate) {
         super.setLivingAnimations(dragon, uniqueID, customPredicate);
+
+        // call for model bones, all called bones must exist in the model
         IBone tailSpike5 = this.getAnimationProcessor().getBone("Tail5Spikes");
         IBone tailSpike4 = this.getAnimationProcessor().getBone("Tail4Spikes");
         IBone tailSpike3 = this.getAnimationProcessor().getBone("Tail3Spikes");
         IBone tailSpike2 = this.getAnimationProcessor().getBone("Tail2Spikes");
         IBone tailSpike1 = this.getAnimationProcessor().getBone("Tail1Spikes"); // base of the tail
 
-        if (dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.80) {
-            tailSpike5.setHidden(true);
+        IBone neck1 = this.getAnimationProcessor().getBone("Neck1");
+        IBone neck2 = this.getAnimationProcessor().getBone("Neck2");
+        IBone head = this.getAnimationProcessor().getBone("head");
+
+        // whatever tf is that, used for head tracking
+        // will probably stop working at some point
+        EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
+
+        // floats to fix paused game mess
+        float rotNeck1Y;
+        float rotNeck2Y;
+        float rotHeadY;
+        float rotNeck1X;
+        float rotNeck2X;
+        float rotHeadX;
+
+        // checks if game is paused - head spinning/heaven ascension on pause fix
+        if (Minecraft.getInstance().isPaused()) {
+            rotHeadY = 0;
+            rotNeck1Y = 0;
+            rotNeck2Y = 0;
+            rotHeadX = 0;
+            rotNeck1X = 0;
+            rotNeck2X = 0;
         } else {
-            tailSpike5.setHidden(false);
+            rotHeadY = head.getRotationY();
+            rotNeck1Y = neck1.getRotationY();
+            rotNeck2Y = neck2.getRotationY();
+            rotHeadX = head.getRotationX();
+            rotNeck1X = neck1.getRotationX();
+            rotNeck2X = neck2.getRotationX();
         }
 
-        if (dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.60) {
-            tailSpike4.setHidden(true);
-
-        } else {
-            tailSpike4.setHidden(false);
-        }
-
-        if (dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.40) {
-            tailSpike3.setHidden(true);
-        } else {
-            tailSpike3.setHidden(false);
-        }
-
-        if (dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.20) {
-            tailSpike2.setHidden(true);
-
-        } else {
-            tailSpike2.setHidden(false);
-        }
-
-        if (dragon.getRemainingSecondFuel() == 0) {
-            tailSpike1.setHidden(true);
-        } else {
-            tailSpike1.setHidden(false);
-        }
-
+        // head tracking when not mounted
         if (!dragon.shouldStopMovingIndependently()) {
-            IBone Neck1 = this.getAnimationProcessor().getBone("Neck1");
-            IBone Neck2 = this.getAnimationProcessor().getBone("Neck2");
-            IBone Neck3 = this.getAnimationProcessor().getBone("Neck3");
-            IBone Head = this.getAnimationProcessor().getBone("Head");
-
-            EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
-
-
-            Neck1.setRotationY(Neck1.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
-            Neck2.setRotationY(Neck2.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
-            Head.setRotationY(Head.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
+            neck1.setRotationY(rotNeck1Y + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
+            neck2.setRotationY(rotNeck2Y + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
+            head.setRotationY(rotHeadY + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
+            neck1.setRotationX(rotNeck1X + extraData.headPitch * ((float) Math.PI / 180F) / 6);
+            neck2.setRotationX(rotNeck2X + extraData.headPitch * ((float) Math.PI / 180F) / 6);
+            head.setRotationX(rotHeadX + extraData.headPitch * ((float) Math.PI / 180F) / 6);
         }
 
-
-        if (dragon.getControllingPassenger() instanceof Player pilot) {
-            // HeadTracking
-
-//            Neck1.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
-
-//            EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
-//            Neck1.setRotationX((float) (pilot.getLookAngle().x * ((float) Math.PI / 180F) / 4 * -1));
-//            Neck2.setRotationY((float) (pilot.getLookAngle().y * ((float) Math.PI / 180F) / 4 * -1));
-//            Neck3.setRotationX((float) (pilot.getLookAngle().x  * ((float) Math.PI / 180F) / 4 * -1));
-//            Head.setRotationY((float) (pilot.getLookAngle().y * ((float) Math.PI / 180F) / 4 * -1));
-
-            float rotChange = dragon.getChangeInYaw();
-
-
-            float currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, 40);
-            float currentBodyYaw = Mth.lerp(0.1F, pilot.getYRot(), 40);
-//           float currentBodyYaw = pilot.getYRot() - pilot.yRotO;
-//           float currentBodyYawClamp = Mth.clamp(entity.getYRot() - entity.yRotO, -10, 10);
-//
-
-
-            //headtracking
-//            Tail1.setRotationY((float) (pilot.getLookAngle().y * ((float) Math.PI / 180F) / 4 * -1));
-//            Tail1.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) * 2);
-//            Tail2.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) * 2);
-//            Tail3.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) * 2);
-//            Tail4.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) * 2);
-//            Tail5.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) * 2);
-//            Tail6.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) * 2);
-
-
-//            System.out.println(rotChange);
-        }//            // Tail Tracking
+        // hides tail spikes depending on amount of remaining shots
+        tailSpike5.setHidden(dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.80);
+        tailSpike4.setHidden(dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.60);
+        tailSpike3.setHidden(dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.40);
+        tailSpike2.setHidden(dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.20);
+        tailSpike1.setHidden(dragon.getRemainingSecondFuel() == 0);
 
     }
 }

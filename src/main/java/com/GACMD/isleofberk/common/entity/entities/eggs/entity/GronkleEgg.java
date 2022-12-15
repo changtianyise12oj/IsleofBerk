@@ -74,7 +74,7 @@ public class GronkleEgg extends ADragonMediumEggBase implements IAnimatable {
 
     @Override
     protected void hatch() {
-        boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
+        boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(this.level, this);
         if (!level.isClientSide())
             this.explode(this, getX(), getY(), getZ(), 3, mobGriefing, mobGriefing ? Explosion.BlockInteraction.BREAK : Explosion.BlockInteraction.NONE);
         super.hatch();

@@ -18,12 +18,13 @@ public class ControlNetwork {
         INSTANCE.registerMessage(0, ControlMessageJumping.class, ControlMessageJumping::encode, ControlMessageJumping::decode, ControlMessageJumping::handle);
         INSTANCE.registerMessage(1, ControlMessageGoingDown.class, ControlMessageGoingDown::encode, ControlMessageGoingDown::decode, ControlMessageGoingDown::handle);
         INSTANCE.registerMessage(2, ControlMessageAbility.class, ControlMessageAbility::encode, ControlMessageAbility::decode, ControlMessageAbility::handle);
-        INSTANCE.registerMessage(3, ControlMessageSECONDAbility.class, ControlMessageSECONDAbility::encode, ControlMessageSECONDAbility::decode, ControlMessageSECONDAbility::handle);
-        INSTANCE.registerMessage(4, ClientMessageTameParticlesDragon.class, ClientMessageTameParticlesDragon::encode, ClientMessageTameParticlesDragon::decode, ClientMessageTameParticlesDragon::handle);
-        INSTANCE.registerMessage(5, ClientMessageGuiDragon.class, ClientMessageGuiDragon::encode, ClientMessageGuiDragon::decode, ClientMessageGuiDragon::handle);
-        INSTANCE.registerMessage(6, ControlMessageServer.class, ControlMessageServer::encode, ControlMessageServer::decode, ControlMessageServer::handle);
-        INSTANCE.registerMessage(7, ClientMessageGuiDragonSit.class, ClientMessageGuiDragonSit::encode, ClientMessageGuiDragonSit::decode, ClientMessageGuiDragonSit::handle);
-        INSTANCE.registerMessage(8, DragonRideMessage.class, DragonRideMessage::encode, DragonRideMessage::decode, DragonRideMessage::handle);
+        INSTANCE.registerMessage(3, ControlMessageTerribleTerrorAbility.class, ControlMessageTerribleTerrorAbility::encode, ControlMessageTerribleTerrorAbility::decode, ControlMessageTerribleTerrorAbility::handle);
+        INSTANCE.registerMessage(4, ControlMessageSECONDAbility.class, ControlMessageSECONDAbility::encode, ControlMessageSECONDAbility::decode, ControlMessageSECONDAbility::handle);
+        INSTANCE.registerMessage(5, ClientMessageTameParticlesDragon.class, ClientMessageTameParticlesDragon::encode, ClientMessageTameParticlesDragon::decode, ClientMessageTameParticlesDragon::handle);
+        INSTANCE.registerMessage(6, ClientMessageGuiDragon.class, ClientMessageGuiDragon::encode, ClientMessageGuiDragon::decode, ClientMessageGuiDragon::handle);
+        INSTANCE.registerMessage(7, ControlMessageServer.class, ControlMessageServer::encode, ControlMessageServer::decode, ControlMessageServer::handle);
+        INSTANCE.registerMessage(8, ClientMessageGuiDragonSit.class, ClientMessageGuiDragonSit::encode, ClientMessageGuiDragonSit::decode, ClientMessageGuiDragonSit::handle);
+        INSTANCE.registerMessage(9, DragonRideMessage.class, DragonRideMessage::encode, DragonRideMessage::decode, DragonRideMessage::handle);
     }
 
     public static <MSG> void sendMSGToAll(MSG message) {

@@ -6,24 +6,36 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideabl
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.GronkleEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
+import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt.FireBolt;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
@@ -43,6 +55,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     protected int ticksSinceLastBiteAttack = 0;
 
     protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_RAM = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> TICKS_SINCE_STONE_FED = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
 
     public Gronckle(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -155,20 +168,22 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(TICK_SINCE_LAST_RAM, 0);
+        this.entityData.define(TICKS_SINCE_STONE_FED, 0);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("ticks_since_ram_attack", getTicksSincePlayerLastRamAttack());
+        pCompound.putInt("ticks_since_last_stone_fed", getStoneDigestionTicks());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
         this.setTicksSincePlayerLastRamAttack(pCompound.getInt("ticks_since_ram_attack"));
+        this.setTicksSincelastStoneFed(pCompound.getInt("ticks_since_last_stone_fed"));
     }
-
 
     public int getTicksSincePlayerLastRamAttack() {
         return entityData.get(TICK_SINCE_LAST_RAM);
@@ -176,6 +191,14 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
     public void setTicksSincePlayerLastRamAttack(int ticksSinceLastRamAttack) {
         entityData.set(TICK_SINCE_LAST_RAM, ticksSinceLastRamAttack);
+    }
+
+    public int getStoneDigestionTicks() {
+        return entityData.get(TICKS_SINCE_STONE_FED);
+    }
+
+    public void setTicksSincelastStoneFed(int ticksSinceLastRamAttack) {
+        entityData.set(TICKS_SINCE_STONE_FED, ticksSinceLastRamAttack);
     }
 
     @Nullable
@@ -232,13 +255,71 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     }
 
     @Override
-    protected void fireProjectile(Vec3 riderLook, Vec3 throat) {
-        if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
-            setTicksSinceLastFire(20);
-            FireBolt bolt = new FireBolt(this, throat, riderLook, level, getExplosionStrength());
-            bolt.shoot(riderLook, 1F);
-            level.addFreshEntity(bolt);
-            playerBoltBlastPendingScale = 0;
+    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack stack = pPlayer.getItemInHand(pHand);
+        Item item = stack.getItem();
+
+        if (isTame()) {
+            if (!isDragonSleeping() || isDragonSitting()) {
+                if (!stack.isEmpty()) {
+                    if (getStoneDigestionTicks() <= 0) {
+                        if (item == Blocks.BASALT.asItem() ||
+                                item == Blocks.DEEPSLATE.asItem() ||
+                                item == Blocks.GRANITE.asItem() ||
+                                item == Blocks.STONE.asItem() ||
+                                item == Blocks.DIORITE.asItem()
+                        ) {
+                            stack.shrink(1);
+                            setTicksSincelastStoneFed(Util.secondsToTicks(3));
+                            this.playSound(SoundEvents.DONKEY_EAT, 1, 1);
+                        }
+                    }
+                }
+            }
+        }
+        return super.mobInteract(pPlayer, pHand);
+    }
+
+    public ItemEntity shootGronckIron(ItemStack pStack) {
+        if (pStack.isEmpty()) {
+            return null;
+        } else if (this.level.isClientSide) {
+            return null;
+        } else {
+            ItemEntity itementity = new ItemEntity(this.level, this.getX(), this.getY(), this.getZ(), pStack);
+            itementity.setDefaultPickUpDelay();
+            double d0 = getThroatPos(this).x() - this.getX();
+            double d1 = getThroatPos(this).y() - this.getY();
+            double d2 = getThroatPos(this).z() - this.getZ();
+            double d3 = Math.sqrt(d0 * d0 + d2 * d2);
+            shootItem(itementity, d0, d1 + d3 * (double) 0.2F, d2, 0.5F, (float) (14 - 3));
+            if (captureDrops() != null) captureDrops().add(itementity);
+            else
+                this.level.addFreshEntity(itementity);
+            return itementity;
+        }
+    }
+
+    public void shootItem(ItemEntity itemEntity, double pX, double pY, double pZ, float pVelocity, float pInaccuracy) {
+        Vec3 vec3 = (new Vec3(pX, pY, pZ)).normalize().add(this.random.nextGaussian() * (double) 0.0075F * (double) pInaccuracy, this.random.nextGaussian() * (double) 0.0075F * (double) pInaccuracy, this.random.nextGaussian() * (double) 0.0075F * (double) pInaccuracy).scale((double) pVelocity);
+        itemEntity.setDeltaMovement(vec3);
+        double d0 = vec3.horizontalDistance();
+        itemEntity.setYRot((float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)));
+        itemEntity.setXRot((float) (Mth.atan2(vec3.y, d0) * (double) (180F / (float) Math.PI)));
+        itemEntity.yRotO = itemEntity.getYRot();
+        itemEntity.xRotO = itemEntity.getXRot();
+    }
+
+
+    @Override
+    protected void rideInteract(Player pPlayer, InteractionHand pHand, ItemStack itemstack) {
+        Item item = itemstack.getItem();
+        if (item != Blocks.BASALT.asItem() &&
+                item != Blocks.STONE.asItem() &&
+                item != Blocks.DIORITE.asItem() &&
+                item != Blocks.GRANITE.asItem() &&
+                item != Blocks.DEEPSLATE.asItem()) {
+            super.rideInteract(pPlayer, pHand, itemstack);
         }
     }
 
@@ -281,12 +362,40 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     @Override
     public void tick() {
         super.tick();
+        ItemStack itemStack = new ItemStack(ModItems.RAW_GRONCKLE_IRON.get(), 1);
+        if (getStoneDigestionTicks() == 10) {
+            if (random.nextInt(45) == 1) {
+                this.playSound(SoundEvents.PLAYER_BURP, 1, 1);
+                this.playSound(SoundEvents.GENERIC_BURN, 1, 1);
+                this.shootGronckIron(itemStack);
+                setTicksSinceLastFire(20);
+                addParticlesAroundSelf(ParticleTypes.LAVA);
+                addParticlesAroundSelf(ParticleTypes.LARGE_SMOKE);
+            } else {
+                addParticlesAroundSelf(ParticleTypes.LARGE_SMOKE);
+                this.playSound(SoundEvents.LAVA_POP, 1, 1);
+            }
+        }
+
+        if (getStoneDigestionTicks() > 0) {
+            setTicksSincelastStoneFed(getStoneDigestionTicks()-1);
+        }
+
+        if (getTicksSinceLastFire() > 0) {
+            setTicksSinceLastFire(getTicksSinceLastFire()-1);
+        }
         if (ticksSinceLastBiteAttack >= 0) {
             ticksSinceLastBiteAttack--;
         }
 
         if (ticksSinceLastRamAttack >= 0) {
             ticksSinceLastRamAttack--;
+        }
+
+        if (getTicksSinceLastFire() < 2) {
+            setMarkFired(false);
+        } else {
+            setMarkFired(true);
         }
 
         if (getTicksSincePlayerLastRamAttack() >= 0) {
@@ -302,9 +411,9 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         }
 
         if (this.tier1()) {
-            setExplosionStrength(0);
-        } else if (this.tier2()) {
             setExplosionStrength(1);
+        } else if (this.tier2()) {
+            setExplosionStrength(3);
         } else if (this.tier3()) {
             setExplosionStrength(3);
         } else if (this.tier4()) {
