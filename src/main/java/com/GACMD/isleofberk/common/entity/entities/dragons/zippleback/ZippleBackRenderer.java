@@ -25,7 +25,7 @@ public class ZippleBackRenderer extends BaseRendererFlying<ZippleBack> {
 
     @Override
     public String getDragonFolder() {
-        return "night_fury";
+        return "zippleback";
     }
 
 }

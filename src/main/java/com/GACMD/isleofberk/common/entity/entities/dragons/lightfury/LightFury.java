@@ -23,7 +23,7 @@ public class LightFury extends NightFury {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel level, @NotNull AgeableMob parent) {
-        NightFury dragon = ModEntities.NIGHT_FURY.get().create(level);
+        NightFury dragon = ModEntities.LIGHT_FURY.get().create(level);
         return dragon;
     }
 
@@ -40,8 +40,14 @@ public class LightFury extends NightFury {
     }
 
     @Override
+    protected double rider1YOffSet() {
+        return -0.5D;
+    }
+
+    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.targetSelector.addGoal(1, new T4DragonPotionRequirement(this, 1));
     }
+
 }

@@ -25,7 +25,7 @@ public class MonstrousNightmareRender extends BaseRendererFlying<MonstrousNightm
 
     @Override
     public String getDragonFolder() {
-        return "night_fury";
+        return "nightmare";
     }
 
 
