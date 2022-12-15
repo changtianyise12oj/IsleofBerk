@@ -1,9 +1,14 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.zippleback;
 
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.T4DragonPotionRequirement;
+import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
+import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison.ZipBreathProjectile;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -12,10 +17,11 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
-public class ZippleBack extends ADragonBaseFlyingRideable {
+public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     public ZippleBack(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -29,7 +35,7 @@ public class ZippleBack extends ADragonBaseFlyingRideable {
 
     @Override
     public float getRideCameraDistanceBack() {
-        if(!isFlying()) {
+        if (!isFlying()) {
             return 5;
         } else {
             return 12F;
@@ -48,11 +54,72 @@ public class ZippleBack extends ADragonBaseFlyingRideable {
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
     }
 
+    public Vec3 getThroatPos(ADragonBase entity) {
+        Vec3 bodyOrigin = position();
+
+        float angle = (float) ((float) (Math.PI / 180) * this.getYRot() + (Math.PI / 180 * 10));
+        double x = Math.sin(Math.PI + angle) * 4;
+        double y = 3.8D;
+        double z = Math.cos(angle) * 4;
+        float scale = isBaby() ? 0.2F : 1;
+        Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
+        return throatPos;
+
+    }
+
+    public Vec3 get2ndHeadThroatPos(ADragonBase entity) {
+        Vec3 bodyOrigin = position();
+
+        float angle = (float) ((float) (Math.PI / 180) * this.getYRot() - (Math.PI / 180 * 10));
+        double x = Math.sin(Math.PI + angle) * 4;
+        double y = 3.8D;
+        double z = Math.cos(angle) * 4;
+        float scale = isBaby() ? 0.2F : 1;
+        Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
+        return throatPos;
+
+    }
+
+//    @Override
+//    public boolean isInvulnerableTo(@NotNull DamageSource pSource) {
+//        if(pSource == DamageSource.MAGIC)
+//        return super.isInvulnerableTo(pSource);
+//    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        Vec3 t = getThroatPos(this);
+        Vec3 t1 = get2ndHeadThroatPos(this);
+        level.addParticle(ParticleTypes.HAPPY_VILLAGER, t.x, t.y, t.z, 1, 1, 1);
+        level.addParticle(ParticleTypes.HAPPY_VILLAGER, t1.x, t1.y, t1.z, 1, 1, 1);
+
+        if (isUsingSECONDAbility()) {
+            level.addParticle(ParticleTypes.LAVA, t1.x, t1.y, t1.z, 1,1,1);
+        }
+
+        if (this.getEffect(MobEffects.POISON) != null) {
+            this.removeEffect(MobEffects.POISON);
+        }
+    }
+
+    @Override
+    public void firePrimary(Vec3 riderLook, Vec3 throat) {
+        ZipBreathProjectile fireProj = new ZipBreathProjectile(this, throat, riderLook, level);
+        fireProj.shoot(riderLook, 1F, 7F);
+        level.addFreshEntity(fireProj);
+    }
+
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
         return pSpawnData;
+    }
+
+    @Override
+    public int getMaxFuel() {
+        return 85;
     }
 
     @Override

@@ -3,6 +3,9 @@ package com.GACMD.isleofberk.common.entity.entities.dragons.nightfury;
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.common.entity.entities.eggs.entity.DeadlyNadderEgg;
+import com.GACMD.isleofberk.common.entity.entities.eggs.entity.NightFuryEgg;
+import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.furybolt.FuryBolt;
 import com.GACMD.isleofberk.common.entity.sound.IOBSounds;
@@ -221,7 +224,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                 .add(Attributes.ARMOR, 30)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.18F)
-                .add(Attributes.ATTACK_DAMAGE, 25F)
+                .add(Attributes.ATTACK_DAMAGE, 28F)
                 .add(Attributes.FOLLOW_RANGE, 4.5F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.55F);
@@ -282,6 +285,12 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
         }
+    }
+
+    @org.jetbrains.annotations.Nullable
+    public ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {
+        NightFuryEgg dragon = ModEntities.NIGHT_FURY_EGG.get().create(level);
+        return dragon;
     }
 
     @Override
@@ -393,15 +402,15 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     public boolean tier1() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.10 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.30;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.10 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.40;
     }
 
     public boolean tier2() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.30 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.60;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.40 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.65;
     }
 
     public boolean tier3() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.60 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast();
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.65 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast();
     }
 
     public boolean tier4() {

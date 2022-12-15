@@ -24,6 +24,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -129,35 +130,41 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
 
                 HitResult.Type hitresult$type = hitresult.getType();
                 if (hitresult$type == HitResult.Type.ENTITY && hitresult instanceof EntityHitResult entityHitResult) {
-//                    Entity entity = entityHitResult.getEntity();
-//                    boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
-//                    if (entity != dragon) {
-//                        if (mobGriefing) {
-//                            entity.hurt(DamageSource.explosion(this.dragon), 14);
-//                            entity.setSecondsOnFire(7);
-//                            this.discard();
-//                            this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
-//
-//                            // add exception if mobGriefing is false,
-//                            // allow damage only to tamable mobs that aren't tamed
-//                            // and other hostile mobs such as bosses to make dragons useful in combat.
-//                            // no damage to pets(tamed mobs and mobs that have name tags)
-//                        } else if (!mobGriefing && !entity.hasCustomName()) {
-//                            if (entity instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) {
-//                                entity.hurt(DamageSource.explosion(this.dragon), 8);
-//                                entity.setSecondsOnFire(7);
-//                                this.discard();
-//                                this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
-//                            }
-//                        }
-//                    }
+                    Entity entity = entityHitResult.getEntity();
+                    boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
+                    if (entity != dragon) {
+                        if (mobGriefing) {
+                            entity.hurt(DamageSource.explosion(this.dragon), 14);
+                            entity.setSecondsOnFire(7);
+                            this.discard();
+                            this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
+
+                            // add exception if mobGriefing is false,
+                            // allow damage only to tamable mobs that aren't tamed
+                            // and other hostile mobs such as bosses to make dragons useful in combat.
+                            // no damage to pets(tamed mobs and mobs that have name tags)
+                        } else if (!mobGriefing && !entity.hasCustomName()) {
+                            if (entity instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) {
+                                entity.hurt(DamageSource.explosion(this.dragon), 8);
+                                entity.setSecondsOnFire(0);
+                                if(entity.isOnFire()) {
+                                    this.explode(getOwner(), entity.getX(), entity.getY(), entity.getZ(), 4, true, Explosion.BlockInteraction.NONE);
+                                }
+                                this.discard();
+                                this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
+                            }
+                        }
+                    }
+                    return;
                 } else if (hitresult$type == HitResult.Type.BLOCK && hitresult instanceof BlockHitResult blockHitResult) {
                     // bypass through foliage blocks. flowers, grass, tall grass
                     if (!(level.getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof BushBlock)) {
                         boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
 
                         // reduce amount of gas spawned
-                        this.makeAreaOfEffectCloud();
+                        if(random.nextInt(10) == 1) {
+                            this.makeAreaOfEffectCloud();
+                        }
                         this.discard();
                         this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
                     }

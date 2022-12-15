@@ -37,7 +37,11 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public float getRideCameraDistanceBack() {
-        return 15;
+        if(isFlying()) {
+            return 15;
+        } else {
+            return 6;
+        }
     }
 
     @Override
@@ -45,10 +49,23 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         return super.rider1YOffSet();
     }
 
+
+    public Vec3 getThroatPos(ADragonBase entity) {
+        Vec3 bodyOrigin = position();
+
+        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 3.2;
+        double y = 1.5;
+        double z = Math.cos(this.getYRot() * Math.PI / 180) * 3.2;
+        float scale = isBaby() ? 0.2F : 1;
+        Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
+        return throatPos;
+
+    }
+
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 60.0D)
+                .add(Attributes.MAX_HEALTH, 200.0D)
                 .add(Attributes.ARMOR, 10)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
