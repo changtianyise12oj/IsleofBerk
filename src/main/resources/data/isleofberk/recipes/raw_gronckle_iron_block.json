@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "isleofberk:raw_gronckle_iron"
+        }
+    },
+    "result": {
+        "item": "isleofberk:raw_gronckle_iron_block",
+        "count": 1
+    }
+}
