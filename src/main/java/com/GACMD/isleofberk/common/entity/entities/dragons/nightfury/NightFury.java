@@ -3,11 +3,11 @@ package com.GACMD.isleofberk.common.entity.entities.dragons.nightfury;
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
-import com.GACMD.isleofberk.common.entity.entities.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.furybolt.FuryBolt;
 import com.GACMD.isleofberk.common.entity.sound.IOBSounds;
 import com.GACMD.isleofberk.registery.ModEntities;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -98,6 +98,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         }
         return PlayState.CONTINUE;
     }
+
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
         if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
             if (getCurrentAttackType() == 0) {
@@ -184,7 +185,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        this.setDragonVariant(getMaxAmountOfVariants());
+        this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
         return pSpawnData;
     }
 
@@ -195,7 +196,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     @Override
     public float getRideCameraDistanceBack() {
-        return 9;
+        return 12;
     }
 
     @Override
@@ -281,9 +282,6 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     @Override
     public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        if(getDisplayName().toString() == "Toothless") {
-            setDragonVariant(101);
-        }
         return super.mobInteract(pPlayer, pHand);
     }
 
@@ -301,6 +299,12 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             setExplosionStrength(7);
         }
 
+        String s = ChatFormatting.stripFormatting(this.getName().getString());
+        if (s != null) {
+            if (s.equals("Toothless") || s.equals("toothless") || s.equals("Toothlezz") || s.equals("toothlezz")) {
+                this.setDragonVariant(101);
+            }
+        }
 
         performInCapacitate();
     }
