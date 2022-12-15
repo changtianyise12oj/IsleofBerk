@@ -3,22 +3,12 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-<<<<<<< HEAD
-
 				"identifier": "geometry.NightFuryModel",
 				"texture_width": 256,
 				"texture_height": 192,
 				"visible_bounds_width": 19,
 				"visible_bounds_height": 5,
 				"visible_bounds_offset": [0, 1.5, 0]
-=======
-				"identifier": "geometry.night_fury",
-				"texture_width": 512,
-				"texture_height": 256,
-				"visible_bounds_width": 32,
-				"visible_bounds_height": 21,
-				"visible_bounds_offset": [0, 3.5, 0]
->>>>>>> parent of e2759c7 (more dragons)
 			},
 			"bones": [
 				{
