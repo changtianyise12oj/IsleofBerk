@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.init.blocks;
+package com.GACMD.isleofberk.common.blocks;
 
 import net.minecraft.world.level.block.FireBlock;
 

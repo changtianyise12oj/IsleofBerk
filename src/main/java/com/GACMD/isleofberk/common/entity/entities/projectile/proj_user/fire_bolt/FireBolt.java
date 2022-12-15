@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt;
 
+import com.GACMD.isleofberk.common.blocks.DragonSoulFire;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
@@ -134,7 +135,7 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
      * Custom Explosion method used for making explosions with DragonSoulFire.
      *
      * @return The Explosion Object
-     * @see com.GACMD.isleofberk.init.blocks.DragonSoulFire
+     * @see DragonSoulFire
      * @see Explosion
      * @see Explosion#explode()
      */

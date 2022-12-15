@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison;
 
+import com.GACMD.isleofberk.common.blocks.DragonSoulFire;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
@@ -250,7 +251,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
      * Custom Explosion method used for making explosions with DragonSoulFire.
      *
      * @return The Explosion Object
-     * @see com.GACMD.isleofberk.init.blocks.DragonSoulFire
+     * @see DragonSoulFire
      * @see Explosion
      * @see Explosion#explode()
      */
