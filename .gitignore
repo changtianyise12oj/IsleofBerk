@@ -19,3 +19,11 @@ src/main/resources/assets/isleofberk/geo/dragons/nightfury1.geo.json
 *.gz
 run/logs/debug.log
 run/logs/latest.log
+*.gz
+run/logs/debug-1.log.gz
+run/logs/debug-2.log.gz
+run/logs/debug-3.log.gz
+run/logs/debug-4.log.gz
+run/logs/debug-5.log.gz
+run/logs/debug.log
+run/logs/latest.log
