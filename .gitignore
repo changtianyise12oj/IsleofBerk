@@ -28,3 +28,6 @@ run/logs/debug-5.log.gz
 run/logs/debug.log
 run/logs/latest.log
 run/logs/latest.log
+run/logs/debug.log
+run/logs/latest.log
+run/usercache.json

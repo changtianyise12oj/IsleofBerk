@@ -3,6 +3,7 @@ package com.GACMD.isleofberk.common.entity.entities.dragons.montrous_nightmare;
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.common.entity.entities.base.render.model.BaseDragonModel;
 import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFury;
+import com.GACMD.isleofberk.common.entity.entities.dragons.zippleback.ZippleBack;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
@@ -15,13 +16,33 @@ public class MonstrousNightmareModel extends BaseDragonModel<MonstrousNightmare>
     @Override
     public ResourceLocation getModelLocation(MonstrousNightmare entity) {
         return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/nightmare.geo.json");
-
     }
 
     @Override
     public ResourceLocation getTextureLocation(MonstrousNightmare entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/hookfang.png");
-
+        switch (entity.getDragonVariant()) {
+            default:
+            case 0:
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/hookfang.png");
+            case 1:
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/black.png");
+            case 2:
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/blue.png");
+            case 3:
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/yellow.png");
+            case 4:
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/mint.png");
+            case 5:
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/pink.png");
+            case 6:
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/cyan.png");
+            case 7:
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/orange.png");
+            case 8:
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/green.png");
+            case 9:
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/magenta.png");
+        }
     }
 
     @Override

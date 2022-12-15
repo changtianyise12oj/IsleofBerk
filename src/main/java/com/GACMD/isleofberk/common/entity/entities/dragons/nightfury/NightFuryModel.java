@@ -24,17 +24,17 @@ public class NightFuryModel extends BaseDragonModel<NightFury> {
         switch (entity.getDragonVariant()) {
             default:
             case 0:
-                return new ResourceLocation("isleofberk:textures/dragons/night_fury/regular2.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/regular2.png");
             case 1:
-                return new ResourceLocation("isleofberk:textures/dragons/night_fury/blue.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/blue.png");
             case 2:
-                return new ResourceLocation("isleofberk:textures/dragons/night_fury/purple.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/purple.png");
             case 3:
-                return new ResourceLocation("isleofberk:textures/dragons/night_fury/black1.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/black1.png");
             case 4:
-                return new ResourceLocation("isleofberk:textures/dragons/night_fury/black2.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/black2.png");
             case 101:
-                return new ResourceLocation("isleofberk:textures/dragons/night_fury/toothless.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/toothless.png");
         }
     }
 

@@ -6,19 +6,43 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideabl
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import org.jetbrains.annotations.Nullable;
 
 public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     public MonstrousNightmare(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        return pSpawnData;
+    }
+
+    @Override
+    public int getMaxAmountOfVariants() {
+        return 10;
+    }
+
+    @Override
+    public float getRideCameraDistanceBack() {
+        return 15;
+    }
+
+    @Override
+    protected double rider1YOffSet() {
+        return super.rider1YOffSet();
     }
 
     //  Attributes

@@ -191,12 +191,16 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     @Override
     public int getMaxAmountOfVariants() {
-        return 4;
+        return 5;
     }
 
     @Override
     public float getRideCameraDistanceBack() {
-        return 12;
+        if(!isFlying()) {
+            return 4;
+        } else {
+            return 11F;
+        }
     }
 
     @Override
