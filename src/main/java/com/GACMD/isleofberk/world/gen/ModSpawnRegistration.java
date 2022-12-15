@@ -37,22 +37,22 @@ public class ModSpawnRegistration {
         // TODO: SPEED STINGER
         // cave
         addMobSpawn(event, List.of(Biome.BiomeCategory.UNDERGROUND),
-                MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                1, 3, 4, 0.05F); // 0.15F 0.025f
+                MobCategory.MONSTER, ModEntities.SPEED_STINGER_LEADER.get(),
+                1, 1, 1, 0.10F); // 0.15F 0.025f
 
         // taiga
         addMobSpawn(event, List.of(Biome.BiomeCategory.TAIGA),
-                MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                1, 3, 4, 0.05F); // 0.15F 0.025f
+                MobCategory.MONSTER, ModEntities.SPEED_STINGER_LEADER.get(),
+                1, 1, 1, 0.10F); // 0.15F 0.025f
 
         // ice
-        addMobSpawnOnSpecificBiomes(event, MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                1, 3, 4, 0.05F, Biomes.FROZEN_OCEAN, Biomes.FROZEN_PEAKS,
+        addMobSpawnOnSpecificBiomes(event, MobCategory.MONSTER, ModEntities.SPEED_STINGER_LEADER.get(),
+                1, 1, 1, 0.10F, Biomes.FROZEN_OCEAN, Biomes.FROZEN_PEAKS,
                 Biomes.FROZEN_RIVER, Biomes.DEEP_FROZEN_OCEAN);
 
         // jungle
-        addMobSpawn(event,List.of(Biome.BiomeCategory.JUNGLE), MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                1, 3, 4, 0.05F);
+        addMobSpawn(event,List.of(Biome.BiomeCategory.JUNGLE), MobCategory.MONSTER, ModEntities.SPEED_STINGER_LEADER.get(),
+                1, 1, 1, 0.10F);
 
         // TODO: TERRIBLE TERROR
         addMobSpawn(event, List.of(Biome.BiomeCategory.BEACH, Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.DESERT),

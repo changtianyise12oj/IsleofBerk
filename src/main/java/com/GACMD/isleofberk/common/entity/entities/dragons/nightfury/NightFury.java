@@ -3,7 +3,6 @@ package com.GACMD.isleofberk.common.entity.entities.dragons.nightfury;
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
-import com.GACMD.isleofberk.common.entity.entities.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.furybolt.FuryBolt;
 import com.GACMD.isleofberk.common.entity.sound.IOBSounds;
@@ -46,130 +45,51 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
      * @param <E>
      * @return
      */
-    private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
-        if ((isFlying() && !event.isMoving())) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.hover", ILoopType.EDefaultLoopTypes.LOOP)); // hover
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
+
+        if ((isFlying() && isHovering())) { // || (isGoingDown() && getXRot() > 0)
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.Dragon.flyup", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
-        if (isFlying()) {
-            if (getControllingPassenger() != null) {
-                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
-                    return PlayState.CONTINUE;
-                }
-                if (this.getXRot() >= 11 && this.getXRot() < 26 && !isGoingUp()) { // < 20
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
-                    return PlayState.CONTINUE;
-                }
-                if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
-                    return PlayState.CONTINUE;
-                }
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+        if (isFlying() && !isHovering()) {
+            if (this.xRotO < -20 || isGoingUp()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.Dragon.flyup", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-        } else {
-            if (this.isDragonSitting()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.sit", ILoopType.EDefaultLoopTypes.LOOP));
+            if (this.xRotO < 4 && this.xRotO > -20) { // -20
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.Dragon.fly", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (event.isMoving() && !shouldStopMovingIndependently()) {
-                if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-
-                } else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.walk", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (this.isDragonSleeping()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.sleep", ILoopType.EDefaultLoopTypes.LOOP));
+            if (this.xRotO > 4 && this.xRotO < 12) { // 20
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.Dragon.glide", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-
-
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.idle", ILoopType.EDefaultLoopTypes.LOOP));
+            if (this.xRotO > 12 && this.xRotO < 20) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.Dragon.glidedown", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+            if (this.xRotO > 20) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.Dragon.dive", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+        }
+        if (this.isDragonSitting()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.Dragon.sit", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
+        if (event.isMoving() && !shouldStopMovingIndependently()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.Dragon.walk", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.Dragon.idle", ILoopType.EDefaultLoopTypes.LOOP));
         return PlayState.CONTINUE;
-    }
-    private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
-        if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
-            if (getCurrentAttackType() == 0) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.bite", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
-            }
-        }
-        if (isUsingAbility()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.breath", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-        }
-        return PlayState.STOP;
-    }
-
-    private <E extends IAnimatable> PlayState turnController(AnimationEvent<E> event) {
-        int turnState = this.getRotationState();
-        if (turnState != 0) {
-            if (isFlying()) {
-                boolean diving = getXRot() >= 32 && event.isMoving();
-                if (isGoingUp() || diving) {
-                    event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                } else {
-                    if (turnState == 1) {
-                        event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft1f", ILoopType.EDefaultLoopTypes.LOOP));
-                        return PlayState.CONTINUE;
-                    } else if (turnState == 2) {
-                        event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft2f", ILoopType.EDefaultLoopTypes.LOOP));
-                        return PlayState.CONTINUE;
-                    } else if (turnState == -1) {
-                        event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright1f", ILoopType.EDefaultLoopTypes.LOOP));
-                        return PlayState.CONTINUE;
-                    } else if (turnState == -2) {
-                        event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright2f", ILoopType.EDefaultLoopTypes.LOOP));
-                        return PlayState.CONTINUE;
-                    }
-                }
-            } else {
-                if (turnState == 1) {
-                    event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft1", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                } else if (turnState == 2) {
-                    event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft2", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                } else if (turnState == -1) {
-                    event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright1", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                } else if (turnState == -2) {
-                    event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright2", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                }
-            }
-        } else {
-            event.getController().setAnimationSpeed(4);
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-        }
-        return PlayState.STOP;
     }
 
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<NightFury>(this, "nightfury_anim_controller", 5, this::basicMovementController));
-        data.addAnimationController(new AnimationController<NightFury>(this, "attack_Controller", 0, this::attackController));
-        data.addAnimationController(new AnimationController<NightFury>(this, "turnController", 35, this::turnController));
+        data.addAnimationController(new AnimationController<NightFury>(this, "nightfury_anim_controller", 5, this::predicate));
+
     }
 
     public NightFury(EntityType<? extends NightFury> entityType, Level level) {

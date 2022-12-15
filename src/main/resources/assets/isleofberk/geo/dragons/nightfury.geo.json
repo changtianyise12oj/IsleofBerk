@@ -3,10 +3,6 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of c0b2d93 (.)
 				"identifier": "geometry.NightFuryModel",
 				"texture_width": 256,
 				"texture_height": 192,
@@ -20,13 +16,9 @@
 					"pivot": [0, 0, 0]
 				},
 				{
-					"name": "BodyRotX",
+					"name": "rotation",
 					"parent": "root",
-					"pivot": [0, 24, 0],
-					"rotation": [6, 0, 0],
-					"cubes": [
-						{"origin": [-14, 21, -15], "size": [28, 28, 30], "uv": [0, 0], "mirror": true}
-					]
+					"pivot": [0, 25, 0]
 				},
 				{
 					"name": "Chest",
