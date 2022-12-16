@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
-    private static final EntityDataAccessor<Boolean> IS_ON_FIRE_ABILITY = SynchedEntityData.defineId(ADragonBaseFlyingRideable.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IS_ON_FIRE_ABILITY = SynchedEntityData.defineId(MonstrousNightmare.class, EntityDataSerializers.BOOLEAN);
 
     private int ticksUsingSecondAbility;
 
@@ -59,12 +59,12 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putBoolean("is_on_fire", this.isOnFireAbility());
+        pCompound.putBoolean("is_on_fire_ability", this.isOnFireAbility());
     }
 
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.setOnFireAbility(pCompound.getBoolean("is_on_fire"));
+        this.setOnFireAbility(pCompound.getBoolean("is_on_fire_ability"));
     }
 
 
@@ -115,7 +115,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
         level.addParticle(ParticleTypes.LAVA, t.x, t.y, t.z, 1, 1, 1);
         level.addParticle(ParticleTypes.LAVA, t1.x, t1.y, t1.z, 1, 1, 1);
-        
+
         }
 
         if(getEffect(MobEffects.DAMAGE_RESISTANCE) != null) {
