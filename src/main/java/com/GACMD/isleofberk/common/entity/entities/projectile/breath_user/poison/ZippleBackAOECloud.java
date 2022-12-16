@@ -99,7 +99,7 @@ public class ZippleBackAOECloud extends AreaEffectCloud {
     }
 
 
-    private void explode() {
+    public void explode() {
         boolean flag = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
         if (flag)
             this.level.explode(null, this.getX(), this.getY(), this.getZ(), this.getRadius() + 1, flag, Explosion.BlockInteraction.NONE);
