@@ -135,7 +135,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
                     if (entity != dragon) {
                         if (mobGriefing) {
                             entity.hurt(DamageSource.explosion(this.dragon), 14);
-                            entity.setSecondsOnFire(7);
+//                            entity.setSecondsOnFire(7);
                             this.discard();
                             this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
 
@@ -146,7 +146,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
                         } else if (!mobGriefing && !entity.hasCustomName()) {
                             if (entity instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) {
                                 entity.hurt(DamageSource.explosion(this.dragon), 8);
-                                entity.setSecondsOnFire(0);
+//                                entity.setSecondsOnFire(0);
                                 if(entity.isOnFire()) {
                                     this.explode(getOwner(), entity.getX(), entity.getY(), entity.getZ(), 4, true, Explosion.BlockInteraction.NONE);
                                 }

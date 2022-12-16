@@ -32,7 +32,7 @@ public class ModSpawnRegistration {
 
         // TODO: STINGER
         addMobSpawnWithBlackList(event, List.of(Biome.BiomeCategory.SAVANNA, Biome.BiomeCategory.MESA, Biome.BiomeCategory.PLAINS), List.of(Biome.BiomeCategory.MOUNTAIN),
-                MobCategory.CREATURE, ModEntities.STINGER.get(), 2, 6, 10, 0.10F);
+                MobCategory.CREATURE, ModEntities.STINGER.get(), 1, 6, 10, 0.10F);
 
         // TODO: SPEED STINGER
         // cave
@@ -64,9 +64,9 @@ public class ModSpawnRegistration {
         // TODO: TRIPLE STRYKE
         addMobSpawn(event, List.of(Biome.BiomeCategory.MESA, Biome.BiomeCategory.TAIGA, Biome.BiomeCategory.MOUNTAIN), MobCategory.CREATURE,
                 ModEntities.TRIPLE_STRYKE.get(),
-                2, 1, 2, 0.08F); // 0.08F
+                2, 1, 2, 0.05F); // 0.08F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TRIPLE_STRYKE.get(),
-                2, 1, 1, 0.08F, Biomes.STONY_SHORE);
+                2, 1, 1, 0.05F, Biomes.STONY_SHORE);
 
         // TODO: DEADLY_NADDER
         addMobSpawn(event, List.of(Biome.BiomeCategory.PLAINS, Biome.BiomeCategory.MOUNTAIN, Biome.BiomeCategory.FOREST, Biome.BiomeCategory.SAVANNA, Biome.BiomeCategory.BEACH), MobCategory.CREATURE,
