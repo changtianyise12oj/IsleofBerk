@@ -3,7 +3,6 @@ package com.GACMD.isleofberk.common.entity.entities.dragons.nightfury;
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
-import com.GACMD.isleofberk.common.entity.entities.eggs.entity.DeadlyNadderEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.NightFuryEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
@@ -59,18 +58,34 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             return PlayState.CONTINUE;
         }
         if (isFlying()) {
-            if (getControllingPassenger() != null) {
-                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
-                    return PlayState.CONTINUE;
-                }
-                if (this.getXRot() >= 11 && this.getXRot() < 26 && !isGoingUp()) { // < 20
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
-                    return PlayState.CONTINUE;
-                }
-                if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
-                    return PlayState.CONTINUE;
+            if (event.isMoving()) {
+                if (getControllingPassenger() != null) {
+//                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
+                    if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() >= 11 && this.getXRot() < 26 && !isGoingUp()) { // < 20
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
+                        return PlayState.CONTINUE;
+                    }
+                } else {
+                    if (this.getXRot() < 4) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() >= 4 && this.getXRot() < 26 && !isGoingUp()) { // < 20
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
+                        return PlayState.CONTINUE;
+                    }
                 }
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
@@ -119,56 +134,56 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     private <E extends IAnimatable> PlayState turnController(AnimationEvent<E> event) {
         int turnState = this.getRotationState();
-        if (turnState != 0) {
-            if (isFlying()) {
-                boolean diving = getXRot() >= 32 && event.isMoving();
-                if (isGoingUp() || diving) {
-                    event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                } else {
-                    if (turnState == 1) {
-                        event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft1f", ILoopType.EDefaultLoopTypes.LOOP));
-                        return PlayState.CONTINUE;
-                    } else if (turnState == 2) {
-                        event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft2f", ILoopType.EDefaultLoopTypes.LOOP));
-                        return PlayState.CONTINUE;
-                    } else if (turnState == -1) {
-                        event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright1f", ILoopType.EDefaultLoopTypes.LOOP));
-                        return PlayState.CONTINUE;
-                    } else if (turnState == -2) {
-                        event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright2f", ILoopType.EDefaultLoopTypes.LOOP));
-                        return PlayState.CONTINUE;
-                    }
-                }
-            } else {
-                if (turnState == 1) {
-                    event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft1", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                } else if (turnState == 2) {
-                    event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft2", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                } else if (turnState == -1) {
-                    event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright1", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                } else if (turnState == -2) {
-                    event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright2", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                }
-            }
-        } else {
-            event.getController().setAnimationSpeed(4);
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-        }
+//        if (turnState != 0 && (getControllingPassenger() instanceof Player)) {
+//            if (isFlying()) {
+//                boolean diving = getXRot() >= 32 && event.isMoving();
+//                if (isGoingUp()) {
+//                    event.getController().setAnimationSpeed(4);
+//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
+//                    return PlayState.CONTINUE;
+//                } else {
+//                    if (turnState == 1) {
+//                        event.getController().setAnimationSpeed(4);
+//                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft1f", ILoopType.EDefaultLoopTypes.LOOP));
+//                        return PlayState.CONTINUE;
+//                    } else if (turnState == 2) {
+//                        event.getController().setAnimationSpeed(4);
+//                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft2f", ILoopType.EDefaultLoopTypes.LOOP));
+//                        return PlayState.CONTINUE;
+//                    } else if (turnState == -1) {
+//                        event.getController().setAnimationSpeed(4);
+//                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright1f", ILoopType.EDefaultLoopTypes.LOOP));
+//                        return PlayState.CONTINUE;
+//                    } else if (turnState == -2) {
+//                        event.getController().setAnimationSpeed(4);
+//                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright2f", ILoopType.EDefaultLoopTypes.LOOP));
+//                        return PlayState.CONTINUE;
+//                    }
+//                }
+//            } else {
+//                if (turnState == 1) {
+//                    event.getController().setAnimationSpeed(4);
+//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft1", ILoopType.EDefaultLoopTypes.LOOP));
+//                    return PlayState.CONTINUE;
+//                } else if (turnState == 2) {
+//                    event.getController().setAnimationSpeed(4);
+//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft2", ILoopType.EDefaultLoopTypes.LOOP));
+//                    return PlayState.CONTINUE;
+//                } else if (turnState == -1) {
+//                    event.getController().setAnimationSpeed(4);
+//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright1", ILoopType.EDefaultLoopTypes.LOOP));
+//                    return PlayState.CONTINUE;
+//                } else if (turnState == -2) {
+//                    event.getController().setAnimationSpeed(4);
+//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright2", ILoopType.EDefaultLoopTypes.LOOP));
+//                    return PlayState.CONTINUE;
+//                }
+//            }
+//        } else {
+//            event.getController().setAnimationSpeed(4);
+//            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
+//            return PlayState.CONTINUE;
+//        }
         return PlayState.STOP;
     }
 
@@ -200,7 +215,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     @Override
     public float getRideCameraDistanceBack() {
-        if(!isFlying()) {
+        if (!isFlying()) {
             return 4;
         } else {
             return 11F;

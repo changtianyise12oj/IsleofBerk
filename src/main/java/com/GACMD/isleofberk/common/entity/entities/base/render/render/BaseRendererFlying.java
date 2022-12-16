@@ -49,9 +49,9 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
     modifyPitch(GeoModel model, T dragon, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder,
                 int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         GeoBone body = getBone(model, getMainBodyBone()).get();
-        if (dragon.getPassengers().size() < 2) {
+        if (dragon.getPassengers().size() < 2 || dragon.getControllingPassenger() == null) {
             if (dragon.isFlying()) {
-                if (dragon.getControllingPassenger() instanceof Player pilot) {
+//                if (dragon.getControllingPassenger() instanceof Player pilot) {
                     // approach to 0 if not boosting
                     // approach to maxRise if boosting
                     if (dragon.isGoingUp() && boostedBodyPitch >= -40) {
@@ -61,7 +61,7 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
                     }
 
                     // +90 dive -90 rise
-                    currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, getMaxRise());
+                    currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
                     finalBodyPitch = currentBodyPitch + boostedBodyPitch;
                     body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
 
@@ -73,10 +73,11 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
 //                         the rotation is based on yaw
                         body.setRotationZ(Mth.clamp(dragon.getChangeInYaw(), -8, 8));
                         body.setRotationZ(changeInYaw);
-                    }
-                } else if (dragon.getControllingPassenger() == null) {
-                    currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
+//                    }
                 }
+//                else if (dragon.getControllingPassenger() == null) {
+//                    currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
+//                }
             }
 
             if (!dragon.isFlying()) {

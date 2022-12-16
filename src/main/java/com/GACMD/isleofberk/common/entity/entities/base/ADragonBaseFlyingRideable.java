@@ -256,18 +256,22 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
                     f1 *= 0.25F;
                 }
 
-                byte turnState = 0;
-                float rotationSpeed = 6;
-                float yawDiff = yRotO - this.getYRot();
-                // currently, 1 is left 2 is right
-                // make it so 1 is left 2 is left2, -1 is right1 and -2 is right2
-                // greater than zero > 0 meaning right
-                turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff > 0 ? 1 : turnState;
-                turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff > 5 ? 2 : turnState;
-                // less than 0 < 0 meaning right
-                turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff < 0 ? -1 : turnState;
-                turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff < -5 ? -2 : turnState;
-                this.setRotationState(turnState);
+                if (getControllingPassenger() != null) {
+                    byte turnState = 0;
+                    float rotationSpeed = 6;
+                    float yawDiff = yRotO - this.getYRot();
+                    // currently, 1 is left 2 is right
+                    // make it so 1 is left 2 is left2, -1 is right1 and -2 is right2
+                    // greater than zero > 0 means right
+                    turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff > 0 ? 1 : turnState;
+                    turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff > 5 ? 2 : turnState;
+                    // less than 0 < 0 meaning right
+                    turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff < 0 ? -1 : turnState;
+                    turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff < -5 ? -2 : turnState;
+                    this.setRotationState(turnState);
+                } else {
+                    setRotationState(0);
+                }
 
                 this.setYya(pilot.yya);
                 float xxa = pilot.xxa * 0.5F;
