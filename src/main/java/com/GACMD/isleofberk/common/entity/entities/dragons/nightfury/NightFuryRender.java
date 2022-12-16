@@ -36,6 +36,16 @@ public class NightFuryRender extends BaseRendererFlying<NightFury> {
     }
 
     @Override
+    protected int getMaxRise() {
+        return 45;
+    }
+
+    @Override
+    protected int getMinRise() {
+        return -45;
+    }
+
+    @Override
     public String getDragonFolder() {
         return "night_fury";
     }

@@ -257,7 +257,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
                 if (f1 <= 0.0F) {
                     f1 *= 0.25F;
                 }
-                
+
                 if (getControllingPassenger() != null) {
                     byte turnState = 0;
                     float rotationSpeed = 6;

@@ -67,44 +67,44 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
                     finalBodyPitch = currentBodyPitch + boostedBodyPitch;
                     body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
 
+                }
+
+                if (hasDynamicYawAndRoll() && dragon.getControllingPassenger() instanceof Player) {
+                    float f = Mth.rotLerp(partialTicks, dragon.yBodyRotO, dragon.yBodyRot);
+                    float f1 = Mth.rotLerp(partialTicks, dragon.yHeadRotO, dragon.yHeadRot);
+                    changeInYaw = (f1 - f) * ((float) Math.PI / 180F) * -1.5F;
+                    dragon.setChangeInYaw((f1 - f) * ((float) Math.PI / 180F) * -1.5F);
+//                         the rotation is based on yaw
+                    body.setRotationZ(Mth.clamp(dragon.getChangeInYaw(), -8, 8));
+                    body.setRotationZ(changeInYaw);
+                } else if (dragon.getControllingPassenger() == null) {
+                    currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
+                }
                 if (dragon.isDragonFollowing() && dragon.getOwner() instanceof Player player && dragon instanceof NightFury nightFury) {
                     double ydist = nightFury.getY() - player.getY();
                     if (ydist > 8.3F) {
-                        pitch-=4;
+                        pitch -= 4;
                         body.setRotationX(toRadians(Mth.clamp(pitch, -90, 0)));
                         System.out.println("rotX" + body.getRotationX());
                         System.out.println("pitch" + pitch);
-//                        }
                     } else {
                         pitch = 0;
                     }
                 }
-
-                    if (hasDynamicYawAndRoll() && dragon.getControllingPassenger() instanceof Player) {
-                        float f = Mth.rotLerp(partialTicks, dragon.yBodyRotO, dragon.yBodyRot);
-                        float f1 = Mth.rotLerp(partialTicks, dragon.yHeadRotO, dragon.yHeadRot);
-                        changeInYaw = (f1 - f) * ((float) Math.PI / 180F) * -1.5F;
-                        dragon.setChangeInYaw((f1 - f) * ((float) Math.PI / 180F) * -1.5F);
-//                         the rotation is based on yaw
-                        body.setRotationZ(Mth.clamp(dragon.getChangeInYaw(), -8, 8));
-                        body.setRotationZ(changeInYaw);
-                    } else if (dragon.getControllingPassenger() == null) {
-                        currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
-                    }
-                }
             }
-
-            if (!dragon.isFlying()) {
-                boostedBodyPitch = 0;
-                currentBodyPitch = 0;
-                finalBodyPitch = 0;
-
-                currentBodyYawForRoll = 0;
-                currentBodyYaw = 0;
-            }
-
         }
+
+        if (!dragon.isFlying()) {
+            boostedBodyPitch = 0;
+            currentBodyPitch = 0;
+            finalBodyPitch = 0;
+
+            currentBodyYawForRoll = 0;
+            currentBodyYaw = 0;
+        }
+
     }
+
 
     public boolean hasDynamicYawAndRoll() {
         return true;
