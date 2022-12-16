@@ -238,6 +238,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
                 LivingEntity pilot = (LivingEntity) this.getControllingPassenger();
                 assert pilot != null;
                 pilot.setYBodyRot(pilot.getYHeadRot());
+                pilot.setYRot(pilot.yRotO);
                 this.setYRot(pilot.getYRot());
 //                disabled for animation purposes
 //                this.yRotO = this.getYRot();
