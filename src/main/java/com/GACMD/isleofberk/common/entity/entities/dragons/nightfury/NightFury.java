@@ -78,7 +78,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                     if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
                         float dist = distanceTo(player);
                         double ydist = this.getY() - player.getY();
-                        System.out.println(ydist);
+//                        System.out.println(ydist);
                         if (dist > 8.3F && ydist < 4) {
                             event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
                             return PlayState.CONTINUE;
