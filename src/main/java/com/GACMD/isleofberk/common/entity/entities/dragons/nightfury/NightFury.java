@@ -54,7 +54,8 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
      */
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if ((isFlying() && !event.isMoving())) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.hover", ILoopType.EDefaultLoopTypes.LOOP)); // hover
+            // the head looks down during hover which looks awful and distorted so temporary disabled
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); // hover
             return PlayState.CONTINUE;
         }
         if (isFlying()) {
