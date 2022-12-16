@@ -74,24 +74,23 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                         return PlayState.CONTINUE;
                     }
                     // different values for pitch and roll when following elytra flying player
-                } else {
-                    if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
-                        float dist = distanceTo(player);
-                        double ydist = this.getY() - player.getY();
+                } else if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
+                    float dist = distanceTo(player);
+                    double ydist = this.getY() - player.getY();
 //                        System.out.println(ydist);
-                        if (dist > 8.3F && ydist < 4) {
-                            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
-                            return PlayState.CONTINUE;
-                        }
-                        if (dist < 8.3F || ydist > 4) {
-                            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
-                            return PlayState.CONTINUE;
-                        }
+                    if (dist > 8.3F && ydist < 4) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        return PlayState.CONTINUE;
+                    }
+                    if (dist < 8.3F || ydist > 4) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        return PlayState.CONTINUE;
+                    } else {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        return PlayState.CONTINUE;
                     }
                 }
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-                return PlayState.CONTINUE;
+
             }
         } else {
             if (this.isDragonSitting()) {

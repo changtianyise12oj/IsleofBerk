@@ -66,23 +66,22 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderDive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
                         return PlayState.CONTINUE;
                     }
-                }  else {
-                    if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
-                        float dist = distanceTo(player);
-                        double ydist = this.getY() - player.getY();
-                        if (dist > 8.3F) {
-                            event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
-                            return PlayState.CONTINUE;
-                        }
-                        if (dist < 8.3F || ydist > 4) {
-                            event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlide", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
-                            return PlayState.CONTINUE;
-                        }
+                } else if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
+                    float dist = distanceTo(player);
+                    double ydist = this.getY() - player.getY();
+                    if (dist > 8.3F) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        return PlayState.CONTINUE;
                     }
+                    if (dist < 8.3F || ydist > 4) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlide", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        return PlayState.CONTINUE;
+
+                    }
+                } else {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                    return PlayState.CONTINUE;
                 }
-            }else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-                return PlayState.CONTINUE;
             }
         } else {
             if (this.isDragonSitting()) {

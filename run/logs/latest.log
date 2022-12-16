@@ -111,3 +111,10 @@ Caused by: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLeni
 [16Dec2022 21:01:42.333] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
 [16Dec2022 21:01:42.342] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
 [16Dec2022 21:01:42.343] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[16Dec2022 21:02:56.524] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[16Dec2022 21:02:56.529] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[16Dec2022 21:02:56.533] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[16Dec2022 21:02:56.534] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[16Dec2022 21:05:56.625] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[16Dec2022 21:05:56.625] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[16Dec2022 21:05:56.631] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds

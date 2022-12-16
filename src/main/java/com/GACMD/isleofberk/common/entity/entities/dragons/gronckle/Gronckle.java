@@ -65,7 +65,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         }
         if (isFlying()) {
             if (event.isMoving()) {
-                if (getControllingPassenger() != null) {
+                if (getControllingPassenger() instanceof Player) {
                     if (this.getXRot() <= -3 || isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
                         return PlayState.CONTINUE;
@@ -78,23 +78,21 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
                         return PlayState.CONTINUE;
                     }
-                } else {
-                    if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
-                        float dist = distanceTo(player);
-                        double ydist = this.getY() - player.getY();
-                        if (dist > 8.3F) {
-                            event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
-                            return PlayState.CONTINUE;
-                        }
-                        if (dist < 8.3F || ydist > 4) {
-                            event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
-                            return PlayState.CONTINUE;
-                        }
+                } else if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
+                    float dist = distanceTo(player);
+                    double ydist = this.getY() - player.getY();
+                    if (dist > 8.3F) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        return PlayState.CONTINUE;
                     }
+                    if (dist < 8.3F || ydist > 4) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        return PlayState.CONTINUE;
+                    }
+                }else {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                    return PlayState.CONTINUE;
                 }
-            } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-                return PlayState.CONTINUE;
             }
         }
         if (event.isMoving() && !shouldStopMovingIndependently()) {
