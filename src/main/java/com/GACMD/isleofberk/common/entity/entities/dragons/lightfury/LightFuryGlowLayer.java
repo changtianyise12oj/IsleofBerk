@@ -20,9 +20,9 @@ public class LightFuryGlowLayer<T extends LightFury & IAnimatable> extends Night
         switch (entity.getGlowVariants()) {
             default:
             case 0:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_glow_1.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fightfury_glow_1.png");
             case 1:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_glow_2.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fightfury_glow_2.png");
         }
     }
 

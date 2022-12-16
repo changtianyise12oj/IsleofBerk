@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.common.entity.entities.base.render.render.BaseRender
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.layers.SpiderEyesLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -21,20 +22,18 @@ public class NightFuryGlowLayer<T extends NightFury & IAnimatable> extends GeoLa
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (dragon.isSaddled()) {
-            RenderType cameo = RenderType.eyes(getTextureLocation(dragon));
-            this.getRenderer().render(getEntityModel().getModel(baseRenderer.getGeoModelProvider().getModelLocation(dragon)), dragon, partialTicks, cameo, matrixStackIn, bufferIn,
-                    bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-        }
+        RenderType cameo = RenderType.eyes(getTextureLocation(dragon));
+        this.getRenderer().render(getEntityModel().getModel(baseRenderer.getGeoModelProvider().getModelLocation(dragon)), dragon, partialTicks, cameo, matrixStackIn, bufferIn,
+                bufferIn.getBuffer(cameo), 15728640, OverlayTexture.NO_OVERLAY, 1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public ResourceLocation getTextureLocation(NightFury entity) {
         switch (entity.getGlowVariants()) {
             default:
             case 0:
-                return new ResourceLocation("isleofberk:textures/dragons/night_fury/night_fury_glow_1.png");
+                return new ResourceLocation("isleofberk:textures/dragons/night_fury/nightfury_glow_1.png");
             case 1:
-                return new ResourceLocation("isleofberk:textures/dragons/night_fury/night_fury_glow_2.png");
+                return new ResourceLocation("isleofberk:textures/dragons/night_fury/nightfury_glow_2.png");
         }
     }
 }

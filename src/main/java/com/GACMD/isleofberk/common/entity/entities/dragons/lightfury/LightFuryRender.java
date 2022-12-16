@@ -14,7 +14,7 @@ public class LightFuryRender  extends BaseRendererFlying<LightFury> {
 
     public LightFuryRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new LightFuryModel());
-        this.addLayer(new LightFuryGlowLayer<>(this));
+//        this.addLayer(new LightFuryGlowLayer<>(this));
 
     }
 
@@ -34,6 +34,6 @@ public class LightFuryRender  extends BaseRendererFlying<LightFury> {
 
     @Override
     public String getDragonFolder() {
-        return "night_fury";
+        return "light_fury";
     }
 }
