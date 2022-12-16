@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        " S ",
+        "ZiZ"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:glowstone"
+        },
+        "S": {
+            "item": "isleofberk:raw_gronckle_iron"
+        },
+        "Z": {
+            "item": "minecraft:sandstone"
+        },
+        "i": {
+            "item": "minecraft:iron_ingot"
+        }
+    },
+    "result": {
+        "item": "isleofberk:gronckle_iron",
+        "count": 1
+    }
+}
