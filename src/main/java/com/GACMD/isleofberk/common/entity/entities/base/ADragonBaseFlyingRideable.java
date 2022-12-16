@@ -241,7 +241,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 //                disabled for animation purposes
 //                this.yRotO = this.getYRot();
                 if (isFlying()) {
-                    this.setXRot(pilot.getXRot() * 0.5F);
+                    this.setXRot(pilot.getXRot() * 0.6F);
                 } else {
                     this.setXRot(0);
                 }

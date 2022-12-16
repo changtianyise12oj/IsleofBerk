@@ -59,7 +59,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         }
         if (isFlying()) {
             if (event.isMoving()) {
-                if (getControllingPassenger() != null) {
+                if (getControllingPassenger() instanceof Player) {
 //                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
                     if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
@@ -73,18 +73,20 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
                         return PlayState.CONTINUE;
                     }
+                    // different values for pitch and roll when following elytra flying player
                 } else {
-                    if (this.getXRot() < 4) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
-                        return PlayState.CONTINUE;
-                    }
-                    if (this.getXRot() >= 4 && this.getXRot() < 26 && !isGoingUp()) { // < 20
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
-                        return PlayState.CONTINUE;
-                    }
-                    if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
-                        return PlayState.CONTINUE;
+                    if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
+                        float dist = distanceTo(player);
+                        double ydist = this.getY() - player.getY();
+                        System.out.println(ydist);
+                        if (dist > 8.3F && ydist < 4) {
+                            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                            return PlayState.CONTINUE;
+                        }
+                        if (dist < 8.3F || ydist > 4) {
+                            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                            return PlayState.CONTINUE;
+                        }
                     }
                 }
             } else {
@@ -134,56 +136,56 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     private <E extends IAnimatable> PlayState turnController(AnimationEvent<E> event) {
         int turnState = this.getRotationState();
-//        if (turnState != 0 && (getControllingPassenger() instanceof Player)) {
-//            if (isFlying()) {
-//                boolean diving = getXRot() >= 32 && event.isMoving();
-//                if (isGoingUp()) {
-//                    event.getController().setAnimationSpeed(4);
-//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
-//                    return PlayState.CONTINUE;
-//                } else {
-//                    if (turnState == 1) {
-//                        event.getController().setAnimationSpeed(4);
-//                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft1f", ILoopType.EDefaultLoopTypes.LOOP));
-//                        return PlayState.CONTINUE;
-//                    } else if (turnState == 2) {
-//                        event.getController().setAnimationSpeed(4);
-//                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft2f", ILoopType.EDefaultLoopTypes.LOOP));
-//                        return PlayState.CONTINUE;
-//                    } else if (turnState == -1) {
-//                        event.getController().setAnimationSpeed(4);
-//                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright1f", ILoopType.EDefaultLoopTypes.LOOP));
-//                        return PlayState.CONTINUE;
-//                    } else if (turnState == -2) {
-//                        event.getController().setAnimationSpeed(4);
-//                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright2f", ILoopType.EDefaultLoopTypes.LOOP));
-//                        return PlayState.CONTINUE;
-//                    }
-//                }
-//            } else {
-//                if (turnState == 1) {
-//                    event.getController().setAnimationSpeed(4);
-//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft1", ILoopType.EDefaultLoopTypes.LOOP));
-//                    return PlayState.CONTINUE;
-//                } else if (turnState == 2) {
-//                    event.getController().setAnimationSpeed(4);
-//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft2", ILoopType.EDefaultLoopTypes.LOOP));
-//                    return PlayState.CONTINUE;
-//                } else if (turnState == -1) {
-//                    event.getController().setAnimationSpeed(4);
-//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright1", ILoopType.EDefaultLoopTypes.LOOP));
-//                    return PlayState.CONTINUE;
-//                } else if (turnState == -2) {
-//                    event.getController().setAnimationSpeed(4);
-//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright2", ILoopType.EDefaultLoopTypes.LOOP));
-//                    return PlayState.CONTINUE;
-//                }
-//            }
-//        } else {
-//            event.getController().setAnimationSpeed(4);
-//            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
-//            return PlayState.CONTINUE;
-//        }
+        if (turnState != 0 && getControllingPassenger() instanceof Player) {
+            if (isFlying()) {
+                boolean diving = getXRot() >= 32 && event.isMoving();
+                if (isGoingUp() || diving) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else {
+                    if (turnState == 1) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft1f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == 2) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft2f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == -1) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright1f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == -2) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright2f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    }
+                }
+            } else {
+                if (turnState == 1) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft1", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == 2) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotleft2", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == -1) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright1", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == -2) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrotright2", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                }
+            }
+        } else {
+            event.getController().setAnimationSpeed(4);
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
         return PlayState.STOP;
     }
 

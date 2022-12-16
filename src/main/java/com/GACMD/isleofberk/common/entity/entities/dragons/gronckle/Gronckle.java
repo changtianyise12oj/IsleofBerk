@@ -6,9 +6,6 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideabl
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.GronkleEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
-import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
-import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
-import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt.FireBolt;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
@@ -67,18 +64,33 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             return PlayState.CONTINUE;
         }
         if (isFlying()) {
-            if (getControllingPassenger() != null) {
-                if (this.getXRot() <= -3 || isGoingUp()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-                    return PlayState.CONTINUE;
-                }
-                if (this.getXRot() > -3 && this.getXRot() <= 15 && !isGoingUp()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
-                    return PlayState.CONTINUE;
-                }
-                if (this.getXRot() > 15 && getPassengers().size() < 2 && !isGoingUp()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
-                    return PlayState.CONTINUE;
+            if (event.isMoving()) {
+                if (getControllingPassenger() != null) {
+                    if (this.getXRot() <= -3 || isGoingUp()) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() > -3 && this.getXRot() <= 15 && !isGoingUp()) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() > 15 && getPassengers().size() < 2 && !isGoingUp()) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
+                        return PlayState.CONTINUE;
+                    }
+                } else {
+                    if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
+                        float dist = distanceTo(player);
+                        double ydist = this.getY() - player.getY();
+                        if (dist > 8.3F) {
+                            event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                            return PlayState.CONTINUE;
+                        }
+                        if (dist < 8.3F || ydist > 4) {
+                            event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                            return PlayState.CONTINUE;
+                        }
+                    }
                 }
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
@@ -378,11 +390,11 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         }
 
         if (getStoneDigestionTicks() > 0) {
-            setTicksSincelastStoneFed(getStoneDigestionTicks()-1);
+            setTicksSincelastStoneFed(getStoneDigestionTicks() - 1);
         }
 
         if (getTicksSinceLastFire() > 0) {
-            setTicksSinceLastFire(getTicksSinceLastFire()-1);
+            setTicksSinceLastFire(getTicksSinceLastFire() - 1);
         }
         if (ticksSinceLastBiteAttack >= 0) {
             ticksSinceLastBiteAttack--;

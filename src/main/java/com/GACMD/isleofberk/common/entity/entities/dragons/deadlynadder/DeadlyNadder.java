@@ -21,6 +21,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.Item;
@@ -51,28 +52,35 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
             return PlayState.CONTINUE;
         }
         if (isFlying()) {
-            if (getControllingPassenger() != null) {
-                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
-                    return PlayState.CONTINUE;
+            if (event.isMoving()) {
+                if (getControllingPassenger() instanceof Player) {
+                    if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() >= 11 && this.getXRot() < 26 && !isGoingUp()) { // < 20
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderDive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
+                        return PlayState.CONTINUE;
+                    }
+                }  else {
+                    if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
+                        float dist = distanceTo(player);
+                        double ydist = this.getY() - player.getY();
+                        if (dist > 8.3F) {
+                            event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                            return PlayState.CONTINUE;
+                        }
+                        if (dist < 8.3F || ydist > 4) {
+                            event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlide", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                            return PlayState.CONTINUE;
+                        }
+                    }
                 }
-                if (this.getXRot() >= 11 && this.getXRot() < 26 && !isGoingUp()) { // < 20
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
-                    return PlayState.CONTINUE;
-                }
-//                if (this.getXRot() >= 8 && this.getXRot() < 12 && !isGoingUp()) { // < 20
-//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
-//                    return PlayState.CONTINUE;
-//                }
-//                if (this.getXRot() >= 12 && this.getXRot() < 18 && !isGoingUp()) { // < 30
-//                    event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlideDown", ILoopType.EDefaultLoopTypes.LOOP)); // glidedown
-//                    return PlayState.CONTINUE;
-//                }
-                if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderDive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
-                    return PlayState.CONTINUE;
-                }
-            } else {
+            }else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
                 return PlayState.CONTINUE;
             }

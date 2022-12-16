@@ -65,7 +65,7 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
                     finalBodyPitch = currentBodyPitch + boostedBodyPitch;
                     body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
 
-                    if (hasDynamicYawAndRoll()) {
+                    if (hasDynamicYawAndRoll() && dragon.getControllingPassenger() instanceof Player) {
                         float f = Mth.rotLerp(partialTicks, dragon.yBodyRotO, dragon.yBodyRot);
                         float f1 = Mth.rotLerp(partialTicks, dragon.yHeadRotO, dragon.yHeadRot);
                         changeInYaw = (f1 - f) * ((float) Math.PI / 180F) * -1.5F;
