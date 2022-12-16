@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.nightfury;
 
+import com.GACMD.isleofberk.common.entity.entities.base.render.layer.BaseSaddleLayer;
 import com.GACMD.isleofberk.common.entity.entities.base.render.render.BaseRendererFlying;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -17,6 +18,7 @@ public class NightFuryRender extends BaseRendererFlying<NightFury> {
 
     public NightFuryRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new NightFuryModel());
+        this.addLayer(new NightFuryGlowLayer<>(this));
     }
 
     @Override

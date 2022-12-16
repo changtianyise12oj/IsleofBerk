@@ -14,6 +14,8 @@ public class LightFuryRender  extends BaseRendererFlying<LightFury> {
 
     public LightFuryRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new LightFuryModel());
+        this.addLayer(new LightFuryGlowLayer<>(this));
+
     }
 
     @Override

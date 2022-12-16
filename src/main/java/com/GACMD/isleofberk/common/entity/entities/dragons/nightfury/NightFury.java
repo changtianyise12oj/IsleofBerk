@@ -12,6 +12,9 @@ import com.GACMD.isleofberk.registery.ModEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
@@ -43,6 +46,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAnimatable {
 
     AnimationFactory factory = new AnimationFactory(this);
+    private static final EntityDataAccessor<Integer> GLOW_VARIANT = SynchedEntityData.defineId(NightFury.class, EntityDataSerializers.INT);
 
     /**
      * 0 is default - value is up and positive value is down
@@ -205,12 +209,17 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        this.setGlowVariant(getMaxAmountOfGlowVariants());
         return pSpawnData;
     }
 
     @Override
     public int getMaxAmountOfVariants() {
         return 5;
+    }
+
+    public int getMaxAmountOfGlowVariants() {
+        return 2;
     }
 
     @Override
@@ -220,6 +229,29 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         } else {
             return 11F;
         }
+    }
+
+    public int getGlowVariants() {
+        return this.entityData.get(GLOW_VARIANT);
+    }
+
+    public void setGlowVariant(int flying) {
+        this.entityData.set(GLOW_VARIANT, flying);
+    }
+
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(GLOW_VARIANT, 0);
+    }
+
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putInt("glow_variants", this.getGlowVariants());
+    }
+
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        this.setGlowVariant(pCompound.getInt("glow_variants"));
     }
 
     @Override

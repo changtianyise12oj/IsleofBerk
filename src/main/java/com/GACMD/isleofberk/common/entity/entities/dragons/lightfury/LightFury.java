@@ -49,7 +49,13 @@ public class LightFury extends NightFury {
     public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
         this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        this.setGlowVariant(getMaxAmountOfGlowVariants());
         return pSpawnData;
+    }
+
+    @Override
+    public int getMaxAmountOfVariants() {
+        return 6;
     }
 
     //  Attributes
@@ -63,6 +69,7 @@ public class LightFury extends NightFury {
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
     }
+
     @Override
     protected double rider1YOffSet() {
         return 1.1D;

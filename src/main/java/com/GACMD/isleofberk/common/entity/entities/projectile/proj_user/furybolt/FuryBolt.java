@@ -144,6 +144,10 @@ public class FuryBolt extends BaseLinearBoltProjectile implements IAnimatable {
         this.xRotO = this.getXRot();
     }
 
+    @Override
+    protected boolean needsTier2ToDamage() {
+        return false;
+    }
 
     @Override
     public boolean isNoGravity() {
