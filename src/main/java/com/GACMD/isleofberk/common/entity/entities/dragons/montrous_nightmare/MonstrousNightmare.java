@@ -218,4 +218,20 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
         return 13;
     }
+
+    @Override
+    protected int breathBarRegenSpeed() {
+        return 75;
+    }
+
+    @Override
+    protected int breathBarRegenAmount() {
+        return 1;
+    }
+
+
+    @Override
+    public int getMaxFuel() {
+        return 275;
+    }
 }
