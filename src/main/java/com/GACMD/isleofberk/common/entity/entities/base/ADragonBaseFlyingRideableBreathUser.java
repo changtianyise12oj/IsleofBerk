@@ -43,7 +43,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
     }
 
     public int getMaxFuel() {
-        return 240;
+        return 180;
     }
 
     public int getRemainingSecondFuel() {
@@ -87,7 +87,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
      * @return
      */
     protected int breathBarRegenSpeed() {
-        return 50;
+        return 55;
     }
 
     /**
@@ -96,7 +96,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
      * @return
      */
     protected int breathBarRegenAmount() {
-        return 3;
+        return 2;
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.GACMD.isleofberk.common.entity.entities.base.render.model.BaseDragonM
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
@@ -102,7 +103,7 @@ public class DeadlyNadderModel extends BaseDragonModel<DeadlyNadder> {
         }
 
         // head tracking when not mounted
-        if (!dragon.shouldStopMovingIndependently()) {
+        if (!dragon.shouldStopMovingIndependently() && dragon.getControllingPassenger() instanceof Player) {
             neck1.setRotationY(rotNeck1Y + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
             neck2.setRotationY(rotNeck2Y + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
             head.setRotationY(rotHeadY + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);

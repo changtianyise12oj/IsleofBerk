@@ -24,6 +24,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -241,7 +242,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 //                disabled for animation purposes
 //                this.yRotO = this.getYRot();
                 if (isFlying()) {
-                    this.setXRot(pilot.getXRot() * 0.6F);
+                    this.setXRot(pilot.getXRot() * 0.5F);
                 } else {
                     this.setXRot(0);
                 }
