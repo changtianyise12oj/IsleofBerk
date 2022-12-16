@@ -162,7 +162,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
                         boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
 
                         // reduce amount of gas spawned
-                        if(random.nextInt(10) == 1) {
+                        if(random.nextInt(5) == 1) {
                             this.makeAreaOfEffectCloud();
                         }
                         this.discard();
@@ -219,7 +219,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
         if (entity != null) {
             areaeffectcloud.setOwner(entity);
         }
-        areaeffectcloud.setRadius(3.0F);
+        areaeffectcloud.setRadius(2.0F);
         areaeffectcloud.setRadiusOnUse(-0.5F);
         areaeffectcloud.setWaitTime(10);
         areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float) areaeffectcloud.getDuration());

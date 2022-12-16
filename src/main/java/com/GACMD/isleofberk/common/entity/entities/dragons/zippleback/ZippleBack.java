@@ -4,10 +4,15 @@ import com.GACMD.isleofberk.common.entity.entities.AI.taming.T4DragonPotionRequi
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
+import com.GACMD.isleofberk.common.entity.entities.eggs.entity.MonstrousNightmareEgg;
+import com.GACMD.isleofberk.common.entity.entities.eggs.entity.ZippleBackEgg;
+import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison.ZipBreathProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison.ZippleBackAOECloud;
+import com.GACMD.isleofberk.registery.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
@@ -19,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -200,5 +206,11 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     protected void registerGoals() {
         super.registerGoals();
         this.targetSelector.addGoal(1, new T4DragonPotionRequirement(this, 1));
+    }
+
+    @Override
+    public @Nullable ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {
+        ZippleBackEgg dragon = ModEntities.ZIPPLEBACK_EGG.get().create(level);
+        return dragon;
     }
 }

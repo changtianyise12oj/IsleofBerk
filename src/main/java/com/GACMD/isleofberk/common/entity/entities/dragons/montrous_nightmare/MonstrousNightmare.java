@@ -4,15 +4,20 @@ import com.GACMD.isleofberk.common.entity.entities.AI.taming.T4DragonPotionRequi
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
+import com.GACMD.isleofberk.common.entity.entities.eggs.entity.MonstrousNightmareEgg;
+import com.GACMD.isleofberk.common.entity.entities.eggs.entity.StingerEgg;
+import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;
 import com.GACMD.isleofberk.common.entity.util.Util;
+import com.GACMD.isleofberk.registery.ModEntities;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
@@ -120,6 +126,10 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(2)));
         }
 
+        if(getControllingPassenger() == null && getHealth() < getMaxHealth() * 0.75) {
+            this.setIsUsingSECONDAbility(true);
+        }
+
         if (isOnFireAbility()) {
             Vec3 t = getLWingPos(this);
             Vec3 t1 = getRWingPos(this);
@@ -186,7 +196,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public void positionRider(Entity pPassenger) {
-        if(isOnFireAbility()) {
+        if(isOnFireAbility() && (pPassenger instanceof LivingEntity livingEntity && livingEntity.getEffect(MobEffects.FIRE_RESISTANCE) == null)) {
             pPassenger.setSecondsOnFire(4);
         }
         super.positionRider(pPassenger);
@@ -242,5 +252,11 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     @Override
     public int getMaxFuel() {
         return 275;
+    }
+
+    @Override
+    public @Nullable ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {
+        MonstrousNightmareEgg dragon = ModEntities.M_NIGHTMARE_EGG.get().create(level);
+        return dragon;
     }
 }
