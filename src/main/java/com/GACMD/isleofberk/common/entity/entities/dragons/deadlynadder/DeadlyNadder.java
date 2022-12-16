@@ -299,13 +299,11 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public float getRideCameraDistanceBack() {
-//        return 8;
         return 8;
     }
 
     @Override
     public float getRideCameraDistanceFront() {
-//        return 5;
         return 5;
     }
 

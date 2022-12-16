@@ -185,6 +185,17 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @Override
+    protected int breathBarRegenSpeed() {
+        return 75;
+    }
+
+    @Override
+    protected int breathBarRegenAmount() {
+        return 1;
+    }
+
+
+    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.targetSelector.addGoal(1, new T4DragonPotionRequirement(this, 1));
