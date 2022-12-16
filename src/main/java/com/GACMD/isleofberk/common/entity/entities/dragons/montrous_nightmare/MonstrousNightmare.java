@@ -5,12 +5,12 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.MonstrousNightmareEgg;
-import com.GACMD.isleofberk.common.entity.entities.eggs.entity.StingerEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -126,7 +126,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(2)));
         }
 
-        if(getControllingPassenger() == null && getHealth() < getMaxHealth() * 0.75) {
+        if (getControllingPassenger() == null && getHealth() < getMaxHealth() * 0.75) {
             this.setIsUsingSECONDAbility(true);
         }
 
@@ -151,6 +151,13 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         if (getEffect(MobEffects.DAMAGE_RESISTANCE) != null) {
             this.setOnFireAbility(true);
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5));
+        }
+
+        String s = ChatFormatting.stripFormatting(this.getName().getString());
+        if (s != null) {
+            if (s.equals("Hookfang") || s.equals("hookfang")) {
+                this.setDragonVariant(0);
+            }
         }
 
     }
@@ -196,7 +203,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public void positionRider(Entity pPassenger) {
-        if(isOnFireAbility() && (pPassenger instanceof LivingEntity livingEntity && livingEntity.getEffect(MobEffects.FIRE_RESISTANCE) == null)) {
+        if (isOnFireAbility() && (pPassenger instanceof LivingEntity livingEntity && livingEntity.getEffect(MobEffects.FIRE_RESISTANCE) == null)) {
             pPassenger.setSecondsOnFire(4);
         }
         super.positionRider(pPassenger);

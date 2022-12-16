@@ -2,6 +2,7 @@ package com.GACMD.isleofberk.common.entity.entities.dragons.lightfury;
 
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.common.entity.entities.base.render.model.BaseDragonModel;
+import com.GACMD.isleofberk.common.entity.entities.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFury;
 import net.minecraft.resources.ResourceLocation;
 
@@ -15,8 +16,21 @@ public class LightFuryModel extends BaseDragonModel<LightFury> {
 
     @Override
     public ResourceLocation getTextureLocation(LightFury entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/light_fury/fight_fury_1.png");
-
+        switch (entity.getDragonVariant()) {
+            default:
+            case 0:
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_1.png");
+            case 1:
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_2.png");
+            case 2:
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_3.png");
+            case 3:
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_4.png");
+            case 4:
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_5.png");
+            case 5:
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_6.png");
+        }
     }
 
     @Override

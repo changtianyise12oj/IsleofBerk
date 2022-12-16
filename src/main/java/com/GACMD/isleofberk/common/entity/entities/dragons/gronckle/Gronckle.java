@@ -9,6 +9,7 @@ import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBa
 import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -429,6 +430,13 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         } else if (this.tier4()) {
             setExplosionStrength(4);
         }
+        String s = ChatFormatting.stripFormatting(this.getName().getString());
+        if (s != null) {
+            if (s.equals("Meatlug") || s.equals("meatlug")) {
+                this.setDragonVariant(0);
+            }
+        }
+
     }
 
     @Override

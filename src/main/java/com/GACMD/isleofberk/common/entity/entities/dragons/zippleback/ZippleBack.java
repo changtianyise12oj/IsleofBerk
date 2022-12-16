@@ -10,6 +10,7 @@ import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBa
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison.ZipBreathProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison.ZippleBackAOECloud;
 import com.GACMD.isleofberk.registery.ModEntities;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -163,6 +164,13 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         System.out.println();
         if (this.getEffect(MobEffects.POISON) != null) {
             this.removeEffect(MobEffects.POISON);
+        }
+
+        String s = ChatFormatting.stripFormatting(this.getName().getString());
+        if (s != null) {
+            if (s.equals("Barf and Belch") || s.equals("barf and belch")|| s.equals("Barf & Belch")|| s.equals("barf & belch")|| s.equals("Barf && Belch")|| s.equals("barf && belch")) {
+                this.setDragonVariant(0);
+            }
         }
     }
 

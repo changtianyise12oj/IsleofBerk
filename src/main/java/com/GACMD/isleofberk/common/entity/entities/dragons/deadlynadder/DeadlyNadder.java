@@ -9,6 +9,7 @@ import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBa
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.other.nadder_spike.DeadlyNadderSpike;
 import com.GACMD.isleofberk.registery.ModEntities;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -243,6 +244,13 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         super.tick();
         if (ticksSinceLastStingAttack >= 0)
             ticksSinceLastStingAttack--;
+
+        String s = ChatFormatting.stripFormatting(this.getName().getString());
+        if (s != null) {
+            if (s.equals("Stormfly") || s.equals("stormfly")) {
+                this.setDragonVariant(0);
+            }
+        }
     }
 
     @Override

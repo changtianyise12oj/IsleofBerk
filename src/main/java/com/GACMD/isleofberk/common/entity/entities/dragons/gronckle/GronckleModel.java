@@ -33,13 +33,13 @@ public class GronckleModel extends BaseDragonModel<Gronckle> {
         switch (entity.getDragonVariant()) {
             default:
             case 0:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/gronckle.png");
+                return new ResourceLocation("isleofberk:textures/dragons/gronckle/meatlug.png");
             case 1:
                 return new ResourceLocation("isleofberk:textures/dragons/gronckle/green.png");
             case 2:
                 return new ResourceLocation("isleofberk:textures/dragons/gronckle/blue.png");
             case 3:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/meatlug.png");
+                return new ResourceLocation("isleofberk:textures/dragons/gronckle/gronckle.png");
             case 4:
                 return new ResourceLocation("isleofberk:textures/dragons/gronckle/orange.png");
             case 5:
