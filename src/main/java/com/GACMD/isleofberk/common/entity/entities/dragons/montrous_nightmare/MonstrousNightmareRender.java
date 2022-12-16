@@ -14,6 +14,7 @@ public class MonstrousNightmareRender extends BaseRendererFlying<MonstrousNightm
 
     public MonstrousNightmareRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new MonstrousNightmareModel(renderManager));
+        this.addLayer(new MonstrousNightMareFireArmor<>(this));
     }
 
     @Override

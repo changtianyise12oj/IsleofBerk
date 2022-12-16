@@ -6,8 +6,16 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideabl
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;
+import com.GACMD.isleofberk.common.entity.util.Util;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -17,7 +25,12 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
+    private static final EntityDataAccessor<Boolean> IS_ON_FIRE_ABILITY = SynchedEntityData.defineId(ADragonBaseFlyingRideable.class, EntityDataSerializers.BOOLEAN);
+
+    private int ticksUsingSecondAbility;
 
     public MonstrousNightmare(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -29,6 +42,31 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
         return pSpawnData;
     }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(IS_ON_FIRE_ABILITY, false);
+    }
+
+    public boolean isOnFireAbility() {
+        return this.entityData.get(IS_ON_FIRE_ABILITY);
+    }
+
+    public void setOnFireAbility(boolean fire) {
+        this.entityData.set(IS_ON_FIRE_ABILITY, fire);
+    }
+
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("is_on_fire", this.isOnFireAbility());
+    }
+
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        this.setOnFireAbility(pCompound.getBoolean("is_on_fire"));
+    }
+
 
     @Override
     public int getMaxAmountOfVariants() {
@@ -49,7 +87,6 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         return super.rider1YOffSet();
     }
 
-
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
@@ -60,6 +97,74 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
         return throatPos;
 
+    }
+
+    @Override
+    public void tick() {
+        if(isUsingSECONDAbility()) {
+            ticksUsingSecondAbility++;
+        }
+
+        if(ticksUsingSecondAbility > 40) {
+            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(5)));
+        }
+
+        if(isOnFireAbility()) {
+            Vec3 t = getLWingPos(this);
+            Vec3 t1 = getRWingPos(this);
+
+        level.addParticle(ParticleTypes.LAVA, t.x, t.y, t.z, 1, 1, 1);
+        level.addParticle(ParticleTypes.LAVA, t1.x, t1.y, t1.z, 1, 1, 1);
+        
+        }
+
+        if(getEffect(MobEffects.DAMAGE_RESISTANCE) != null) {
+            this.setOnFireAbility(true);
+            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5));
+            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5));
+        }
+    }
+
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        LivingEntity attacker = getLastHurtMob();
+        if(Objects.equals(pSource, DamageSource.mobAttack(Objects.requireNonNull(attacker)))) {
+            attacker.setSecondsOnFire(4);
+            attacker.hurt(DamageSource.indirectMobAttack(this, attacker), 6);
+
+        }
+        return super.hurt(pSource, pAmount);
+    }
+
+    public Vec3 getLWingPos(ADragonBase entity) {
+        Vec3 bodyOrigin = position();
+
+        float angle = (float) ((float) (Math.PI / 180) * this.getYRot() + (Math.PI / 180 * 10));
+        double x = Math.sin(Math.PI + angle) * 4;
+        double y = 3.8D;
+        double z = Math.cos(angle) * 4;
+        float scale = isBaby() ? 0.2F : 1;
+        Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
+        return throatPos;
+
+    }
+
+    public Vec3 getRWingPos(ADragonBase entity) {
+        Vec3 bodyOrigin = position();
+
+        float angle = (float) ((float) (Math.PI / 180) * this.getYRot() - (Math.PI / 180 * 10));
+        double x = Math.sin(Math.PI + angle) * 4;
+        double y = 3.8D;
+        double z = Math.cos(angle) * 4;
+        float scale = isBaby() ? 0.2F : 1;
+        Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
+        return throatPos;
+
+    }
+
+    @Override
+    public void positionRider(Entity pPassenger) {
+        super.positionRider(pPassenger);
     }
 
     //  Attributes

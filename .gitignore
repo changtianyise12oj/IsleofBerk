@@ -40,3 +40,5 @@ run/logs/debug-1.log.gz
 run/logs/debug-1.log.gz
 *.gz
 *.log
+run/usercache.json
+run/logs/latest.log
