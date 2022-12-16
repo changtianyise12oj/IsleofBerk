@@ -81,11 +81,11 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 } else if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
                     float dist = distanceTo(player);
                     double ydist = this.getY() - player.getY();
-                    if (dist > 8.3F) {
+                    if (dist > 2F && ydist < 5) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
                         return PlayState.CONTINUE;
                     }
-                    if (dist < 8.3F || ydist > 4) {
+                    if (ydist > 5) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
                         return PlayState.CONTINUE;
                     }

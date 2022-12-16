@@ -81,7 +81,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
                 } else if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
                     float dist = distanceTo(player);
                     double ydist = this.getY() - player.getY();
-                    if (dist > 8.3F || ydist < 4) {
+                    if (dist > 8.3F) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
                         return PlayState.CONTINUE;
                     }

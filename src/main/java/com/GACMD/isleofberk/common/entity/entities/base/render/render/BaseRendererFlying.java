@@ -1,6 +1,7 @@
 package com.GACMD.isleofberk.common.entity.entities.base.render.render;
 
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFury;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -25,6 +26,7 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
     protected float currentBodyYaw;
     protected float boostedBodyPitch;
     protected float finalBodyPitch;
+    int pitch = 0;
 
     protected BaseRendererFlying(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
@@ -52,27 +54,40 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
         if (dragon.getPassengers().size() < 2 || dragon.getControllingPassenger() == null) {
             if (dragon.isFlying()) {
 //                if (dragon.getControllingPassenger() instanceof Player pilot) {
-                    // approach to 0 if not boosting
-                    // approach to maxRise if boosting
-                    if (dragon.isGoingUp() && boostedBodyPitch >= -40) {
-                        boostedBodyPitch -= 1;
-                    } else if (!dragon.isGoingUp()) {
-                        boostedBodyPitch = Mth.approach(boostedBodyPitch, 0, -1);
+                // approach to 0 if not boosting
+                // approach to maxRise if boosting
+                if (dragon.isGoingUp() && boostedBodyPitch >= -40) {
+                    boostedBodyPitch -= 1;
+                } else if (!dragon.isGoingUp()) {
+                    boostedBodyPitch = Mth.approach(boostedBodyPitch, 0, -1);
+                }
+
+                // +90 dive -90 rise
+                currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
+                finalBodyPitch = currentBodyPitch + boostedBodyPitch;
+                body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
+
+                if (dragon.isDragonFollowing() && dragon.getOwner() instanceof Player player && dragon instanceof NightFury nightFury) {
+                    double ydist = nightFury.getY() - player.getY();
+                    if (ydist > 8.3F) {
+                        pitch-=4;
+                        body.setRotationX(toRadians(Mth.clamp(pitch, -90, 0)));
+                        System.out.println("rotX" + body.getRotationX());
+                        System.out.println("pitch" + pitch);
+//                        }
+                    } else {
+                        pitch = 0;
                     }
+                }
 
-                    // +90 dive -90 rise
-                    currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
-                    finalBodyPitch = currentBodyPitch + boostedBodyPitch;
-                    body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
-
-                    if (hasDynamicYawAndRoll() && dragon.getControllingPassenger() instanceof Player) {
-                        float f = Mth.rotLerp(partialTicks, dragon.yBodyRotO, dragon.yBodyRot);
-                        float f1 = Mth.rotLerp(partialTicks, dragon.yHeadRotO, dragon.yHeadRot);
-                        changeInYaw = (f1 - f) * ((float) Math.PI / 180F) * -1.5F;
-                        dragon.setChangeInYaw((f1 - f) * ((float) Math.PI / 180F) * -1.5F);
+                if (hasDynamicYawAndRoll() && dragon.getControllingPassenger() instanceof Player) {
+                    float f = Mth.rotLerp(partialTicks, dragon.yBodyRotO, dragon.yBodyRot);
+                    float f1 = Mth.rotLerp(partialTicks, dragon.yHeadRotO, dragon.yHeadRot);
+                    changeInYaw = (f1 - f) * ((float) Math.PI / 180F) * -1.5F;
+                    dragon.setChangeInYaw((f1 - f) * ((float) Math.PI / 180F) * -1.5F);
 //                         the rotation is based on yaw
-                        body.setRotationZ(Mth.clamp(dragon.getChangeInYaw(), -8, 8));
-                        body.setRotationZ(changeInYaw);
+                    body.setRotationZ(Mth.clamp(dragon.getChangeInYaw(), -8, 8));
+                    body.setRotationZ(changeInYaw);
 //                    }
                 }
 //                else if (dragon.getControllingPassenger() == null) {

@@ -5,6 +5,7 @@ import com.GACMD.isleofberk.common.entity.entities.base.render.model.BaseDragonM
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
@@ -13,10 +14,14 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 @OnlyIn(Dist.CLIENT)
 public class GronckleModel extends BaseDragonModel<Gronckle> {
-    public GronckleModel(EntityRendererProvider.Context renderManager) {super(); }
+    public GronckleModel(EntityRendererProvider.Context renderManager) {
+        super();
+    }
 
     @Override
-    protected float getBabyHeadSize() { return 1.2f; }
+    protected float getBabyHeadSize() {
+        return 1.2f;
+    }
 
     @Override
     public ResourceLocation getModelLocation(Gronckle entity) {
@@ -58,31 +63,33 @@ public class GronckleModel extends BaseDragonModel<Gronckle> {
     @Override
     public void setLivingAnimations(Gronckle dragon, Integer uniqueID, AnimationEvent customPredicate) {
         super.setLivingAnimations(dragon, uniqueID, customPredicate);
+        // do not use headtracking when elytra flying
+        if (dragon.getOwner() instanceof Player player && !dragon.isDragonFollowing() && !player.isFallFlying()) {
+            // call for model bones, all called bones must exist in the model
+            IBone head = this.getAnimationProcessor().getBone("head");
 
-        // call for model bones, all called bones must exist in the model
-        IBone head = this.getAnimationProcessor().getBone("head");
+            // whatever tf is that, used for head tracking
+            // will probably stop working at some point
+            EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 
-        // whatever tf is that, used for head tracking
-        // will probably stop working at some point
-        EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
+            // floats to fix paused game mess
+            float rotHeadY;
+            float rotHeadX;
 
-        // floats to fix paused game mess
-        float rotHeadY;
-        float rotHeadX;
+            // checks if game is paused - head spinning/heaven ascension on pause fix
+            if (Minecraft.getInstance().isPaused()) {
+                rotHeadY = 0;
+                rotHeadX = 0;
+            } else {
+                rotHeadY = head.getRotationY();
+                rotHeadX = head.getRotationX();
+            }
 
-        // checks if game is paused - head spinning/heaven ascension on pause fix
-        if (Minecraft.getInstance().isPaused()) {
-            rotHeadY = 0;
-            rotHeadX = 0;
-        } else {
-            rotHeadY = head.getRotationY();
-            rotHeadX = head.getRotationX();
-        }
-
-        // head tracking when not mounted
-        if (!dragon.shouldStopMovingIndependently()) {
-            head.setRotationY(rotHeadY + extraData.netHeadYaw * ((float) Math.PI / 180F));
-            head.setRotationX(rotHeadX + extraData.headPitch * ((float) Math.PI / 180F) / 2);
+            // head tracking when not mounted
+            if (!dragon.shouldStopMovingIndependently()) {
+                head.setRotationY(rotHeadY + extraData.netHeadYaw * ((float) Math.PI / 180F));
+                head.setRotationX(rotHeadX + extraData.headPitch * ((float) Math.PI / 180F) / 2);
+            }
         }
     }
 }
