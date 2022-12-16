@@ -71,11 +71,11 @@ public class ModEntities {
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "light_fury").toString()));
 
     public static final RegistryObject<EntityType<MonstrousNightmare>> MONSTROUS_NIGHTMARE = ENTITIES.register("monstrous_nightmare",
-            () -> EntityType.Builder.of(MonstrousNightmare::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
+            () -> EntityType.Builder.of(MonstrousNightmare::new, MobCategory.CREATURE).sized(2.8f, 2.4f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "monstrous_nightmare").toString()));
 
     public static final RegistryObject<EntityType<ZippleBack>> ZIPPLEBACK = ENTITIES.register("zippleback",
-            () -> EntityType.Builder.of(ZippleBack::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
+            () -> EntityType.Builder.of(ZippleBack::new, MobCategory.CREATURE).sized(2.4f, 1.9f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "zippleback").toString()));
 
     // projectiles

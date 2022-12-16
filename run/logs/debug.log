@@ -681,3 +681,55 @@ Caused by: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLeni
 [16Dec2022 08:51:08.608] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
 [16Dec2022 08:51:08.610] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
 [16Dec2022 08:51:55.448] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[16Dec2022 08:53:14.734] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] This Dragon needs a saddle or it could drop you in mid air
+[16Dec2022 08:53:14.747] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] This Dragon needs a saddle or it could drop you in mid air
+[16Dec2022 08:53:36.806] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
+[16Dec2022 08:53:36.808] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
+[16Dec2022 08:53:37.777] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] This Dragon needs a saddle or it could drop you in mid air
+[16Dec2022 08:53:37.793] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] This Dragon needs a saddle or it could drop you in mid air
+[16Dec2022 08:53:55.392] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[16Dec2022 08:53:57.792] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[16Dec2022 08:53:59.442] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[16Dec2022 08:54:03.742] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[16Dec2022 08:54:51.874] [Server thread/WARN] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Night Fury (vehicle of Dev) moved wrongly! 0.2553570320868346
+[16Dec2022 08:54:51.925] [Server thread/WARN] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Night Fury (vehicle of Dev) moved wrongly! 0.4460839176722402
+[16Dec2022 08:54:56.808] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 31 advancements
+[16Dec2022 08:55:12.743] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[16Dec2022 08:55:12.749] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[16Dec2022 08:55:12.753] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[16Dec2022 08:55:12.754] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[16Dec2022 08:55:12.755] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
+[16Dec2022 08:55:12.758] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
+[16Dec2022 09:01:05.075] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] [Debug]: Hitboxes: shown
+[16Dec2022 09:01:06.072] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] [Debug]: Hitboxes: hidden
+[16Dec2022 09:01:10.921] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] [Debug]: Hitboxes: shown
+[16Dec2022 09:01:13.021] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] [Debug]: Hitboxes: hidden
+[16Dec2022 09:01:13.788] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] This Dragon needs a saddle or it could drop you in mid air
+[16Dec2022 09:01:13.805] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] This Dragon needs a saddle or it could drop you in mid air
+[16Dec2022 09:01:17.605] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[16Dec2022 09:02:01.802] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] [Debug]: Hitboxes: shown
+[16Dec2022 09:02:03.139] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] [Debug]: Hitboxes: hidden
+[16Dec2022 09:02:03.494] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[16Dec2022 09:02:03.500] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[16Dec2022 09:02:03.504] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[16Dec2022 09:02:03.505] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[16Dec2022 09:02:03.506] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
+[16Dec2022 09:02:03.508] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
+[16Dec2022 09:02:20.919] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[16Dec2022 09:02:51.951] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] This Dragon needs a saddle or it could drop you in mid air
+[16Dec2022 09:02:51.967] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] This Dragon needs a saddle or it could drop you in mid air
+[16Dec2022 09:03:30.365] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[16Dec2022 09:03:31.615] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[16Dec2022 09:03:54.964] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[16Dec2022 09:03:56.263] [Render thread/WARN] [net.minecraft.client.multiplayer.ClientPacketListener/]: Received passengers for unknown entity
+[16Dec2022 09:04:08.704] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
+[16Dec2022 09:04:08.707] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
+[16Dec2022 09:04:18.796] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Unable to play empty soundEvent: minecraft:entity.cod.ambient
+[16Dec2022 09:04:46.946] [Server thread/WARN] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: entity.isleofberk.zippleback (vehicle of Dev) moved wrongly! 0.6269685558730203
+[16Dec2022 09:04:46.996] [Server thread/WARN] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: entity.isleofberk.zippleback (vehicle of Dev) moved wrongly! 0.7539896595031621
+[16Dec2022 09:06:00.593] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[16Dec2022 09:06:00.598] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[16Dec2022 09:06:00.601] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[16Dec2022 09:06:00.602] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[16Dec2022 09:06:00.603] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
+[16Dec2022 09:06:00.605] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World

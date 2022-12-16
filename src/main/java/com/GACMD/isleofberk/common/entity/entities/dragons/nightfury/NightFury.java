@@ -377,7 +377,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     protected double rider1YOffSet() {
-        return 1.2D;
+        return 1.3D;
     }
 
     protected double rider1ZOffSet() {
@@ -389,7 +389,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     protected double rider2YOffSet() {
-        return 1.2D;
+        return 1.3D;
     }
 
     protected double rider2ZOffSet() {

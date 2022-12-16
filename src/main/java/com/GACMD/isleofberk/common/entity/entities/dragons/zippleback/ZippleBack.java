@@ -96,7 +96,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         T t = null;
 
         for (T t1 : pEntities) {
-            if (test(pTarget, t1, pPredicate, 25)) {
+            if (test(pTarget, t1, pPredicate, 17)) {
                 double d1 = t1.distanceToSqr(pX, pY, pZ);
                 if (d0 == -1.0D || d1 < d0) {
                     d0 = d1;
@@ -152,7 +152,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
             }
         }
 
-        System.out.println(ticksUsingSecondAbility);
+//        System.out.println(ticksUsingSecondAbility);
 
         if (this.getEffect(MobEffects.POISON) != null) {
             this.removeEffect(MobEffects.POISON);
