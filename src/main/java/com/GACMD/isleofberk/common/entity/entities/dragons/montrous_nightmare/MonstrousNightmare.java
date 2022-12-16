@@ -159,8 +159,8 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     public Vec3 getLWingPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
-        float angle = (float) ((float) (Math.PI / 180) * this.getYRot() + (Math.PI / 180 * 95));
-        float angle1 = (float) ((float) (Math.PI / 180) * this.getYRot() + (Math.PI / 180 * 95));
+        float angle = (float) ((float) (Math.PI / 180) * this.yBodyRot + (Math.PI / 180 * 95));
+        float angle1 = (float) ((float) (Math.PI / 180) * this.yBodyRot + (Math.PI / 180 * 95));
         double x = -Math.sin(Math.PI + angle) * 4;
         double y = 2.4D;
         double z = Math.cos(Math.PI + angle1) * 4;
@@ -173,8 +173,8 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     public Vec3 getRWingPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
-        float angle = (float) ((float) (Math.PI / 180) * this.getYRot() - (Math.PI / 180 * 95));
-        float angle1 = (float) ((float) (Math.PI / 180) * this.getYRot() - (Math.PI / 180 * 95));
+        float angle = (float) ((float) (Math.PI / 180) * this.yBodyRot - (Math.PI / 180 * 95));
+        float angle1 = (float) ((float) (Math.PI / 180) * this.yBodyRot - (Math.PI / 180 * 95));
         double x = -Math.sin(Math.PI + angle) * 4;
         double y = 2.4D;
         double z = Math.cos(Math.PI + angle1) * 4;

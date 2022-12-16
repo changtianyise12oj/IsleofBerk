@@ -207,9 +207,9 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
-        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 1.4D;
+        double x = -Math.sin(this.yBodyRot * Math.PI / 180) * 1.4D;
         double y = getLookAngle().y * 2 + 1;
-        double z = Math.cos(this.getYRot() * Math.PI / 180) * 1.4D;
+        double z = Math.cos(this.yBodyRot * Math.PI / 180) * 1.4D;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x, y, z));
         return throatPos;
 

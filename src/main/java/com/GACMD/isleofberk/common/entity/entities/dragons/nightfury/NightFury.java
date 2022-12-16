@@ -268,9 +268,9 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Override
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = this.position();
-        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 2.4;
+        double x = -Math.sin(this.yBodyRot * Math.PI / 180) * 2.4;
         double y = 1.5;
-        double z = Math.cos(this.getYRot() * Math.PI / 180) * 2.4;
+        double z = Math.cos(this.yBodyRot * Math.PI / 180) * 2.4;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x, y, z));
         return throatPos;
     }

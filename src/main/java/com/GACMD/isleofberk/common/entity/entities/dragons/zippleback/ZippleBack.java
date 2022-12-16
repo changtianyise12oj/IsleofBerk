@@ -70,7 +70,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
-        float angle = (float) ((float) (Math.PI / 180) * this.getYRot() + (Math.PI / 180 * 10));
+        float angle = (float) ((float) (Math.PI / 180) * this.yBodyRot + (Math.PI / 180 * 10));
         double x = Math.sin(Math.PI + angle) * 4;
         double y = 3.8D;
         double z = Math.cos(angle) * 4;
@@ -83,7 +83,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     public Vec3 get2ndHeadThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
-        float angle = (float) ((float) (Math.PI / 180) * this.getYRot() - (Math.PI / 180 * 10));
+        float angle = (float) ((float) (Math.PI / 180) * this.yBodyRot - (Math.PI / 180 * 10));
         double x = Math.sin(Math.PI + angle) * 4;
         double y = 3.8D;
         double z = Math.cos(angle) * 4;
