@@ -46,6 +46,15 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         }
     }
 
+    @Override
+    public float getRideCameraDistanceFront() {
+        if (isFlying()) {
+            return 7;
+        } else {
+            return 4;
+        }
+    }
+
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
@@ -118,24 +127,17 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
             }
 
             if (pAttacker instanceof Mob mob) {
-                if (!mob.getSensing().hasLineOfSight(pTarget)) {
-                    return false;
-                }
+                return mob.getSensing().hasLineOfSight(pTarget);
             }
         }
         return true;
     }
-
-//    public net.minecraft.world.entity.ai.targeting.TargetingConditions m_26888_(Ljava/util/function/Predicate;)Lnet/minecraft/world/entity/ai/targeting/TargetingConditions; # selector
-//    public net.minecraft.world.entity.ai.targeting.TargetingConditions m_26883_(D)Lnet/minecraft/world/entity/ai/targeting/TargetingConditions; # range
 
     @Override
     public void tick() {
         super.tick();
         Vec3 t = getThroatPos(this);
         Vec3 t1 = get2ndHeadThroatPos(this);
-//        level.addParticle(ParticleTypes.HAPPY_VILLAGER, t.x, t.y, t.z, 1, 1, 1);
-//        level.addParticle(ParticleTypes.HAPPY_VILLAGER, t1.x, t1.y, t1.z, 1, 1, 1);
 
         if (isUsingSECONDAbility()) {
             level.addParticle(ParticleTypes.LAVA, t1.x, t1.y, t1.z, 1, 1, 1);
@@ -151,8 +153,6 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
                 zipCloud.hurt(DamageSource.IN_FIRE, 1);
             }
         }
-
-//        System.out.println(ticksUsingSecondAbility);
 
         System.out.println();
         if (this.getEffect(MobEffects.POISON) != null) {

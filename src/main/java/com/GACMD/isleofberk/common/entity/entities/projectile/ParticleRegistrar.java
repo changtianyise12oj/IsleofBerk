@@ -11,7 +11,8 @@ public class ParticleRegistrar {
 
     public static final DeferredRegister<ParticleType<?>> REGISTRAR = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, IsleofBerk.MOD_ID);
 
-    public static RegistryObject<SimpleParticleType> FURY_DUST = REGISTRAR.register("fury_dust", () -> new SimpleParticleType(false));
+    public static RegistryObject<SimpleParticleType> NIGHT_FURY_DUST = REGISTRAR.register("night_fury_dust", () -> new SimpleParticleType(false));
+    public static RegistryObject<SimpleParticleType> LIGHT_FURY_DUST = REGISTRAR.register("light_fury_dust", () -> new SimpleParticleType(false));
     public static RegistryObject<SimpleParticleType> FLAME_TAIL = REGISTRAR.register("flame_tail", () -> new SimpleParticleType(false));
     public static RegistryObject<SimpleParticleType> FLAME = REGISTRAR.register("flame", () -> new SimpleParticleType(false));
 

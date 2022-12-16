@@ -2,6 +2,7 @@ package com.GACMD.isleofberk.client.gui.event;
 
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.mojang.math.Vector3f;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -43,16 +44,22 @@ public class DragonCameraEvent {
      */
     @SubscribeEvent
     public static void Camera(EntityViewRenderEvent.CameraSetup cameraSetup) {
-        if (cameraSetup.getCamera().getEntity() instanceof Player) {
-            Player player = (Player) cameraSetup.getCamera().getEntity();
+        if (cameraSetup.getCamera().getEntity() instanceof Player player) {
             Minecraft mc = Minecraft.getInstance();
-            if (player.getVehicle() instanceof ADragonBase) {
-                ADragonBase dragon = (ADragonBase) player.getVehicle();
+            if (player.getVehicle() instanceof ADragonBase dragon) {
                 if (cameraSetup.getCamera().isDetached()) {
-                    cameraSetup.getCamera().move(-getMaxZoom(mc.options.getCameraType().isMirrored() ? dragon.getRideCameraDistanceFront() : dragon.getRideCameraDistanceBack(),
-                                    player.position(), player.level,
-                                    cameraSetup.getCamera().getLookVector(), player),
-                            dragon.getRideCameraDistanceVert(), dragon.getRideCameraDistanceHoriz());
+                    if(mc.options.getCameraType() == CameraType.THIRD_PERSON_BACK) {
+                        cameraSetup.getCamera().move(-getMaxZoom(dragon.getRideCameraDistanceBack(),
+                                        player.position(), player.level,
+                                        cameraSetup.getCamera().getLookVector(), player),
+                                dragon.getRideCameraDistanceVert(), dragon.getRideCameraDistanceHoriz());
+
+                    } else if(mc.options.getCameraType() == CameraType.THIRD_PERSON_FRONT) {
+                        cameraSetup.getCamera().move(-getMaxZoom(dragon.getRideCameraDistanceFront(),
+                                player.position(), player.level,
+                                cameraSetup.getCamera().getLookVector(), player),
+                                dragon.getRideCameraDistanceVert(), dragon.getRideCameraDistanceHoriz());
+                    }
                 }
             }
         }

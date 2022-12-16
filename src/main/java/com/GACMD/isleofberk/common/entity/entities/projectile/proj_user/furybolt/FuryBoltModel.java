@@ -16,7 +16,11 @@ public class FuryBoltModel extends AnimatedGeoModel<FuryBolt> {
 
     @Override
     public ResourceLocation getTextureLocation(FuryBolt entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/projectile/night_fury_blast.png");
+        if(entity.isLightFuryTexture()) {
+            return new ResourceLocation(IsleofBerk.MOD_ID, "textures/projectile/light_fury_blast.png");
+        } else {
+            return new ResourceLocation(IsleofBerk.MOD_ID, "textures/projectile/night_fury_blast.png");
+        }
 
     }
 

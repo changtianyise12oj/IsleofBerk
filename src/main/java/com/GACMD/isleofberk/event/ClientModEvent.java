@@ -8,7 +8,6 @@ import com.GACMD.isleofberk.client.gui.event.RiderInventoryHandler;
 import com.GACMD.isleofberk.common.entity.entities.dragons.deadlynadder.DeadlyNadderRender;
 import com.GACMD.isleofberk.common.entity.entities.dragons.gronckle.GronckleRender;
 import com.GACMD.isleofberk.common.entity.entities.dragons.lightfury.LightFuryRender;
-import com.GACMD.isleofberk.common.entity.entities.dragons.montrous_nightmare.MonstrousNightmare;
 import com.GACMD.isleofberk.common.entity.entities.dragons.montrous_nightmare.MonstrousNightmareRender;
 import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFuryRender;
 import com.GACMD.isleofberk.common.entity.entities.dragons.speedstinger.SpeedStingerRender;
@@ -53,7 +52,8 @@ public final class ClientModEvent {
     }
 
     private void registerParticleFactories(final ParticleFactoryRegisterEvent event) {
-        Minecraft.getInstance().particleEngine.register(ParticleRegistrar.FURY_DUST.get(), FuryBoltParticle.FuryBoltParticleProvider::new);
+        Minecraft.getInstance().particleEngine.register(ParticleRegistrar.NIGHT_FURY_DUST.get(), FuryBoltParticle.FuryBoltParticleProvider::new);
+        Minecraft.getInstance().particleEngine.register(ParticleRegistrar.LIGHT_FURY_DUST.get(), FuryBoltParticle.FuryBoltParticleProvider::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistrar.FLAME_TAIL.get(), FireBoltParticle.FireBoltParticleProvider::new);
         Minecraft.getInstance().particleEngine.register(ParticleRegistrar.FLAME.get(), FlameParticle.FlameParticleProvider::new);
     }

@@ -84,6 +84,15 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @Override
+    public float getRideCameraDistanceFront() {
+        if (isFlying()) {
+            return 7;
+        } else {
+            return 4;
+        }
+    }
+
+    @Override
     protected double rider1YOffSet() {
         return super.rider1YOffSet();
     }

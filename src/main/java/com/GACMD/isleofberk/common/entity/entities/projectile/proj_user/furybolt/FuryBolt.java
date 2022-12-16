@@ -4,7 +4,6 @@ import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
-import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearBoltProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.google.common.collect.Sets;
@@ -13,6 +12,10 @@ import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -54,6 +57,8 @@ import java.util.Set;
 
 public class FuryBolt extends BaseLinearBoltProjectile implements IAnimatable {
 
+    private static final EntityDataAccessor<Boolean> IS_LIGHT_FURY_TEXTURE = SynchedEntityData.defineId(FuryBolt.class, EntityDataSerializers.BOOLEAN);
+
     AnimationFactory factory = new AnimationFactory(this);
     public ADragonBaseFlyingRideableProjUser dragon;
 
@@ -81,6 +86,30 @@ public class FuryBolt extends BaseLinearBoltProjectile implements IAnimatable {
         data.addAnimationController(new AnimationController<>(this, "fury_bolt", 0, this::predicate));
     }
 
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(IS_LIGHT_FURY_TEXTURE, false);
+    }
+
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("is_light_fury_texture", this.isLightFuryTexture());
+    }
+
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        this.setIsLightFuryTexture(pCompound.getBoolean("is_light_fury_texture"));
+    }
+
+    public boolean isLightFuryTexture() {
+        return this.entityData.get(IS_LIGHT_FURY_TEXTURE);
+    }
+
+    public void setIsLightFuryTexture(boolean isLightFUryTexture) {
+        this.entityData.set(IS_LIGHT_FURY_TEXTURE, isLightFUryTexture);
+    }
+
+
     @Override
     public AnimationFactory getFactory() {
         return factory;
@@ -94,7 +123,12 @@ public class FuryBolt extends BaseLinearBoltProjectile implements IAnimatable {
 
     @Override
     protected ParticleOptions getTrailParticle() {
-        return ParticleRegistrar.FURY_DUST.get();
+        if(isLightFuryTexture()) {
+            return ParticleRegistrar.LIGHT_FURY_DUST.get();
+        } else {
+            return ParticleRegistrar.NIGHT_FURY_DUST.get();
+
+        }
     }
 
     @Override
@@ -132,7 +166,6 @@ public class FuryBolt extends BaseLinearBoltProjectile implements IAnimatable {
     protected Explosion explode(@Nullable ADragonBase pEntity, double pX, double pY, double pZ, float pExplosionRadius, boolean pCausesFire, Explosion.BlockInteraction pMode) {
         return this.explode(pEntity, null, null, pX, pY, pZ, pExplosionRadius, pCausesFire, pMode);
     }
-
 
     private Explosion explode(@Nullable ADragonBase pExploder, @Nullable DamageSource pDamageSource, @Nullable ExplosionDamageCalculator pContext, double pX, double pY, double pZ, float pSize, boolean pCausesFire, Explosion.BlockInteraction pMode) {
         // Fire is always disabled in the Explosion constructor, to avoid the placement of regular fire

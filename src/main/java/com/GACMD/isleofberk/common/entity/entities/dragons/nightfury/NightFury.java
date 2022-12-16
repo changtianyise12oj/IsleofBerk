@@ -281,6 +281,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             setTicksSinceLastFire(20);
             FuryBolt bolt = new FuryBolt(this, throat, riderLook, level, getExplosionStrength());
             bolt.shoot(riderLook, 1F);
+            bolt.setIsLightFuryTexture(false);
             level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
@@ -377,7 +378,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     protected double rider1YOffSet() {
-        return 1.3D;
+        return 1.1D;
     }
 
     protected double rider1ZOffSet() {
