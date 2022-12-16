@@ -186,6 +186,9 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public void positionRider(Entity pPassenger) {
+        if(isOnFireAbility()) {
+            pPassenger.setSecondsOnFire(4);
+        }
         super.positionRider(pPassenger);
     }
 
