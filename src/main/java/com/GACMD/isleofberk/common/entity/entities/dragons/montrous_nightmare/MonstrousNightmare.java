@@ -127,16 +127,13 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
                         0.1525f * (random.nextFloat() - 0.5f),
                         0.1525f * (random.nextFloat() - 0.5f));
             }
-//            level.addParticle(ParticleTypes.LAVA, t.x * random.nextInt(5), t.y, t.z * random.nextInt(5), 1, 1, 1);
-//            level.addParticle(ParticleTypes.LAVA, t1.x * random.nextInt(5), t1.y, t1.z * random.nextInt(5), 1, 1, 1);
-
         }
 
         if (getEffect(MobEffects.DAMAGE_RESISTANCE) != null) {
             this.setOnFireAbility(true);
-            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 5));
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5));
         }
+
     }
 
     @Override

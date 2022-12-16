@@ -154,6 +154,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
 //        System.out.println(ticksUsingSecondAbility);
 
+        System.out.println();
         if (this.getEffect(MobEffects.POISON) != null) {
             this.removeEffect(MobEffects.POISON);
         }
