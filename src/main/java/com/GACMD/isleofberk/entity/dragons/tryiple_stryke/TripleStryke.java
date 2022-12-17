@@ -381,6 +381,22 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         return 20;
     }
 
+    public boolean tier1() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.40 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.65;
+    }
+
+    public boolean tier2() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.65 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.85;
+    }
+
+    public boolean tier3() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.85 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast();
+    }
+
+    public boolean tier4() {
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast();
+    }
+
     @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
         return super.isItemStackForTaming(stack);
