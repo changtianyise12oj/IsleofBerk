@@ -150,3 +150,42 @@ Caused by: java.net.ConnectException: HTTP connect timed out
 [17Dec2022 08:04:56.240] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
 [17Dec2022 08:04:56.244] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
 [17Dec2022 08:04:56.245] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[17Dec2022 08:07:34.303] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 49 advancements
+[17Dec2022 08:08:03.292] [Server thread/ERROR] [net.minecraft.server.MinecraftServer/]: Encountered an unexpected exception
+net.minecraft.ReportedException: Ticking entity
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:906) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:842) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:84) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:685) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:261) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
+	at java.lang.Thread.run(Thread.java:833) [?:?]
+Caused by: java.lang.NullPointerException
+	at java.util.Objects.requireNonNull(Objects.java:208) ~[?:?]
+	at com.GACMD.isleofberk.common.entity.entities.dragons.montrous_nightmare.MonstrousNightmare.hurt(MonstrousNightmare.java:168) ~[%2384!/:?]
+	at com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile$FlameBreathExplosion.explode(FireBreathProjectile.java:281) ~[%2384!/:?]
+	at com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile.explode(FireBreathProjectile.java:191) ~[%2384!/:?]
+	at com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile.explode(FireBreathProjectile.java:185) ~[%2384!/:?]
+	at com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile.tick(BaseLinearFlightProjectile.java:208) ~[%2384!/:?]
+	at net.minecraft.server.level.ServerLevel.tickNonPassenger(ServerLevel.java:652) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
+	at net.minecraft.world.level.Level.guardEntityTick(Level.java:487) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
+	at net.minecraft.server.level.ServerLevel.lambda$tick$3(ServerLevel.java:319) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
+	at net.minecraft.world.level.entity.EntityTickList.forEach(EntityTickList.java:54) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:299) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:902) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
+	... 5 more
+[17Dec2022 08:08:03.300] [Server thread/FATAL] [net.minecraftforge.common.ForgeMod/]: Preparing crash report with UUID c9aee5a2-436c-4e72-8b0b-47a042e47479
+[17Dec2022 08:08:03.301] [Server thread/ERROR] [net.minecraft.server.MinecraftServer/]: This crash report has been saved to: C:\Users\Jexel\Desktop\MDK\IsleOfBerk\run\.\crash-reports\crash-2022-12-17_08.08.03-server.txt
+[17Dec2022 08:08:03.301] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[17Dec2022 08:08:03.301] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[17Dec2022 08:08:03.302] [Render thread/FATAL] [net.minecraftforge.common.ForgeMod/]: Preparing crash report with UUID b009183f-759d-440b-8690-46fe1aaef469
+[17Dec2022 08:08:03.307] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Disconnected
+[17Dec2022 08:08:03.307] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev left the game
+[17Dec2022 08:08:03.313] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Stopping singleplayer server as player logged out
+[17Dec2022 08:08:03.313] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[17Dec2022 08:08:04.174] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[17Dec2022 08:08:04.211] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[17Dec2022 08:08:04.212] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[17Dec2022 08:08:04.222] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (New World (6)): All chunks are saved
+[17Dec2022 08:08:04.222] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[17Dec2022 08:08:04.222] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[17Dec2022 08:08:04.222] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
