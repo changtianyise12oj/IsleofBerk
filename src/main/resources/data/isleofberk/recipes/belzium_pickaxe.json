@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "isleofberk:gronckle_iron_pickaxe"
+  },
+  "addition": {
+    "item": "isleofberk:belzium"
+  },
+  "result": {
+    "item": "isleofberk:belzium_pickaxe"
+  }
+}

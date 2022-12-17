@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "isleofberk:gronckle_iron_mace"
+  },
+  "addition": {
+    "item": "isleofberk:belzium"
+  },
+  "result": {
+    "item": "isleofberk:belzium_mace"
+  }
+}

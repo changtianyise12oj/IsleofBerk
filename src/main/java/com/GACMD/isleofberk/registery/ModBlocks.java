@@ -26,14 +26,14 @@ public class ModBlocks {
                     .strength(8f)), ModTab.IOB_TAB);
 
     public static final RegistryObject<Block> BELZIUM_ORE = registerBlock("belzium_ore",
-            () -> new Block(BlockBehaviour.Properties.of(Material.STONE)
+            () -> new OreBlock(BlockBehaviour.Properties.of(Material.STONE)
                     .strength(8f)), ModTab.IOB_TAB);
 
     public static final RegistryObject<Block> RAW_GRONCKLE_IRON_BLOCK = registerBlock("raw_gronckle_iron_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
                     .strength(8f)), ModTab.IOB_TAB);
 
-    public static final RegistryObject<Block> GRONCKLE_RION_BLOCK = registerBlock("gronckle_iron_block",
+    public static final RegistryObject<Block> GRONCKLE_IION_BLOCK = registerBlock("gronckle_iron_block",
             () -> new Block(BlockBehaviour.Properties.of(Material.METAL)
                     .strength(8f)), ModTab.IOB_TAB);
 

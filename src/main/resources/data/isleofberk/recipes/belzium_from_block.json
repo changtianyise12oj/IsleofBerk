@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "isleofberk:belzium_block"
+        }
+    ],
+    "result": {
+        "item": "isleofberk:belzium",
+        "count": 9
+    }
+}
