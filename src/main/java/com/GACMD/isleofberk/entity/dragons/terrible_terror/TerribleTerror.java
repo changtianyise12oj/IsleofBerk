@@ -632,7 +632,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                     }
                     this.ticksSinceEaten = 0;
                 } else if (this.ticksSinceEaten > 599 && this.random.nextFloat() < 0.1F) {
-                    this.playSound(this.getEatingSound(itemstack), 1.0F, 1.0F);
+                    this.playSound(SoundEvents.GENERIC_BURN, 1.5F, 1.0F);
                     this.level.broadcastEntityEvent(this, (byte) 45);
                 }
             }
