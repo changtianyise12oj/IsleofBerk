@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    " / ",
+    " / "
+  ],
+  "key": {
+    "i": {
+      "item": "isleofberk:gronckle_iron"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "isleofberk:gronckle_iron_pickaxe",
+    "count": 1
+  }
+}
