@@ -124,10 +124,6 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(2)));
         }
 
-        if (getControllingPassenger() == null && getHealth() < getMaxHealth() * 0.75) {
-            this.setIsUsingSECONDAbility(true);
-        }
-
         if (isOnFireAbility()) {
             Vec3 t = getLWingPos(this);
             Vec3 t1 = getRWingPos(this);
@@ -151,6 +147,12 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5));
         }
 
+        if(isInWater() || isWaterBelow()) {
+            if(getEffect(MobEffects.DAMAGE_RESISTANCE) != null) {
+                this.removeEffect(MobEffects.DAMAGE_RESISTANCE);
+            }
+        }
+
         String s = ChatFormatting.stripFormatting(this.getName().getString());
         if (s != null) {
             if (s.equals("Hookfang") || s.equals("hookfang")) {
@@ -166,6 +168,11 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         if (attacker != null) {
             attacker.setSecondsOnFire(3);
             attacker.hurt(DamageSource.indirectMobAttack(this, attacker), 6);
+        }
+        if (random.nextInt(24) == 1) {
+            if (getControllingPassenger() == null) {
+                this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(2)));
+            }
         }
         return super.hurt(pSource, pAmount);
     }

@@ -243,13 +243,13 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
      * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
      */
     public void shootNoScaling(Vec3 end, float partialTicks, float pInaccuracy) {
-        double pVelocity = 5;
+        double pVelocity = 2;
         Vec3 endVec = (new Vec3(end.x() * pVelocity, end.y() * pVelocity, end.z() * pVelocity));
 
         // plays particles
         // use rotation and endpoint
         Vec3 vec3 = (endVec).normalize().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy,
-                this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D *  pInaccuracy);
+                this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D *  pInaccuracy).scale(pVelocity);
         this.setDeltaMovement(vec3);
 
         double d0 = end.horizontalDistance();
