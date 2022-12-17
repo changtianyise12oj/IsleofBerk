@@ -51,7 +51,7 @@ public class ModSpawnRegistration {
                 Biomes.FROZEN_RIVER, Biomes.DEEP_FROZEN_OCEAN);
 
         // jungle
-        addMobSpawn(event,List.of(Biome.BiomeCategory.JUNGLE), MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
+        addMobSpawn(event, List.of(Biome.BiomeCategory.JUNGLE), MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
                 3, 3, 4, 0.08F);
 
         // TODO: TERRIBLE TERROR
@@ -84,8 +84,23 @@ public class ModSpawnRegistration {
 
         // TODO: NIGHT FURY
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.NIGHT_FURY.get(),
-                2, 1, 1, 0.07F, Biomes.STONY_SHORE, Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
+                1, 1, 1, 0.05F, Biomes.STONY_SHORE, Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
                 Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST);
+
+        // TODO: LIGHT FURY
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.LIGHT_FURY.get(),
+                1, 1, 1, 0.05F, Biomes.STONY_SHORE, Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
+                Biomes.WINDSWEPT_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.BIRCH_FOREST);
+
+        // TODO: MONSTROUS NIGHTMARE
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.MONSTROUS_NIGHTMARE.get(),
+                1, 2, 3, 0.05F, Biomes.STONY_SHORE, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST,
+                Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.ERODED_BADLANDS);
+
+        // TODO: ZIPPLEBACK
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.ZIPPLEBACK.get(),
+                1, 2, 3, 0.05F, Biomes.STONY_SHORE, Biomes.SNOWY_PLAINS, Biomes.ICE_SPIKES, Biomes.SWAMP,
+                Biomes.SPARSE_JUNGLE);
 
     }
 
