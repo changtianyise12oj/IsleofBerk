@@ -1,5 +1,6 @@
 build/
 out/
+run/
 .gradle/
 .idea/
 *.iml
@@ -7,7 +8,6 @@ out/
 *.iws
 classes/
 bin/
-run/
 run/logs/
 run-server/
 .settings
