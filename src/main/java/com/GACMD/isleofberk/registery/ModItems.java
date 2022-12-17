@@ -56,6 +56,10 @@ public final class ModItems {
             () -> new SwordItem(ModToolTiers.GRONCKLE_IRON, 5, 3f,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
+    public static final RegistryObject<Item> GRONCKLE_IRON_HAMMER = ITEMS.register("gronckle_iron_hammer",
+            () -> new PickaxeItem(ModToolTiers.GRONCKLE_IRON, 5, 3f,
+                    new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
+
     public static final RegistryObject<Item> BELZIUM_PICKAXE = ITEMS.register("belzium_pickaxe",
             () -> new PickaxeItem(ModToolTiers.BELZIUM, 3, 4f,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
@@ -72,9 +76,12 @@ public final class ModItems {
             () -> new SwordItem(ModToolTiers.BELZIUM, 6, 4f,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
-
     public static final RegistryObject<Item> BELZIUM_MACE = ITEMS.register("belzium_mace",
             () -> new SwordItem(ModToolTiers.BELZIUM, 6, 4f,
+                    new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
+
+    public static final RegistryObject<Item> BELZIUM_HAMMER = ITEMS.register("belzium_hammer",
+            () -> new PickaxeItem(ModToolTiers.BELZIUM, 6, 4f,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     /**
