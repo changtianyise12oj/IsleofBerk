@@ -1,7 +1,7 @@
 package com.GACMD.isleofberk.common.entity.entities.AI.flight.player;
 
 import com.GACMD.isleofberk.common.entity.entities.AI.flight.ADragonBaseBaseFlyingRideableGoal;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 

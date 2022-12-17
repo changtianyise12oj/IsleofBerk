@@ -19,7 +19,7 @@ import com.GACMD.isleofberk.common.entity.entities.dragons.zippleback.ZippleBack
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.large.ADragonLargeEggRenderer;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.medium.MediumEggRenderer;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.small.SmallEggRenderer;
-import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
+import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectileRenderer;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FlameParticle;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison.ZipBreathProjectile;
@@ -52,10 +52,10 @@ public final class ClientModEvent {
     }
 
     private void registerParticleFactories(final ParticleFactoryRegisterEvent event) {
-        Minecraft.getInstance().particleEngine.register(ParticleRegistrar.NIGHT_FURY_DUST.get(), FuryBoltParticle.FuryBoltParticleProvider::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistrar.LIGHT_FURY_DUST.get(), FuryBoltParticle.FuryBoltParticleProvider::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistrar.FLAME_TAIL.get(), FireBoltParticle.FireBoltParticleProvider::new);
-        Minecraft.getInstance().particleEngine.register(ParticleRegistrar.FLAME.get(), FlameParticle.FlameParticleProvider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.NIGHT_FURY_DUST.get(), FuryBoltParticle.FuryBoltParticleProvider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.LIGHT_FURY_DUST.get(), FuryBoltParticle.FuryBoltParticleProvider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.FLAME_TAIL.get(), FireBoltParticle.FireBoltParticleProvider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.FLAME.get(), FlameParticle.FlameParticleProvider::new);
     }
 
     @SubscribeEvent

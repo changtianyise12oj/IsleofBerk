@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.AI.target.projectile_firing;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideableBreathUser;
 
 /**
  * Continues breathing projectiles without the need of player input controls

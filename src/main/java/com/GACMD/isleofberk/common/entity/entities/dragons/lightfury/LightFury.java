@@ -1,20 +1,15 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.lightfury;
 
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.T4DragonPotionRequirement;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.LightFuryEgg;
-import com.GACMD.isleofberk.common.entity.entities.eggs.entity.MonstrousNightmareEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.furybolt.FuryBolt;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.effect.MobEffectInstance;

@@ -1,7 +1,7 @@
 package com.GACMD.isleofberk.common.entity.entities.AI.flight;
 
 import com.GACMD.isleofberk.common.entity.entities.AI.ADragonRideableUtilityBaseGoal;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideable;
 
 import java.util.HashMap;
 import java.util.Map;

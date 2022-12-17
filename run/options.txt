@@ -111,7 +111,7 @@ key_key.hotbar.9:key.keyboard.9
 key_key.isleofberk.keyDown:key.keyboard.left.alt
 key_key.isleofberk.keyAbility:key.keyboard.r
 key_key.isleofberk.keySpecialAbility:key.keyboard.x
-soundCategory_master:0.03807947
+soundCategory_master:0.51324505
 soundCategory_music:0.0
 soundCategory_record:1.0
 soundCategory_weather:1.0

@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.base.render.render;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideable;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;

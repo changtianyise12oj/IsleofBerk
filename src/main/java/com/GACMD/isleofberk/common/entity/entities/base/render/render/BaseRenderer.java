@@ -1,7 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.base.render.render;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.base.render.layer.BaseSaddleLayer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

@@ -1,7 +1,7 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.skrill;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideableBreathUser;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;

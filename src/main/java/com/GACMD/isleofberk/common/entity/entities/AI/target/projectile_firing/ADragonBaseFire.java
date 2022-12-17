@@ -1,7 +1,7 @@
 package com.GACMD.isleofberk.common.entity.entities.AI.target.projectile_firing;
 
 import com.GACMD.isleofberk.common.entity.entities.AI.ADragonBaseGoal;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonRideableUtility;
 import net.minecraft.world.entity.LivingEntity;
 
 public class ADragonBaseFire extends ADragonBaseGoal {

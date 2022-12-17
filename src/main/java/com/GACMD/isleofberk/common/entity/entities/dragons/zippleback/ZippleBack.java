@@ -1,10 +1,9 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.zippleback;
 
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.T4DragonPotionRequirement;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
-import com.GACMD.isleofberk.common.entity.entities.eggs.entity.MonstrousNightmareEgg;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideableBreathUser;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.ZippleBackEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison.ZipBreathProjectile;

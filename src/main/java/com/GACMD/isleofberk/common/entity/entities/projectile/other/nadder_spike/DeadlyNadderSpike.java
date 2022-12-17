@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.other.nadder_spike;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.ints.IntOpenHashSet;

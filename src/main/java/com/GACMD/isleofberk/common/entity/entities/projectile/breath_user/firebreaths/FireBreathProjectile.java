@@ -1,9 +1,9 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerror;
-import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
+import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.google.common.collect.Sets;
@@ -161,7 +161,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
     @Override
     protected @NotNull ParticleOptions getTrailParticle() {
-        return ParticleRegistrar.FLAME.get();
+        return ModParticles.FLAME.get();
     }
 
     @Override

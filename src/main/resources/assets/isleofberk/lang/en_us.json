@@ -1,6 +1,17 @@
 {
     "itemGroup.isleofberk": "Isle of Berk",
 
+    "item.isleofberk.gronckle_iron_pickaxe": "Hooligan Pickaxe",
+    "item.isleofberk.gronckle_iron_axe": "Hooligan Axe",
+    "item.isleofberk.gronckle_iron_doubleaxe": "Hooligan Double Axe",
+    "item.isleofberk.gronckle_iron_sword": "Hooligan Sword",
+    "item.isleofberk.gronckle_iron_mace": "Hooligan Mace",
+    "item.isleofberk.belzium_pickaxe": "§dReinforced Hooligan Pickaxe",
+    "item.isleofberk.belzium_axe": "§dReinforced Hooligan Axe",
+    "item.isleofberk.belzium_doubleaxe": "§dReinforced Hooligan Double Axe",
+    "item.isleofberk.belzium_sword": "§dReinforced Hooligan Sword",
+    "item.isleofberk.belzium_mace": "§dReinforced Hooligan Mace",
+
     "item.isleofberk.deadly_nadder_spawn_egg": "§dDeadly Nadder",
     "item.isleofberk.gronckle_spawn_egg": "§dGronckle",
     "item.isleofberk.lightfury_spawn_egg": "§dLight Fury",
@@ -17,6 +28,8 @@
     "entity.isleofberk.gronckle": "Gronckle",
     "entity.isleofberk.light_fury": "Light Fury",
     "entity.isleofberk.night_fury": "Night Fury",
+    "entity.isleofberk.monstrous_nightmare": "Monstrous Nightmare",
+    "entity.isleofberk.zippleback": "Hideous Zippleback",
     "entity.isleofberk.speed_stinger": "Speed Stinger",
     "entity.isleofberk.speed_stinger_leader": "Lead Speed Stinger",
     "entity.isleofberk.stinger": "Stinger",
@@ -42,8 +55,8 @@
     "item.isleofberk.gronckle_iron": "Gronckle Iron",
     "item.isleofberk.raw_gronckle_iron": "Raw Gronckle Iron",
 
-    "block.isleofberk.belziom_ore": "Belzium Ore",
-    "block.isleofberk.belziom_block": "Belzium Block",
+    "block.isleofberk.belzium_ore": "Belzium Ore",
+    "block.isleofberk.belzium_block": "Belzium Block",
     "block.isleofberk.gronckle_iron_block": "Gronckle Iron Block",
     "block.isleofberk.raw_gronckle_iron_block": "Raw Gronckle Iron Block",
 

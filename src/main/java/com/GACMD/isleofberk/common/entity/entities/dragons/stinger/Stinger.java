@@ -1,7 +1,7 @@
 package com.GACMD.isleofberk.common.entity.entities.dragons.stinger;
 
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.T2DragonFeedTamingGoal;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseGroundRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseGroundRideable;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.StingerEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.util.math.MathX;
@@ -15,14 +15,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
