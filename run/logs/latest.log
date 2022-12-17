@@ -1,25 +1,25 @@
-[17Dec2022 08:15:48.125] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 1.18, --assetsDir, C:\Users\Jexel\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 40.1.80, --fml.mcVersion, 1.18.2, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20220404.173914]
-[17Dec2022 08:15:48.128] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 9.1.3+9.1.3+main.9b69c82a starting: java version 17.0.1 by Eclipse Adoptium
-[17Dec2022 08:15:48.250] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Jexel/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%2323!/ Service=ModLauncher Env=CLIENT
-[17Dec2022 08:15:48.543] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Jexel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.18.2-40.1.80\90438da2d8de451a793fc69d3c343ebc5bc401e1\javafmllanguage-1.18.2-40.1.80.jar is missing mods.toml file
-[17Dec2022 08:15:48.545] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Jexel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.18.2-40.1.80\f81c79807d6b57938f2169b01f403ff103f3ed50\lowcodelanguage-1.18.2-40.1.80.jar is missing mods.toml file
-[17Dec2022 08:15:48.548] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Jexel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.18.2-40.1.80\8771f610fa019b272803538ce71f77409082691f\mclanguage-1.18.2-40.1.80.jar is missing mods.toml file
-[17Dec2022 08:15:48.551] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Jexel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.18.2-40.1.80\a0e12c8a0526791f1a7840d3b1c4fc061c6bd30f\fmlcore-1.18.2-40.1.80.jar is missing mods.toml file
-[17Dec2022 08:15:48.659] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
-[17Dec2022 08:15:50.823] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\Jexel\.gradle\caches\forge_gradle\assets, --assetIndex, 1.18]
-[17Dec2022 08:15:57.922] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResources/]: Assets URL 'union:/C:/Users/Jexel/Desktop/MDK/IsleOfBerk/build/fg_cache/net/minecraftforge/forge/1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2/forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/assets/.mcassetsroot' uses unexpected schema
-[17Dec2022 08:15:57.923] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResources/]: Assets URL 'union:/C:/Users/Jexel/Desktop/MDK/IsleOfBerk/build/fg_cache/net/minecraftforge/forge/1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2/forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/data/.mcassetsroot' uses unexpected schema
-[17Dec2022 08:15:57.982] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
-[17Dec2022 08:15:57.987] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
-[17Dec2022 08:15:58.161] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.2.2 SNAPSHOT
-[17Dec2022 08:15:59.506] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 40.1.80, for MC 1.18.2 with MCP 20220404.173914
-[17Dec2022 08:15:59.506] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v40.1.80 Initialized
-[17Dec2022 08:16:00.411] [Render thread/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser from class com.GACMD.isleofberk.common.entity.entities.dragons.gronckle.Gronckle
-[17Dec2022 08:16:00.411] [Render thread/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser from class com.GACMD.isleofberk.common.entity.entities.dragons.gronckle.Gronckle
-[17Dec2022 08:16:01.579] [Render thread/INFO] [com.mojang.text2speech.NarratorWindows/]: Narrator library for x64 successfully loaded
-[17Dec2022 08:16:01.704] [Render thread/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: []
-[17Dec2022 08:16:02.198] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: Default, Mod Resources
-[17Dec2022 08:16:02.518] [Worker-Main-11/WARN] [net.minecraft.client.sounds.SoundManager/]: Invalid sounds.json in resourcepack: 'Mod Resources'
+[17Dec2022 17:45:29.027] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--launchTarget, forgeclientuserdev, --version, MOD_DEV, --assetIndex, 1.18, --assetsDir, C:\Users\Jexel\.gradle\caches\forge_gradle\assets, --gameDir, ., --fml.forgeVersion, 40.1.80, --fml.mcVersion, 1.18.2, --fml.forgeGroup, net.minecraftforge, --fml.mcpVersion, 20220404.173914]
+[17Dec2022 17:45:29.032] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 9.1.3+9.1.3+main.9b69c82a starting: java version 17.0.1 by Eclipse Adoptium
+[17Dec2022 17:45:29.195] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.5 Source=union:/C:/Users/Jexel/.gradle/caches/modules-2/files-2.1/org.spongepowered/mixin/0.8.5/9d1c0c3a304ae6697ecd477218fa61b850bf57fc/mixin-0.8.5.jar%2323!/ Service=ModLauncher Env=CLIENT
+[17Dec2022 17:45:29.667] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Jexel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\javafmllanguage\1.18.2-40.1.80\90438da2d8de451a793fc69d3c343ebc5bc401e1\javafmllanguage-1.18.2-40.1.80.jar is missing mods.toml file
+[17Dec2022 17:45:29.671] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Jexel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\lowcodelanguage\1.18.2-40.1.80\f81c79807d6b57938f2169b01f403ff103f3ed50\lowcodelanguage-1.18.2-40.1.80.jar is missing mods.toml file
+[17Dec2022 17:45:29.675] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Jexel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\mclanguage\1.18.2-40.1.80\8771f610fa019b272803538ce71f77409082691f\mclanguage-1.18.2-40.1.80.jar is missing mods.toml file
+[17Dec2022 17:45:29.678] [main/WARN] [net.minecraftforge.fml.loading.moddiscovery.ModFileParser/LOADING]: Mod file C:\Users\Jexel\.gradle\caches\modules-2\files-2.1\net.minecraftforge\fmlcore\1.18.2-40.1.80\a0e12c8a0526791f1a7840d3b1c4fc061c6bd30f\fmlcore-1.18.2-40.1.80.jar is missing mods.toml file
+[17Dec2022 17:45:29.825] [main/INFO] [net.minecraftforge.fml.loading.moddiscovery.JarInJarDependencyLocator/]: No dependencies to load found. Skipping!
+[17Dec2022 17:45:31.688] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgeclientuserdev' with arguments [--version, MOD_DEV, --gameDir, ., --assetsDir, C:\Users\Jexel\.gradle\caches\forge_gradle\assets, --assetIndex, 1.18]
+[17Dec2022 17:45:38.816] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResources/]: Assets URL 'union:/C:/Users/Jexel/Desktop/MDK/IsleOfBerk/build/fg_cache/net/minecraftforge/forge/1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2/forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/assets/.mcassetsroot' uses unexpected schema
+[17Dec2022 17:45:38.816] [Render thread/WARN] [net.minecraft.server.packs.VanillaPackResources/]: Assets URL 'union:/C:/Users/Jexel/Desktop/MDK/IsleOfBerk/build/fg_cache/net/minecraftforge/forge/1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2/forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/data/.mcassetsroot' uses unexpected schema
+[17Dec2022 17:45:38.826] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[17Dec2022 17:45:38.829] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Setting user: Dev
+[17Dec2022 17:45:39.012] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Backend library: LWJGL version 3.2.2 SNAPSHOT
+[17Dec2022 17:45:40.708] [modloading-worker-0/INFO] [net.minecraftforge.common.ForgeMod/FORGEMOD]: Forge mod loading, version 40.1.80, for MC 1.18.2 with MCP 20220404.173914
+[17Dec2022 17:45:40.708] [modloading-worker-0/INFO] [net.minecraftforge.common.MinecraftForge/FORGE]: MinecraftForge v40.1.80 Initialized
+[17Dec2022 17:45:42.704] [Render thread/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser from class com.GACMD.isleofberk.common.entity.entities.dragons.gronckle.Gronckle
+[17Dec2022 17:45:42.705] [Render thread/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser from class com.GACMD.isleofberk.common.entity.entities.dragons.gronckle.Gronckle
+[17Dec2022 17:45:44.289] [Render thread/INFO] [com.mojang.text2speech.NarratorWindows/]: Narrator library for x64 successfully loaded
+[17Dec2022 17:45:44.314] [Render thread/INFO] [net.minecraftforge.gametest.ForgeGameTestHooks/]: Enabled Gametest Namespaces: []
+[17Dec2022 17:45:44.911] [Render thread/INFO] [net.minecraft.server.packs.resources.ReloadableResourceManager/]: Reloading ResourceManager: Default, Mod Resources
+[17Dec2022 17:45:45.466] [Worker-Main-11/WARN] [net.minecraft.client.sounds.SoundManager/]: Invalid sounds.json in resourcepack: 'Mod Resources'
 com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 28 column 6 path $..sounds[3]
 	at com.google.gson.internal.Streams.parse(Streams.java:60) ~[gson-2.8.9.jar%2343!/:?]
 	at com.google.gson.internal.bind.TreeTypeAdapter.read(TreeTypeAdapter.java:65) ~[gson-2.8.9.jar%2343!/:?]
@@ -31,11 +31,9 @@ com.google.gson.JsonSyntaxException: com.google.gson.stream.MalformedJsonExcepti
 	at net.minecraft.client.sounds.SoundManager.prepare(SoundManager.java:69) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
 	at net.minecraft.client.sounds.SoundManager.prepare(SoundManager.java:39) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
 	at net.minecraft.server.packs.resources.SimplePreparableReloadListener.lambda$reload$0(SimplePreparableReloadListener.java:11) ~[forge-1.18.2-40.1.80_mapped_parchment_2022.09.04-1.18.2.jar%2379!/:?]
-	at java.util.concurrent.CompletableFuture$AsyncSupply.run$$$capture(CompletableFuture.java:1768) [?:?]
-	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java) [?:?]
+	at java.util.concurrent.CompletableFuture$AsyncSupply.run(CompletableFuture.java:1768) [?:?]
 	at java.util.concurrent.CompletableFuture$AsyncSupply.exec(CompletableFuture.java:1760) [?:?]
-	at java.util.concurrent.ForkJoinTask.doExec$$$capture(ForkJoinTask.java:373) [?:?]
-	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java) [?:?]
+	at java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:373) [?:?]
 	at java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1182) [?:?]
 	at java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1655) [?:?]
 	at java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1622) [?:?]
@@ -49,85 +47,78 @@ Caused by: com.google.gson.stream.MalformedJsonException: Use JsonReader.setLeni
 	at com.google.gson.internal.bind.TypeAdapters$27.read(TypeAdapters.java:684) ~[gson-2.8.9.jar%2343!/:?]
 	at com.google.gson.internal.bind.TypeAdapters$27.read(TypeAdapters.java:655) ~[gson-2.8.9.jar%2343!/:?]
 	at com.google.gson.internal.Streams.parse(Streams.java:48) ~[gson-2.8.9.jar%2343!/:?]
-	... 18 more
-[17Dec2022 08:16:06.766] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
-[17Dec2022 08:16:08.188] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Found status: OUTDATED Current: 40.1.80 Target: 40.1.86
-[17Dec2022 08:16:09.907] [Worker-Main-10/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Unable to load model: 'isleofberk:gronckle_iron_pickaxe#inventory' referenced from: isleofberk:gronckle_iron_pickaxe#inventory: java.io.FileNotFoundException: isleofberk:models/item/gronckle_iron_pickaxe.json
-[17Dec2022 08:16:09.909] [Worker-Main-10/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Unable to load model: 'isleofberk:belzium_pickaxe#inventory' referenced from: isleofberk:belzium_pickaxe#inventory: java.io.FileNotFoundException: isleofberk:models/item/belzium_pickaxe.json
-[17Dec2022 08:16:13.173] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.night_fury.growl
-[17Dec2022 08:16:13.174] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.night_fury.death
-[17Dec2022 08:16:13.174] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.night_fury.bite
-[17Dec2022 08:16:13.174] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.night_fury.hurt
-[17Dec2022 08:16:13.174] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.speed_stinger.growl
-[17Dec2022 08:16:13.174] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.speed_stinger.death
-[17Dec2022 08:16:13.174] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.speed_stinger.bite
-[17Dec2022 08:16:13.174] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.speed_stinger.hurt
-[17Dec2022 08:16:13.174] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.stinger.growl
-[17Dec2022 08:16:13.174] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.stinger.death
-[17Dec2022 08:16:13.174] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.stinger.bite
-[17Dec2022 08:16:13.174] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.stinger.hurt
-[17Dec2022 08:16:13.279] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek High Definition Audio)
-[17Dec2022 08:16:13.280] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
-[17Dec2022 08:16:13.430] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
-[17Dec2022 08:16:13.435] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x128x4 minecraft:textures/atlas/signs.png-atlas
-[17Dec2022 08:16:13.437] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
-[17Dec2022 08:16:13.438] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
-[17Dec2022 08:16:13.439] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
-[17Dec2022 08:16:13.440] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
-[17Dec2022 08:16:13.441] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
-[17Dec2022 08:16:14.923] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/particles.png-atlas
-[17Dec2022 08:16:14.925] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
-[17Dec2022 08:16:14.925] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x128x0 minecraft:textures/atlas/mob_effects.png-atlas
-[17Dec2022 08:16:16.862] [Realms Notification Availability checker #1/INFO] [com.mojang.realmsclient.client.RealmsClient/]: Could not authorize you against Realms server: Invalid session id
-[17Dec2022 08:16:34.112] [Render thread/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
-[17Dec2022 08:16:34.113] [Render thread/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
-[17Dec2022 08:16:34.115] [Render thread/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
-[17Dec2022 08:16:34.116] [Render thread/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
-[17Dec2022 08:16:34.117] [Render thread/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
-[17Dec2022 08:16:37.504] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
-[17Dec2022 08:16:39.648] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1141 advancements
-[17Dec2022 08:16:40.000] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
-[17Dec2022 08:16:40.197] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.18.2
-[17Dec2022 08:16:40.197] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
-[17Dec2022 08:16:40.518] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
-[17Dec2022 08:16:41.246] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[17Dec2022 08:16:41.246] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[17Dec2022 08:16:41.645] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[17Dec2022 08:16:42.094] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[17Dec2022 08:16:42.578] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
-[17Dec2022 08:16:43.095] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 13%
-[17Dec2022 08:16:43.729] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 44%
-[17Dec2022 08:16:44.146] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 86%
-[17Dec2022 08:16:44.394] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
-[17Dec2022 08:16:44.395] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 3827 ms
-[17Dec2022 08:16:44.467] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 4, from 10
-[17Dec2022 08:16:44.469] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 12, from 0
-[17Dec2022 08:16:44.559] [Render thread/WARN] [io.netty.util.internal.SystemPropertyUtil/]: Unable to parse the boolean system property 'java.net.preferIPv6Addresses':system - using the default value: false
-[17Dec2022 08:16:45.759] [Netty Local Client IO #0/INFO] [net.minecraftforge.network.NetworkHooks/]: Connected to a modded server.
-[17Dec2022 08:16:45.797] [Server thread/INFO] [net.minecraftforge.common.AdvancementLoadFix/]: Using new advancement loading for net.minecraft.server.PlayerAdvancements@76c270ce
-[17Dec2022 08:16:45.807] [Netty Local Client IO #0/ERROR] [net.minecraft.resources.RegistryResourceAccess$InMemoryStorage/]: Error adding element: Value provider too high: 256 [500-500]
-[17Dec2022 08:16:45.816] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[local:E:44d45bd0] logged in with entity id 19 at (-8853.324017164987, 70.49390748022948, -2453.5922027912256)
-[17Dec2022 08:16:45.841] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev joined the game
-[17Dec2022 08:16:46.579] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 106 advancements
-[17Dec2022 08:17:13.771] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Dev: Summoned new Iron Golem]
-[17Dec2022 08:17:13.782] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] Summoned new Iron Golem
-[17Dec2022 08:17:20.645] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[17Dec2022 08:17:20.655] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
-[17Dec2022 08:17:20.666] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
-[17Dec2022 08:17:20.667] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
-[17Dec2022 08:17:33.699] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Dev: Summoned new Iron Golem]
-[17Dec2022 08:17:33.709] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] Summoned new Iron Golem
-[17Dec2022 08:17:37.145] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[17Dec2022 08:17:37.151] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
-[17Dec2022 08:17:37.158] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
-[17Dec2022 08:17:37.159] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
-[17Dec2022 08:18:15.276] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Dev: Set spawn point to -8839, 70, -2428 [0.0] in minecraft:overworld for Dev]
-[17Dec2022 08:18:15.291] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] Set spawn point to -8839, 70, -2428 [0.0] in minecraft:overworld for Dev
-[17Dec2022 08:18:18.124] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: [Dev: Set own game mode to Survival Mode]
-[17Dec2022 08:18:18.140] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] Set own game mode to Survival Mode
-[17Dec2022 08:18:55.172] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] [Debug]: Hitboxes: shown
-[17Dec2022 08:18:56.405] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] [Debug]: Hitboxes: hidden
-[17Dec2022 08:19:00.895] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
-[17Dec2022 08:19:00.900] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
-[17Dec2022 08:19:00.906] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
-[17Dec2022 08:19:00.907] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+	... 16 more
+[17Dec2022 17:45:46.787] [Forge Version Check/INFO] [net.minecraftforge.fml.VersionChecker/]: [forge] Starting version check at https://files.minecraftforge.net/net/minecraftforge/forge/promotions_slim.json
+[17Dec2022 17:45:55.472] [Worker-Main-7/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Unable to load model: 'isleofberk:gronckle_iron_pickaxe#inventory' referenced from: isleofberk:gronckle_iron_pickaxe#inventory: java.io.FileNotFoundException: isleofberk:models/item/gronckle_iron_pickaxe.json
+[17Dec2022 17:45:55.473] [Worker-Main-7/WARN] [net.minecraft.client.resources.model.ModelBakery/]: Unable to load model: 'isleofberk:belzium_pickaxe#inventory' referenced from: isleofberk:belzium_pickaxe#inventory: java.io.FileNotFoundException: isleofberk:models/item/belzium_pickaxe.json
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.night_fury.growl
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.night_fury.death
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.night_fury.bite
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.night_fury.hurt
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.speed_stinger.growl
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.speed_stinger.death
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.speed_stinger.bite
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.speed_stinger.hurt
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.stinger.growl
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.stinger.death
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.stinger.bite
+[17Dec2022 17:46:00.771] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/]: Missing sound for event: isleofberk:entity.stinger.hurt
+[17Dec2022 17:46:01.223] [Render thread/INFO] [com.mojang.blaze3d.audio.Library/]: OpenAL initialized on device OpenAL Soft on Speakers (Realtek High Definition Audio)
+[17Dec2022 17:46:01.224] [Render thread/INFO] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Sound engine started
+[17Dec2022 17:46:01.377] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 1024x512x4 minecraft:textures/atlas/blocks.png-atlas
+[17Dec2022 17:46:01.390] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x128x4 minecraft:textures/atlas/signs.png-atlas
+[17Dec2022 17:46:01.390] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/banner_patterns.png-atlas
+[17Dec2022 17:46:01.392] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x512x4 minecraft:textures/atlas/shield_patterns.png-atlas
+[17Dec2022 17:46:01.393] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x4 minecraft:textures/atlas/chest.png-atlas
+[17Dec2022 17:46:01.393] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/beds.png-atlas
+[17Dec2022 17:46:01.393] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 512x256x4 minecraft:textures/atlas/shulker_boxes.png-atlas
+[17Dec2022 17:46:02.164] [Forge Version Check/WARN] [net.minecraftforge.fml.VersionChecker/]: Failed to process update information
+java.net.http.HttpConnectTimeoutException: HTTP connect timed out
+	at jdk.internal.net.http.HttpClientImpl.send(HttpClientImpl.java:567) ~[java.net.http:?]
+	at jdk.internal.net.http.HttpClientFacade.send(HttpClientFacade.java:119) ~[java.net.http:?]
+	at net.minecraftforge.fml.VersionChecker$1.openUrlString(VersionChecker.java:139) ~[fmlcore-1.18.2-40.1.80.jar%2383!/:?]
+	at net.minecraftforge.fml.VersionChecker$1.process(VersionChecker.java:177) ~[fmlcore-1.18.2-40.1.80.jar%2383!/:?]
+	at java.lang.Iterable.forEach(Iterable.java:75) [?:?]
+	at net.minecraftforge.fml.VersionChecker$1.run(VersionChecker.java:114) [fmlcore-1.18.2-40.1.80.jar%2383!/:?]
+Caused by: java.net.http.HttpConnectTimeoutException: HTTP connect timed out
+	at jdk.internal.net.http.ResponseTimerEvent.handle(ResponseTimerEvent.java:68) ~[java.net.http:?]
+	at jdk.internal.net.http.HttpClientImpl.purgeTimeoutsAndReturnNextDeadline(HttpClientImpl.java:1270) ~[java.net.http:?]
+	at jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:899) ~[java.net.http:?]
+Caused by: java.net.ConnectException: HTTP connect timed out
+	at jdk.internal.net.http.ResponseTimerEvent.handle(ResponseTimerEvent.java:69) ~[java.net.http:?]
+	at jdk.internal.net.http.HttpClientImpl.purgeTimeoutsAndReturnNextDeadline(HttpClientImpl.java:1270) ~[java.net.http:?]
+	at jdk.internal.net.http.HttpClientImpl$SelectorManager.run(HttpClientImpl.java:899) ~[java.net.http:?]
+[17Dec2022 17:46:02.361] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/particles.png-atlas
+[17Dec2022 17:46:02.363] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 256x256x0 minecraft:textures/atlas/paintings.png-atlas
+[17Dec2022 17:46:02.364] [Render thread/INFO] [net.minecraft.client.renderer.texture.TextureAtlas/]: Created: 128x128x0 minecraft:textures/atlas/mob_effects.png-atlas
+[17Dec2022 17:46:04.264] [Realms Notification Availability checker #1/INFO] [com.mojang.realmsclient.client.RealmsClient/]: Could not authorize you against Realms server: Invalid session id
+[17Dec2022 17:50:47.720] [Render thread/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[17Dec2022 17:50:47.721] [Render thread/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[17Dec2022 17:50:47.724] [Render thread/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[17Dec2022 17:50:47.724] [Render thread/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[17Dec2022 17:50:47.725] [Render thread/WARN] [net.minecraft.commands.Commands/]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[17Dec2022 17:50:50.165] [Render thread/INFO] [net.minecraft.world.item.crafting.RecipeManager/]: Loaded 7 recipes
+[17Dec2022 17:50:51.715] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 1141 advancements
+[17Dec2022 17:50:52.039] [Render thread/INFO] [com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService/]: Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', servicesHost='https://api.minecraftservices.com', name='PROD'
+[17Dec2022 17:50:52.059] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Starting integrated minecraft server version 1.18.2
+[17Dec2022 17:50:52.060] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Generating keypair
+[17Dec2022 17:50:52.290] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Preparing start region for dimension minecraft:overworld
+[17Dec2022 17:50:52.792] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Dec2022 17:50:52.826] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Dec2022 17:50:53.452] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Dec2022 17:50:53.812] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 0%
+[17Dec2022 17:50:54.325] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 4%
+[17Dec2022 17:50:54.809] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 20%
+[17Dec2022 17:50:55.311] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Preparing spawn area: 68%
+[17Dec2022 17:50:55.667] [Server thread/INFO] [net.minecraftforge.server.permission.PermissionAPI/]: Successfully initialized permission handler forge:default_handler
+[17Dec2022 17:50:55.677] [Render thread/INFO] [net.minecraft.server.level.progress.LoggerChunkProgressListener/]: Time elapsed: 3383 ms
+[17Dec2022 17:50:55.744] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing view distance to 4, from 10
+[17Dec2022 17:50:55.746] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Changing simulation distance to 12, from 0
+[17Dec2022 17:50:55.831] [Render thread/WARN] [io.netty.util.internal.SystemPropertyUtil/]: Unable to parse the boolean system property 'java.net.preferIPv6Addresses':system - using the default value: false
+[17Dec2022 17:50:57.120] [Netty Local Client IO #0/INFO] [net.minecraftforge.network.NetworkHooks/]: Connected to a modded server.
+[17Dec2022 17:50:57.139] [Netty Local Client IO #0/ERROR] [net.minecraft.resources.RegistryResourceAccess$InMemoryStorage/]: Error adding element: Value provider too high: 256 [500-500]
+[17Dec2022 17:50:57.154] [Server thread/INFO] [net.minecraftforge.common.AdvancementLoadFix/]: Using new advancement loading for net.minecraft.server.PlayerAdvancements@23afce67
+[17Dec2022 17:50:57.172] [Server thread/INFO] [net.minecraft.server.players.PlayerList/]: Dev[local:E:24c4ad57] logged in with entity id 19 at (-8841.975146985087, 77.0, -2414.0135310854525)
+[17Dec2022 17:50:57.210] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev joined the game
+[17Dec2022 17:50:57.995] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 106 advancements
+[17Dec2022 17:51:28.920] [Server thread/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerror from class com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile
