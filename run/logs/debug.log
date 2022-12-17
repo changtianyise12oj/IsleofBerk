@@ -804,3 +804,10 @@ com.google.gson.JsonSyntaxException: Expected a com.google.gson.JsonArray but wa
 [18Dec2022 03:25:00.202] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
 [18Dec2022 03:25:00.203] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
 [18Dec2022 03:25:00.205] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
+[18Dec2022 03:26:53.975] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] This Dragon needs a saddle or it could drop you in mid air
+[18Dec2022 03:27:39.344] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[18Dec2022 03:27:39.349] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[18Dec2022 03:27:39.351] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[18Dec2022 03:27:39.352] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[18Dec2022 03:27:39.353] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
+[18Dec2022 03:27:39.355] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
