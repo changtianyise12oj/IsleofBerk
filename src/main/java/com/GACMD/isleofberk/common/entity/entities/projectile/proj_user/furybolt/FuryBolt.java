@@ -1,9 +1,9 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.furybolt;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFury;
-import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
+import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearBoltProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.google.common.collect.Sets;
@@ -124,9 +124,9 @@ public class FuryBolt extends BaseLinearBoltProjectile implements IAnimatable {
     @Override
     protected ParticleOptions getTrailParticle() {
         if(isLightFuryTexture()) {
-            return ParticleRegistrar.LIGHT_FURY_DUST.get();
+            return ModParticles.LIGHT_FURY_DUST.get();
         } else {
-            return ParticleRegistrar.NIGHT_FURY_DUST.get();
+            return ModParticles.NIGHT_FURY_DUST.get();
 
         }
     }

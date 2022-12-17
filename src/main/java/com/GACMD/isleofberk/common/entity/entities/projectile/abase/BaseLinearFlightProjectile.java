@@ -1,7 +1,7 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.abase;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonRideableUtility;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;

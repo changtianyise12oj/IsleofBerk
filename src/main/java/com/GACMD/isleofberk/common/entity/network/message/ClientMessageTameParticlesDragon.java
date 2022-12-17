@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.common.entity.network.message;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;

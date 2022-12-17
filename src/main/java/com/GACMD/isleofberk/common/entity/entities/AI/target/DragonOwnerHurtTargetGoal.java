@@ -5,7 +5,7 @@
 
 package com.GACMD.isleofberk.common.entity.entities.AI.target;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;

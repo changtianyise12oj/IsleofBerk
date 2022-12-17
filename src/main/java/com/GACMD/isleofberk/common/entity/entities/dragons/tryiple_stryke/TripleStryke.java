@@ -2,8 +2,8 @@ package com.GACMD.isleofberk.common.entity.entities.dragons.tryiple_stryke;
 
 import com.GACMD.isleofberk.common.entity.entities.AI.taming.T3DragonWeakenAndFeedTamingGoal;
 import com.GACMD.isleofberk.common.entity.entities.AI.target.DragonMeleeAttackGoal;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.TripleStrykeEgg;
 import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;

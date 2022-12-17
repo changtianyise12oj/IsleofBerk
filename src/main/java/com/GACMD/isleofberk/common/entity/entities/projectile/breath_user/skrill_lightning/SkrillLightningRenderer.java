@@ -1,6 +1,6 @@
 //package com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.skrill_lightning;
 //
-//import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
+//import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideableBreathUser;
 //import com.mojang.blaze3d.vertex.PoseStack;
 //import com.mojang.blaze3d.vertex.VertexConsumer;
 //import com.mojang.math.Matrix4f;

@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.AI.taming;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;

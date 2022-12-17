@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.client.gui;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonRideableUtility;
 import com.GACMD.isleofberk.registery.ModContainerTypes;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;

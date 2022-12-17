@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.client.gui.event;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import com.mojang.math.Vector3f;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;

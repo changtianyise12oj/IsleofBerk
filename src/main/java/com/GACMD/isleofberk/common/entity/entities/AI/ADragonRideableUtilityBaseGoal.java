@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.AI;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonRideableUtility;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 

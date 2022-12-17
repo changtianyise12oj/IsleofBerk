@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.common.entity.network.message;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideable;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkEvent;

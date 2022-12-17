@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.common.entity.entities.base;
+package com.GACMD.isleofberk.common.entity.entities.base.dragon;
 
 import com.GACMD.isleofberk.common.entity.entities.AI.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.common.entity.entities.AI.IOBLookAtPlayerGoal;
@@ -25,7 +25,6 @@ import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;

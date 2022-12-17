@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.common.entity.network.message;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonRideableUtility;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;

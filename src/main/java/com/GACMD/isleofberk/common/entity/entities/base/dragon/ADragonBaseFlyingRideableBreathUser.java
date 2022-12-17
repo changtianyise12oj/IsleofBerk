@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.common.entity.entities.base;
+package com.GACMD.isleofberk.common.entity.entities.base.dragon;
 
 import com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerror;
 import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectile;

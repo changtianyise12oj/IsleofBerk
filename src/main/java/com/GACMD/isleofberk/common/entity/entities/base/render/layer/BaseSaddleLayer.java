@@ -1,8 +1,8 @@
 package com.GACMD.isleofberk.common.entity.entities.base.render.layer;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonRideableUtility;
 import com.GACMD.isleofberk.common.entity.entities.base.render.render.BaseRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;

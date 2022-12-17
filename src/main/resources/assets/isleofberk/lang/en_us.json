@@ -12,6 +12,7 @@
     "item.isleofberk.belzium_sword": "§dReinforced Hooligan Sword",
     "item.isleofberk.belzium_mace": "§dReinforced Hooligan Mace",
 
+    "item.isleofberk.deadly_nadder_spawn_egg": "§dDeadly Nadder",
     "item.isleofberk.gronckle_spawn_egg": "§dGronckle",
     "item.isleofberk.lightfury_spawn_egg": "§dLight Fury",
     "item.isleofberk.zippleback_spawn_egg": "§dHideous ZippleBack",
@@ -27,6 +28,8 @@
     "entity.isleofberk.gronckle": "Gronckle",
     "entity.isleofberk.light_fury": "Light Fury",
     "entity.isleofberk.night_fury": "Night Fury",
+    "entity.isleofberk.monstrous_nightmare": "Monstrous Nightmare",
+    "entity.isleofberk.zippleback": "Hideous Zippleback",
     "entity.isleofberk.speed_stinger": "Speed Stinger",
     "entity.isleofberk.speed_stinger_leader": "Lead Speed Stinger",
     "entity.isleofberk.stinger": "Stinger",

@@ -5,7 +5,7 @@
 
 package com.GACMD.isleofberk.common.entity.entities.AI.ground;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.phys.Vec3;

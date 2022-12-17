@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.AI;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import net.minecraft.world.entity.LivingEntity;
 
 public class DragonSleepGoal extends ADragonBaseGoal {

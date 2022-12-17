@@ -1,7 +1,7 @@
 package com.GACMD.isleofberk.client.gui.event;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideableBreathUser;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;

@@ -1,9 +1,8 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
-import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.common.entity.entities.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearBoltProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
@@ -24,7 +23,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.level.Explosion;
@@ -114,7 +112,7 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
 
     @Override
     protected ParticleOptions getTrailParticle() {
-        return ParticleRegistrar.FLAME_TAIL.get();
+        return ModParticles.FLAME_TAIL.get();
     }
 
     @Override

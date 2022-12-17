@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.common.entity.entities.base;
+package com.GACMD.isleofberk.common.entity.entities.base.dragon;
 
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;

@@ -1,7 +1,7 @@
 package com.GACMD.isleofberk.common.entity.network.message;
 
 import com.GACMD.isleofberk.client.gui.DragonContainerMenu;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;

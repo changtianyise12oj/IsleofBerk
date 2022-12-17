@@ -1,10 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.AI.target;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableProjUser;
-import com.GACMD.isleofberk.common.entity.entities.dragons.deadlynadder.DeadlyNadder;
-import com.GACMD.isleofberk.common.entity.util.Util;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;

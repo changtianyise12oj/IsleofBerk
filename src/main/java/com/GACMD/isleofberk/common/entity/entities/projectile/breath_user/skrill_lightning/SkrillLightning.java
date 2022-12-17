@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.skrill_lightning;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBaseFlyingRideableBreathUser;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideableBreathUser;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.damagesource.DamageSource;

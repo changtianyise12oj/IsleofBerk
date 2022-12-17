@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.common.entity.entities.eggs.entity.base;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.common.entity.util.Util;
 import com.GACMD.isleofberk.common.items.DragonEggItem;
 import com.GACMD.isleofberk.registery.ModEntities;
@@ -19,7 +19,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -43,10 +42,6 @@ import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
-
-import javax.annotation.Nullable;
-import java.util.Optional;
-import java.util.UUID;
 
 public class ADragonEggBase extends LivingEntity implements IAnimatable {
     private static final EntityDataAccessor<Integer> DRAGON_VARIANT = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.INT);

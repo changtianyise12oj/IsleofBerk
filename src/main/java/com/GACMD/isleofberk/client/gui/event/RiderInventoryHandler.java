@@ -1,6 +1,6 @@
 package com.GACMD.isleofberk.client.gui.event;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonRideableUtility;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonRideableUtility;
 import com.GACMD.isleofberk.common.entity.network.ControlNetwork;
 import com.GACMD.isleofberk.common.entity.network.message.ClientMessageGuiDragon;
 import net.minecraft.client.Minecraft;

@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.common.entity.entities.base;
+package com.GACMD.isleofberk.common.entity.entities.base.dragon;
 
 import com.GACMD.isleofberk.common.entity.entities.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt.FireBolt;

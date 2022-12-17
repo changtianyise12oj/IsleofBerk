@@ -1,8 +1,8 @@
 package com.GACMD.isleofberk;
 
-import com.GACMD.isleofberk.common.entity.entities.base.ADragonBase;
+import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.common.entity.entities.dragons.speedstinger.SpeedStinger;
-import com.GACMD.isleofberk.common.entity.entities.projectile.ParticleRegistrar;
+import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.common.entity.network.ControlNetwork;
 import com.GACMD.isleofberk.common.entity.sound.IOBSounds;
 import com.GACMD.isleofberk.event.ClientModEvent;
@@ -10,9 +10,7 @@ import com.GACMD.isleofberk.registery.ModBlocks;
 import com.GACMD.isleofberk.registery.ModContainerTypes;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -42,7 +40,7 @@ public class IsleofBerk // /kill @e[type=!isleofberk:stinger,type=! player]
         ModEntities.ENTITIES.register(eventBus);
         ModItems.ITEMS.register(eventBus);
         ModBlocks.BLOCKS.register(eventBus);
-        ParticleRegistrar.REGISTRAR.register(eventBus);
+        ModParticles.REGISTRAR.register(eventBus);
         IOBSounds.SOUND_EVENTS.register(eventBus);
         ModContainerTypes.CONTAINER_TYPES.register(eventBus);
 
