@@ -153,13 +153,13 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
 
                     HitResult.Type hitresult$type = hitresult.getType();
                     if (hitresult$type == HitResult.Type.BLOCK && hitresult instanceof BlockHitResult blockHitResult) {
-                        if (!(level.getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof BushBlock)) {
+//                        if (!(level.getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof BushBlock)) {
                             boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
                             if (flag)
                                 this.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
                             this.discard();
                             this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
-                        }
+//                        }
                     }
                 }
             }
