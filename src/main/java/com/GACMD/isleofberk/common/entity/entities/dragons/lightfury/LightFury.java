@@ -76,6 +76,15 @@ public class LightFury extends NightFury {
     }
 
     @Override
+    public float getRideCameraDistanceBack() {
+        if (!isFlying()) {
+            return 4;
+        } else {
+            return 9F;
+        }
+    }
+
+    @Override
     protected void playerFireProjectile(Vec3 riderLook, Vec3 throat) {
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
             setTicksSinceLastFire(20);
