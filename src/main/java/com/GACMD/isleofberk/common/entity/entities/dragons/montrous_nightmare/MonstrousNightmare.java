@@ -32,8 +32,6 @@ import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Objects;
-
 public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     private static final EntityDataAccessor<Boolean> IS_ON_FIRE_ABILITY = SynchedEntityData.defineId(MonstrousNightmare.class, EntityDataSerializers.BOOLEAN);
 
@@ -164,13 +162,10 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
-        LivingEntity attacker = getLastHurtMob();
+        LivingEntity attacker = getLastHurtByMob();
         if (attacker != null) {
-            if (Objects.equals(pSource, DamageSource.mobAttack(attacker))) {
-                attacker.setSecondsOnFire(4);
-                attacker.hurt(DamageSource.indirectMobAttack(this, attacker), 6);
-
-            }
+            attacker.setSecondsOnFire(4);
+            attacker.hurt(DamageSource.indirectMobAttack(this, attacker), 6);
         }
         return super.hurt(pSource, pAmount);
     }
