@@ -1,7 +1,10 @@
 package com.GACMD.isleofberk.common.entity.entities.base.render.render;
 
 import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.common.entity.entities.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFury;
+import com.GACMD.isleofberk.common.entity.entities.dragons.tryiple_stryke.TripleStryke;
+import com.GACMD.isleofberk.common.entity.entities.dragons.zippleback.ZippleBack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -80,8 +83,8 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
                 } else if (dragon.getControllingPassenger() == null) {
                     currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
                 }
-                if (dragon.isDragonFollowing() && dragon.getOwner() instanceof Player player && dragon instanceof NightFury nightFury) {
-                    double ydist = nightFury.getY() - player.getY();
+                if (dragon.isDragonFollowing() && dragon.getOwner() instanceof Player player && (dragon instanceof NightFury || dragon instanceof DeadlyNadder || dragon instanceof TripleStryke || dragon instanceof ZippleBack)) {
+                    double ydist = dragon.getY() - player.getY();
                     if (ydist > 8.3F) {
                         pitch -= 4;
                         body.setRotationX(toRadians(Mth.clamp(pitch, -90, 0)));
