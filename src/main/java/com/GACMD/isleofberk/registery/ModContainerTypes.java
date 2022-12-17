@@ -1,7 +1,7 @@
 package com.GACMD.isleofberk.registery;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.client.gui.DragonContainerMenu;
+import com.GACMD.isleofberk.gui.DragonContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.common.extensions.IForgeMenuType;
 import net.minecraftforge.registries.DeferredRegister;

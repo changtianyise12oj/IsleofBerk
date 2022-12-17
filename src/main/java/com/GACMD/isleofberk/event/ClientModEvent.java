@@ -1,34 +1,34 @@
 package com.GACMD.isleofberk.event;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.client.gui.DragonInventoryScreen;
-import com.GACMD.isleofberk.client.gui.event.DragonCameraEvent;
-import com.GACMD.isleofberk.client.gui.event.ModGuiOverlays;
-import com.GACMD.isleofberk.client.gui.event.RiderInventoryHandler;
-import com.GACMD.isleofberk.common.entity.entities.dragons.deadlynadder.DeadlyNadderRender;
-import com.GACMD.isleofberk.common.entity.entities.dragons.gronckle.GronckleRender;
-import com.GACMD.isleofberk.common.entity.entities.dragons.lightfury.LightFuryRender;
-import com.GACMD.isleofberk.common.entity.entities.dragons.montrous_nightmare.MonstrousNightmareRender;
-import com.GACMD.isleofberk.common.entity.entities.dragons.nightfury.NightFuryRender;
-import com.GACMD.isleofberk.common.entity.entities.dragons.speedstinger.SpeedStingerRender;
-import com.GACMD.isleofberk.common.entity.entities.dragons.speedstingerleader.SpeedStingerLeaderRender;
-import com.GACMD.isleofberk.common.entity.entities.dragons.stinger.StingerRender;
-import com.GACMD.isleofberk.common.entity.entities.dragons.terrible_terror.TerribleTerrorRender;
-import com.GACMD.isleofberk.common.entity.entities.dragons.tryiple_stryke.TripleStrykeRenderer;
-import com.GACMD.isleofberk.common.entity.entities.dragons.zippleback.ZippleBackRenderer;
-import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.large.ADragonLargeEggRenderer;
-import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.medium.MediumEggRenderer;
-import com.GACMD.isleofberk.common.entity.entities.eggs.entity.base.small.SmallEggRenderer;
+import com.GACMD.isleofberk.gui.DragonInventoryScreen;
+import com.GACMD.isleofberk.gui.event.DragonCameraEvent;
+import com.GACMD.isleofberk.gui.event.ModGuiOverlays;
+import com.GACMD.isleofberk.gui.event.RiderInventoryHandler;
+import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadderRender;
+import com.GACMD.isleofberk.entity.dragons.gronckle.GronckleRender;
+import com.GACMD.isleofberk.entity.dragons.lightfury.LightFuryRender;
+import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmareRender;
+import com.GACMD.isleofberk.entity.dragons.nightfury.NightFuryRender;
+import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStingerRender;
+import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeaderRender;
+import com.GACMD.isleofberk.entity.dragons.stinger.StingerRender;
+import com.GACMD.isleofberk.entity.dragons.terrible_terror.TerribleTerrorRender;
+import com.GACMD.isleofberk.entity.dragons.tryiple_stryke.TripleStrykeRenderer;
+import com.GACMD.isleofberk.entity.dragons.zippleback.ZippleBackRenderer;
+import com.GACMD.isleofberk.entity.eggs.entity.base.large.ADragonLargeEggRenderer;
+import com.GACMD.isleofberk.entity.eggs.entity.base.medium.MediumEggRenderer;
+import com.GACMD.isleofberk.entity.eggs.entity.base.small.SmallEggRenderer;
 import com.GACMD.isleofberk.registery.ModParticles;
-import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FireBreathProjectileRenderer;
-import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.firebreaths.FlameParticle;
-import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison.ZipBreathProjectile;
-import com.GACMD.isleofberk.common.entity.entities.projectile.breath_user.poison.ZippleBackAOECloud;
-import com.GACMD.isleofberk.common.entity.entities.projectile.other.nadder_spike.DeadlyNadderSpikeRenderer;
-import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt.FireBoltParticle;
-import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.fire_bolt.FireBoltRender;
-import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.furybolt.FuryBoltParticle;
-import com.GACMD.isleofberk.common.entity.entities.projectile.proj_user.furybolt.FuryBoltRender;
+import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathProjectileRenderer;
+import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FlameParticle;
+import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZipBreathProjectile;
+import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZippleBackAOECloud;
+import com.GACMD.isleofberk.entity.projectile.other.nadder_spike.DeadlyNadderSpikeRenderer;
+import com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt.FireBoltParticle;
+import com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt.FireBoltRender;
+import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBoltParticle;
+import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBoltRender;
 import com.GACMD.isleofberk.registery.ModContainerTypes;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModKeyBinds;
@@ -60,40 +60,48 @@ public final class ClientModEvent {
 
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-        // dragons
+        /**
+         * Dragons
+         */
         event.registerEntityRenderer(ModEntities.NIGHT_FURY.get(), NightFuryRender::new);
-        event.registerEntityRenderer(ModEntities.DEADLY_NADDER.get(), DeadlyNadderRender::new);
-        event.registerEntityRenderer(ModEntities.TRIPLE_STRYKE.get(), TripleStrykeRenderer::new);
-        event.registerEntityRenderer(ModEntities.STINGER.get(), StingerRender::new);
-        event.registerEntityRenderer(ModEntities.TERRIBLE_TERROR.get(), TerribleTerrorRender::new);
-        event.registerEntityRenderer(ModEntities.GRONCKLE.get(), GronckleRender::new);
-        event.registerEntityRenderer(ModEntities.SPEED_STINGER.get(), SpeedStingerRender::new);
-        event.registerEntityRenderer(ModEntities.SPEED_STINGER_LEADER.get(), SpeedStingerLeaderRender::new);
-        event.registerEntityRenderer(ModEntities.MONSTROUS_NIGHTMARE.get(), MonstrousNightmareRender::new);
         event.registerEntityRenderer(ModEntities.LIGHT_FURY.get(), LightFuryRender::new);
+        event.registerEntityRenderer(ModEntities.TRIPLE_STRYKE.get(), TripleStrykeRenderer::new);
+        event.registerEntityRenderer(ModEntities.DEADLY_NADDER.get(), DeadlyNadderRender::new);
+        event.registerEntityRenderer(ModEntities.GRONCKLE.get(), GronckleRender::new);
+        event.registerEntityRenderer(ModEntities.MONSTROUS_NIGHTMARE.get(), MonstrousNightmareRender::new);
         event.registerEntityRenderer(ModEntities.ZIPPLEBACK.get(), ZippleBackRenderer::new);
+        event.registerEntityRenderer(ModEntities.TERRIBLE_TERROR.get(), TerribleTerrorRender::new);
+        event.registerEntityRenderer(ModEntities.SPEED_STINGER_LEADER.get(), SpeedStingerLeaderRender::new);
+        event.registerEntityRenderer(ModEntities.SPEED_STINGER.get(), SpeedStingerRender::new);
+        event.registerEntityRenderer(ModEntities.STINGER.get(), StingerRender::new);
 
-        // breath_weapons
+        /**
+         * Dragon Breathe
+         */
         event.registerEntityRenderer(ModEntities.FURY_BOLT.get(), FuryBoltRender::new);
         event.registerEntityRenderer(ModEntities.FIRE_BOLT.get(), FireBoltRender::new);
         event.registerEntityRenderer(ModEntities.NADDER_SPIKE.get(), DeadlyNadderSpikeRenderer::new);
         event.registerEntityRenderer(ModEntities.ZIP_POISON.get(), ZipBreathProjectile.ZipBreathProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.FIRE_PROJ.get(), FireBreathProjectileRenderer::new);
 
-        // misc
+        /**
+         * Misc
+         */
         event.registerEntityRenderer(ModEntities.ZIP_CLOUD.get(), ZippleBackAOECloud.ZippleBackAOECloudRenderer::new);
 
-        // eggs
-        // small
+        /**
+         * Eggs
+         */
+        // Small
         event.registerEntityRenderer(ModEntities.SPEED_STINGER_EGG.get(), SmallEggRenderer::new);
         event.registerEntityRenderer(ModEntities.TERRIBLE_TERROR_EGG.get(), SmallEggRenderer::new);
-        //medium
+        // Medium
         event.registerEntityRenderer(ModEntities.NIGHT_FURY_EGG.get(), MediumEggRenderer::new);
         event.registerEntityRenderer(ModEntities.LIGHT_FURY_EGG.get(), MediumEggRenderer::new);
         event.registerEntityRenderer(ModEntities.NADDER_EGG.get(), MediumEggRenderer::new);
         event.registerEntityRenderer(ModEntities.GRONCKLE_EGG.get(), MediumEggRenderer::new);
         event.registerEntityRenderer(ModEntities.TRIPLE_STRYKE_EGG.get(), MediumEggRenderer::new);
-        // large
+        // Large
         event.registerEntityRenderer(ModEntities.STINGER_EGG.get(), ADragonLargeEggRenderer::new);
         event.registerEntityRenderer(ModEntities.ZIPPLEBACK_EGG.get(), ADragonLargeEggRenderer::new);
         event.registerEntityRenderer(ModEntities.M_NIGHTMARE_EGG.get(), ADragonLargeEggRenderer::new);
@@ -112,7 +120,4 @@ public final class ClientModEvent {
         });
     }
 }
-//    private void register2dItemModels(Supplier<Minecraft> minecraft,final EntityRenderersEvent.RegisterRenderers event) {
-//        ItemRenderer renderer = minecraft.get().getItemRenderer();
-//    }
 

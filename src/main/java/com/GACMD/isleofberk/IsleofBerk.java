@@ -1,10 +1,10 @@
 package com.GACMD.isleofberk;
 
-import com.GACMD.isleofberk.common.entity.entities.base.dragon.ADragonBase;
-import com.GACMD.isleofberk.common.entity.entities.dragons.speedstinger.SpeedStinger;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.registery.ModParticles;
-import com.GACMD.isleofberk.common.entity.network.ControlNetwork;
-import com.GACMD.isleofberk.common.entity.sound.IOBSounds;
+import com.GACMD.isleofberk.network.ControlNetwork;
+import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.event.ClientModEvent;
 import com.GACMD.isleofberk.registery.ModBlocks;
 import com.GACMD.isleofberk.registery.ModContainerTypes;
@@ -41,7 +41,7 @@ public class IsleofBerk // /kill @e[type=!isleofberk:stinger,type=! player]
         ModItems.ITEMS.register(eventBus);
         ModBlocks.BLOCKS.register(eventBus);
         ModParticles.REGISTRAR.register(eventBus);
-        IOBSounds.SOUND_EVENTS.register(eventBus);
+        ModSounds.SOUND_EVENTS.register(eventBus);
         ModContainerTypes.CONTAINER_TYPES.register(eventBus);
 
         // Register ourselves for server and other game events we are interested in
@@ -55,13 +55,16 @@ public class IsleofBerk // /kill @e[type=!isleofberk:stinger,type=! player]
 //        BlockInit.doBlockSetup();
 
         event.enqueueWork(() -> {
-            SpawnPlacements.register(ModEntities.STINGER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
-            SpawnPlacements.register(ModEntities.SPEED_STINGER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpeedStinger::checkSpeedStingerSpawnRules);
             SpawnPlacements.register(ModEntities.NIGHT_FURY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
-            SpawnPlacements.register(ModEntities.DEADLY_NADDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
+            SpawnPlacements.register(ModEntities.LIGHT_FURY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
             SpawnPlacements.register(ModEntities.TRIPLE_STRYKE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
-            SpawnPlacements.register(ModEntities.TERRIBLE_TERROR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
+            SpawnPlacements.register(ModEntities.DEADLY_NADDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
             SpawnPlacements.register(ModEntities.GRONCKLE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
+            SpawnPlacements.register(ModEntities.MONSTROUS_NIGHTMARE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
+            SpawnPlacements.register(ModEntities.ZIPPLEBACK.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
+            SpawnPlacements.register(ModEntities.TERRIBLE_TERROR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
+            SpawnPlacements.register(ModEntities.SPEED_STINGER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SpeedStinger::checkSpeedStingerSpawnRules);
+            SpawnPlacements.register(ModEntities.STINGER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
         });
     }
 }
