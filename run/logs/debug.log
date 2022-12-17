@@ -811,3 +811,42 @@ com.google.gson.JsonSyntaxException: Expected a com.google.gson.JsonArray but wa
 [18Dec2022 03:27:39.352] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
 [18Dec2022 03:27:39.353] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
 [18Dec2022 03:27:39.355] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
+[18Dec2022 03:28:49.155] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
+[18Dec2022 03:28:49.158] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
+[18Dec2022 03:28:50.604] [Render thread/INFO] [net.minecraft.advancements.AdvancementList/]: Loaded 124 advancements
+[18Dec2022 03:30:58.515] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] This Dragon needs a saddle or it could drop you in mid air
+[18Dec2022 03:30:58.531] [Render thread/INFO] [net.minecraft.client.gui.components.ChatComponent/]: [CHAT] This Dragon needs a saddle or it could drop you in mid air
+[18Dec2022 03:31:48.646] [Render thread/WARN] [net.minecraft.client.sounds.SoundEngine/SOUNDS]: Unable to play empty soundEvent: minecraft:entity.tropical_fish.ambient
+[18Dec2022 03:32:21.812] [Server thread/WARN] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Night Fury (vehicle of Dev) moved wrongly! 0.26880040754349466
+[18Dec2022 03:32:49.643] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[18Dec2022 03:32:49.648] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[18Dec2022 03:32:49.652] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[18Dec2022 03:32:49.653] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[18Dec2022 03:32:49.654] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
+[18Dec2022 03:32:49.656] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
+[18Dec2022 03:35:05.505] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
+[18Dec2022 03:35:05.507] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
+[18Dec2022 03:35:15.693] [Server thread/INFO] [net.minecraft.client.server.IntegratedServer/]: Saving and pausing game...
+[18Dec2022 03:35:15.698] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[18Dec2022 03:35:15.704] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[18Dec2022 03:35:15.705] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[18Dec2022 03:35:15.706] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
+[18Dec2022 03:35:15.708] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
+[18Dec2022 03:35:16.552] [Render thread/INFO] [net.minecraft.client.Minecraft/]: Stopping!
+[18Dec2022 03:35:16.597] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Dev lost connection: Disconnected
+[18Dec2022 03:35:16.597] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Dev left the game
+[18Dec2022 03:35:16.603] [Server thread/INFO] [net.minecraft.server.network.ServerGamePacketListenerImpl/]: Stopping singleplayer server as player logged out
+[18Dec2022 03:35:16.642] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Stopping server
+[18Dec2022 03:35:16.642] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving players
+[18Dec2022 03:35:16.642] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving worlds
+[18Dec2022 03:35:17.558] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:overworld
+[18Dec2022 03:35:17.604] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_end
+[18Dec2022 03:35:17.604] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: Saving chunks for level 'ServerLevel[New World]'/minecraft:the_nether
+[18Dec2022 03:35:17.605] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: Gathering id map for writing to world save New World
+[18Dec2022 03:35:17.607] [Server thread/DEBUG] [net.minecraftforge.common.ForgeHooks/WP]: ID Map collection complete New World
+[18Dec2022 03:35:17.615] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (New World (6)): All chunks are saved
+[18Dec2022 03:35:17.615] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM1): All chunks are saved
+[18Dec2022 03:35:17.615] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage (DIM-1): All chunks are saved
+[18Dec2022 03:35:17.615] [Server thread/INFO] [net.minecraft.server.MinecraftServer/]: ThreadedAnvilChunkStorage: All dimensions are saved
+[18Dec2022 03:35:18.015] [Server thread/DEBUG] [net.minecraftforge.fml.loading.FileUtils/CORE]: Found existing serverconfig directory : .\saves\New World (6)\serverconfig
+[18Dec2022 03:35:18.015] [Server thread/DEBUG] [net.minecraftforge.fml.config.ConfigTracker/CONFIG]: Unloading configs type SERVER
