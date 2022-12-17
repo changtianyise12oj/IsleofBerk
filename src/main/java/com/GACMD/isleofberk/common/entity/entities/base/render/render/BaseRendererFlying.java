@@ -88,8 +88,6 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
                     if (ydist > 8.3F) {
                         pitch -= 4;
                         body.setRotationX(toRadians(Mth.clamp(pitch, -90, 0)));
-                        System.out.println("rotX" + body.getRotationX());
-                        System.out.println("pitch" + pitch);
                     } else {
                         pitch = 0;
                     }
