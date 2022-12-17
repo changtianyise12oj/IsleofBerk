@@ -287,7 +287,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             // plan to temporary hide(despawn?) the terror then unhide(respawn?) if the player appears close by
         } else if (item != Items.STICK && !isBaby() && isTame() && !isItemStackForTaming(itemstack) && !isBreedingFood(itemstack)) { //  && isDragonBelziumHeld(itemstack)
             ridePlayer(pPlayer);
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
         return super.mobInteract(pPlayer, pHand);
     }
@@ -494,7 +494,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     public int getMaxFuel() {
-        return 150;
+        return 125;
     }
 
     @Override
@@ -535,7 +535,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
         FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
         fireProj.setProjectileSize(0);
-        fireProj.shoot(riderLook, 1F, 7F);
+        fireProj.shootNoScaling(riderLook, 1F, 7F);
         level.addFreshEntity(fireProj);
     }
 

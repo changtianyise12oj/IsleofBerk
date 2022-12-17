@@ -188,7 +188,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                             // add exception if mobGriefing is false,
                             // allow damage only to tamable mobs that aren't tamed
                             // and especially hostile mobs such as bosses to make dragons useful in combat.
-                            // no damage to pets (tamed mobs and mobs that have name tags are considered as pets)
+                            // no damage to pets (tamed mobs and mobs that have name nametags are considered as pets)
                             // also add exceptions to mobs with large health since players would put nametags to  bosses or dragons to avoid them getting damage
                         } else if (!mobGriefing) {
                             if (entity instanceof LivingEntity livingEntity && livingEntity.getMaxHealth() < 20 && livingEntity.hasCustomName()) {
@@ -223,41 +223,40 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
      * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
      */
     public void shoot(Vec3 end, float partialTicks, float pInaccuracy) {
-        if (partialTicks == 1) {
-            float pVelocity = 5;
-            Vec3 endVec = (new Vec3(end.x() * pVelocity, end.y() * pVelocity, end.z() * pVelocity));
+        double pVelocity = 5;
+        Vec3 endVec = (new Vec3(end.x() * pVelocity, end.y() * pVelocity, end.z() * pVelocity));
 
-            // plays particles
-            // use rotation and endpoint
-            Vec3 vec3 = (endVec).normalize().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy).scale((double) pVelocity);
-            this.setDeltaMovement(vec3);
+        // plays particles
+        // use rotation and endpoint
+        Vec3 vec3 = (endVec).normalize().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy,
+                this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy).scale( pVelocity);
+        this.setDeltaMovement(vec3);
 
-            double d0 = end.horizontalDistance();
-            this.setYRot((float) (Mth.atan2(end.x, end.z) * (double) (180F / (float) Math.PI)));
-            this.setXRot((float) (Mth.atan2(end.y, d0) * (double) (180F / (float) Math.PI)));
-            this.yRotO = this.getYRot();
-            this.xRotO = this.getYRot();
-        }
+        double d0 = end.horizontalDistance();
+        this.setYRot((float) (Mth.atan2(end.x, end.z) * (double) (180F / (float) Math.PI)));
+        this.setXRot((float) (Mth.atan2(end.y, d0) * (double) (180F / (float) Math.PI)));
+        this.yRotO = this.getYRot();
+        this.xRotO = this.getYRot();
     }
 
     /**
-     * Shooting projectiles for mobs
+     * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
      */
-    public void AIshoot(ADragonBase dragon, Vec3 end, float partialTicks, float pInaccuracy) {
-        if (partialTicks == 1) {
-            float pVelocity = 5;
-            Vec3 look = dragon.getLookAngle().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy).scale((double) pVelocity);
+    public void shootNoScaling(Vec3 end, float partialTicks, float pInaccuracy) {
+        double pVelocity = 2;
+        Vec3 endVec = (new Vec3(end.x() * pVelocity, end.y() * pVelocity, end.z() * pVelocity));
 
-            this.setDeltaMovement(look);
+        // plays particles
+        // use rotation and endpoint
+        Vec3 vec3 = (endVec).normalize().add(this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy,
+                this.random.nextGaussian() * 0.007499999832361937D * (double) pInaccuracy, this.random.nextGaussian() * 0.007499999832361937D *  pInaccuracy).scale(pVelocity);
+        this.setDeltaMovement(vec3);
 
-            System.out.println("end" + end);
-            System.out.println("look" + look);
-            double d0 = look.horizontalDistance();
-            this.setYRot((float) (Mth.atan2(look.x, look.z) * (double) (180F / (float) Math.PI)));
-            this.setXRot((float) (Mth.atan2(look.y, d0) * (double) (180F / (float) Math.PI)));
-            this.yRotO = this.getYRot();
-            this.xRotO = this.getYRot();
-        }
+        double d0 = end.horizontalDistance();
+        this.setYRot((float) (Mth.atan2(end.x, end.z) * (double) (180F / (float) Math.PI)));
+        this.setXRot((float) (Mth.atan2(end.y, d0) * (double) (180F / (float) Math.PI)));
+        this.yRotO = this.getYRot();
+        this.xRotO = this.getYRot();
     }
 
     public void shoot(Vec3 end, float partialTicks) {
@@ -283,15 +282,15 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
             double deltaZ = vec3.z;
             double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
 //                scaleParticleSize(getTrailParticle(), this);
-                for (double j = 0; j < dist; j++) {
-                    double coeff = j / dist;
-                    level.addParticle(getTrailParticle(), true,
-                            (float) (xo + deltaX * coeff),
-                            (float) (yo + deltaY * coeff) + 0.1,
-                            (float) (zo + deltaZ * coeff),
-                            0.0225f * (random.nextFloat() - 0.5f),
-                            0.0225f * (random.nextFloat() - 0.5f),
-                            0.0225f * (random.nextFloat() - 0.5f));
+            for (double j = 0; j < dist; j++) {
+                double coeff = j / dist;
+                level.addParticle(getTrailParticle(), true,
+                        (float) (xo + deltaX * coeff),
+                        (float) (yo + deltaY * coeff) + 0.1,
+                        (float) (zo + deltaZ * coeff),
+                        0.0225f * (random.nextFloat() - 0.5f),
+                        0.0225f * (random.nextFloat() - 0.5f),
+                        0.0225f * (random.nextFloat() - 0.5f));
             }
         }
     }

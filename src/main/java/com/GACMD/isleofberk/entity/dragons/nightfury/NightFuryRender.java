@@ -29,7 +29,7 @@ public class NightFuryRender extends BaseRendererFlying<NightFury> {
 
     @Override
     public void render(GeoModel model, NightFury animatable, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        if (!animatable.isInvisible()) {
+        if (!animatable.isInvisible()) { 
             super.render(model, animatable, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         }
     }
@@ -41,7 +41,7 @@ public class NightFuryRender extends BaseRendererFlying<NightFury> {
 
     @Override
     protected int getMinRise() {
-        return -45;
+        return -75;
     }
 
     @Override

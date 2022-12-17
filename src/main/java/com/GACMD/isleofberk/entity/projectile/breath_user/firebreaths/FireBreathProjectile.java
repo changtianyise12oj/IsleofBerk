@@ -32,6 +32,7 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import software.bernie.shadowed.eliotlash.mclib.utils.MathHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -51,6 +52,15 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
         super(ModEntities.FIRE_PROJ.get(), dragonOwner, throat, end, level, 1);
 
     }
+
+    public FireBreathProjectile(Level worldIn, ADragonBaseFlyingRideable shooter, double accelX, double accelY, double accelZ) {
+        super(ModEntities.FIRE_PROJ.get(), shooter, accelX, accelY, accelZ,0,0,0,worldIn, 3);
+        double d0 = (double) Math.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
+        this.xPower = accelX / d0 * (0.1D);
+        this.yPower = accelY / d0 * (0.1D);
+        this.zPower = accelZ / d0 * (0.1D);
+    }
+
 
     @Override
     protected void defineSynchedData() {
@@ -157,7 +167,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
     @Override
     protected int threshHoldForDeletion() {
         if (projectileSize() == 0) {
-            return 1;
+            return 10;
         } else {
             return 180;
         }
