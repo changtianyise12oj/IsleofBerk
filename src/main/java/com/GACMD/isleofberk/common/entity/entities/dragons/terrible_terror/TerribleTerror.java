@@ -494,7 +494,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     public int getMaxFuel() {
-        return 150;
+        return 125;
     }
 
     @Override

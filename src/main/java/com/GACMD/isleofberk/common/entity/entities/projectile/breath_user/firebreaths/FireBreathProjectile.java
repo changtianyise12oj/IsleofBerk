@@ -167,7 +167,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
     @Override
     protected int threshHoldForDeletion() {
         if (projectileSize() == 0) {
-            return 4;
+            return 10;
         } else {
             return 180;
         }
