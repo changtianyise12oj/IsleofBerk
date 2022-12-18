@@ -32,14 +32,11 @@ public class LayerDragonRider<T extends ADragonBaseFlyingRideable & IAnimatable>
                 for (Entity passenger : dragon.getPassengers()) {
                     matrixStackIn.translate(0, -0.01F * dragonScale, -0.035F * dragonScale);
 
-                    float riderRot1 = dragon.getXRot();
+                    float riderRot1 = dragon.getChangeInYaw();
                     float riderRot = passenger.yRotO + (passenger.getYRot() - passenger.yRotO) * partialTicks;
 
-//                    matrixStackIn.mulPose(new Quaternion(Vector3f.ZP, riderRot1, true));
-//                    matrixStackIn.mulPose(new Quaternion(Vector3f.YP, riderRot + 180, true));
-                    matrixStackIn.mulPose(new Quaternion(Vector3f.ZP, 0, true));
-                    matrixStackIn.mulPose(new Quaternion(Vector3f.YP, 0, true));
-//                    matrixStackIn.mulPose(new Quaternion(Vector3f.XP, 0, true));
+                    matrixStackIn.mulPose(new Quaternion(Vector3f.ZP, riderRot1, true));
+                    matrixStackIn.mulPose(new Quaternion(Vector3f.YP, riderRot + 180, true));
                     matrixStackIn.scale(1 / dragonScale, 1 / dragonScale, 1 / dragonScale);
                     matrixStackIn.translate(0, 2.25F, 0);
                     renderEntity(passenger, 0.0D, 0.0D, 0.0D, 0.0F, partialTicks, matrixStackIn, bufferIn, packedLightIn);

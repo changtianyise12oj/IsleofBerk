@@ -9,6 +9,8 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -154,6 +156,9 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
         FireBreathProjectile.FlameBreathExplosion explosion = new FireBreathProjectile.FlameBreathExplosion(this.level, pExploder, pDamageSource, pContext, pX, pY, pZ, pSize, true, pMode);
         if (net.minecraftforge.event.ForgeEventFactory.onExplosionStart(this.level, explosion)) return explosion;
         explosion.explode();
+        if(level.isClientSide && getProjectileSize() > 0) {
+            level.playLocalSound(pX,pY,pZ, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 1,1,false);
+        }
         explosion.finalizeExplosion(true);
         return explosion;
     }
