@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "isleofberk:item/tools/belzium_dagger"
+    }
+}
