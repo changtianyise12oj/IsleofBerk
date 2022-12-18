@@ -31,7 +31,7 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
 
     protected BaseRendererFlying(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
-        this.addLayer(new LayerDragonRider<>(this));
+//        this.addLayer(new LayerDragonRider<>(this));
     }
 
     @Override
