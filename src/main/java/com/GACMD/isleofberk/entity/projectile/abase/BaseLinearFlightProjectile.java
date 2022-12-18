@@ -332,7 +332,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                 double deltaX = vec3.x;
                 double deltaY = vec3.y;
                 double deltaZ = vec3.z;
-                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 1);
+                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 0.7F);
                 for (double j = 0; j < dist; j++) {
                     double coeff = j / dist;
                     ParticleOptions particleOptions = getTrailParticle();
