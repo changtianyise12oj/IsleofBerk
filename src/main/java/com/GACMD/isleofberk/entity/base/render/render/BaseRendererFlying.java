@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.base.render.render;
 
+import com.GACMD.isleofberk.entity.base.render.layer.LayerDragonRider;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -30,6 +31,7 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
 
     protected BaseRendererFlying(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
+        this.addLayer(new LayerDragonRider<>(this));
     }
 
     @Override
@@ -85,8 +87,6 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
                     if (ydist > 8.3F) {
                         pitch -= 4;
                         body.setRotationX(toRadians(Mth.clamp(pitch, -90, 0)));
-                        System.out.println("rotX" + body.getRotationX());
-                        System.out.println("pitch" + pitch);
                     } else {
                         pitch = 0;
                     }

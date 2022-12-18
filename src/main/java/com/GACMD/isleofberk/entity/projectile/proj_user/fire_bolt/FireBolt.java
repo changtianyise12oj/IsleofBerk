@@ -90,8 +90,6 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
-
-        System.out.println(getProjectileSize());
     }
 
     @Override
