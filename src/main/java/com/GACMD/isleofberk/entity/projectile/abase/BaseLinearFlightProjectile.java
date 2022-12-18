@@ -9,6 +9,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
@@ -182,13 +184,18 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
 
                     HitResult.Type hitresult$type = hitresult.getType();
                     if (hitresult$type == HitResult.Type.BLOCK && hitresult instanceof BlockHitResult blockHitResult) {
-//                        if (!(level.getBlockState(blockHitResult.getBlockPos()).getBlock() instanceof BushBlock)) {
                         boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
-                        if (flag)
+                        if (flag) {
                             this.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+                            if (this instanceof BaseLinearBoltProjectile) {
+                                level.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+                                if (this instanceof BaseLinearBoltProjectile) {
+                                    level.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+                                }
+                            }
+                        }
                         this.discard();
                         this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
-//                        }
                     }
                 }
             }
@@ -234,9 +241,16 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                                 this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
                             }
                         }
-
+                        if (this instanceof BaseLinearBoltProjectile) {
+                            if (this.level.isClientSide) {
+                                this.level.playLocalSound(end.x, end.y, end.z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F, false);
+                            }
+                        }
                         boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
-                        this.explode(null, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+                        this.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+                        if (this instanceof BaseLinearBoltProjectile) {
+                            level.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+                        }
                     }
                 }
             }
@@ -328,73 +342,73 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
 
     public void playParticles() {
         if (getProjectileSize() == 0) {
-                Vec3 vec3 = this.getDeltaMovement();
-                double deltaX = vec3.x;
-                double deltaY = vec3.y;
-                double deltaZ = vec3.z;
-                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 0.7F);
-                for (double j = 0; j < dist; j++) {
-                    double coeff = j / dist;
-                    ParticleOptions particleOptions = getTrailParticle();
-                    level.addParticle(particleOptions, true,
-                            (double) (xo + deltaX * coeff),
-                            (double) (yo + deltaY * coeff) + 0.1,
-                            (double) (zo + deltaZ * coeff),
-                            0.001525f * (random.nextFloat() - 0.3f),
-                            0.001525f * (random.nextFloat() - 0.3f),
-                            0.001525f * (random.nextFloat() - 0.3f));
+            Vec3 vec3 = this.getDeltaMovement();
+            double deltaX = vec3.x;
+            double deltaY = vec3.y;
+            double deltaZ = vec3.z;
+            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 0.7F);
+            for (double j = 0; j < dist; j++) {
+                double coeff = j / dist;
+                ParticleOptions particleOptions = getTrailParticle();
+                level.addParticle(particleOptions, true,
+                        (double) (xo + deltaX * coeff),
+                        (double) (yo + deltaY * coeff) + 0.1,
+                        (double) (zo + deltaZ * coeff),
+                        0.001525f * (random.nextFloat() - 0.3f),
+                        0.001525f * (random.nextFloat() - 0.3f),
+                        0.001525f * (random.nextFloat() - 0.3f));
             }
 
         } else if (getProjectileSize() == 1) {
-                Vec3 vec3 = this.getDeltaMovement();
-                double deltaX = vec3.x;
-                double deltaY = vec3.y;
-                double deltaZ = vec3.z;
-                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 4);
-                for (double j = 0; j < dist; j++) {
-                    double coeff = j / dist;
-                    ParticleOptions particleOptions = getTrailParticle();
-                    level.addParticle(particleOptions, true,
-                            (double) (xo + deltaX * coeff),
-                            (double) (yo + deltaY * coeff) + 0.1,
-                            (double) (zo + deltaZ * coeff),
-                            0.1525f * (random.nextFloat() - 0.5f),
-                            0.1525f * (random.nextFloat() - 0.5f),
-                            0.1525f * (random.nextFloat() - 0.5f));
+            Vec3 vec3 = this.getDeltaMovement();
+            double deltaX = vec3.x;
+            double deltaY = vec3.y;
+            double deltaZ = vec3.z;
+            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 4);
+            for (double j = 0; j < dist; j++) {
+                double coeff = j / dist;
+                ParticleOptions particleOptions = getTrailParticle();
+                level.addParticle(particleOptions, true,
+                        (double) (xo + deltaX * coeff),
+                        (double) (yo + deltaY * coeff) + 0.1,
+                        (double) (zo + deltaZ * coeff),
+                        0.1525f * (random.nextFloat() - 0.5f),
+                        0.1525f * (random.nextFloat() - 0.5f),
+                        0.1525f * (random.nextFloat() - 0.5f));
             }
         } else if (getProjectileSize() == 2) {
-                Vec3 vec3 = this.getDeltaMovement();
-                double deltaX = vec3.x;
-                double deltaY = vec3.y;
-                double deltaZ = vec3.z;
-                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 14);
-                for (double j = 0; j < dist; j++) {
-                    double coeff = j / dist;
-                    ParticleOptions particleOptions = getTrailParticle();
-                    level.addParticle(particleOptions, true,
-                            (double) (xo + deltaX * coeff),
-                            (double) (yo + deltaY * coeff) + 0.1,
-                            (double) (zo + deltaZ * coeff),
-                            0.41525f * (random.nextFloat() - 1.7f),
-                            0.41525f * (random.nextFloat() - 1.7f),
-                            0.41525f * (random.nextFloat() - 1.7f));
+            Vec3 vec3 = this.getDeltaMovement();
+            double deltaX = vec3.x;
+            double deltaY = vec3.y;
+            double deltaZ = vec3.z;
+            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 14);
+            for (double j = 0; j < dist; j++) {
+                double coeff = j / dist;
+                ParticleOptions particleOptions = getTrailParticle();
+                level.addParticle(particleOptions, true,
+                        (double) (xo + deltaX * coeff),
+                        (double) (yo + deltaY * coeff) + 0.1,
+                        (double) (zo + deltaZ * coeff),
+                        0.41525f * (random.nextFloat() - 1.7f),
+                        0.41525f * (random.nextFloat() - 1.7f),
+                        0.41525f * (random.nextFloat() - 1.7f));
             }
         } else if (getProjectileSize() == 3) {
-                Vec3 vec3 = this.getDeltaMovement();
-                double deltaX = vec3.x;
-                double deltaY = vec3.y;
-                double deltaZ = vec3.z;
-                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 32);
-                for (double j = 0; j < dist; j++) {
-                    double coeff = j / dist;
-                    ParticleOptions particleOptions = getTrailParticle();
-                    level.addParticle(particleOptions, true,
-                            (double) (xo + deltaX * coeff),
-                            (double) (yo + deltaY * coeff) + 0.1,
-                            (double) (zo + deltaZ * coeff),
-                            0.41525f * (random.nextFloat() - 1.7f),
-                            0.41525f * (random.nextFloat() - 1.7f),
-                            0.41525f * (random.nextFloat() - 1.7f));
+            Vec3 vec3 = this.getDeltaMovement();
+            double deltaX = vec3.x;
+            double deltaY = vec3.y;
+            double deltaZ = vec3.z;
+            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 32);
+            for (double j = 0; j < dist; j++) {
+                double coeff = j / dist;
+                ParticleOptions particleOptions = getTrailParticle();
+                level.addParticle(particleOptions, true,
+                        (double) (xo + deltaX * coeff),
+                        (double) (yo + deltaY * coeff) + 0.1,
+                        (double) (zo + deltaZ * coeff),
+                        0.41525f * (random.nextFloat() - 1.7f),
+                        0.41525f * (random.nextFloat() - 1.7f),
+                        0.41525f * (random.nextFloat() - 1.7f));
             }
         }
     }

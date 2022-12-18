@@ -212,9 +212,6 @@ public class BaseLinearBoltProjectile extends BaseLinearFlightProjectile {
          * Does the second part of the explosion (sound, particles, drop spawn)
          */
         public void finalizeExplosion(boolean pSpawnParticles) {
-            if (this.level.isClientSide) {
-                this.level.playLocalSound(this.x, this.y, this.z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F, false);
-            }
 
             boolean flag = this.blockInteraction != BlockInteraction.NONE;
             if (pSpawnParticles) {
