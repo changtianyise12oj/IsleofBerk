@@ -422,14 +422,19 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         }
 
         if (this.tier1()) {
-            setExplosionStrength(1);
+            setProjsSize(0);
+            setExplosionStrength(0);
         } else if (this.tier2()) {
+            setProjsSize(1);
             setExplosionStrength(3);
         } else if (this.tier3()) {
             setExplosionStrength(3);
+            setProjsSize(2);
         } else if (this.tier4()) {
+            setProjsSize(3);
             setExplosionStrength(4);
         }
+
         String s = ChatFormatting.stripFormatting(this.getName().getString());
         if (s != null) {
             if (s.equals("Meatlug") || s.equals("meatlug")) {

@@ -2,18 +2,13 @@ package com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
-import com.GACMD.isleofberk.entity.dragons.terrible_terror.TerribleTerror;
-import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModParticles;
 import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -32,7 +27,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import software.bernie.shadowed.eliotlash.mclib.utils.MathHelper;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -40,9 +34,6 @@ import java.util.Optional;
 import java.util.Set;
 
 public class FireBreathProjectile extends BaseLinearFlightProjectile {
-
-
-    private static final EntityDataAccessor<Integer> PROJECTILE_SIZE = SynchedEntityData.defineId(TerribleTerror.class, EntityDataSerializers.INT);
 
     public FireBreathProjectile(EntityType<? extends FireBreathProjectile> projectile, Level level) {
         super(projectile, level);
@@ -53,67 +44,13 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
     }
 
-    public FireBreathProjectile(Level worldIn, ADragonBaseFlyingRideable shooter, double accelX, double accelY, double accelZ) {
-        super(ModEntities.FIRE_PROJ.get(), shooter, accelX, accelY, accelZ,0,0,0,worldIn, 3);
-        double d0 = (double) Math.sqrt(accelX * accelX + accelY * accelY + accelZ * accelZ);
-        this.xPower = accelX / d0 * (0.1D);
-        this.yPower = accelY / d0 * (0.1D);
-        this.zPower = accelZ / d0 * (0.1D);
-    }
-
-
-    @Override
-    protected void defineSynchedData() {
-        this.entityData.define(PROJECTILE_SIZE, 1);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag pCompound) {
-        super.readAdditionalSaveData(pCompound);
-        this.setProjectileSize(pCompound.getInt("projectile_size"));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag pCompound) {
-        super.addAdditionalSaveData(pCompound);
-        pCompound.putInt("projectile_size", this.projectileSize());
-    }
-
-    public int projectileSize() {
-        return this.entityData.get(PROJECTILE_SIZE);
-    }
-
-    public void setProjectileSize(int sizeTier) {
-        this.entityData.set(PROJECTILE_SIZE, sizeTier);
-
-    }
-
     @Override
     protected boolean shouldBurn() {
         return false;
     }
 
     public void playParticles() {
-        if (projectileSize() == 1) {
-            for (int i = 0; i < 1; i++) {
-                Vec3 vec3 = this.getDeltaMovement();
-                double deltaX = vec3.x;
-                double deltaY = vec3.y;
-                double deltaZ = vec3.z;
-                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
-                for (double j = 0; j < dist; j++) {
-                    double coeff = j / dist;
-                    ParticleOptions particleOptions = ParticleTypes.FLAME;
-                    level.addParticle(particleOptions, true,
-                            (double) (xo + deltaX * coeff),
-                            (double) (yo + deltaY * coeff) + 1.0F,
-                            (double) (zo + deltaZ * coeff),
-                            0.1525f * (random.nextFloat() - 0.5f),
-                            0.1525f * (random.nextFloat() - 0.5f),
-                            0.1525f * (random.nextFloat() - 0.5f));
-                }
-            }
-        } else if (projectileSize() == 0) {
+        if (getProjectileSize() == 0) {
             for (int i = 0; i < 1; i++) {
                 Vec3 vec3 = this.getDeltaMovement();
                 double deltaX = vec3.x;
@@ -132,7 +69,26 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
                             0.001525f * (random.nextFloat() - 0.3f));
                 }
             }
-        } else if (projectileSize() == 2) {
+        } else if (getProjectileSize() == 1) {
+            for (int i = 0; i < 1; i++) {
+                Vec3 vec3 = this.getDeltaMovement();
+                double deltaX = vec3.x;
+                double deltaY = vec3.y;
+                double deltaZ = vec3.z;
+                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
+                for (double j = 0; j < dist; j++) {
+                    double coeff = j / dist;
+                    ParticleOptions particleOptions = ParticleTypes.FLAME;
+                    level.addParticle(particleOptions, true,
+                            (double) (xo + deltaX * coeff),
+                            (double) (yo + deltaY * coeff) + 1.0F,
+                            (double) (zo + deltaZ * coeff),
+                            0.1525f * (random.nextFloat() - 0.5f),
+                            0.1525f * (random.nextFloat() - 0.5f),
+                            0.1525f * (random.nextFloat() - 0.5f));
+                }
+            }
+        } else if (getProjectileSize() == 2) {
             for (int i = 0; i < 1; i++) {
                 Vec3 vec3 = this.getDeltaMovement();
                 double deltaX = vec3.x;
@@ -166,7 +122,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
     @Override
     protected int threshHoldForDeletion() {
-        if (projectileSize() == 0) {
+        if (getProjectileSize() == 0) {
             return 10;
         } else {
             return 180;
@@ -187,7 +143,6 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
      * Custom Explosion method used for making explosions with DragonSoulFire.
      *
      * @return The Explosion Object
-     * @see com.GACMD.isleofberk.init.blocks.DragonSoulFire
      * @see net.minecraft.world.level.Explosion
      * @see Explosion#explode()
      */

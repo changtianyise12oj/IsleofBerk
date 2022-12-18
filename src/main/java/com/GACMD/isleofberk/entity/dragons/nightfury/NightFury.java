@@ -331,6 +331,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
             setTicksSinceLastFire(20);
             FuryBolt bolt = new FuryBolt(this, throat, riderLook, level, getExplosionStrength());
+            bolt.setProjectileSize(getProjsSize());
             bolt.shoot(riderLook, 1F);
             bolt.setIsLightFuryTexture(false);
             level.addFreshEntity(bolt);
@@ -355,12 +356,16 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         super.tick();
 
         if (this.tier1()) {
-            setExplosionStrength(1);
+            setProjsSize(0);
+            setExplosionStrength(0);
         } else if (this.tier2()) {
+            setProjsSize(1);
             setExplosionStrength(3);
         } else if (this.tier3()) {
+            setProjsSize(2);
             setExplosionStrength(5);
         } else if (this.tier4()) {
+            setProjsSize(3);
             setExplosionStrength(7);
         }
 

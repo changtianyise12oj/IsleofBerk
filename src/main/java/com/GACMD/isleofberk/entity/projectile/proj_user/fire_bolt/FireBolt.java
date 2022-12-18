@@ -71,24 +71,6 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
         super(ModEntities.FIRE_BOLT.get(), owner, throat, end, level, strengthRadius);
     }
 
-    public FireBolt(ADragonBaseFlyingRideableProjUser owner, double pOffsetX, double pOffsetY, double pOffsetZ, Level pLevel, int strengthRadius) {
-        this(ModEntities.FIRE_BOLT.get(), pLevel);
-        this.dragon = owner;
-        this.strengthRadius = strengthRadius;
-        this.setOwner(owner);
-        this.setRot(owner.getYRot(), owner.getXRot());
-
-        this.moveTo(owner.getX(), owner.getY(), owner.getZ(), this.getYRot(), this.getXRot());
-        this.reapplyPosition();
-        double d0 = Math.sqrt(pOffsetX * pOffsetX + pOffsetY * pOffsetY + pOffsetZ * pOffsetZ);
-        if (d0 != 0.0D) {
-            this.xPower = pOffsetX / d0 * 0.1D;
-            this.yPower = pOffsetY / d0 * 0.1D;
-            this.zPower = pOffsetZ / d0 * 0.1D;
-        }
-
-    }
-
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
 //        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.projectile.spin", true));
         return PlayState.CONTINUE;
@@ -108,6 +90,8 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
+
+        System.out.println(getProjectileSize());
     }
 
     @Override
@@ -152,7 +136,6 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
      * Custom Explosion method used for making explosions with DragonSoulFire.
      *
      * @return The Explosion Object
-     * @see com.GACMD.isleofberk.init.blocks.DragonSoulFire
      * @see Explosion
      * @see Explosion#explode()
      */

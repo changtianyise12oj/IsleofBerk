@@ -24,6 +24,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     }
 
     int explosionStrength;
+    int projSize;
     public int playerBoltBlastPendingScale = 0;
     public int playerBoltBlastPendingStopThreshold = 0;
     protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_FIRE = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
@@ -35,6 +36,14 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
 
     public void setExplosionStrength(int explosionStrength) {
         this.explosionStrength = explosionStrength;
+    }
+
+    public int getProjsSize() {
+        return projSize;
+    }
+
+    public void setProjsSize(int projSize) {
+        this.projSize = projSize;
     }
 
     @Override
@@ -135,13 +144,6 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
                 }
             }
         }
-
-//        if(random.nextInt(100) == 1) {
-//            Vec3 vec3 = this.getViewVector(1.0F);
-//            LargeFireball largefireball = new LargeFireball(level, this, 0, 3, 0, 3);
-//            largefireball.setPos(this.getX() + vec3.x * 4.0D, this.getY(0.5D) + 0.5D, largefireball.getZ() + vec3.z * 4.0D);
-//            level.addFreshEntity(largefireball);
-//        }
     }
 
     protected float getAIProjPowerPercentage() {
@@ -176,10 +178,11 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     }
 
     protected void playerFireProjectile(Vec3 riderLook, Vec3 throat) {
+        FireBolt bolt = new FireBolt(this, throat, riderLook, level, getExplosionStrength());
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
             setTicksSinceLastFire(20);
-            FireBolt bolt = new FireBolt(this, throat, riderLook, level, getExplosionStrength());
             bolt.shoot(riderLook, 1F);
+            bolt.setProjectileSize(getProjsSize());
             level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
@@ -191,6 +194,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
             setTicksSinceLastFire(20);
             FireBolt bolt = new FireBolt(this, throat, dragonLook, level, getExplosionStrength());
             bolt.shoot(dragonLook, 1F);
+            bolt.setProjectileSize(getProjsSize());
             level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
@@ -214,11 +218,11 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     }
 
     public int getMaxPlayerBoltBlast() {
-        return 60;
+        return 72;
     }
 
     public boolean tier1() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.35 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.50;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.27 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.50;
     }
 
     public boolean tier2() {
