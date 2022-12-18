@@ -3,8 +3,8 @@ package com.GACMD.isleofberk.entity.projectile.breath_user.poison;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
-import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.util.Util;
 import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -147,7 +147,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
                             if (entity instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) {
                                 entity.hurt(DamageSource.explosion(this.dragon), 8);
 //                                entity.setSecondsOnFire(0);
-                                if(entity.isOnFire()) {
+                                if (entity.isOnFire()) {
                                     this.explode(getOwner(), entity.getX(), entity.getY(), entity.getZ(), 4, true, Explosion.BlockInteraction.NONE);
                                 }
                                 this.discard();
@@ -162,9 +162,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
                         boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
 
                         // reduce amount of gas spawned
-                        if(random.nextInt(5) == 1) {
-                            this.makeAreaOfEffectCloud();
-                        }
+                        this.makeAreaOfEffectCloud();
                         this.discard();
                         this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
                     }
