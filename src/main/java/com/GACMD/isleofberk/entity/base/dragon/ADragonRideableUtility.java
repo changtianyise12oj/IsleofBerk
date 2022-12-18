@@ -185,6 +185,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                 if (!isTame()) ;
             }
         }
+
     }
 
     @Override
@@ -665,7 +666,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         } else {
             noSaddleRideTicks = 0;
         }
-
 //        System.out.println("Food tame threshold" + getFoodTameLimiterBar());
 //        System.out.println("phase 2 progress" + getPhase1Progress());
 

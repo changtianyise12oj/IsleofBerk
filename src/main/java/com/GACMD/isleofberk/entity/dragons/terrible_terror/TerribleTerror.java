@@ -1,20 +1,20 @@
 package com.GACMD.isleofberk.entity.dragons.terrible_terror;
 
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.TerribleTerrorEgg;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.TerribleTerrorEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathProjectile;
 import com.GACMD.isleofberk.network.ControlNetwork;
-import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.network.message.*;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModKeyBinds;
+import com.GACMD.isleofberk.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -93,7 +93,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (event.isMoving() && !shouldStopMovingIndependently()) {
-            if (isFlying() || !isOnGround()) {
+            if (!isDragonOnGround()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             } else if (isHovering()) {
@@ -362,6 +362,9 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     public void updateTerrorLatch(Entity vehicle) {
         if (vehicle instanceof Player player) {
+            if (player.isSwimming()) {
+                player.getPassengers().stream().iterator().next().dismountTo(player.getX(), player.getY(), player.getZ());
+            }
 
             int passengerIndex = vehicle.getPassengers().indexOf(this);
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, Util.secondsToTicks(60), passengerIndex, false, false));
@@ -371,20 +374,20 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             Vec3 vehiclePosition = player.position();
             double offsetX, offsetY, offsetZ;
             if (passengerIndex == 0) {
-                float radius = -0.2F;
+                float radius = !isDragonOnGround() ? -1.2F : -0.2F;
                 offsetX = (radius * -Math.sin(((Player) vehicle).yBodyRot * Math.PI / 180));
                 offsetZ = (radius * Math.cos(((Player) vehicle).yBodyRot * Math.PI / 180));
                 offsetY = 1.7D;
                 this.setPos(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
             } else if (passengerIndex == 1) {
-                float radius = 0.4F;
+                float radius = !isDragonOnGround() ? 1.2F : 0.4F;
                 float angle = (float) (Math.PI / 180) * ((Player) vehicle).yBodyRot - 90;
                 offsetX = radius * Math.sin(Math.PI + angle);
                 offsetZ = radius * Math.cos(angle);
                 offsetY = 1.2D;
                 this.setPos(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
             } else if (passengerIndex == 2) {
-                float radius = 0.4F;
+                float radius = !isDragonOnGround() ? 1.2F : 0.4F;
                 float angle = (float) (Math.PI / 180) * ((Player) vehicle).yBodyRot + 90;
                 offsetX = radius * Math.sin(Math.PI + angle);
                 offsetZ = radius * Math.cos(angle);
@@ -392,8 +395,11 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 this.setPos(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
             }
 
-            this.setYBodyRot(((Player) vehicle).yBodyRot);
-            this.setYHeadRot(((Player) vehicle).yHeadRot);
+            vehicle.setYBodyRot(vehicle.getYHeadRot());
+            this.setYRot(vehicle.getYRot());
+            this.setRot(this.getYRot(), this.getXRot());
+            this.yBodyRot = this.getYRot();
+            this.yHeadRot = this.yBodyRot;
 
             // try to dismount
             if (player.isShiftKeyDown() && player.getPassengers().iterator().next() == this && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved()) {
