@@ -293,23 +293,6 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         pPassenger.setPos(this.getX(), this.getY() + 2.2, this.getZ());
     }
 
-    @Override
-    /**
-     * Check if the ground 4 blocks below is a solid. Replacement for Vanilla onGround
-     *
-     * @return solidBlockState
-     */
-    public boolean isDragonOnGround() {
-        // fix height
-        for (int i = 0; i <= 4; ++i) {
-            BlockPos solidPos = new BlockPos(this.position().x, this.position().y - i, this.position().z);
-            if (!level.getBlockState(solidPos).isAir())
-                return true;
-        }
-        return false;
-    }
-
-
     /**
      * 0 : none; 1: weapon; 2: armor or weapon 3: always, only be obtained via eggs
      */

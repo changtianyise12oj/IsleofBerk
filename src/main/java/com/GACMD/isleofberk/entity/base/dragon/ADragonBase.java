@@ -1,26 +1,26 @@
 package com.GACMD.isleofberk.entity.base.dragon;
 
+import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBRandomLookAroundGoal;
-import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
 import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonHurtByTargetGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonMeleeAttackGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
 import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.StingerEgg;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.StingerEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.network.ControlNetwork;
 import com.GACMD.isleofberk.network.message.ControlMessageAbility;
 import com.GACMD.isleofberk.network.message.ControlMessageGoingDown;
 import com.GACMD.isleofberk.network.message.ControlMessageJumping;
 import com.GACMD.isleofberk.network.message.ControlMessageSECONDAbility;
-import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModKeyBinds;
+import com.GACMD.isleofberk.util.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -63,6 +63,8 @@ import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
 
@@ -81,6 +83,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected static final EntityDataAccessor<Boolean> SECOND_ABILITY = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_MALE = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> ON_GROUND = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> COMMANDS = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> CURRENT_ATTACK = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
@@ -128,6 +131,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.define(ABILITY, false);
         this.entityData.define(SECOND_ABILITY, false);
         this.entityData.define(SLEEPING, false);
+        this.entityData.define(ON_GROUND, false);
         this.entityData.define(SITTING, false);
         this.entityData.define(IS_MALE, random.nextBoolean());
         this.entityData.define(CURRENT_ATTACK, 0);
@@ -152,6 +156,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         pCompound.putBoolean("ability", this.isUsingAbility());
         pCompound.putBoolean("s_ability", this.isUsingSECONDAbility());
         pCompound.putBoolean("sleeping", this.isDragonSleeping());
+        pCompound.putBoolean("dragonOnGround", this.isDragonOnGround());
         pCompound.putBoolean("sitting", this.isDragonSitting());
         pCompound.putBoolean("incapacitated", this.isDragonIncapacitated());
         pCompound.putBoolean("wandering", this.isDragonWandering());
@@ -176,6 +181,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.setIsDragonIncapacitated(pCompound.getBoolean("incapacitated"));
         this.setIsDragonSitting(pCompound.getBoolean("sitting"));
         this.setIsDragonSleeping(pCompound.getBoolean("sleeping"));
+        this.setIsDragonOnGround(pCompound.getBoolean("dragonOnGround"));
         this.setIsDragonWandering(pCompound.getBoolean("wandering"));
         this.setIsDragonFollowing(pCompound.getBoolean("following"));
         this.setCurrentAttackType(pCompound.getInt("current_attack"));
@@ -300,6 +306,14 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     public void setIsDragonSleeping(boolean sleeping) {
         this.entityData.set(SLEEPING, sleeping);
+    }
+
+    public boolean isDragonOnGround() {
+        return this.entityData.get(ON_GROUND);
+    }
+
+    public void setIsDragonOnGround(boolean sleeping) {
+        this.entityData.set(ON_GROUND, sleeping);
     }
 
     public boolean isDragonIncapacitated() {
@@ -469,21 +483,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     public int getTicksSinceLastAttack() {
         return ticksSinceLastAttack;
-    }
-
-    /**
-     * Check if the ground 4 blocks below is a solid. Replacement for Vanilla onGround
-     *
-     * @return solidBlockState
-     */
-    public boolean isDragonOnGround() {
-        // fix height
-        for (int i = 0; getControllingPassenger() != null ? i < 3 : i < baseDragonOnGroundHeight; ++i) {
-            BlockPos solidPos = new BlockPos(this.position().x, this.position().y - i, this.position().z);
-            if (!level.getBlockState(solidPos).isAir())
-                return true;
-        }
-        return false;
     }
 
 
@@ -731,6 +730,47 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             this.setRot(this.getYRot(), this.getXRot());
         }
 
+//        if (getControllingPassenger() instanceof Player) {
+////            ArrayList<BlockPos> pos = new ArrayList<>();
+////            pos.add(new BlockPos(position().add(0,0,0)));
+////            pos.add(new BlockPos(position().add(0,-1,0)));
+////            pos.add(new BlockPos(position().add(0,-2,0)));
+//            List<BlockPos> solidPosArray = Arrays.asList(new BlockPos(position().add(0, -1, 0)), new BlockPos(position().add(0, -2, 0)), new BlockPos(position().add(0, -3, 0)));
+////            List<BlockPos> solidPosArray = Arrays.asList(new BlockPos(position().add(0, -1, 0)), new BlockPos(position().add(0, -2, 0)), new BlockPos(position().add(0, -3, 0)));
+//            for (int i = 0; i < solidPosArray.size(); ++i) {
+//                // Printing and display the elements in ArrayList
+////                System.out.println(solidPosArray.get(i));
+//                if (level.getBlockState(solidPosArray.get(i)).isSolidRender(level, solidPosArray.get(i))) {
+//                    setIsDragonOnGround(true);
+//                    System.out.println(solidPosArray.get(i));
+//                    System.out.println("solid? " + level.getBlockState(solidPosArray.get(i)).isSolidRender(level, solidPosArray.get(i)));
+//                } else {
+//                    setIsDragonOnGround(false);
+//                }
+//            }
+//        }
+
+//        if (getControllingPassenger() instanceof Player) {
+//            ArrayList<BlockPos> pos = new ArrayList<>();
+//            pos.add(new BlockPos(position().add(0,0,0)));
+//            pos.add(new BlockPos(position().add(0,-1,0)));
+//            pos.add(new BlockPos(position().add(0,-2,0)));
+
+            BlockPos pos1 = new BlockPos(position().add(0, -1, 0));
+            BlockPos pos2 = new BlockPos(position().add(0, -2, 0));
+            BlockPos pos3 = new BlockPos(position().add(0, -3, 0));
+//            List<BlockPos> solidPosArray = Arrays.asList(new BlockPos(position().add(0, -1, 0)), new BlockPos(position().add(0, -2, 0)), new BlockPos(position().add(0, -3, 0)));
+//            List<BlockPos> solidPosArray = Arrays.asList(new BlockPos(position().add(0, -1, 0)), new BlockPos(position().add(0, -2, 0)), new BlockPos(position().add(0, -3, 0)));
+//            for (int i = 0; i < solidPosArray.size(); ++i) {
+            // Printing and display the elements in ArrayList
+//                System.out.println(solidPosArray.get(i));
+            if (level.getBlockState(pos1).getMaterial().isSolid()) {
+                setIsDragonOnGround(true);
+            } else {
+                setIsDragonOnGround(false);
+            }
+//        }
+
         if (getSleepDisturbTicks() > 0)
             setSleepDisturbTicks(getSleepDisturbTicks() - 1);
 
@@ -817,6 +857,24 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         }
 
         return this.isDragonOnGround() && !this.isInWater() && !this.isWaterBelow();
+    }
+
+    /**
+     * Check if the ground 4 blocks below is a solid. Replacement for Vanilla onGround
+     *
+     * @return solidBlockState
+     */
+    public void isDragonOnGroundTickLoop() {
+        for (int i = 0; getControllingPassenger() != null ? i < 3 : i < baseDragonOnGroundHeight; ++i) {
+            BlockPos solidPos = new BlockPos(this.position().x, this.position().y - i, this.position().z);
+            if (level.getBlockState(solidPos).isSolidRender(level, solidPos)) {
+                setIsDragonOnGround(false);
+                System.out.println(solidPos);
+                System.out.println("solid? " + level.getBlockState(solidPos).isSolidRender(level, solidPos));
+            } else {
+                setIsDragonOnGround(true);
+            }
+        }
     }
 
     public static boolean isDarkEnoughToSleep(Level pLevel, BlockPos pPos, Random pRandom) {

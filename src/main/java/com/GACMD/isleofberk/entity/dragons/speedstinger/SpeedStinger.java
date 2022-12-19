@@ -8,11 +8,11 @@ import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.SpeedStingerEgg;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
-import com.GACMD.isleofberk.util.Util;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.SpeedStingerEgg;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import com.GACMD.isleofberk.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -497,15 +497,6 @@ public class SpeedStinger extends ADragonBase {
             // hunger limits the player's phase one progress. Dragons don't eat when they are full.
             // thus preventing the quick tame of dragon's
             if (!isTame()) {
-                if (this.getHealth() < getMaxHealth()) {
-                    this.heal(nutrition);
-                    this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
-                    this.addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
-                    if (!pPlayer.getAbilities().instabuild) {
-                        itemstack.shrink(1);
-                    }
-                }
-
                 if (isBaby() && isFoodEdibleToDragon(itemstack)) {
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
@@ -523,6 +514,14 @@ public class SpeedStinger extends ADragonBase {
                 }
             } else {
                 if (this.isFoodEdibleToDragon(itemstack) && canEatWithFoodOnHand(true)) {
+                    if (this.getHealth() < getMaxHealth()) {
+                        this.heal(nutrition);
+                        this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
+                        this.addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
+                        if (!pPlayer.getAbilities().instabuild) {
+                            itemstack.shrink(1);
+                        }
+                    }
                     // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
                     if (getHealth() < getMaxHealth()) {
                         this.heal(nutrition);
@@ -553,9 +552,7 @@ public class SpeedStinger extends ADragonBase {
                 return InteractionResult.SUCCESS;
             }
         }
-        return super.
-
-                mobInteract(pPlayer, pHand);
+        return super.mobInteract(pPlayer, pHand);
     }
 
     public void circleEntity(Entity target, float radius, float speed, boolean direction, int circleFrame, float offset, float moveSpeedMultiplier) {

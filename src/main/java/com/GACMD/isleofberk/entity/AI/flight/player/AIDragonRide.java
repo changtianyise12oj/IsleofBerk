@@ -46,14 +46,26 @@ public class AIDragonRide extends ADragonBaseBaseFlyingRideableGoal {
         }
 
         // increases the liftOff amount before flying
-        if (dragon.isFlying() || !dragon.isDragonOnGround() || dragon.isInWater() || dragon.isWaterBelow()) {
+        if (dragon.isFlying() || !dragon.isDragonOnGround()) {
             dragon.setInAirTicksVehicle(dragon.getInAirTicksVehicle() + 1);
         }
 
         // reset liftOff amount after landing
-        if (dragon.isDragonOnGround() && !dragon.isInWater() && !dragon.isWaterBelow()) {
+        if (dragon.isDragonOnGround()) {
             dragon.setInAirTicksVehicle(0);
         }
+
+//        if(dragon.isInWater()) {
+//            if(dragon.ticksUnderwater < 52) {
+//                dragon.ticksUnderwater++;
+//            }
+//        } else {
+//            dragon.ticksUnderwater=0;
+//        }
+//
+//        if(dragon.isFlying() && dragon.ticksUnderwater > 22) {
+//            dragon.setIsFlying(false);
+//        }
     }
 
     @Override

@@ -239,16 +239,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     }
 
     @Override
-    public boolean isDragonOnGround() {        // fix height
-        for (int i = 0; getControllingPassenger() != null ? i < 3 : i < baseDragonOnGroundHeight; ++i) {
-            BlockPos solidPos = new BlockPos(this.position().x, this.position().y - i, this.position().z);
-            if (!level.getBlockState(solidPos).isAir())
-                return true;
-        }
-        return false;
-    }
-
-    @Override
     public AnimationFactory getFactory() {
         return this.factory;
     }
@@ -351,8 +341,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 .add(Attributes.FLYING_SPEED, 0.06F)
                 .add(Attributes.ATTACK_DAMAGE, 17F)
                 .add(Attributes.FOLLOW_RANGE, 4.5F)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
-                .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F);
     }
 
     @Override

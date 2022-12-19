@@ -23,8 +23,7 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser implements IAnim
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.08F)
                 .add(Attributes.ATTACK_DAMAGE, 4.5F)
-                .add(Attributes.FOLLOW_RANGE, 4.5F)
-                .add(ForgeMod.SWIM_SPEED.get(), 2);
+                .add(Attributes.FOLLOW_RANGE, 4.5F);
     }
 
 }

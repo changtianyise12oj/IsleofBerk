@@ -211,7 +211,11 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        if(random.nextInt(1000) == 1) {
+             this.setDragonVariant(5);
+        } else {
+            this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        }
         this.setGlowVariant(getMaxAmountOfGlowVariants());
         return pSpawnData;
     }
@@ -277,8 +281,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                 .add(Attributes.FLYING_SPEED, 0.18F)
                 .add(Attributes.ATTACK_DAMAGE, 28F)
                 .add(Attributes.FOLLOW_RANGE, 4.5F)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
-                .add(ForgeMod.SWIM_SPEED.get(), 0.55F);
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F);
 
     }
 
@@ -303,17 +306,6 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Override
     public boolean isBreedingFood(ItemStack pStack) {
         return false;
-    }
-
-    /**
-     * Check if the ground with x amount of blocks below is a solid. Replacement for Vanilla onGround
-     *
-     * @return solidBlockState
-     */
-    @Override
-    public boolean isDragonOnGround() {
-        BlockPos solidPos = new BlockPos(this.position().x, this.position().y - 1, this.position().z);
-        return !level.getBlockState(solidPos).isAir();
     }
 
     @Override

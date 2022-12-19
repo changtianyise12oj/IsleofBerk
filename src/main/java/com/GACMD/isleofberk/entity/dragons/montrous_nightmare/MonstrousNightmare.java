@@ -1,15 +1,15 @@
 package com.GACMD.isleofberk.entity.dragons.montrous_nightmare;
 
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.MonstrousNightmareEgg;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.MonstrousNightmareEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathProjectile;
-import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.util.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -36,6 +36,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     private static final EntityDataAccessor<Boolean> IS_ON_FIRE_ABILITY = SynchedEntityData.defineId(MonstrousNightmare.class, EntityDataSerializers.BOOLEAN);
 
     private int ticksUsingSecondAbility;
+    private int ticksUsingActiveSecondAbility;
 
     public MonstrousNightmare(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -90,9 +91,9 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     @Override
     public float getRideCameraDistanceFront() {
         if (isFlying()) {
-            return 7;
+            return 9;
         } else {
-            return 4;
+            return 7;
         }
     }
 
@@ -116,8 +117,16 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     @Override
     public void tick() {
         super.tick();
+        boolean hasDamageResist = getEffect(MobEffects.DAMAGE_RESISTANCE) != null;
+
         if (isUsingSECONDAbility()) {
-            ticksUsingSecondAbility++;
+            if(!hasDamageResist && !isInWater()) {
+                ticksUsingSecondAbility++;
+                ticksUsingActiveSecondAbility=0;
+            } else {
+                ticksUsingActiveSecondAbility++;
+                ticksUsingSecondAbility=0;
+            }
         }
 
         if (ticksUsingSecondAbility > 40) {
@@ -142,14 +151,22 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
             }
         }
 
-        if (getEffect(MobEffects.DAMAGE_RESISTANCE) != null) {
+        System.out.println("ticksUsingSecondAbility" + ticksUsingSecondAbility);
+        System.out.println("ticksUsingActiveSecondAbility" + ticksUsingActiveSecondAbility);
+
+        if (hasDamageResist) {
             this.setOnFireAbility(true);
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5));
         }
 
-        if(isInWater() || isWaterBelow()) {
-            if(getEffect(MobEffects.DAMAGE_RESISTANCE) != null) {
+        if (!hasDamageResist) {
+            this.setOnFireAbility(false);
+        }
+
+        if (isInWater() || ticksUsingActiveSecondAbility > 40) {
+            if (hasDamageResist) {
                 this.removeEffect(MobEffects.DAMAGE_RESISTANCE);
+                ticksUsingSecondAbility=0;
             }
         }
 
@@ -221,8 +238,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
                 .add(Attributes.ATTACK_DAMAGE, 15F)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
-                .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F);
     }
 
     @Override

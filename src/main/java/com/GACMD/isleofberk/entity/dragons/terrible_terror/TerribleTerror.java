@@ -124,7 +124,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 return PlayState.CONTINUE;
             }
         }
-
         if (this.isDragonSitting()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Sit", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;

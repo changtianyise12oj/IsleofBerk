@@ -61,8 +61,7 @@ public class LightFury extends NightFury {
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
                 .add(Attributes.ATTACK_DAMAGE, 15F)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
-                .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F);
     }
 
     @Override
@@ -103,8 +102,8 @@ public class LightFury extends NightFury {
             ticksSecondAbilityRecharge--;
         }
 
-        if (ticksUsingSecondAbility > 40 && this.getEffect(MobEffects.INVISIBILITY) == null) {
-            if(getPassengers().stream().iterator().next() instanceof LivingEntity livingEntity) {
+        if (ticksUsingSecondAbility > 40 && this.getEffect(MobEffects.INVISIBILITY) == null && ticksSecondAbilityRecharge < 2) {
+            if(getPassengers().stream().iterator().next() instanceof LivingEntity livingEntity && getPassengers().size() > 0) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Util.secondsToTicks(3)));
             }
             ticksSecondAbilityRecharge = Util.secondsToTicks(75);

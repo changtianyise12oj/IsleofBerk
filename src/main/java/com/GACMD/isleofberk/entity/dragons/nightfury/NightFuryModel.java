@@ -32,6 +32,8 @@ public class NightFuryModel extends BaseDragonModel<NightFury> {
                 return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/black1.png");
             case 4:
                 return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/black2.png");
+            case 5:
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/albino.png");
             case 101:
                 return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/toothless.png");
         }

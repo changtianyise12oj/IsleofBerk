@@ -16,6 +16,9 @@ import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -55,6 +58,8 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     protected int ticksSinceLastBiteAttack = 0;
     protected int ticksSinceLastClawAttack = 0;
     protected int ticksSinceLastStingAttack = 0;
+    protected int stingCooldown = 0;
+    protected static final EntityDataAccessor<Boolean> MARK_STING = SynchedEntityData.defineId(TripleStryke.class, EntityDataSerializers.BOOLEAN);
 
     boolean stingAttack;
 
@@ -151,7 +156,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         if (getAbilityDisturbTicks() > 1 && isDragonOnGround() && getCurrentAttackType() != 2) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeStingReady", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
-        } else if (getCurrentAttackType() == 2 && getTarget() != null && distanceTo(getTarget()) < 10) {
+        } else if (getCurrentAttackType() == 2 && getTarget() != null && distanceTo(getTarget()) < 10 || isMarkSting()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSting", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
@@ -175,6 +180,33 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     protected void registerGoals() {
         super.registerGoals();
         this.targetSelector.addGoal(1, new T3DragonWeakenAndFeedTamingGoal(this, 1));
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(MARK_STING, false);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("mark_sting", isMarkSting());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        this.setMarkSting(pCompound.getBoolean("mark_sting"));
+    }
+
+    public void setMarkSting(boolean stingAttack) {
+        this.entityData.set(MARK_STING, stingAttack);
+    }
+
+
+    public boolean isMarkSting() {
+        return this.entityData.get(MARK_STING);
     }
 
     @Override
@@ -309,6 +341,10 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         super.swing(pHand);
     }
 
+    private void playerStingAttack() {
+
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -323,6 +359,12 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         if (ticksSinceLastStingAttack >= 0) {
             ticksSinceLastStingAttack--;
         }
+
+        if (stingCooldown >= 0) {
+            stingCooldown--;
+        }
+
+        setMarkSting(isUsingSECONDAbility());
 //        if (getOwner() != null && getOwner() instanceof Player player) {
 //            player.displayClientMessage(new TextComponent("current Attack type: " + getCurrentAttackType()), false);
 //        }

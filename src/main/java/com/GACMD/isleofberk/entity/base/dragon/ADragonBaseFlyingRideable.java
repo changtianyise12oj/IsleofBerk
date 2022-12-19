@@ -43,6 +43,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     private static final EntityDataAccessor<Boolean> USING_SECOND_NAVIGATOR = SynchedEntityData.defineId(ADragonBaseFlyingRideable.class, EntityDataSerializers.BOOLEAN);
 
     public boolean isLandNavigator;
+    public int ticksUnderwater;
 
     public ADragonBaseFlyingRideable(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -300,10 +301,11 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
                     float f2 = Mth.sin(this.getYRot() * 0.017453292F);
                     float f3 = Mth.cos(this.getYRot() * 0.017453292F);
 
-                    double speed = this.getAttributeValue(Attributes.FLYING_SPEED) * (isInWater() ? this.getAttributeValue(ForgeMod.SWIM_SPEED.get()) : 1);
+                    boolean isFlying = isFlying() && !isInWater();
+                    double speed = this.getAttributeValue(Attributes.FLYING_SPEED) * (isInWater() ? 0.4F : 1.3F);
                     this.setDeltaMovement(delta.add(
-                            (isFlying() ? -speed : -speed + xHeadRotABS) * f2,
-                            y, (isFlying() ? speed : speed - xHeadRotABS) * f3));
+                            (isFlying ? -speed : -speed + xHeadRotABS) * f2,
+                            y, (isFlying ? speed : speed - xHeadRotABS) * f3));
                 }
 
                 if (this.isGoingUp()) {
@@ -329,6 +331,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     @Override
     public void tick() {
         super.tick();
+
         if (isFlying() && isLandNavigator) {
             switchNavigator(false);
         }
@@ -340,14 +343,6 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         } else {
             this.setNoGravity(false);
         }
-
-//        if (getControllingPassenger() instanceof Player pilot) {
-//            if (level.isClientSide()) {
-//                System.out.println("client yRot - yRotO: " + Float.toString(this.getYRot() - this.yRotO));
-//            } else {
-//                System.out.println("server yRot - yRotO: " + Float.toString(this.getYRot() - this.yRotO));
-//            }
-//        }
 
         // decrement per tick
         if (getTicksFlyWandering() > 1) {
