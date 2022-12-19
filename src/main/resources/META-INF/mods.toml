@@ -4,14 +4,14 @@ license="All rights reserved"
 
 [[mods]]
 modId="isleofberk"
-version="1.0"
+version="1.0.0"
 displayName="Isle of Berk"
 logoFile="logo.png"
-authors="Ghanou, Apprentice Necromancer, DevKnight, Toothlezz, Crafty, Elyasisly, Frederick Barbarossa, andrew0100, Axelottl"
+authors="Ghanou, Apprentice Necromancer, DevKnight, Toothlezz, Crafty"
 description='''
 Isle of Berk is a Minecraft Mod aiming to implement many things seen in the How to Train your Dragon series.'''
 
-[[dependencies.mowziesmobs]]
+[[dependencies.isleofberk]]
 modId="geckolib3"
 mandatory=true
 versionRange="[3.0.40,)"
