@@ -120,12 +120,12 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         boolean hasDamageResist = getEffect(MobEffects.DAMAGE_RESISTANCE) != null;
 
         if (isUsingSECONDAbility()) {
-            if(!hasDamageResist && !isInWater()) {
+            if (!hasDamageResist && !isInWater()) {
                 ticksUsingSecondAbility++;
-                ticksUsingActiveSecondAbility=0;
+                ticksUsingActiveSecondAbility = 0;
             } else {
                 ticksUsingActiveSecondAbility++;
-                ticksUsingSecondAbility=0;
+                ticksUsingSecondAbility = 0;
             }
         }
 
@@ -163,7 +163,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         if (isInWater() || ticksUsingActiveSecondAbility > 40) {
             if (hasDamageResist) {
                 this.removeEffect(MobEffects.DAMAGE_RESISTANCE);
-                ticksUsingSecondAbility=0;
+                ticksUsingSecondAbility = 0;
             }
         }
 
@@ -183,7 +183,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
             attacker.setSecondsOnFire(3);
             attacker.hurt(DamageSource.indirectMobAttack(this, attacker), 6);
         }
-        if (random.nextInt(24) == 1) {
+        if (random.nextInt(24) == 1 && !isInWater()) {
             if (getControllingPassenger() == null) {
                 this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(2)));
             }
@@ -193,7 +193,6 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     public Vec3 getLWingPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
-
         float angle = (float) ((float) (Math.PI / 180) * this.yBodyRot + (Math.PI / 180 * 95));
         float angle1 = (float) ((float) (Math.PI / 180) * this.yBodyRot + (Math.PI / 180 * 95));
         double x = -Math.sin(Math.PI + angle) * 4;
@@ -201,7 +200,17 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         double z = Math.cos(Math.PI + angle1) * 4;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
+//        return circleVec(bodyOrigin, 5, 1, true, tickCount, 1, 1);
+
         return throatPos;
+
+    }
+
+
+    public Vec3 circleVec(Vec3 target, float radius, float speed, boolean direction, int circleFrame, float offset, float moveSpeedMultiplier) {
+        int directionInt = direction ? 1 : -1;
+        double t = directionInt * circleFrame * 0.5 * speed / radius + offset;
+        return target.add(radius * Math.cos(t), 0, radius * Math.sin(t));
 
     }
 
@@ -215,8 +224,9 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         double z = Math.cos(Math.PI + angle1) * 4;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
-        return throatPos;
+//        return circleVec(bodyOrigin, 5, 1, false, tickCount, 1, 1);
 
+        return throatPos;
     }
 
     @Override
