@@ -416,7 +416,7 @@ public class SpeedStinger extends ADragonBase {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.MAX_HEALTH, 35.0D)
                 .add(Attributes.ARMOR, 10)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.ATTACK_DAMAGE, 3.5F)
@@ -501,7 +501,7 @@ public class SpeedStinger extends ADragonBase {
                     if (!pPlayer.getAbilities().instabuild) {
                         itemstack.shrink(1);
                     }
-                    if (this.random.nextInt(7) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
+                    if (this.random.nextInt(5) == 0 && !ForgeEventFactory.onAnimalTame(this, pPlayer)) {
                         this.tame(pPlayer);
                         this.navigation.stop();
                         this.setTarget((LivingEntity) null);
