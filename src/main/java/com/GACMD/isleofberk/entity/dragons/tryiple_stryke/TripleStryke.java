@@ -71,7 +71,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     protected int ticksSinceLastClawAttack = 0;
     protected int ticksSinceLastStingAttackAI = 0;
     protected int ticksSinceLastStingAttackPlayer = 0;
-    protected static final EntityDataAccessor<Boolean> MARK_STING = SynchedEntityData.defineId(TripleStryke.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> TICKS_SINCE_LAST_STING = SynchedEntityData.defineId(TripleStryke.class, EntityDataSerializers.INT);
 
     DragonPart[] subParts;
@@ -299,7 +298,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(TICKS_SINCE_LAST_STING, 0);
-        this.entityData.define(MARK_STING, false);
     }
 
     @Override
