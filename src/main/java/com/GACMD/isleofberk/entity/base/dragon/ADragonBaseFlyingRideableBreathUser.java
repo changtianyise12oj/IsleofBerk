@@ -111,9 +111,6 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
                 modifyFuel(-1);
             }
         }
-        if (isUsingSECONDAbility()) {
-            modifySecondaryFuel(-1);
-        }
 
         // regen fuel regardless of hunger bar
         if (getRandom().nextInt(breathBarRegenSpeed()) == 1) {
@@ -134,7 +131,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
                 firePrimary(riderLook, throat);
             }
 
-            if (isUsingSECONDAbility() && canUseSecondaryFire()) {
+            if (isUsingSECONDAbility() && canSpamSecondaryFire()) {
                 fireSecondary(riderLook, throat);
             }
         }
@@ -182,7 +179,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         return getRemainingFuel() > 0 && !isBaby();
     }
 
-    protected boolean canUseSecondaryFire() {
+    protected boolean canSpamSecondaryFire() {
         if (getControllingPassenger() != null && getControllingPassenger() instanceof Player player) {
             if (player.isCreative()) {
                 return true;

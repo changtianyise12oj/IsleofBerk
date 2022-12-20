@@ -1,17 +1,21 @@
 package com.GACMD.isleofberk.entity.dragons.deadlynadder;
 
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.DeadlyNadderEgg;
 import com.GACMD.isleofberk.entity.AI.taming.T2DragonFeedTamingGoal;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.DeadlyNadderEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.other.nadder_spike.DeadlyNadderSpike;
 import com.GACMD.isleofberk.registery.ModEntities;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
@@ -46,6 +50,8 @@ import javax.annotation.Nullable;
 public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     int ticksSinceLastStingAttack = 0;
+    protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_FIRE = SynchedEntityData.defineId(DeadlyNadder.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Boolean> MARK_FIRED = SynchedEntityData.defineId(DeadlyNadder.class, EntityDataSerializers.BOOLEAN);
 
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if ((isFlying() && !event.isMoving())) {
@@ -125,6 +131,16 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderBreath", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
+
+        if (isMarkFired()) {
+            if(isFlying()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderTailWhipDartAir"));
+                return PlayState.CONTINUE;
+            } else {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderTailWhipDartGround"));
+                return PlayState.CONTINUE;
+            }
+        }
         return PlayState.STOP;
     }
 
@@ -195,15 +211,53 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         super(entityType, level);
     }
 
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TICK_SINCE_LAST_FIRE, 0);
+        this.entityData.define(MARK_FIRED, false);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("markFired", isMarkFired());
+        pCompound.putInt("ticksFire", getTicksSinceLastFire());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        this.setTicksSinceLastFire(pCompound.getInt("ticksFire"));
+        this.setMarkFired(pCompound.getBoolean("markFired"));
+    }
+
+    public int getTicksSinceLastFire() {
+        return this.entityData.get(TICK_SINCE_LAST_FIRE);
+    }
+
+    public void setTicksSinceLastFire(int pType) {
+        this.entityData.set(TICK_SINCE_LAST_FIRE, pType);
+    }
+
+    public boolean isMarkFired() {
+        return this.entityData.get(MARK_FIRED);
+    }
+
+    public void setMarkFired(boolean fired) {
+        this.entityData.set(MARK_FIRED, fired);
+    }
+
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 60.0D)
                 .add(Attributes.ARMOR, 10)
-                .add(Attributes.MOVEMENT_SPEED, 0.2F)
+                .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
                 .add(Attributes.ATTACK_DAMAGE, 15F)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F);
+                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
+                .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
     }
 
     @Override
@@ -244,11 +298,29 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     @Override
     public void tick() {
         super.tick();
-        if (ticksSinceLastStingAttack >= 0)
+        if (ticksSinceLastStingAttack >= 0 && !isUsingSECONDAbility())
             ticksSinceLastStingAttack--;
 
-        if(isUsingSECONDAbility()) {
+        int threshold = 10;
+        if(isUsingSECONDAbility() && ticksSinceLastStingAttack < threshold + 6) {
             ticksSinceLastStingAttack++;
+        }
+
+        if (getTicksSinceLastFire() > 0) {
+            setTicksSinceLastFire(getTicksSinceLastFire() - 1);
+        }
+
+        if (getTicksSinceLastFire() < 2) {
+            setMarkFired(false);
+        } else {
+            setMarkFired(true);
+        }
+
+        if (getControllingPassenger() instanceof Player player) {
+            if(ticksSinceLastStingAttack > threshold && !isUsingSECONDAbility()) {
+                Vec3 riderLook = player.getLookAngle();
+                performRangedAttack(riderLook, 1);
+            }
         }
 
         String s = ChatFormatting.stripFormatting(this.getName().getString());
@@ -261,22 +333,28 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public void fireSecondary(Vec3 riderLook, Vec3 throat) {
-        performRangedAttack(riderLook, 1);
+
     }
 
     /**
      * Attack the specified entity using a ranged attack.
      */
     public void performRangedAttack(Vec3 riderLook, float pDistanceFactor) {
+        setTicksSinceLastFire(10);
         DeadlyNadderSpike spike = new DeadlyNadderSpike(level, this);
+        DeadlyNadderSpike spike1 = new DeadlyNadderSpike(level, this);
+        DeadlyNadderSpike spike2 = new DeadlyNadderSpike(level, this);
         spike.setOwner(this);
         double d0 = riderLook.x();
         double d1 = riderLook.y();
         double d2 = riderLook.z();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-        spike.shoot(d0, d1 + d3 * (double) 0.2F, d2, 4F, 1.2F);
+        spike.shoot(d0, d1 + d3 * (double) 0.2F, d2, 4F, 1.6F);
+        modifySecondaryFuel(-4);
         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(spike);
+        this.level.addFreshEntity(spike1);
+        this.level.addFreshEntity(spike2);
     }
 
     /**

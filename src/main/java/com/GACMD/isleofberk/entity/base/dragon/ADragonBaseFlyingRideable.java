@@ -288,7 +288,6 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 
                 double xHeadRotABS = Math.abs(this.getXRot()) / 450;
                 double y = xHeadRot * -0.005;
-//            double y = calculateFlightHeight(xHeadRot);
                 if (zza <= 0.0F) {
                     zza *= 0.25F;
                 }
@@ -302,7 +301,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
                     float f3 = Mth.cos(this.getYRot() * 0.017453292F);
 
                     boolean isFlying = isFlying() && !isInWater();
-                    double speed = this.getAttributeValue(Attributes.FLYING_SPEED) * (isInWater() ? 0.4F : 0.8F);
+                    double speed = this.getAttributeValue(Attributes.FLYING_SPEED) * (isInWater() ? 0.2F : 0.8F);
                     this.setDeltaMovement(delta.add(
                             (isFlying ? -speed : -speed + xHeadRotABS) * f2,
                             y, (isFlying ? speed : speed - xHeadRotABS) * f3));
