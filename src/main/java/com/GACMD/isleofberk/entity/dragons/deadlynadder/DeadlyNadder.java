@@ -52,7 +52,7 @@ import javax.annotation.Nullable;
 public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     int ticksSinceLastStingAttack = 0;
-    int ticksSinceLastStingShoot = 0;
+    int ticksSinceLastStingShootAI = 0;
 
     protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_FIRE = SynchedEntityData.defineId(DeadlyNadder.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> MARK_FIRED = SynchedEntityData.defineId(DeadlyNadder.class, EntityDataSerializers.BOOLEAN);
@@ -340,11 +340,11 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
             if (!(getControllingPassenger() instanceof Player)) {
                 if (getRandom().nextInt(25) == 1) {
                     performRangedAttackAI(getViewVector(1F), 1);
-                    ticksSinceLastStingShoot = Util.secondsToTicks(1);
+                    ticksSinceLastStingShootAI = Util.secondsToTicks(1);
                 }
-                
-                if (ticksSinceLastStingShoot > 0) {
-                    ticksSinceLastStingShoot--;
+
+                if (ticksSinceLastStingShootAI > 0) {
+                    ticksSinceLastStingShootAI--;
                 }
             }
         }
