@@ -1,21 +1,29 @@
 package com.GACMD.isleofberk.entity.dragons.tryiple_stryke;
 
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
-import com.GACMD.isleofberk.entity.AI.taming.T3DragonWeakenAndFeedTamingGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonMeleeAttackGoal;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.TripleStrykeEgg;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.TripleStrykeEgg;
 import com.GACMD.isleofberk.entity.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
-import com.GACMD.isleofberk.util.Util;
+import com.GACMD.isleofberk.network.ControlNetwork;
+import com.GACMD.isleofberk.network.message.ControlMessageAbility;
+import com.GACMD.isleofberk.network.message.ControlMessageGoingDown;
+import com.GACMD.isleofberk.network.message.ControlMessageJumping;
+import com.GACMD.isleofberk.network.message.ControlMessageSECONDAbility;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModKeyBinds;
+import com.GACMD.isleofberk.util.Util;
+import com.GACMD.isleofberk.util.math.MathX;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -38,7 +46,10 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -50,6 +61,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import java.util.List;
 import java.util.Random;
 
 public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
@@ -57,9 +69,14 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     AnimationFactory factory = new AnimationFactory(this);
     protected int ticksSinceLastBiteAttack = 0;
     protected int ticksSinceLastClawAttack = 0;
-    protected int ticksSinceLastStingAttack = 0;
+    protected int ticksSinceLastStingAttackAI = 0;
+    protected int ticksSinceLastStingAttackPlayer = 0;
     protected int stingCooldown = 0;
     protected static final EntityDataAccessor<Boolean> MARK_STING = SynchedEntityData.defineId(TripleStryke.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Integer> TICKS_SINCE_LAST_STING = SynchedEntityData.defineId(TripleStryke.class, EntityDataSerializers.INT);
+
+    DragonPart[] subParts;
+    DragonPart TSStingArea;
 
     boolean stingAttack;
 
@@ -153,10 +170,10 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     private <E extends IAnimatable> PlayState stingAttackController(AnimationEvent<E> event) {
-        if (getAbilityDisturbTicks() > 1 && isDragonOnGround() && getCurrentAttackType() != 2) {
+        if (getAbilityDisturbTicks() > 1 && isDragonOnGround() && getCurrentAttackType() != 2 && ticksSinceLastStingAttackPlayer == 0) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeStingReady", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
-        } else if (getCurrentAttackType() == 2 && getTarget() != null && distanceTo(getTarget()) < 10 || isMarkSting()) {
+        } else if (getCurrentAttackType() == 2 && getTarget() != null && distanceTo(getTarget()) < 10 || ticksSinceLastStingAttackPlayer > 0) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSting", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
@@ -174,39 +191,149 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     public TripleStryke(EntityType<? extends TripleStryke> entityType, Level level) {
         super(entityType, level);
+        this.TSStingArea = new DragonPart(this, "TSStingArea", 2F, 2F);
+        this.subParts = new DragonPart[]{this.TSStingArea};
     }
 
     @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.targetSelector.addGoal(1, new T3DragonWeakenAndFeedTamingGoal(this, 1));
+    public PartEntity<?>[] getParts() {
+        return this.subParts;
+    }
+
+    @Override
+    public void recreateFromPacket(@NotNull ClientboundAddMobPacket mobPacket) {
+        super.recreateFromPacket(mobPacket);
+        PartEntity<?>[] stingerPart = this.getParts();
+
+        for (int i = 0; i < stingerPart.length; ++i) {
+            stingerPart[i].setId(i + mobPacket.getId());
+        }
+
+    }
+
+    @Override
+    public @NotNull Packet<?> getAddEntityPacket() {
+        return new ClientboundAddMobPacket(this);
+    }
+
+    private void tickPart(DragonPart pPart, double pOffsetX, double pOffsetY, double pOffsetZ) {
+        Vec3 lastPos = new Vec3(pPart.getX(), pPart.getY(), pPart.getZ());
+        pPart.setPos(this.getX() + pOffsetX, this.getY() + pOffsetY, this.getZ() + pOffsetZ);
+
+        pPart.xo = lastPos.x;
+        pPart.yo = lastPos.y;
+        pPart.zo = lastPos.z;
+        pPart.xOld = lastPos.x;
+        pPart.yOld = lastPos.y;
+        pPart.zOld = lastPos.z;
+
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return !isBaby();
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        float yRotRadians = MathX.toRadians(this.getYRot());
+        float sinY = Mth.sin(yRotRadians);
+        float cosY = Mth.cos(yRotRadians);
+
+        this.tickPart(this.TSStingArea, 3 * -sinY * 1, 0.4D, 3 * cosY * 1);
+
+        if (isUsingSECONDAbility() && stingCooldown == 0) {
+            ticksSinceLastStingAttackPlayer = 46;
+        } else {
+            if (ticksSinceLastStingAttackPlayer > 0) {
+                ticksSinceLastStingAttackPlayer -= 1;
+            } else {
+                ticksSinceLastStingAttackPlayer=0;
+            }
+        }
+
+        if (ticksSinceLastStingAttackPlayer == 40) {
+            this.setMarkSting(true);
+            this.stingCooldown=Util.secondsToTicks(36);
+            this.knockBack(this.level.getEntities(this, this.TSStingArea.getBoundingBox().inflate(0.4D, 0.4D, 0.4D).move(0.0D, -0.3D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
+
+            if (!level.isClientSide()) {
+                this.hurt(this.level.getEntities(this, this.TSStingArea.getBoundingBox().inflate(1.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
+            }
+        } else {
+            setMarkSting(false);
+        }
+    }
+
+    /**
+     * Pushes all entities inside the list away from the enderdragon.
+     */
+    private void knockBack(List<Entity> pEntities) {
+        double d0 = (this.TSStingArea.getBoundingBox().minX + this.TSStingArea.getBoundingBox().maxX) / 2.0D;
+        double d1 = (this.TSStingArea.getBoundingBox().minZ + this.TSStingArea.getBoundingBox().maxZ) / 2.0D;
+
+        for (Entity entity : pEntities) {
+            if (entity instanceof LivingEntity && entity != this.getPassengers() && (entity.xOld == entity.getX() || entity.zOld == entity.getZ())) {
+                double d2 = entity.getX() - d0;
+                double d3 = entity.getZ() - d1;
+                double d4 = Math.max(d2 * d2 + d3 * d3, 0.1D);
+                entity.push(d2 / d4 * 0.50D, (double) 0.2F, d3 / d4 * 4.0D);
+                entity.hurt(DamageSource.mobAttack(this), 5.0F);
+                this.doEnchantDamageEffects(this, entity);
+            }
+        }
+    }
+
+    /**
+     * Attacks all entities inside this list, dealing 5 hearts of damage.
+     */
+    private void hurt(List<Entity> pEntities) {
+        for (Entity entity : pEntities) {
+            if (entity instanceof LivingEntity livingEntity) {
+                livingEntity.hurt(DamageSource.mobAttack(this), 14.0F);
+                this.doEnchantDamageEffects(this, livingEntity);
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, Util.secondsToTicks(20)));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, Util.secondsToTicks(4)));
+            }
+        }
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(TICKS_SINCE_LAST_STING, 0);
         this.entityData.define(MARK_STING, false);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putBoolean("mark_sting", isMarkSting());
+        pCompound.putBoolean("markSting", isMarkSting());
+        pCompound.putInt("ticksSting", getTicksSinceLastSting());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.setMarkSting(pCompound.getBoolean("mark_sting"));
+        this.setMarkSting(pCompound.getBoolean("markSting"));
+        this.setTicksSinceLastSting(pCompound.getInt("ticksSting"));
     }
 
-    public void setMarkSting(boolean stingAttack) {
-        this.entityData.set(MARK_STING, stingAttack);
+    public int getTicksSinceLastSting() {
+        return this.entityData.get(TICKS_SINCE_LAST_STING);
     }
 
+    public void setTicksSinceLastSting(int pType) {
+        this.entityData.set(TICKS_SINCE_LAST_STING, pType);
+    }
 
     public boolean isMarkSting() {
         return this.entityData.get(MARK_STING);
+    }
+
+    public void setMarkSting(boolean fired) {
+        this.entityData.set(MARK_STING, fired);
     }
 
     @Override
@@ -322,19 +449,19 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         int random1 = random.nextInt(300);
         if (random1 > 1) {
             ticksSinceLastBiteAttack = Util.secondsToTicks(3);
-            ticksSinceLastStingAttack = 0;
+            ticksSinceLastStingAttackAI = 0;
             ticksSinceLastClawAttack = 0;
         }
 
         if (random1 > 200) {
-            ticksSinceLastStingAttack = Util.secondsToTicks(3);
+            ticksSinceLastStingAttackAI = Util.secondsToTicks(3);
             ticksSinceLastClawAttack = 0;
             ticksSinceLastBiteAttack = 0;
         }
 
         if (random1 > 250) {
             ticksSinceLastClawAttack = Util.secondsToTicks(3);
-            ticksSinceLastStingAttack = 0;
+            ticksSinceLastStingAttackAI = 0;
             ticksSinceLastBiteAttack = 0;
         }
 
@@ -356,8 +483,12 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             ticksSinceLastClawAttack--;
         }
 
-        if (ticksSinceLastStingAttack >= 0) {
-            ticksSinceLastStingAttack--;
+        if (ticksSinceLastStingAttackAI >= 0) {
+            ticksSinceLastStingAttackAI--;
+        }
+
+        if (ticksSinceLastStingAttackPlayer >= 0) {
+            ticksSinceLastStingAttackPlayer--;
         }
 
         if (stingCooldown >= 0) {
@@ -376,7 +507,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             setCurrentAttackType(0);
         } else if (ticksSinceLastBiteAttack >= 0) {
             setCurrentAttackType(1);
-        } else if (ticksSinceLastStingAttack >= 0) {
+        } else if (ticksSinceLastStingAttackAI >= 0) {
             setCurrentAttackType(2);
         }
         if (hasEffect(MobEffects.POISON)) {

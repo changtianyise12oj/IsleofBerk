@@ -10,6 +10,7 @@ import com.GACMD.isleofberk.entity.AI.target.DragonHurtByTargetGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonMeleeAttackGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
 import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
+import com.GACMD.isleofberk.entity.dragons.stinger.Stinger;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.StingerEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
@@ -27,6 +28,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -57,6 +59,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.extensions.IForgeEntity;
+import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -65,6 +68,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.function.Predicate;
 
@@ -1193,9 +1197,66 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public float getSoundPitch() {
         return isBaby() ? 1.4F : 1F;
     }
-    //
-//    @Nullable
-//    protected SoundEvent getAttackSound() {
-//        return IOBSounds.FURY_BITE_0.get();
-//    }
+
+    public static class DragonPart extends PartEntity<ADragonBase> {
+
+        ADragonBase parent;
+        EntityDimensions size;
+        public final String name;
+
+        public DragonPart(ADragonBase parent, String name, float sizeX, float sizeY) {
+            super(parent);
+            this.size = EntityDimensions.scalable(sizeX, sizeY);
+            this.parent = parent;
+            this.name = name;
+            this.refreshDimensions();
+        }
+
+        @Override
+        protected void defineSynchedData() {
+
+        }
+
+        @Override
+        protected void readAdditionalSaveData(CompoundTag pCompound) {
+
+        }
+
+        @Override
+        protected void addAdditionalSaveData(CompoundTag pCompound) {
+
+        }
+
+        @Override
+        public boolean isPickable() {
+            return true;
+        }
+
+        @Override
+        public boolean hurt(DamageSource pSource, float pAmount) { //  && pSource.getEntity().getVehicle() != parent
+            Entity entity = pSource.getEntity();
+            if (entity instanceof LivingEntity rider) {
+                if (pSource.equals(DamageSource.mobAttack(rider)) && rider.getVehicle() == parent) {
+                    return false;
+                }
+            }
+            return (!isInvulnerableTo(pSource) || Objects.requireNonNull(entity).getVehicle() == parent) && parent.hurt(pSource, pAmount);
+        }
+
+        public boolean is(@NotNull Entity pEntity) {
+            return this == pEntity || this.parent == pEntity;
+        }
+
+        public Packet<?> getAddEntityPacket() {
+            throw new UnsupportedOperationException();
+        }
+
+        public @NotNull EntityDimensions getDimensions(@NotNull Pose pPose) {
+            return this.size;
+        }
+
+        public boolean shouldBeSaved() {
+            return false;
+        }
+    }
 }

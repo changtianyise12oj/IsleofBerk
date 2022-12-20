@@ -200,7 +200,6 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         double z = Math.cos(Math.PI + angle1) * 4;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
-//        return circleVec(bodyOrigin, 5, 1, true, tickCount, 1, 1);
 
         return throatPos;
 
@@ -224,7 +223,6 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         double z = Math.cos(Math.PI + angle1) * 4;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
-//        return circleVec(bodyOrigin, 5, 1, false, tickCount, 1, 1);
 
         return throatPos;
     }

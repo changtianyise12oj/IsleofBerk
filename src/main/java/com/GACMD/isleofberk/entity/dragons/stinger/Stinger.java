@@ -1,6 +1,7 @@
 package com.GACMD.isleofberk.entity.dragons.stinger;
 
 import com.GACMD.isleofberk.entity.AI.taming.T2DragonFeedTamingGoal;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseGroundRideable;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.StingerEgg;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
@@ -41,8 +42,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
-    StingerPart[] subParts;
-    StingerPart stingerRamOffset;
+    DragonPart[] subParts;
+    DragonPart stingerRamOffset;
 
     private <E extends IAnimatable> PlayState predicate1(AnimationEvent<E> event) {
 
@@ -96,8 +97,8 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
 
     public Stinger(EntityType<? extends Stinger> entityType, Level level) {
         super(entityType, level);
-        this.stingerRamOffset = new StingerPart(this, "stingerRamOffset", 2F, 2F);
-        this.subParts = new StingerPart[]{this.stingerRamOffset};
+        this.stingerRamOffset = new DragonPart(this, "stingerRamOffset", 2F, 2F);
+        this.subParts = new DragonPart[]{this.stingerRamOffset};
     }
 
     @Override
@@ -126,7 +127,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         return new ClientboundAddMobPacket(this);
     }
 
-    private void tickPart(StingerPart pPart, double pOffsetX, double pOffsetY, double pOffsetZ) {
+    private void tickPart(DragonPart pPart, double pOffsetX, double pOffsetY, double pOffsetZ) {
         Vec3 lastPos = new Vec3(pPart.getX(), pPart.getY(), pPart.getZ());
         pPart.setPos(this.getX() + pOffsetX, this.getY() + pOffsetY, this.getZ() + pOffsetZ);
 
@@ -205,8 +206,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
 
     @Nullable
     public ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {
-        StingerEgg dragon = ModEntities.STINGER_EGG.get().create(level);
-        return dragon;
+        return ModEntities.STINGER_EGG.get().create(level);
     }
 
     @Override
@@ -305,65 +305,4 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         return 0.2F;
     }
 
-    public static class StingerPart extends PartEntity<Stinger> {
-
-        Stinger parent;
-        EntityDimensions size;
-        public final String name;
-
-        public StingerPart(Stinger parent, String name, float sizeX, float sizeY) {
-            super(parent);
-            this.size = EntityDimensions.scalable(sizeX, sizeY);
-            this.parent = parent;
-            this.name = name;
-            this.refreshDimensions();
-        }
-
-        @Override
-        protected void defineSynchedData() {
-
-        }
-
-        @Override
-        protected void readAdditionalSaveData(CompoundTag pCompound) {
-
-        }
-
-        @Override
-        protected void addAdditionalSaveData(CompoundTag pCompound) {
-
-        }
-
-        @Override
-        public boolean isPickable() {
-            return true;
-        }
-
-        @Override
-        public boolean hurt(DamageSource pSource, float pAmount) { //  && pSource.getEntity().getVehicle() != parent
-            Entity entity = pSource.getEntity();
-            if (entity instanceof LivingEntity rider) {
-                if (pSource.equals(DamageSource.mobAttack(rider)) && rider.getVehicle() == parent) {
-                    return false;
-                }
-            }
-            return (!isInvulnerableTo(pSource) || Objects.requireNonNull(entity).getVehicle() == parent) && parent.hurt(pSource, pAmount);
-        }
-
-        public boolean is(@NotNull Entity pEntity) {
-            return this == pEntity || this.parent == pEntity;
-        }
-
-        public Packet<?> getAddEntityPacket() {
-            throw new UnsupportedOperationException();
-        }
-
-        public @NotNull EntityDimensions getDimensions(@NotNull Pose pPose) {
-            return this.size;
-        }
-
-        public boolean shouldBeSaved() {
-            return false;
-        }
-    }
 }
