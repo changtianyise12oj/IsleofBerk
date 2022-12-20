@@ -4,15 +4,17 @@ import com.GACMD.isleofberk.entity.AI.taming.T2DragonFeedTamingGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.GronkleEgg;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
-import com.GACMD.isleofberk.util.Util;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.GronkleEgg;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import com.GACMD.isleofberk.util.Util;
+import com.GACMD.isleofberk.util.math.MathX;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,6 +24,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -36,6 +39,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -47,16 +51,24 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
+import java.util.List;
+import java.util.Objects;
+
 public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnimatable {
 
     protected int ticksSinceLastRamAttack = 0;
     protected int ticksSinceLastBiteAttack = 0;
+    protected int ticksSinceLastRamAttackPlayer = 0;
 
-    protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_RAM = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
-    protected static final EntityDataAccessor<Integer> TICKS_SINCE_STONE_FED = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_RAM = SynchedEntityData.defineId(Gronckle.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> TICKS_SINCE_STONE_FED = SynchedEntityData.defineId(Gronckle.class, EntityDataSerializers.INT);
+    DragonPart[] subParts;
+    DragonPart GronckleRamArea;
 
     public Gronckle(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
+        this.GronckleRamArea = new DragonPart(this, "GronckleRamArea", 2F, 2F);
+        this.subParts = new DragonPart[]{this.GronckleRamArea};
     }
 
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
@@ -90,7 +102,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
                         return PlayState.CONTINUE;
                     }
-                }else {
+                } else {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
                     return PlayState.CONTINUE;
                 }
@@ -128,6 +140,11 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Ram", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
+        }
+
+        if (ticksSinceLastRamAttackPlayer > 0) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Ram", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
         }
 
         if (isMarkFired()) {
@@ -175,12 +192,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         data.addAnimationController(new AnimationController<Gronckle>(this, "turnController", 24, this::turnController));
     }
 
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(TICK_SINCE_LAST_RAM, 0);
-        this.entityData.define(TICKS_SINCE_STONE_FED, 0);
-    }
 
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
@@ -194,6 +205,114 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         super.readAdditionalSaveData(pCompound);
         this.setTicksSincePlayerLastRamAttack(pCompound.getInt("ticks_since_ram_attack"));
         this.setTicksSincelastStoneFed(pCompound.getInt("ticks_since_last_stone_fed"));
+    }
+
+    @Override
+    public PartEntity<?>[] getParts() {
+        return this.subParts;
+    }
+
+    @Override
+    public void recreateFromPacket(@NotNull ClientboundAddMobPacket mobPacket) {
+        super.recreateFromPacket(mobPacket);
+        PartEntity<?>[] part = this.getParts();
+
+        for (int i = 0; i < Objects.requireNonNull(part).length; ++i) {
+            part[i].setId(i + mobPacket.getId());
+        }
+
+    }
+
+    @Override
+    public @NotNull Packet<?> getAddEntityPacket() {
+        return new ClientboundAddMobPacket(this);
+    }
+
+    private void tickPart(DragonPart pPart, double pOffsetX, double pOffsetY, double pOffsetZ) {
+        Vec3 lastPos = new Vec3(pPart.getX(), pPart.getY(), pPart.getZ());
+        pPart.setPos(this.getX() + pOffsetX, this.getY() + pOffsetY, this.getZ() + pOffsetZ);
+
+        pPart.xo = lastPos.x;
+        pPart.yo = lastPos.y;
+        pPart.zo = lastPos.z;
+        pPart.xOld = lastPos.x;
+        pPart.yOld = lastPos.y;
+        pPart.zOld = lastPos.z;
+
+    }
+
+    @Override
+    public boolean isMultipartEntity() {
+        return !isBaby();
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        float yRotRadians = MathX.toRadians(this.getYRot());
+        float sinY = Mth.sin(yRotRadians);
+        float cosY = Mth.cos(yRotRadians);
+
+        this.tickPart(this.GronckleRamArea, 2 * -sinY * 1, 0.4D, 2 * cosY * 1);
+
+        if (isUsingSECONDAbility() && getTicksSincePlayerLastRamAttack() == 0) {
+            ticksSinceLastRamAttackPlayer = 20;
+        } else {
+            if (ticksSinceLastRamAttackPlayer > 0) {
+                ticksSinceLastRamAttackPlayer -= 1;
+            } else {
+                ticksSinceLastRamAttackPlayer = 0;
+            }
+        }
+
+        System.out.println(ticksSinceLastRamAttackPlayer);
+
+        if (ticksSinceLastRamAttackPlayer == 18) {
+            this.setTicksSincePlayerLastRamAttack(Util.secondsToTicks(36));
+            this.knockBack(this.level.getEntities(this, this.GronckleRamArea.getBoundingBox().inflate(0.4D, 0.4D, 0.4D).move(0.0D, -0.3D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
+
+            if (!level.isClientSide()) {
+                this.hurt(this.level.getEntities(this, this.GronckleRamArea.getBoundingBox().inflate(1.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
+            }
+        }
+    }
+
+    /**
+     * Pushes all entities inside the list away from the enderdragon.
+     */
+    private void knockBack(List<Entity> pEntities) {
+        double d0 = (this.GronckleRamArea.getBoundingBox().minX + this.GronckleRamArea.getBoundingBox().maxX) / 2.0D;
+        double d1 = (this.GronckleRamArea.getBoundingBox().minZ + this.GronckleRamArea.getBoundingBox().maxZ) / 2.0D;
+
+        for (Entity entity : pEntities) {
+            if (entity instanceof LivingEntity && entity != this.getPassengers() && (entity.xOld == entity.getX() || entity.zOld == entity.getZ())) {
+                double d2 = entity.getX() - d0;
+                double d3 = entity.getZ() - d1;
+                double d4 = Math.max(d2 * d2 + d3 * d3, 0.1D);
+                entity.push(d2 / d4 * 0.50D, (double) 0.2F, d3 / d4 * 4.0D);
+                entity.hurt(DamageSource.mobAttack(this), 5.0F);
+                this.doEnchantDamageEffects(this, entity);
+            }
+        }
+    }
+
+    /**
+     * Attacks all entities inside this list, dealing 5 hearts of damage.
+     */
+    private void hurt(List<Entity> pEntities) {
+        for (Entity entity : pEntities) {
+            if (entity instanceof LivingEntity livingEntity) {
+                livingEntity.hurt(DamageSource.mobAttack(this), 14F);
+                this.doEnchantDamageEffects(this, livingEntity);
+            }
+        }
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(TICK_SINCE_LAST_RAM, 0);
+        this.entityData.define(TICKS_SINCE_STONE_FED, 0);
     }
 
     public int getTicksSincePlayerLastRamAttack() {
@@ -363,6 +482,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     public void tick() {
         super.tick();
         ItemStack itemStack = new ItemStack(ModItems.RAW_GRONCKLE_IRON.get(), 1);
+
         if (getStoneDigestionTicks() == 10) {
             if (random.nextInt(45) == 1) {
                 this.playSound(SoundEvents.PLAYER_BURP, 1, 1);
@@ -390,6 +510,10 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
         if (ticksSinceLastRamAttack >= 0) {
             ticksSinceLastRamAttack--;
+        }
+
+        if (ticksSinceLastRamAttackPlayer > 0) {
+            ticksSinceLastRamAttackPlayer--;
         }
 
         if (getTicksSinceLastFire() < 2) {

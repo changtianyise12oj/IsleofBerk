@@ -62,6 +62,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
@@ -201,10 +202,10 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     @Override
     public void recreateFromPacket(@NotNull ClientboundAddMobPacket mobPacket) {
         super.recreateFromPacket(mobPacket);
-        PartEntity<?>[] stingerPart = this.getParts();
+        PartEntity<?>[] part = this.getParts();
 
-        for (int i = 0; i < stingerPart.length; ++i) {
-            stingerPart[i].setId(i + mobPacket.getId());
+        for (int i = 0; i < Objects.requireNonNull(part).length; ++i) {
+            part[i].setId(i + mobPacket.getId());
         }
 
     }
@@ -472,11 +473,11 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             ticksSinceLastStingAttackAI--;
         }
 
-        if (ticksSinceLastStingAttackPlayer >= 0) {
+        if (ticksSinceLastStingAttackPlayer > 0) {
             ticksSinceLastStingAttackPlayer--;
         }
 
-        if (getTicksSinceLastSting() >= 0) {
+        if (getTicksSinceLastSting() > 0) {
             setTicksSinceLastSting(getTicksSinceLastSting() - 1);
         }
 
