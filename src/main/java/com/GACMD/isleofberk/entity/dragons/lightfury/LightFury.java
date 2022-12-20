@@ -1,14 +1,14 @@
 package com.GACMD.isleofberk.entity.dragons.lightfury;
 
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.LightFuryEgg;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.LightFuryEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBolt;
-import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.util.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
@@ -98,17 +98,33 @@ public class LightFury extends NightFury {
             ticksUsingSecondAbility++;
         }
 
-        if(ticksSecondAbilityRecharge > 0) {
+        if (ticksSecondAbilityRecharge > 0) {
             ticksSecondAbilityRecharge--;
         }
 
-        if (ticksUsingSecondAbility > 40 && this.getEffect(MobEffects.INVISIBILITY) == null && ticksSecondAbilityRecharge < 2) {
-            if(getPassengers().stream().iterator().next() instanceof LivingEntity livingEntity && getPassengers().size() > 0) {
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Util.secondsToTicks(3)));
-            }
-            ticksSecondAbilityRecharge = Util.secondsToTicks(75);
-            this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Util.minutesToSeconds(3)));
+        if (ticksUsingSecondAbility > 40 && !isUsingSECONDAbility() && this.getEffect(MobEffects.INVISIBILITY) == null && ticksSecondAbilityRecharge < 2) {
+            ticksSecondAbilityRecharge = Util.secondsToTicks(10);
+            ticksUsingSecondAbility = 0;
+            this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Util.secondsToTicks(2)));
         }
+
+        if (this.getEffect(MobEffects.INVISIBILITY) != null) {
+            if (getFirstPassenger() instanceof LivingEntity livingEntity) {
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 5));
+            }
+
+            if (getPassengers().size() > 1 && this.getPassengers().get(1) instanceof LivingEntity livingEntity) {
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 5));
+            }
+        }
+    }
+
+    @javax.annotation.Nullable
+    public Entity getSecondPassenger() {
+        if (this.getPassengers().size() < 3) {
+            return this.getPassengers().get(1);
+        }
+        return null;
     }
 
     @Override

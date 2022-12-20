@@ -247,6 +247,10 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         if (ticksSinceLastStingAttack >= 0)
             ticksSinceLastStingAttack--;
 
+        if(isUsingSECONDAbility()) {
+            ticksSinceLastStingAttack++;
+        }
+
         String s = ChatFormatting.stripFormatting(this.getName().getString());
         if (s != null) {
             if (s.equals("Stormfly") || s.equals("stormfly")) {

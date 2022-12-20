@@ -151,9 +151,6 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
             }
         }
 
-        System.out.println("ticksUsingSecondAbility" + ticksUsingSecondAbility);
-        System.out.println("ticksUsingActiveSecondAbility" + ticksUsingActiveSecondAbility);
-
         if (hasDamageResist) {
             this.setOnFireAbility(true);
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5));

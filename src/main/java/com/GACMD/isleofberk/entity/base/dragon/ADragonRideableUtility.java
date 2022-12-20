@@ -770,12 +770,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         return false;
     }
 
-    @Nullable
-    @Override
-    public Entity getFirstPassenger() {
-        return super.getFirstPassenger();
-    }
-
     protected boolean canCarryCargo() {
         return false;
     }
