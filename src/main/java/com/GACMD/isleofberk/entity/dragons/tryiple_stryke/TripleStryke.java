@@ -278,7 +278,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
                 double d2 = entity.getX() - d0;
                 double d3 = entity.getZ() - d1;
                 double d4 = Math.max(d2 * d2 + d3 * d3, 0.1D);
-                entity.push(d2 / d4 * 0.50D, (double) 0.2F, d3 / d4 * 4.0D);
+                entity.push(d2 / d4 * 0.50D, (double) 0.2F, d3 / d4 * 2.0D);
                 entity.hurt(DamageSource.mobAttack(this), 5.0F);
                 this.doEnchantDamageEffects(this, entity);
             }
