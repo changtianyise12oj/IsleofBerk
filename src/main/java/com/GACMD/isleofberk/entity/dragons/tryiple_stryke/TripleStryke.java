@@ -71,7 +71,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     protected int ticksSinceLastClawAttack = 0;
     protected int ticksSinceLastStingAttackAI = 0;
     protected int ticksSinceLastStingAttackPlayer = 0;
-    protected int stingCooldown = 0;
     protected static final EntityDataAccessor<Boolean> MARK_STING = SynchedEntityData.defineId(TripleStryke.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> TICKS_SINCE_LAST_STING = SynchedEntityData.defineId(TripleStryke.class, EntityDataSerializers.INT);
 
@@ -243,7 +242,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
         this.tickPart(this.TSStingArea, 3 * -sinY * 1, 0.4D, 3 * cosY * 1);
 
-        if (isUsingSECONDAbility() && stingCooldown == 0) {
+        if (isUsingSECONDAbility() && getTicksSinceLastSting() == 0) {
             ticksSinceLastStingAttackPlayer = 46;
         } else {
             if (ticksSinceLastStingAttackPlayer > 0) {
@@ -254,15 +253,12 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         }
 
         if (ticksSinceLastStingAttackPlayer == 40) {
-            this.setMarkSting(true);
-            this.stingCooldown=Util.secondsToTicks(36);
+            this.setTicksSinceLastSting(Util.secondsToTicks(36));
             this.knockBack(this.level.getEntities(this, this.TSStingArea.getBoundingBox().inflate(0.4D, 0.4D, 0.4D).move(0.0D, -0.3D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
 
             if (!level.isClientSide()) {
                 this.hurt(this.level.getEntities(this, this.TSStingArea.getBoundingBox().inflate(1.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
             }
-        } else {
-            setMarkSting(false);
         }
     }
 
@@ -291,7 +287,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     private void hurt(List<Entity> pEntities) {
         for (Entity entity : pEntities) {
             if (entity instanceof LivingEntity livingEntity) {
-                livingEntity.hurt(DamageSource.mobAttack(this), 14.0F);
+                livingEntity.hurt(DamageSource.mobAttack(this), 36.0F);
                 this.doEnchantDamageEffects(this, livingEntity);
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, Util.secondsToTicks(20)));
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, Util.secondsToTicks(4)));
@@ -309,14 +305,12 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     @Override
     public void addAdditionalSaveData(CompoundTag pCompound) {
         super.addAdditionalSaveData(pCompound);
-        pCompound.putBoolean("markSting", isMarkSting());
         pCompound.putInt("ticksSting", getTicksSinceLastSting());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
-        this.setMarkSting(pCompound.getBoolean("markSting"));
         this.setTicksSinceLastSting(pCompound.getInt("ticksSting"));
     }
 
@@ -328,13 +322,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         this.entityData.set(TICKS_SINCE_LAST_STING, pType);
     }
 
-    public boolean isMarkSting() {
-        return this.entityData.get(MARK_STING);
-    }
-
-    public void setMarkSting(boolean fired) {
-        this.entityData.set(MARK_STING, fired);
-    }
 
     @Override
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
@@ -491,11 +478,10 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             ticksSinceLastStingAttackPlayer--;
         }
 
-        if (stingCooldown >= 0) {
-            stingCooldown--;
+        if (getTicksSinceLastSting() >= 0) {
+            setTicksSinceLastSting(getTicksSinceLastSting() - 1);
         }
 
-        setMarkSting(isUsingSECONDAbility());
 //        if (getOwner() != null && getOwner() instanceof Player player) {
 //            player.displayClientMessage(new TextComponent("current Attack type: " + getCurrentAttackType()), false);
 //        }
