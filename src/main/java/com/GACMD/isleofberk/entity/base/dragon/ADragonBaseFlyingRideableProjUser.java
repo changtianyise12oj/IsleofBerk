@@ -142,6 +142,8 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
                 if (ticksSinceLastProjShoot > 0) {
                     ticksSinceLastProjShoot--;
                 }
+            } else {
+                ticksSinceLastProjShoot=0;
             }
         }
     }

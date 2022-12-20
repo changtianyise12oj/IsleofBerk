@@ -10,6 +10,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.eggs.DeadlyNadderEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.other.nadder_spike.DeadlyNadderSpike;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.util.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -26,6 +27,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -50,6 +52,8 @@ import javax.annotation.Nullable;
 public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     int ticksSinceLastStingAttack = 0;
+    int ticksSinceLastStingShoot = 0;
+
     protected static final EntityDataAccessor<Integer> TICK_SINCE_LAST_FIRE = SynchedEntityData.defineId(DeadlyNadder.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Boolean> MARK_FIRED = SynchedEntityData.defineId(DeadlyNadder.class, EntityDataSerializers.BOOLEAN);
 
@@ -329,6 +333,21 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
                 this.setDragonVariant(0);
             }
         }
+
+        // probably scale the hitbox too
+        // use in melee AI
+        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal) && (getTarget() instanceof Player player && !player.isCreative())) {
+            if (!(getControllingPassenger() instanceof Player)) {
+                if (getRandom().nextInt(25) == 1) {
+                    performRangedAttackAI(getViewVector(1F), 1);
+                    ticksSinceLastStingShoot = Util.secondsToTicks(1);
+                }
+                
+                if (ticksSinceLastStingShoot > 0) {
+                    ticksSinceLastStingShoot--;
+                }
+            }
+        }
     }
 
     @Override
@@ -342,8 +361,6 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     public void performRangedAttack(Vec3 riderLook, float pDistanceFactor) {
         setTicksSinceLastFire(10);
         DeadlyNadderSpike spike = new DeadlyNadderSpike(level, this);
-        DeadlyNadderSpike spike1 = new DeadlyNadderSpike(level, this);
-        DeadlyNadderSpike spike2 = new DeadlyNadderSpike(level, this);
         spike.setOwner(this);
         double d0 = riderLook.x();
         double d1 = riderLook.y();
@@ -353,8 +370,23 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         modifySecondaryFuel(-4);
         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(spike);
-        this.level.addFreshEntity(spike1);
-        this.level.addFreshEntity(spike2);
+    }
+
+    /**
+     * Attack the specified entity using a ranged attack.
+     */
+    public void performRangedAttackAI(Vec3 dragonLook, float pDistanceFactor) {
+        setTicksSinceLastFire(10);
+        DeadlyNadderSpike spike = new DeadlyNadderSpike(level, this);
+        spike.setOwner(this);
+        double d0 = dragonLook.x();
+        double d1 = dragonLook.y();
+        double d2 = dragonLook.z();
+        double d3 = Math.sqrt(d0 * d0 + d2 * d2);
+        spike.shoot(d0, d1 + d3 * (double) 0.2F, d2, 4F, 1.6F);
+        modifySecondaryFuel(-4);
+        this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.level.addFreshEntity(spike);
     }
 
     /**
