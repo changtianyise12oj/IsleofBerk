@@ -10,7 +10,6 @@ import com.GACMD.isleofberk.entity.AI.target.DragonHurtByTargetGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonMeleeAttackGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
 import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
-import com.GACMD.isleofberk.entity.dragons.stinger.Stinger;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.StingerEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
@@ -66,8 +65,6 @@ import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -734,46 +731,17 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             this.setRot(this.getYRot(), this.getXRot());
         }
 
-//        if (getControllingPassenger() instanceof Player) {
-////            ArrayList<BlockPos> pos = new ArrayList<>();
-////            pos.add(new BlockPos(position().add(0,0,0)));
-////            pos.add(new BlockPos(position().add(0,-1,0)));
-////            pos.add(new BlockPos(position().add(0,-2,0)));
-//            List<BlockPos> solidPosArray = Arrays.asList(new BlockPos(position().add(0, -1, 0)), new BlockPos(position().add(0, -2, 0)), new BlockPos(position().add(0, -3, 0)));
-////            List<BlockPos> solidPosArray = Arrays.asList(new BlockPos(position().add(0, -1, 0)), new BlockPos(position().add(0, -2, 0)), new BlockPos(position().add(0, -3, 0)));
-//            for (int i = 0; i < solidPosArray.size(); ++i) {
-//                // Printing and display the elements in ArrayList
-////                System.out.println(solidPosArray.get(i));
-//                if (level.getBlockState(solidPosArray.get(i)).isSolidRender(level, solidPosArray.get(i))) {
-//                    setIsDragonOnGround(true);
-//                    System.out.println(solidPosArray.get(i));
-//                    System.out.println("solid? " + level.getBlockState(solidPosArray.get(i)).isSolidRender(level, solidPosArray.get(i)));
-//                } else {
-//                    setIsDragonOnGround(false);
-//                }
-//            }
-//        }
 
-//        if (getControllingPassenger() instanceof Player) {
-//            ArrayList<BlockPos> pos = new ArrayList<>();
-//            pos.add(new BlockPos(position().add(0,0,0)));
-//            pos.add(new BlockPos(position().add(0,-1,0)));
-//            pos.add(new BlockPos(position().add(0,-2,0)));
+        BlockPos pos1 = new BlockPos(position().add(0, -1, 0));
+        BlockPos pos2 = new BlockPos(position().add(0, -2, 0));
+        BlockPos pos3 = new BlockPos(position().add(0, -3, 0));
+        if (level.getBlockState(pos1).getMaterial().isSolid() || level.getBlockState(pos2).getMaterial().isSolid() || level.getBlockState(pos3).getMaterial().isSolid()
+                || (level.getBlockState(pos1).getMaterial().isSolid() && !level.getBlockState(pos3).getMaterial().isSolid())) {
 
-            BlockPos pos1 = new BlockPos(position().add(0, -1, 0));
-            BlockPos pos2 = new BlockPos(position().add(0, -2, 0));
-            BlockPos pos3 = new BlockPos(position().add(0, -3, 0));
-//            List<BlockPos> solidPosArray = Arrays.asList(new BlockPos(position().add(0, -1, 0)), new BlockPos(position().add(0, -2, 0)), new BlockPos(position().add(0, -3, 0)));
-//            List<BlockPos> solidPosArray = Arrays.asList(new BlockPos(position().add(0, -1, 0)), new BlockPos(position().add(0, -2, 0)), new BlockPos(position().add(0, -3, 0)));
-//            for (int i = 0; i < solidPosArray.size(); ++i) {
-            // Printing and display the elements in ArrayList
-//                System.out.println(solidPosArray.get(i));
-            if (level.getBlockState(pos1).getMaterial().isSolid()) {
-                setIsDragonOnGround(true);
-            } else {
-                setIsDragonOnGround(false);
-            }
-//        }
+            setIsDragonOnGround(true);
+        } else {
+            setIsDragonOnGround(false);
+        }
 
         if (getSleepDisturbTicks() > 0)
             setSleepDisturbTicks(getSleepDisturbTicks() - 1);

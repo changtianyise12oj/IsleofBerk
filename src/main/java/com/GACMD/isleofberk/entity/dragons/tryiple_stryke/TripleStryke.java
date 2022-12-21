@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.tryiple_stryke;
 
+import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.AI.target.DragonMeleeAttackGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
@@ -7,13 +8,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.TripleStrykeEgg;
 import com.GACMD.isleofberk.entity.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
-import com.GACMD.isleofberk.network.ControlNetwork;
-import com.GACMD.isleofberk.network.message.ControlMessageAbility;
-import com.GACMD.isleofberk.network.message.ControlMessageGoingDown;
-import com.GACMD.isleofberk.network.message.ControlMessageJumping;
-import com.GACMD.isleofberk.network.message.ControlMessageSECONDAbility;
 import com.GACMD.isleofberk.registery.ModEntities;
-import com.GACMD.isleofberk.registery.ModKeyBinds;
 import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.util.math.MathX;
 import net.minecraft.client.Minecraft;
@@ -46,8 +41,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
@@ -248,12 +241,12 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             if (ticksSinceLastStingAttackPlayer > 0) {
                 ticksSinceLastStingAttackPlayer -= 1;
             } else {
-                ticksSinceLastStingAttackPlayer=0;
+                ticksSinceLastStingAttackPlayer = 0;
             }
         }
 
         if (ticksSinceLastStingAttackPlayer == 40) {
-            this.setTicksSinceLastSting(Util.secondsToTicks(42));
+            this.setTicksSinceLastSting(Util.secondsToTicks(22));
             this.knockBack(this.level.getEntities(this, this.TSStingArea.getBoundingBox().inflate(0.4D, 0.4D, 0.4D).move(0.0D, -0.3D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
 
             if (!level.isClientSide()) {
@@ -393,7 +386,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     @Override
     public float getRideCameraDistanceBack() {
-        return 8;
+        return CommonConfig.USE_LARGER_SCALING.get() ? 11 : 9;
     }
 
     @Override
@@ -658,7 +651,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     protected double rider1YOffSet() {
-        return 1.2D;
+        return CommonConfig.USE_LARGER_SCALING.get() ? 1.6D : 1.2D;
     }
 
     protected double rider1ZOffSet() {
@@ -670,7 +663,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     protected double rider2YOffSet() {
-        return 1.2D;
+        return CommonConfig.USE_LARGER_SCALING.get() ? 1.6D : 1.2D;
     }
 
     protected double rider2ZOffSet() {

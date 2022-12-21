@@ -1,6 +1,7 @@
 package com.GACMD.isleofberk.entity.dragons.tryiple_stryke;
 
 import com.GACMD.isleofberk.IsleofBerk;
+import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -20,7 +21,7 @@ public class TripleStrykeModel extends BaseDragonModel<TripleStryke> {
     }
 
     @Override
-    protected float getAdultSize() { return 1.15f; }
+    protected float getAdultSize() { return CommonConfig.USE_LARGER_SCALING.get() ? 1.40f: 1.15f; }
 
     @Override
     public ResourceLocation getModelLocation(TripleStryke object) {

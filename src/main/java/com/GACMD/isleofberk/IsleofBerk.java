@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk;
 
+import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.registery.ModParticles;
@@ -16,7 +17,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -48,6 +51,8 @@ public class IsleofBerk // /kill @e[type=!isleofberk:stinger,type=! player]
         MinecraftForge.EVENT_BUS.register(this);
         GeckoLib.initialize();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> new ClientModEvent(eventBus,forgeBus));
+
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC, "isleofberk.toml");
     }
 
     private void setup(final FMLCommonSetupEvent event) {

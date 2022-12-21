@@ -1,6 +1,7 @@
 package com.GACMD.isleofberk.entity.dragons.nightfury;
 
 import com.GACMD.isleofberk.IsleofBerk;
+import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
@@ -10,7 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class NightFuryModel extends BaseDragonModel<NightFury> {
 
     @Override
-    protected float getAdultSize() { return 1f; }
+    protected float getAdultSize() { return CommonConfig.USE_LARGER_SCALING.get() ? 1.1f: 1; }
 
     @Override
     public ResourceLocation getModelLocation(NightFury entity) {
