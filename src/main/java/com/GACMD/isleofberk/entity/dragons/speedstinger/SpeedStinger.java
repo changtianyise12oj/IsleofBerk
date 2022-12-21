@@ -102,6 +102,7 @@ public class SpeedStinger extends ADragonBase {
 
     protected int ticksSinceLastStingAttack = 0;
     protected int jumpTicks = 0;
+    private Object heal;
 
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if (event.isMoving() && !shouldStopMovingIndependently()) {
@@ -496,7 +497,6 @@ public class SpeedStinger extends ADragonBase {
         Item item = itemstack.getItem();
         if (!itemstack.isEmpty()) {
             IForgeItem forgeItem = itemstack.getItem();
-            int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
             // hunger limits the player's phase one progress. Dragons don't eat when they are full.
             // thus preventing the quick tame of dragon's
             if (!isTame()) {
@@ -518,7 +518,7 @@ public class SpeedStinger extends ADragonBase {
             } else {
                 if (this.isFoodEdibleToDragon(itemstack) && canEatWithFoodOnHand(true)) {
                     if (this.getHealth() < getMaxHealth()) {
-                        this.heal(nutrition);
+                        Object heal1 = this.heal;
                         this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
                         this.addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
                         if (!pPlayer.getAbilities().instabuild) {
@@ -527,7 +527,7 @@ public class SpeedStinger extends ADragonBase {
                     }
                     // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
                     if (getHealth() < getMaxHealth()) {
-                        this.heal(nutrition);
+                        Object heal1 = this.heal;
                         if (!pPlayer.getAbilities().instabuild) {
                             itemstack.shrink(1);
                         }
