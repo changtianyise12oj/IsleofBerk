@@ -13,7 +13,7 @@ public class CommonConfig {
     static {
         BUILDER.push("Isle of Berk Config");
 
-        USE_LARGER_SCALING = BUILDER.comment(new TranslatableComponent("Should use larger dragon scales?").toString()).define(new TranslatableComponent("Should use larger dragon scales?").toString(), true);
+        USE_LARGER_SCALING = BUILDER.comment("Should use larger dragon scales?").define("Should use larger dragon scales?", true);
 
         BUILDER.pop();
         SPEC = BUILDER.build();
