@@ -37,6 +37,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -44,6 +45,7 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 public class ADragonRideableUtility extends ADragonBase implements ContainerListener, Saddleable, PlayerRideable {
@@ -121,7 +123,8 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
      */
     protected void foodTamingInteraction(Player pPlayer, InteractionHand pHand, ItemStack itemstack) {
         if (!itemstack.isEmpty()) {
-            int nutrition = itemstack.getItem().getFoodProperties().getNutrition();
+            IForgeItem forgeItem = itemstack.getItem();
+            int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
             // phase 1 progress limits the player's phase one progress. Dragons don't eat when they are full.
             // thus preventing the quick tame of dragon's
             // dragon that is subject for taming will not fly away

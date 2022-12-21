@@ -61,6 +61,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.eventbus.api.Event;
 import org.jetbrains.annotations.NotNull;
@@ -76,6 +77,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
@@ -493,7 +495,8 @@ public class SpeedStinger extends ADragonBase {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
         if (!itemstack.isEmpty()) {
-            int nutrition = itemstack.getItem().getFoodProperties().getNutrition();
+            IForgeItem forgeItem = itemstack.getItem();
+            int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
             // hunger limits the player's phase one progress. Dragons don't eat when they are full.
             // thus preventing the quick tame of dragon's
             if (!isTame()) {

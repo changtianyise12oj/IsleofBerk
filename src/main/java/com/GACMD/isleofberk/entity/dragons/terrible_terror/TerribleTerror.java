@@ -54,6 +54,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.common.extensions.IForgeItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -323,7 +324,8 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             itemstack.shrink(1);
         }
 
-        int nutrition = Objects.requireNonNull(itemstack.getItem().getFoodProperties()).getNutrition();
+        IForgeItem forgeItem = itemstack.getItem();
+        int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
         this.heal(nutrition);
     }
 
@@ -614,11 +616,8 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             if (this.canEat(itemstack)) {
                 if (this.ticksSinceEaten > 600) {
                     ItemStack itemstack1 = itemstack.finishUsingItem(this.level, this);
-                    if (itemstack1 != null && itemstack1.getItem().getFoodProperties() != null) {
-                        this.heal(itemstack1.getItem().getFoodProperties().getNutrition() * 0.80F);
-                        if (isBreedingFood(itemstack1)) {
-                            this.setInLove(null);
-                        }
+                    if (isBreedingFood(itemstack1)) {
+                        this.setInLove(null);
                     }
                     if (!itemstack1.isEmpty()) {
                         this.setItemSlot(EquipmentSlot.MAINHAND, itemstack1);
