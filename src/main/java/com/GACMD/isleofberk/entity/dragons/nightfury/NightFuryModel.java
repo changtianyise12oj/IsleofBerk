@@ -10,7 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class NightFuryModel extends BaseDragonModel<NightFury> {
 
     @Override
-    protected float getAdultSize() { return 1.1f; }
+    protected float getAdultSize() { return 1f; }
 
     @Override
     public ResourceLocation getModelLocation(NightFury entity) {

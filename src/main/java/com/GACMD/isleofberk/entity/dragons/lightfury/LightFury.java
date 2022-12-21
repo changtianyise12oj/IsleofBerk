@@ -103,9 +103,9 @@ public class LightFury extends NightFury {
         }
 
         if (ticksUsingSecondAbility > 40 && !isUsingSECONDAbility() && this.getEffect(MobEffects.INVISIBILITY) == null && ticksSecondAbilityRecharge < 2) {
-            ticksSecondAbilityRecharge = Util.secondsToTicks(10);
+            ticksSecondAbilityRecharge = Util.secondsToTicks(14);
             ticksUsingSecondAbility = 0;
-            this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Util.secondsToTicks(2)));
+            this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Util.secondsToTicks(10)));
         }
 
         if (this.getEffect(MobEffects.INVISIBILITY) != null) {

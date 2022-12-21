@@ -711,13 +711,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     @Override
     public void positionRider(Entity pPassenger) {
         super.positionRider(pPassenger);
-
-        // this causes unnatural rotation unlike pig and horse animation
-//        if (pPassenger == this.getControllingPassenger() && pPassenger instanceof Player player) {
-//            this.yBodyRot = player.yBodyRot;
-//            this.yHeadRot = player.yHeadRot;
-//            this.setYRot(player.getYRot());
-//        }
         if (pPassenger == this.getPassengers().get(0)) {
             pPassenger.setPos(this.getX() + rider1XOffSet(), this.getY() + rider1YOffSet(), this.getZ() + rider1ZOffSet());
         } else if (pPassenger == this.getPassengers().get(1)) {
@@ -728,11 +721,19 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             Vec3 pos = bodyOrigin.add(new Vec3(x, y, z));
             pPassenger.setPos(pos.x(), pos.y() + 0.4D, pos.z());
 
-            if (pPassenger instanceof Animal animal) {
-                clampRotation(animal);
-                animal.setYBodyRot(((Animal) animal).yBodyRot + (float) 90);
-                animal.setYHeadRot(animal.getYHeadRot() + (float) 90);
-            }
+            setAnimalRotations(pPassenger);
+        }
+    }
+
+    protected void setAnimalRotations(Entity pPassenger) {
+        if (pPassenger instanceof Animal animal) {
+            this.setYBodyRot(this.getYHeadRot());
+            animal.setYRot(this.getYRot());
+            animal.setYHeadRot(this.getYRot());
+            animal.yBodyRot = animal.getYRot();
+            animal.yHeadRot = animal.yBodyRot;
+            pPassenger.setYBodyRot(((Animal)pPassenger).yBodyRot + 270);
+            pPassenger.setYHeadRot(pPassenger.getYHeadRot() + 270);;
         }
     }
 

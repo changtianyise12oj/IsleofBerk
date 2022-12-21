@@ -24,6 +24,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -132,7 +133,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                 return PlayState.CONTINUE;
             }
         }
-        if (isUsingAbility()) {
+        if (isMarkFired()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.breath", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
@@ -321,7 +322,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Override
     protected void playerFireProjectile(Vec3 riderLook, Vec3 throat) {
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
-            setTicksSinceLastFire(20);
+            setTicksSinceLastFire(12);
             FuryBolt bolt = new FuryBolt(this, throat, riderLook, level, getExplosionStrength());
             bolt.setProjectileSize(getProjsSize());
             bolt.shoot(riderLook, 1F);
@@ -381,7 +382,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Override
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
         if (projectile.getDamageTier() == 1) {
-            return 20F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+            return 22F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
         } else if (projectile.getDamageTier() == 2) {
             return 35F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.12F) : 0F);
         } else if (projectile.getDamageTier() == 3) {
@@ -426,7 +427,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     protected double rider1YOffSet() {
-        return 1.1D;
+        return 1D;
     }
 
     protected double rider1ZOffSet() {
@@ -438,7 +439,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     protected double rider2YOffSet() {
-        return 1.3D;
+        return 1D;
     }
 
     protected double rider2ZOffSet() {

@@ -393,7 +393,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     @Override
     public float getRideCameraDistanceBack() {
-        return 12;
+        return 8;
     }
 
     @Override
@@ -658,7 +658,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     protected double rider1YOffSet() {
-        return 1.6D;
+        return 1.2D;
     }
 
     protected double rider1ZOffSet() {
@@ -670,7 +670,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     protected double rider2YOffSet() {
-        return 1.8D;
+        return 1.2D;
     }
 
     protected double rider2ZOffSet() {

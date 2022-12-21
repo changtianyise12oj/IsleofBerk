@@ -342,13 +342,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     }
 
     @Override
-    public void positionRider(Entity pPassenger) {
-        super.positionRider(pPassenger);
-        pPassenger.setPos(this.getX(), this.getY() + 1, this.getZ());
-
-    }
-
-    @Override
     protected void registerGoals() {
         super.registerGoals();
         this.targetSelector.addGoal(1, new T2DragonFeedTamingGoal(this, 1));
