@@ -246,7 +246,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         }
 
         if (ticksSinceLastStingAttackPlayer == 40) {
-            this.setTicksSinceLastSting(Util.secondsToTicks(3));
+            this.setTicksSinceLastSting(Util.secondsToTicks(2));
             this.knockBack(this.level.getEntities(this, this.TSStingArea.getBoundingBox().inflate(0.4D, 0.4D, 0.4D).move(0.0D, -0.3D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
 
             if (!level.isClientSide()) {
@@ -537,11 +537,11 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     public boolean tier1() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.40 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.65;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.20 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.55;
     }
 
     public boolean tier2() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.65 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.85;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.55 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.85;
     }
 
     public boolean tier3() {
