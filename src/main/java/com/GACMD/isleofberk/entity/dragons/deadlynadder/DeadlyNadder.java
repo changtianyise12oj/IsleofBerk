@@ -493,23 +493,4 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 }
 
 
-//            if (this.xRotO < -20 || isGoingUp()) {
-//                event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
-//                return PlayState.CONTINUE;
-//            }
-//            if (this.xRotO < 6 && this.xRotO > -20) {
-//                event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); // fly
-//                return PlayState.CONTINUE;
-//            }
-//            if (this.xRotO > 6 && this.xRotO < 12) { // < 20
-//                event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
-//                return PlayState.CONTINUE;
-//            }
-//            if (this.xRotO > 12 && this.xRotO < 18) { // < 30
-//                event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlideDown", ILoopType.EDefaultLoopTypes.LOOP)); // glidedown
-//                return PlayState.CONTINUE;
-//            }
-//            if (this.xRotO > 18 && getPassengers().size() < 2) { // > 30
-//                event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderDive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
-//                return PlayState.CONTINUE;
-//            }
+

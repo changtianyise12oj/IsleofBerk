@@ -64,9 +64,9 @@ public class ModSpawnRegistration {
         // TODO: TRIPLE STRYKE
         addMobSpawn(event, List.of(Biome.BiomeCategory.MESA, Biome.BiomeCategory.TAIGA, Biome.BiomeCategory.MOUNTAIN), MobCategory.CREATURE,
                 ModEntities.TRIPLE_STRYKE.get(),
-                1, 1, 2, 0.0001F); // 0.08F
+                1, 1, 2, 0.000001F); // 0.08F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TRIPLE_STRYKE.get(),
-                1, 1, 1, 0.0001F, Biomes.STONY_SHORE);
+                1, 1, 1, 0.000001F, Biomes.STONY_SHORE);
 
         // TODO: DEADLY_NADDER
         addMobSpawn(event, List.of(Biome.BiomeCategory.PLAINS, Biome.BiomeCategory.MOUNTAIN, Biome.BiomeCategory.FOREST, Biome.BiomeCategory.SAVANNA, Biome.BiomeCategory.BEACH), MobCategory.CREATURE,
