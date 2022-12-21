@@ -63,11 +63,11 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
                 if (dragon.getControllingPassenger() instanceof Player pilot) {
                     // approach to 0 if not boosting
                     // approach to maxRise if boosting
-                    if (dragon.isGoingUp() && boostedBodyPitch >= -40) {
-                        boostedBodyPitch -= 1;
-                    } else if (!dragon.isGoingUp()) {
+//                    if (dragon.isGoingUp() && boostedBodyPitch >= -40) {
+//                        boostedBodyPitch -= 1;
+//                    } else if (!dragon.isGoingUp()) {
                         boostedBodyPitch = Mth.approach(boostedBodyPitch, 0, -1);
-                    }
+//                    }
 
                     // +90 dive -90 rise
                     currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, getMaxRise());
