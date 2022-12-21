@@ -106,6 +106,9 @@
     "stinger_spawn_egg_info": "Tier 2 §8Uknown Class §rDragon",
     "terrible_terror_spawn_egg_info": "Tier 1 §c§lStoker Class §rDragon",
     "speed_stinger_spawn_egg_info": "Tier 4 §6§lSharp Class §rDragon",
-    "speed_stinger_leader_spawn_egg_info": "Tier 5 §6§lSharp Class §rDragon"
+    "speed_stinger_leader_spawn_egg_info": "Tier 5 §6§lSharp Class §rDragon",
+
+    "advancement.gronckle_iron.title": "The Iron Gronckle",
+    "advancement.gronckle_iron.desc": "Extremely strong yet lightweight!"
 }
 
