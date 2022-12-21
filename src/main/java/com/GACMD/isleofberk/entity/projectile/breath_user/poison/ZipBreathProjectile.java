@@ -256,7 +256,6 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
      * Custom Explosion method used for making explosions with DragonSoulFire.
      *
      * @return The Explosion Object
-     * @see com.GACMD.isleofberk.init.blocks.DragonSoulFire
      * @see Explosion
      * @see Explosion#explode()
      */

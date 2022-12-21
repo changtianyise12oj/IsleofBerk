@@ -99,12 +99,6 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     }
 
-//    @Override
-//    public boolean isInvulnerableTo(@NotNull DamageSource pSource) {
-//        if(pSource == DamageSource.MAGIC)
-//        return super.isInvulnerableTo(pSource);
-//    }
-
     @javax.annotation.Nullable
     public <T extends ZippleBackAOECloud> T getNearestGasCloud(List<? extends T> pEntities, TargetingConditions pPredicate, @javax.annotation.Nullable LivingEntity pTarget, double pX, double pY, double pZ) {
         double d0 = -1.0D;
@@ -193,7 +187,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public int getMaxFuel() {
-        return 85;
+        return 120;
     }
 
     @Override
