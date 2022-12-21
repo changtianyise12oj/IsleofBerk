@@ -558,7 +558,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     }
 
     protected double rider1YOffSet() {
-        return 1.8D;
+        return 1.2D;
     }
 
     protected double rider1ZOffSet() {
@@ -570,7 +570,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     }
 
     protected double rider2YOffSet() {
-        return 1.8D;
+        return 1.2D;
     }
 
     protected double rider2ZOffSet() {

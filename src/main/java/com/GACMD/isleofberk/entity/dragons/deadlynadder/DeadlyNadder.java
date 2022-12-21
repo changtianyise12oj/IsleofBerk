@@ -366,7 +366,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         double d1 = riderLook.y();
         double d2 = riderLook.z();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-        spike.shoot(d0, d1 + d3 * (double) 0.2F, d2, 4F, 1.6F);
+        spike.shoot(d0, d1 + d3 * (double) 0.2F, d2, 4F, 1F);
         modifySecondaryFuel(-4);
         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(spike);
