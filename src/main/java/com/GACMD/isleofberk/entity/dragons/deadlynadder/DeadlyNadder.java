@@ -305,7 +305,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         if (ticksSinceLastStingAttack >= 0 && !isUsingSECONDAbility())
             ticksSinceLastStingAttack--;
 
-        int threshold = 10;
+        int threshold = 3;
         if(isUsingSECONDAbility() && ticksSinceLastStingAttack < threshold + 6) {
             ticksSinceLastStingAttack++;
         }

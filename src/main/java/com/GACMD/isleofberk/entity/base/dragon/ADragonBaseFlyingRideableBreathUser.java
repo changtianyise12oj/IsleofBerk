@@ -87,7 +87,16 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
      * @return
      */
     protected int breathBarRegenSpeed() {
-        return 55;
+        return 30;
+    }
+
+    /**
+     * 1:x chance when the bar will add value at random per tick
+     *
+     * @return
+     */
+    protected int secondAbilityRegenSpeed() {
+        return 200;
     }
 
     /**
@@ -96,7 +105,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
      * @return
      */
     protected int breathBarRegenAmount() {
-        return 2;
+        return 4;
     }
 
     @Override
@@ -119,7 +128,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
 
 
         // regen secondary fuel regardless, it only holds 25 units
-        if (getRandom().nextInt(250) == 1) {
+        if (getRandom().nextInt(secondAbilityRegenSpeed()) == 1) {
             modifySecondaryFuel(4);
         }
 
