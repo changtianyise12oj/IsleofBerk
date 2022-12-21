@@ -266,7 +266,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         }
 
         if (ticksSinceLastRamAttackPlayer == 18) {
-            this.setTicksSincePlayerLastRamAttack(Util.secondsToTicks(18));
+            this.setTicksSincePlayerLastRamAttack(Util.secondsToTicks(2));
             this.knockBack(this.level.getEntities(this, this.GronckleRamArea.getBoundingBox().inflate(0.4D, 0.4D, 0.4D).move(0.0D, -0.3D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
 
             if (!level.isClientSide()) {
