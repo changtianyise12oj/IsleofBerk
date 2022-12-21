@@ -153,7 +153,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         ZippleBackAOECloud zipCloud = this.getNearestGasCloud(level.getEntitiesOfClass(ZippleBackAOECloud.class, getTargetSearchArea(this.getFollowDistance())),
                 TargetingConditions.forNonCombat(), this, this.getX(), this.getEyeY(), this.getZ());
         if (zipCloud != null) {
-            if (ticksUsingSecondAbility > 8) {
+            if (ticksUsingSecondAbility > 2) {
                 zipCloud.hurt(DamageSource.IN_FIRE, 1);
             }
         }
