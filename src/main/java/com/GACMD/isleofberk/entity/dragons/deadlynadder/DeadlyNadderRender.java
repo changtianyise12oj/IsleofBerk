@@ -29,7 +29,7 @@ public class DeadlyNadderRender extends BaseRendererFlying<DeadlyNadder> {
         return "deadly_nadder";
     }
     @Override
-    protected String getMainBodyBone() {
+    public String getMainBodyBone() {
         return "rotation";
     }
 }

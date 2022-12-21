@@ -31,7 +31,7 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
     protected float currentBodyYawForRoll;
     protected float currentBodyYaw;
     protected float boostedBodyPitch;
-    protected float finalBodyPitch;
+    public float finalBodyPitch;
     int pitch = 0;
 
     protected BaseRendererFlying(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider) {
@@ -47,7 +47,7 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
         super.render(model, dragon, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
 
-    protected String getMainBodyBone() {
+    public String getMainBodyBone() {
         return "Chest";
     }
 
@@ -115,11 +115,11 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
         return true;
     }
 
-    protected int getMaxRise() {
+    public int getMaxRise() {
         return 40;
     }
 
-    protected int getMinRise() {
+    public int getMinRise() {
         return -40;
     }
 }

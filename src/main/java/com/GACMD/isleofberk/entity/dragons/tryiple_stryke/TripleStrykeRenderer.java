@@ -24,7 +24,7 @@ public class TripleStrykeRenderer extends BaseRendererFlying<TripleStryke> {
         return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
     }
 
-    protected String getMainBodyBone() {
+    public String getMainBodyBone() {
         return "main";
     }
 
