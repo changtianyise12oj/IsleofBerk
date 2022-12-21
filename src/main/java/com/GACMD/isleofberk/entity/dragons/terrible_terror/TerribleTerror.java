@@ -117,9 +117,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             } else if (player.isFallFlying()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
-            } else if (player.getVehicle() != null && !player.getVehicle().isOnGround()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("PlayerHeadFlying", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
@@ -360,13 +357,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         }
     }
 
-    protected boolean isPlayerRiddenDragonFlying(Player player) {
-        if (player != null && player.getVehicle() instanceof ADragonBase dragon) {
-            return !dragon.isDragonOnGround();
-        }
-        return false;
-    }
-
     public void updateTerrorLatch(Entity vehicle) {
         if (vehicle instanceof Player player) {
             if (player.isSwimming()) {
@@ -381,20 +371,20 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             Vec3 vehiclePosition = player.position();
             double offsetX, offsetY, offsetZ;
             if (passengerIndex == 0) {
-                float radius = isPlayerRiddenDragonFlying((Player) vehicle) ? -1.2F : -0.2F;
+                float radius = -0.2F;
                 offsetX = (radius * -Math.sin(((Player) vehicle).yBodyRot * Math.PI / 180));
                 offsetZ = (radius * Math.cos(((Player) vehicle).yBodyRot * Math.PI / 180));
                 offsetY = 1.7D;
                 this.setPos(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
             } else if (passengerIndex == 1) {
-                float radius = isPlayerRiddenDragonFlying((Player) vehicle) ? 1.2F : 0.4F;
+                float radius = 0.4F;
                 float angle = (float) (Math.PI / 180) * ((Player) vehicle).yBodyRot - 90;
                 offsetX = radius * Math.sin(Math.PI + angle);
                 offsetZ = radius * Math.cos(angle);
                 offsetY = 1.2D;
                 this.setPos(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
             } else if (passengerIndex == 2) {
-                float radius = isPlayerRiddenDragonFlying((Player) vehicle) ? 1.2F : 0.4F;
+                float radius = 0.4F;
                 float angle = (float) (Math.PI / 180) * ((Player) vehicle).yBodyRot + 90;
                 offsetX = radius * Math.sin(Math.PI + angle);
                 offsetZ = radius * Math.cos(angle);
