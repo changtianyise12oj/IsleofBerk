@@ -309,7 +309,7 @@ public class SpeedStinger extends ADragonBase {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Witch.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, true));
-        this.goalSelector.addGoal(4, new SpeedStingerGoToWater(this, 1.5D));
+        this.goalSelector.addGoal(5, new SpeedStingerGoToWater(this, 1.5D));
     }
 
     @Override
