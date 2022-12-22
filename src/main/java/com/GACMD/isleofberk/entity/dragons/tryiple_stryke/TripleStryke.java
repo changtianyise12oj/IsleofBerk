@@ -187,7 +187,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         data.addAnimationController(new AnimationController<TripleStryke>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<TripleStryke>(this, "attack_Controller", 0, this::attackController));
 //        data.addAnimationController(new AnimationController<TripleStryke>(this, "turnController", 35, this::turnController));
-        data.addAnimationController(new AnimationController<TripleStryke>(this, "rotUpController", 38, this::rotUpController));
+//        data.addAnimationController(new AnimationController<TripleStryke>(this, "rotUpController", 38, this::rotUpController));
     }
 
     public TripleStryke(EntityType<? extends TripleStryke> entityType, Level level) {
@@ -253,6 +253,8 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
                 ticksSinceLastStingAttackPlayer = 0;
             }
         }
+
+        System.out.println(ticksSinceLastStingAttackPlayer);
 
         if (ticksSinceLastStingAttackPlayer == 40) {
             this.setTicksSinceLastSting(Util.secondsToTicks(2));

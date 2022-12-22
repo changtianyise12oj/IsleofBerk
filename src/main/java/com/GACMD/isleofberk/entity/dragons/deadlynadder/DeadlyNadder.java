@@ -210,7 +210,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     private <E extends IAnimatable> PlayState rotUpController(AnimationEvent<E> event) {
         if(isGoingUp()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("rot0", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("rotUp", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
