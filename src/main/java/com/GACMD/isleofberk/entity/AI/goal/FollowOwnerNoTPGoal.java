@@ -4,6 +4,7 @@ package com.GACMD.isleofberk.entity.AI.goal;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -35,9 +36,9 @@ public class FollowOwnerNoTPGoal extends Goal {
         this.stopDistance = pStopDistance;
         this.canFly = pCanFly;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        if (!(dragon.getNavigation() instanceof GroundPathNavigation) && !(dragon.getNavigation() instanceof FlyingPathNavigation)) {
-            throw new IllegalArgumentException("Unsupported mob type for FollowOwnerGoal");
-        }
+//        if (!(dragon.getNavigation() instanceof GroundPathNavigation) || !(dragon.getNavigation() instanceof FlyingPathNavigation)) {
+//            throw new IllegalArgumentException("Unsupported mob type for FollowOwnerGoal");
+//        }
     }
 
     /**
