@@ -656,7 +656,7 @@ public class SpeedStinger extends ADragonBase {
     }
 
     protected @NotNull PathNavigation createNavigation(@NotNull Level pLevel) {
-        return super.createNavigation(pLevel);
+        return new SpeedStingerPathNavigation(this , level);
     }
 
     public float getWalkTargetValue(@NotNull BlockPos pPos, LevelReader pLevel) {
