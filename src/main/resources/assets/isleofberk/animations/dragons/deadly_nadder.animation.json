@@ -1361,7 +1361,7 @@
 		"DeadlyNadderDefault": {
 			"loop": true
 		},
-		"rotUp": {
+		"rot0": {
 			"loop": true,
 			"bones": {
 				"root": {

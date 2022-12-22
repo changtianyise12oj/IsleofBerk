@@ -3,7 +3,6 @@ package com.GACMD.isleofberk.entity.dragons.nightfury;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
-import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightFuryEgg;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
@@ -200,7 +199,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     private <E extends IAnimatable> PlayState rotUpController(AnimationEvent<E> event) {
         if(isGoingUp()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("rotUp", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("rot0", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
@@ -212,7 +211,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         data.addAnimationController(new AnimationController<NightFury>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<NightFury>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<NightFury>(this, "turnController", 35, this::turnController));
-        data.addAnimationController(new AnimationController<NightFury>(this, "rotUpController", 42, this::rotUpController));
+        data.addAnimationController(new AnimationController<NightFury>(this, "rotUpController", 14, this::rotUpController));
     }
 
     public NightFury(EntityType<? extends NightFury> entityType, Level level) {

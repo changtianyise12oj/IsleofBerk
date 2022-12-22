@@ -202,7 +202,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         }
 
         if(isGoingUp()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("rotUp", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("rot0", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
@@ -222,7 +222,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         data.addAnimationController(new AnimationController<DeadlyNadder>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<DeadlyNadder>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<DeadlyNadder>(this, "turnController", 35, this::turnController));
-        data.addAnimationController(new AnimationController<DeadlyNadder>(this, "rotUpController", 48, this::rotUpController));
+        data.addAnimationController(new AnimationController<DeadlyNadder>(this, "rotUpController", 14, this::rotUpController));
     }
 
     public DeadlyNadder(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
