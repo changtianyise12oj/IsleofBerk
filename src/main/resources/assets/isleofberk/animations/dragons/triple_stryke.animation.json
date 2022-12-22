@@ -2154,6 +2154,15 @@
 					}
 				}
 			}
+		},
+		"rotUp": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [-17.5, 0, 0],
+					"position": [0, 0, -7]
+				}
+			}
 		}
 	},
 	"geckolib_format_version": 2

@@ -175,7 +175,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
     private <E extends IAnimatable> PlayState rotUpController(AnimationEvent<E> event) {
         if(isGoingUp()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("rot0", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("rotUp", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
@@ -187,7 +187,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         data.addAnimationController(new AnimationController<TripleStryke>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<TripleStryke>(this, "attack_Controller", 0, this::attackController));
 //        data.addAnimationController(new AnimationController<TripleStryke>(this, "turnController", 35, this::turnController));
-        data.addAnimationController(new AnimationController<TripleStryke>(this, "rotUpController", 14, this::rotUpController));
+        data.addAnimationController(new AnimationController<TripleStryke>(this, "rotUpController", 38, this::rotUpController));
     }
 
     public TripleStryke(EntityType<? extends TripleStryke> entityType, Level level) {
