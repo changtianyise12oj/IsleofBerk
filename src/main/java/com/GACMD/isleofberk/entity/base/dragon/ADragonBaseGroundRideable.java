@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.base.dragon;
 
+import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -53,6 +54,12 @@ public class ADragonBaseGroundRideable extends ADragonRideableUtility implements
             }
 
         }
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(1, new DragonFloatGoal(this));
     }
 
     @Override

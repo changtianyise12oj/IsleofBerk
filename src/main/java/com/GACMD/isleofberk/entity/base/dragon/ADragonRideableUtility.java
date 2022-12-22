@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.base.dragon;
 
+import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.gui.DragonContainerMenu;
 import com.GACMD.isleofberk.entity.AI.taming.DragonRideTilTamed;
@@ -93,8 +94,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();
-        this.goalSelector.addGoal(1, new DragonRideTilTamed(this, 1));
+        super.registerGoals();;
     }
 
     /**

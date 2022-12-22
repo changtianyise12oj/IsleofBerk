@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBRandomLookAroundGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
 import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
+import com.GACMD.isleofberk.entity.AI.taming.DragonRideTilTamed;
 import com.GACMD.isleofberk.entity.AI.target.DragonHurtByTargetGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonMeleeAttackGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
@@ -529,8 +530,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 1.0F, 1.0F, true));
-        this.goalSelector.addGoal(1, new DragonFloatGoal(this));
+        this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 1.0F, 1.0F, true));;
+        this.goalSelector.addGoal(1, new DragonRideTilTamed(this, 1));
         this.goalSelector.addGoal(3, new DragonBreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, getMeleeAttackGoal());
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, 0.7D, 1.0000001E-5F));

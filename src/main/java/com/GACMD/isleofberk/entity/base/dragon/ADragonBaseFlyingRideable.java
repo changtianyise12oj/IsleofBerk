@@ -11,6 +11,7 @@ import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.path.air.DragonFlyingPathNavigation;
 import com.GACMD.isleofberk.entity.AI.path.air.FlyingDragonMoveControl;
 import com.GACMD.isleofberk.entity.AI.target.DragonNonTameRandomTargetGoal;
+import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -182,6 +183,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(1, new DragonFloatGoal(this));
         this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 1.0F, 1.0F, true));
         this.goalSelector.addGoal(0, new DragonCatchOwnerGoal(this));
         this.goalSelector.addGoal(0, new DragonFlyAndAttackAirbourneTargetGoal(this, 1, true));
