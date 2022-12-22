@@ -183,13 +183,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         }
         return PlayState.STOP;
     }
-    private <E extends IAnimatable> PlayState rotUpController(AnimationEvent<E> event) {
-        if(isGoingUp()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("rot0", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-            return PlayState.CONTINUE;
-        }
-        return PlayState.STOP;
-    }
 
     // Animation
     @Override
@@ -197,7 +190,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         data.addAnimationController(new AnimationController<Gronckle>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<Gronckle>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<Gronckle>(this, "turnController", 35, this::turnController));
-        data.addAnimationController(new AnimationController<Gronckle>(this, "rotUpController", 14, this::rotUpController));
     }
 
 

@@ -186,12 +186,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<TripleStryke>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<TripleStryke>(this, "attack_Controller", 0, this::attackController));
-//        data.addAnimationController(new AnimationController<TripleStryke>(this, "turnController", 35, this::turnController));
-<<<<<<< HEAD
-//        data.addAnimationController(new AnimationController<TripleStryke>(this, "rotUpController", 38, this::rotUpController));
-=======
-        data.addAnimationController(new AnimationController<TripleStryke>(this, "rotUpController", 14, this::rotUpController));
->>>>>>> parent of 4708ad1 (new rotUp values)
     }
 
     public TripleStryke(EntityType<? extends TripleStryke> entityType, Level level) {

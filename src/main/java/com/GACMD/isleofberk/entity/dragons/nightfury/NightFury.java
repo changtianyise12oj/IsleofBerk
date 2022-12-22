@@ -197,21 +197,12 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return PlayState.STOP;
     }
 
-    private <E extends IAnimatable> PlayState rotUpController(AnimationEvent<E> event) {
-        if(isGoingUp()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("rot0", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-            return PlayState.CONTINUE;
-        }
-        return PlayState.STOP;
-    }
-
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<NightFury>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<NightFury>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<NightFury>(this, "turnController", 35, this::turnController));
-        data.addAnimationController(new AnimationController<NightFury>(this, "rotUpController", 14, this::rotUpController));
     }
 
     public NightFury(EntityType<? extends NightFury> entityType, Level level) {

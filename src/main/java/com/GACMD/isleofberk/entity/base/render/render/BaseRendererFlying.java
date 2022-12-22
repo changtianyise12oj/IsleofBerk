@@ -71,6 +71,8 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
                         currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, getMaxRise());
                         finalBodyPitch = currentBodyPitch;
                         body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
+                    } else {
+                        body.setRotationX(getMaxRise());
                     }
                 }
 
