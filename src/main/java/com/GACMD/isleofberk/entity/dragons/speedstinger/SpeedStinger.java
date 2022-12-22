@@ -316,7 +316,7 @@ public class SpeedStinger extends ADragonBase {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(5, new FollowOwnerNoTPGoal(this, 1.1D, 10.0F, 3.0F, false));
+        this.goalSelector.addGoal(4, new FollowOwnerNoTPGoal(this, 1.1D, 10.0F, 3.0F, true));
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED), 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new IOBRandomLookAroundGoal(this));
@@ -334,7 +334,7 @@ public class SpeedStinger extends ADragonBase {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Witch.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, true));
-        this.goalSelector.addGoal(4, new SpeedStingerGoToWater(this, 1.5D));
+        this.goalSelector.addGoal(5, new SpeedStingerGoToWater(this, 1.5D));
     }
 
     @Override
