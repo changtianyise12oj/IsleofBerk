@@ -55,49 +55,71 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
     protected void
     modifyPitch(GeoModel model, T dragon, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder,
                 int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+//        GeoBone body = getBone(model, getMainBodyBone()).get();
+//        if (dragon.getPassengers().size() < 2 || dragon.getControllingPassenger() == null) {
+//            if (dragon.isFlying()) {
+//                if (dragon.getControllingPassenger() instanceof Player pilot) {
+//                    if (!dragon.isGoingUp()) {
+//                        // +90 dive -90 rise
+//                        currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, getMaxRise());
+//                        finalBodyPitch = currentBodyPitch;
+//                        body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
+//                    } else {
+//                        body.setRotationX(toRadians(35));
+//                    }
+//                }
+//
+//                if (dragon.getControllingPassenger() == null) {
+//                    currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
+//                }
+//                if (dragon.isDragonFollowing() && dragon.getOwner() instanceof Player player && (dragon instanceof NightFury || dragon instanceof DeadlyNadder || dragon instanceof TripleStryke || dragon instanceof MonstrousNightmare || dragon instanceof ZippleBack) && player.getVehicle() == null) {
+//                    double ydist = dragon.getY() - player.getY();
+//                    if (ydist > 8.3F) {
+//                        pitch -= 4;
+//                        body.setRotationX(toRadians(Mth.clamp(pitch, -90, 0)));
+//                    } else {
+//                        pitch = 0;
+//                    }
+//                }
+//            }
+//        }
         GeoBone body = getBone(model, getMainBodyBone()).get();
-        if (dragon.getPassengers().size() < 2 || dragon.getControllingPassenger() == null) {
+        if (dragon.getPassengers().size() < 2) {
             if (dragon.isFlying()) {
                 if (dragon.getControllingPassenger() instanceof Player pilot) {
                     // approach to 0 if not boosting
                     // approach to maxRise if boosting
-//                    if (dragon.isGoingUp() && boostedBodyPitch >= -40) {
-//                        boostedBodyPitch -= 1;
-//                    } else if (!dragon.isGoingUp()) {
-//                    }
-
-                    if (!dragon.isGoingUp()) {
-                        // +90 dive -90 rise
-                        currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, getMaxRise());
-                        finalBodyPitch = currentBodyPitch;
-                        body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
-                    } else {
-                        body.setRotationX(toRadians(35));
+                    if (dragon.isGoingUp() && boostedBodyPitch >= -40) {
+                        boostedBodyPitch -= 4;
+                    } else if (!dragon.isGoingUp()) {
+                        boostedBodyPitch = Mth.approach(boostedBodyPitch, 0, -1);
                     }
-                }
 
-                if (dragon.getControllingPassenger() == null) {
+                    // +90 dive -90 rise
+                    currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, getMaxRise());
+//                    System.out.println("currentBodyPitch: " + currentBodyPitch);
+//                    System.out.println("boostedBodyPitch: " + boostedBodyPitch);
+//                    System.out.println("-finalBodyPitch: " + -finalBodyPitch);
+//                    System.out.println("-finalBodyPitch radians: " + -finalBodyPitch);
+//                    finalBodyPitch -40: is dive max
+//                    finalBodyPitch 40: is riseMax
+                    finalBodyPitch = currentBodyPitch + boostedBodyPitch;
+                    body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
+
+
+                } else if (dragon.getControllingPassenger() == null) {
                     currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
                 }
-                if (dragon.isDragonFollowing() && dragon.getOwner() instanceof Player player && (dragon instanceof NightFury || dragon instanceof DeadlyNadder || dragon instanceof TripleStryke || dragon instanceof MonstrousNightmare || dragon instanceof ZippleBack) && player.getVehicle() == null) {
-                    double ydist = dragon.getY() - player.getY();
-                    if (ydist > 8.3F) {
-                        pitch -= 4;
-                        body.setRotationX(toRadians(Mth.clamp(pitch, -90, 0)));
-                    } else {
-                        pitch = 0;
-                    }
-                }
             }
-        }
 
-        if (!dragon.isFlying()) {
-            boostedBodyPitch = 0;
-            currentBodyPitch = 0;
-            finalBodyPitch = 0;
+            if (!dragon.isFlying()) {
+                boostedBodyPitch = 0;
+                currentBodyPitch = 0;
+                finalBodyPitch = 0;
 
-            currentBodyYawForRoll = 0;
-            currentBodyYaw = 0;
+                currentBodyYawForRoll = 0;
+                currentBodyYaw = 0;
+            }
         }
 
     }

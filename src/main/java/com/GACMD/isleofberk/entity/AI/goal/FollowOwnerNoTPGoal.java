@@ -36,9 +36,6 @@ public class FollowOwnerNoTPGoal extends Goal {
         this.stopDistance = pStopDistance;
         this.canFly = pCanFly;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-//        if (!(dragon.getNavigation() instanceof GroundPathNavigation) || !(dragon.getNavigation() instanceof FlyingPathNavigation)) {
-//            throw new IllegalArgumentException("Unsupported mob type for FollowOwnerGoal");
-//        }
     }
 
     /**
