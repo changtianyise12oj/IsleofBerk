@@ -322,11 +322,11 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 250.0D)
-                .add(Attributes.ARMOR, 50)
+                .add(Attributes.MAX_HEALTH, 100.0D)
+                .add(Attributes.ARMOR, 4)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.10F)
-                .add(Attributes.ATTACK_DAMAGE, 22F)
+                .add(Attributes.ATTACK_DAMAGE, 12F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.55F);
     }

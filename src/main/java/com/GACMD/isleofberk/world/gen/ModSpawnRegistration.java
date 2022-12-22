@@ -24,83 +24,87 @@ public class ModSpawnRegistration {
     // mesa seed 172070159003879
     // plains seed 4009
     public static void onEntitySpawn(final BiomeLoadingEvent event) {
-        // TODO: stingers are the only ones working try speed stingers. maybe it is caused by missing offspring data?
-        //  stingers alone spawn but deadly nadders alone won't
-        //  ride client/server messages, jumping, breath, ability, are called even if vehicle is not present
-        // TODO: method works addMobSpawn
-        // TODO: nadder spawns if set to ADragonBaseRideableGround
 
-        // TODO: STINGER
+        /**
+        * STINGER
+         */
         addMobSpawnWithBlackList(event, List.of(Biome.BiomeCategory.SAVANNA, Biome.BiomeCategory.MESA, Biome.BiomeCategory.PLAINS), List.of(Biome.BiomeCategory.MOUNTAIN),
                 MobCategory.CREATURE, ModEntities.STINGER.get(), 1, 6, 10, 0.005F);
 
-        // TODO: SPEED STINGER
-        // cave
-        addMobSpawn(event, List.of(Biome.BiomeCategory.UNDERGROUND),
+        /**
+         * SPEED STINGER
+         */
+        addMobSpawn(event, List.of(Biome.BiomeCategory.UNDERGROUND, Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.TAIGA),
                 MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                3, 3, 4, 0.08F); // 0.15F 0.025f
-
-        // taiga
-        addMobSpawn(event, List.of(Biome.BiomeCategory.TAIGA),
-                MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                3, 3, 4, 0.08F); // 0.15F 0.025f
-
-        // ice
+                3, 3, 4, 0.08F);
         addMobSpawnOnSpecificBiomes(event, MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
                 3, 3, 4, 0.08F, Biomes.FROZEN_OCEAN, Biomes.FROZEN_PEAKS,
-                Biomes.FROZEN_RIVER, Biomes.DEEP_FROZEN_OCEAN);
+                Biomes.FROZEN_RIVER, Biomes.DEEP_FROZEN_OCEAN, Biomes.ICE_SPIKES);
 
-        // jungle
-        addMobSpawn(event, List.of(Biome.BiomeCategory.JUNGLE), MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                3, 3, 4, 0.08F);
-
-        // TODO: TERRIBLE TERROR
-        addMobSpawn(event, List.of(Biome.BiomeCategory.BEACH, Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.DESERT),
+        /**
+         * TERRIBLE TERROR
+         */
+        addMobSpawn(event, List.of(Biome.BiomeCategory.BEACH),
                 MobCategory.CREATURE, ModEntities.TERRIBLE_TERROR.get(),
                 3, 6, 10, 0.005F); // 0.1F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TERRIBLE_TERROR.get(),
                 2, 20, 20, 0.005F, Biomes.STONY_SHORE);
 
-        // TODO: TRIPLE STRYKE
-        addMobSpawn(event, List.of(Biome.BiomeCategory.MESA, Biome.BiomeCategory.TAIGA, Biome.BiomeCategory.MOUNTAIN), MobCategory.CREATURE,
+        /**
+         * TRIPLE STRYKE
+         */
+        addMobSpawn(event, List.of(Biome.BiomeCategory.MESA), MobCategory.CREATURE,
                 ModEntities.TRIPLE_STRYKE.get(),
                 1, 1, 1, 0.000001F); // 0.08F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TRIPLE_STRYKE.get(),
-                1, 1, 1, 0.000001F, Biomes.STONY_SHORE);
+                1, 1, 1, 0.000001F, Biomes.SNOWY_TAIGA);
 
-        // TODO: DEADLY_NADDER
-        addMobSpawn(event, List.of(Biome.BiomeCategory.PLAINS, Biome.BiomeCategory.MOUNTAIN, Biome.BiomeCategory.FOREST, Biome.BiomeCategory.SAVANNA, Biome.BiomeCategory.BEACH), MobCategory.CREATURE,
+        /**
+         * DEADLY NADDER
+         */
+
+        addMobSpawn(event, List.of(Biome.BiomeCategory.SAVANNA), MobCategory.CREATURE,
                 ModEntities.DEADLY_NADDER.get(),
-                3, 3, 5, 0.005F); // 0,035F
+                1, 1, 1, 0.005F); // 0.08F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.DEADLY_NADDER.get(),
-                3, 4, 6, 0.005F, Biomes.STONY_SHORE);
+                3, 4, 6, 0.005F, Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.GROVE, Biomes.SNOWY_PLAINS, Biomes.SPARSE_JUNGLE, Biomes.MEADOW);
 
-        // TODO: GRONCKLE
-        addMobSpawn(event, List.of(Biome.BiomeCategory.PLAINS, Biome.BiomeCategory.ICY, Biome.BiomeCategory.FOREST, Biome.BiomeCategory.SWAMP, Biome.BiomeCategory.SAVANNA), MobCategory.CREATURE,
+        /**
+         * GRONCKLE
+         */
+
+        addMobSpawn(event, List.of(Biome.BiomeCategory.SAVANNA), MobCategory.CREATURE,
                 ModEntities.GRONCKLE.get(),
-                3, 3, 5, 0.005F); // 0.035F
+                1, 1, 1, 0.005F); // 0.08F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.GRONCKLE.get(),
-                3, 4, 6, 0.005F, Biomes.STONY_SHORE);
+                3, 4, 6, 0.005F, Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.SWAMP);
 
-        // TODO: NIGHT FURY
+        /**
+         * NIGHT FURY
+         */
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.NIGHT_FURY.get(),
-                1, 1, 1, 0.000001F, Biomes.STONY_SHORE, Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
-                Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST);
+                1, 1, 1, 0.0000002F, Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
+                Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
 
-        // TODO: LIGHT FURY
+        /**
+         * LIGHT FURY
+         */
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.LIGHT_FURY.get(),
-                1, 1, 1, 0.000001F, Biomes.STONY_SHORE, Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
+                1, 1, 1, 0.0000001F, Biomes.STONY_SHORE, Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS,
                 Biomes.WINDSWEPT_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.BIRCH_FOREST);
 
-        // TODO: MONSTROUS NIGHTMARE
+        /**
+         * MONSTROUS NIGHTMARE
+         */
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.MONSTROUS_NIGHTMARE.get(),
                 1, 2, 3, 0.005F, Biomes.STONY_SHORE, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST,
                 Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.ERODED_BADLANDS);
 
-        // TODO: ZIPPLEBACK
+        /**
+         * HIDEOUS ZIPPLEBACK
+         */
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.ZIPPLEBACK.get(),
-                1, 2, 3, 0.005F, Biomes.STONY_SHORE, Biomes.SNOWY_PLAINS, Biomes.ICE_SPIKES, Biomes.SWAMP,
-                Biomes.SPARSE_JUNGLE);
+                1, 2, 3, 0.005F, Biomes.SWAMP, Biomes.SPARSE_JUNGLE, Biomes.SNOWY_PLAINS, Biomes.ICE_SPIKES);
 
     }
 

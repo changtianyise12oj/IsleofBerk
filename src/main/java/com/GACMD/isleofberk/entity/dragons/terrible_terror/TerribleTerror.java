@@ -248,10 +248,10 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 18.0D)
-                .add(Attributes.ARMOR, 8)
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.ARMOR, 0.5)
                 .add(Attributes.MOVEMENT_SPEED, 0.3F)
-                .add(Attributes.ATTACK_DAMAGE, 14F)
+                .add(Attributes.ATTACK_DAMAGE, 2F)
                 .add(ForgeMod.SWIM_SPEED.get(), 4F)
                 .add(Attributes.ATTACK_DAMAGE, 2F);
     }

@@ -142,10 +142,10 @@ public class SpeedStingerLeader extends SpeedStinger {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 120.0D)
-                .add(Attributes.ARMOR, 20)
+                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.ARMOR, 2)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
-                .add(Attributes.ATTACK_DAMAGE, 4.5F)
+                .add(Attributes.ATTACK_DAMAGE, 10F)
                 .add(Attributes.FOLLOW_RANGE, 7F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
                 .add(ForgeMod.SWIM_SPEED.get(), 10);
