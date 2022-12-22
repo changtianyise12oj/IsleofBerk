@@ -322,7 +322,8 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         }
 
         IForgeItem forgeItem = itemstack.getItem();
-        int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
+//        int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
+        int nutrition = 6;
         this.heal(nutrition);
     }
 

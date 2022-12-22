@@ -28,7 +28,7 @@ public class DragonElytraFlyingWithOwnerGoal extends ADragonBaseBaseFlyingRideab
             }
 
             // follow if elytra flying and owner is riding on the dragon to the sky
-            return owner.isFallFlying() || (owner.getVehicle() != null && !owner.isOnGround());
+            return owner.isFallFlying() || (owner.getVehicle() != null && !owner.isOnGround()) || (owner.getVehicle() instanceof ADragonBaseFlyingRideable dragon && dragon.isDragonOnGround());
         }
         return false;
     }
@@ -42,10 +42,12 @@ public class DragonElytraFlyingWithOwnerGoal extends ADragonBaseBaseFlyingRideab
             if(!dragon.isFlying()) {
                 dragon.setIsFlying(true);
             }
-            Vec3 movePos = new Vec3(owner.getX(), owner.getY() + 4, owner.getZ());
-            // now count the index and make them spread, only happens when the entire class AI kicks in
-            tailingDragons.put(owner.getUUID(),dragon);
-            dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * 3), movePos.y(), movePos.z() + (tailingDragons.size() * 3), 4);
+
+                Vec3 movePos = new Vec3(owner.getX(), owner.getY() + 4, owner.getZ());
+                // now count the index and make them spread, only happens when the entire class AI kicks in
+                tailingDragons.put(owner.getUUID(), dragon);
+                dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * 3), movePos.y(), movePos.z() + (tailingDragons.size() * 3), 4);
+
         }
     }
 

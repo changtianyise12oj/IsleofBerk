@@ -27,6 +27,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -40,10 +41,12 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.Animal;
@@ -53,13 +56,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.pathfinder.PathFinder;
+import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.event.ForgeEventFactory;
@@ -153,9 +160,6 @@ public class SpeedStinger extends ADragonBase {
         return PlayState.STOP;
     }
 
-//    public boolean canStandOnFluid(Fluid fluid) {
-//        return fluid.isSame(FluidTags.WATER);
-//    }
 
     @Override
     public void registerControllers(AnimationData data) {
@@ -172,6 +176,22 @@ public class SpeedStinger extends ADragonBase {
     public SpeedStinger(EntityType<? extends SpeedStinger> animal, Level world) {
         super(animal, world);
         this.xpReward = 25;
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
+    }
+
+    private void floatStinger() {
+        if (this.isInWater()) {
+            CollisionContext collisioncontext = CollisionContext.of(this);
+            if (collisioncontext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level.getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
+                this.onGround = true;
+            } else {
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.5D).add(0.0D, 0.05D, 0.0D));
+            }
+        }
+
     }
 
     /**
@@ -297,11 +317,6 @@ public class SpeedStinger extends ADragonBase {
     }
 
     @Override
-    protected PathNavigation createNavigation(Level pLevel) {
-        return super.createNavigation(pLevel);
-    }
-
-    @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
         return stack.is(Items.RABBIT);
     }
@@ -315,7 +330,6 @@ public class SpeedStinger extends ADragonBase {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new SpeedStingerCustomMeleeAttackGoal(this, 1.4D, true));
         this.goalSelector.addGoal(5, new FollowOwnerNoTPGoal(this, 1.1D, 10.0F, 3.0F, false));
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED), 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
@@ -334,6 +348,7 @@ public class SpeedStinger extends ADragonBase {
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Witch.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, true));
+        this.goalSelector.addGoal(4, new SpeedStingerGoToWater(this, 1.5D));
     }
 
     @Override
@@ -455,7 +470,6 @@ public class SpeedStinger extends ADragonBase {
         return 6;
     }
 
-
     private void findPotentialLeader() {
         SpeedStingerLeader speedStingerLeaderEntity = level.getNearestEntity(level.getEntitiesOfClass(SpeedStingerLeader.class, getTargetSearchArea(this.getFollowDistance())),
                 TargetingConditions.forNonCombat(), this, this.getX(), this.getEyeY(), this.getZ());
@@ -496,7 +510,8 @@ public class SpeedStinger extends ADragonBase {
         Item item = itemstack.getItem();
         if (!itemstack.isEmpty()) {
             IForgeItem forgeItem = itemstack.getItem();
-            int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
+//            int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
+            int nutrition = 6;
             // hunger limits the player's phase one progress. Dragons don't eat when they are full.
             // thus preventing the quick tame of dragon's
             if (!isTame()) {
@@ -557,26 +572,6 @@ public class SpeedStinger extends ADragonBase {
         }
         return super.mobInteract(pPlayer, pHand);
     }
-
-    public void circleEntity(Entity target, float radius, float speed, boolean direction, int circleFrame, float offset, float moveSpeedMultiplier) {
-        int directionInt = direction ? 1 : -1;
-        double t = 1 * circleFrame * 0.5 * speed / radius + offset;
-        Vec3 movePos = target.position().add(radius * Math.cos(t), 0, radius * Math.sin(t));
-        this.navigation.moveTo(movePos.x(), movePos.y(), movePos.z(), speed * moveSpeedMultiplier);
-    }
-
-//    public void circleTarget(Entity target, float speed, float moveSpeedMultiplier, float radius, boolean direction) {
-//        int directionInt = direction ? 1 : -1;
-//        Vec2 rotation = target.getRotationVector();
-//        double t = 1 * tickCount * 1 * speed / radius;
-//        Vec3 movePos = target.position().add(radius * Math.cos(t), 0, radius * Math.sin(t));
-//        Vec3 movePos = target.position().add(
-//                radius * (target.getRotationVector().x - 45 * Math.PI / 180),
-//                0,
-//                radius * (target.getRotationVector().x - 45 * Math.PI / 180));
-//        this.navigation.moveTo(movePos.x(), movePos.y(), movePos.z(), speed * moveSpeedMultiplier);
-//    }
-
 
     @Override
     public void setTame(boolean pTamed) {
@@ -640,7 +635,6 @@ public class SpeedStinger extends ADragonBase {
         }
     }
 
-
     @org.jetbrains.annotations.Nullable
     public ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {
         SpeedStingerEgg dragon = ModEntities.SPEED_STINGER_EGG.get().create(level);
@@ -671,18 +665,79 @@ public class SpeedStinger extends ADragonBase {
         } else {
             jumpTicks = 0;
         }
+
+        floatStinger();
+    }
+
+    protected @NotNull PathNavigation createNavigation(@NotNull Level pLevel) {
+        return new SpeedStingerPathNavigation(this, pLevel);
+    }
+
+    public float getWalkTargetValue(@NotNull BlockPos pPos, LevelReader pLevel) {
+        if (pLevel.getBlockState(pPos).getFluidState().is(FluidTags.WATER)) {
+            return 10.0F;
+        } else {
+            return this.isInWater() ? Float.NEGATIVE_INFINITY : 0.0F;
+        }
     }
 
 
-    protected static class SpeedStingerCustomMeleeAttackGoal extends MeleeAttackGoal {
+    static class SpeedStingerGoToWater extends MoveToBlockGoal {
+        private final SpeedStinger ss;
 
-        SpeedStinger speedStingerEntity;
-
-        public SpeedStingerCustomMeleeAttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
-            super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
-            this.speedStingerEntity = (SpeedStinger) pMob;
+        SpeedStingerGoToWater(SpeedStinger pSpeedStinger, double pSpeedModifier) {
+            super(pSpeedStinger, pSpeedModifier, 8, 2);
+            this.ss = pSpeedStinger;
         }
 
+        public BlockPos getMoveToTarget() {
+            return this.blockPos;
+        }
+
+        /**
+         * Returns whether an in-progress EntityAIBase should continue executing
+         */
+        public boolean canContinueToUse() {
+            return !this.ss.isInWater() && this.isValidTarget(this.ss.level, this.blockPos);
+        }
+
+        /**
+         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
+         * method as well.
+         */
+        public boolean canUse() {
+            return !this.ss.isInWater() && super.canUse();
+        }
+
+        public boolean shouldRecalculatePath() {
+            return this.tryTicks % 20 == 0;
+        }
+
+        /**
+         * Return true to set given position as destination
+         */
+        protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
+            return pLevel.getBlockState(pPos).is(Blocks.WATER) && pLevel.getBlockState(pPos.above()).isPathfindable(pLevel, pPos, PathComputationType.LAND);
+        }
+    }
+
+    static class SpeedStingerPathNavigation extends GroundPathNavigation {
+        SpeedStingerPathNavigation(SpeedStinger pSpeedStinger, Level pLevel) {
+            super(pSpeedStinger, pLevel);
+        }
+
+        protected PathFinder createPathFinder(int pMaxVisitedNodes) {
+            this.nodeEvaluator = new WalkNodeEvaluator();
+            return new PathFinder(this.nodeEvaluator, pMaxVisitedNodes);
+        }
+
+        protected boolean hasValidPathType(BlockPathTypes pPathType) {
+            return pPathType != BlockPathTypes.WATER &&  super.hasValidPathType(pPathType);
+        }
+
+        public boolean isStableDestination(BlockPos pPos) {
+            return this.level.getBlockState(pPos).is(Blocks.WATER) || super.isStableDestination(pPos);
+        }
     }
 
     protected static class SpeedStingerCustomLeapAttackGoal extends LeapAtTargetGoal {

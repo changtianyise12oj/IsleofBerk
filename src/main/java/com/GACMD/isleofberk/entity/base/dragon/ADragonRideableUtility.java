@@ -2,7 +2,6 @@ package com.GACMD.isleofberk.entity.base.dragon;
 
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.gui.DragonContainerMenu;
-import com.GACMD.isleofberk.entity.AI.goal.TeleportToOwnerWhenFarAway;
 import com.GACMD.isleofberk.entity.AI.taming.DragonRideTilTamed;
 import com.GACMD.isleofberk.entity.dragons.terrible_terror.TerribleTerror;
 import com.GACMD.isleofberk.util.Util;
@@ -95,7 +94,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(1, new TeleportToOwnerWhenFarAway(this));
         this.goalSelector.addGoal(1, new DragonRideTilTamed(this, 1));
     }
 
@@ -124,7 +122,8 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     protected void foodTamingInteraction(Player pPlayer, InteractionHand pHand, ItemStack itemstack) {
         if (!itemstack.isEmpty()) {
             IForgeItem forgeItem = itemstack.getItem();
-            int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
+//            int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
+            int nutrition = 6;
             // phase 1 progress limits the player's phase one progress. Dragons don't eat when they are full.
             // thus preventing the quick tame of dragon's
             // dragon that is subject for taming will not fly away
