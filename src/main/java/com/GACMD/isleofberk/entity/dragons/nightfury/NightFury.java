@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.nightfury;
 
+import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightFuryEgg;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
@@ -270,13 +271,14 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Override
     protected void registerGoals() {
         super.registerGoals();
+        this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 10.0F, 3.0F, true));
         this.targetSelector.addGoal(1, new T4DragonPotionRequirement(this, 1));
     }
 
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 120.0D)
+                .add(Attributes.MAX_HEALTH, 80.0D)
                 .add(Attributes.ARMOR, 30)
                 .add(Attributes.MOVEMENT_SPEED, 0.2F)
                 .add(Attributes.FLYING_SPEED, 0.18F)

@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.entity.AI.goal.IOBRandomLookAroundGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
 import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
+import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
@@ -109,6 +110,7 @@ public class SpeedStinger extends ADragonBase {
 
     protected int ticksSinceLastStingAttack = 0;
     protected int jumpTicks = 0;
+    private Object heal;
 
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if (event.isMoving() && !shouldStopMovingIndependently()) {
@@ -205,7 +207,6 @@ public class SpeedStinger extends ADragonBase {
                 pLevel.getBlockState(pPos.below()).is(BlockTags.LEAVES) || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS) ||
                 pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_PICKAXE) || pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_SHOVEL)
                 || isDarkEnoughToSpawn((ServerLevelAccessor) pLevel, pPos, pRandom) || pLevel.getBlockState(blockpos).isValidSpawn(pLevel, blockpos, pAnimal);
-//                && !pLevel.canSeeSky(pPos);
     }
 
     public static boolean checkBatSpawnRules(EntityType<? extends Animal> pBat, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
@@ -223,13 +224,6 @@ public class SpeedStinger extends ADragonBase {
             return $$5 <= pRandom.nextInt($$6) && checkMobSpawnRules(pBat, pLevel, pSpawnType, pPos, pRandom);
         }
     }
-
-//    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pAnimal, ServerLevelAccessor pLevel, MobSpawnType pReason, BlockPos pPos, Random pRandom) {
-//        return pPos.getY() <= pLevel.getSeaLevel() - 33 && pLevel.getRawBrightness(pPos, 0) == 0 && pLevel.getBlockState(pPos).is(Blocks.WATER);
-//        return pPos.getY() <= pLevel.getSeaLevel() - 33 && pLevel.getRawBrightness(pPos, 0) == 0 && pLevel.getBlockState(pPos).is(Blocks.CAVE_AIR);
-//        return pReason == MobSpawnType.SPAWNER || !pLevel.canSeeSky(pPos) && pPos.getY() <= 60 && checkMonsterSpawnRules(pAnimal, pLevel, pReason, pPos, pRandom);
-//
-//    }
 
     private static boolean isHalloween() {
         LocalDate $$0 = LocalDate.now();
@@ -250,13 +244,6 @@ public class SpeedStinger extends ADragonBase {
         }
     }
 
-//    public static boolean checkMonsterSpawnRules(EntityType<? extends Animal> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
-//        return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
-//    }
-
-//    public static boolean checkMonsterSpawnRules(EntityType<? extends Animal> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
-//        return isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
-//    }
 
     public static boolean checkAnyLightMonsterSpawnRules(EntityType<? extends SpeedStinger> pType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
         return checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
@@ -329,7 +316,6 @@ public class SpeedStinger extends ADragonBase {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(5, new FollowOwnerNoTPGoal(this, 1.1D, 10.0F, 3.0F, false));
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED), 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
@@ -533,7 +519,7 @@ public class SpeedStinger extends ADragonBase {
             } else {
                 if (this.isFoodEdibleToDragon(itemstack) && canEatWithFoodOnHand(true)) {
                     if (this.getHealth() < getMaxHealth()) {
-                        this.heal(nutrition);
+                        Object heal1 = this.heal;
                         this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
                         this.addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
                         if (!pPlayer.getAbilities().instabuild) {
@@ -542,7 +528,7 @@ public class SpeedStinger extends ADragonBase {
                     }
                     // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
                     if (getHealth() < getMaxHealth()) {
-                        this.heal(nutrition);
+                        Object heal1 = this.heal;
                         if (!pPlayer.getAbilities().instabuild) {
                             itemstack.shrink(1);
                         }
@@ -670,7 +656,7 @@ public class SpeedStinger extends ADragonBase {
     }
 
     protected @NotNull PathNavigation createNavigation(@NotNull Level pLevel) {
-        return new SpeedStingerPathNavigation(this, pLevel);
+        return super.createNavigation(pLevel);
     }
 
     public float getWalkTargetValue(@NotNull BlockPos pPos, LevelReader pLevel) {
@@ -726,13 +712,13 @@ public class SpeedStinger extends ADragonBase {
             super(pSpeedStinger, pLevel);
         }
 
-        protected PathFinder createPathFinder(int pMaxVisitedNodes) {
+        protected @NotNull PathFinder createPathFinder(int pMaxVisitedNodes) {
             this.nodeEvaluator = new WalkNodeEvaluator();
             return new PathFinder(this.nodeEvaluator, pMaxVisitedNodes);
         }
 
         protected boolean hasValidPathType(BlockPathTypes pPathType) {
-            return pPathType != BlockPathTypes.WATER &&  super.hasValidPathType(pPathType);
+            return pPathType == BlockPathTypes.WATER || pPathType == BlockPathTypes.DANGER_FIRE || super.hasValidPathType(pPathType);
         }
 
         public boolean isStableDestination(BlockPos pPos) {

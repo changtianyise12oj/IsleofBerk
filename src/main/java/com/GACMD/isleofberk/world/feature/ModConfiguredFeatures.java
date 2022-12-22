@@ -25,6 +25,6 @@ public class ModConfiguredFeatures {
         OreConfiguration.target(OreFeatures.DEEPSLATE_ORE_REPLACEABLES, ModBlocks.BELZIUM_ORE.get().defaultBlockState()));
 
     public static final Holder<ConfiguredFeature<OreConfiguration, ?>> BELZIUM_ORE = FeatureUtils.register("belzium_ore",
-        Feature.ORE, new OreConfiguration(OVERWORLD_BELZIUM_ORES, 9));
+        Feature.ORE, new OreConfiguration(OVERWORLD_BELZIUM_ORES, 3));
 
 }
