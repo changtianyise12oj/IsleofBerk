@@ -29,7 +29,7 @@ public class ModSpawnRegistration {
         * STINGER
          */
         addMobSpawnWithBlackList(event, List.of(Biome.BiomeCategory.SAVANNA, Biome.BiomeCategory.MESA, Biome.BiomeCategory.PLAINS), List.of(Biome.BiomeCategory.MOUNTAIN),
-                MobCategory.CREATURE, ModEntities.STINGER.get(), 1, 6, 10, 0.005F);
+                MobCategory.CREATURE, ModEntities.STINGER.get(), 1, 6, 10, 0.05F);
 
         /**
          * SPEED STINGER
@@ -46,9 +46,9 @@ public class ModSpawnRegistration {
          */
         addMobSpawn(event, List.of(Biome.BiomeCategory.BEACH),
                 MobCategory.CREATURE, ModEntities.TERRIBLE_TERROR.get(),
-                3, 6, 10, 0.005F); // 0.1F
+                3, 6, 10, 0.05F); // 0.1F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TERRIBLE_TERROR.get(),
-                2, 20, 20, 0.005F, Biomes.STONY_SHORE);
+                2, 20, 20, 0.05F, Biomes.STONY_SHORE);
 
         /**
          * TRIPLE STRYKE
@@ -65,9 +65,9 @@ public class ModSpawnRegistration {
 
         addMobSpawn(event, List.of(Biome.BiomeCategory.SAVANNA), MobCategory.CREATURE,
                 ModEntities.DEADLY_NADDER.get(),
-                1, 1, 1, 0.005F); // 0.08F
+                1, 1, 1, 0.03F); // 0.08F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.DEADLY_NADDER.get(),
-                3, 4, 6, 0.005F, Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.GROVE, Biomes.SNOWY_PLAINS, Biomes.SPARSE_JUNGLE, Biomes.MEADOW);
+                3, 4, 6, 0.03F, Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.GROVE, Biomes.SNOWY_PLAINS, Biomes.SPARSE_JUNGLE, Biomes.MEADOW);
 
         /**
          * GRONCKLE
@@ -75,22 +75,22 @@ public class ModSpawnRegistration {
 
         addMobSpawn(event, List.of(Biome.BiomeCategory.SAVANNA), MobCategory.CREATURE,
                 ModEntities.GRONCKLE.get(),
-                1, 1, 1, 0.005F); // 0.08F
+                1, 1, 1, 0.03F); // 0.08F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.GRONCKLE.get(),
-                3, 4, 6, 0.005F, Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.SWAMP);
+                3, 4, 6, 0.03F, Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.SWAMP);
 
         /**
          * NIGHT FURY
          */
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.NIGHT_FURY.get(),
-                1, 1, 1, 0.0000002F, Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
+                1, 1, 1, 0.000001F, Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
                 Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
 
         /**
          * LIGHT FURY
          */
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.LIGHT_FURY.get(),
-                1, 1, 1, 0.0000001F, Biomes.STONY_SHORE, Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS,
+                1, 1, 1, 0.000001F, Biomes.STONY_SHORE, Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS,
                 Biomes.WINDSWEPT_FOREST, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.BIRCH_FOREST);
 
         /**

@@ -153,7 +153,7 @@ public class SpeedStinger extends ADragonBase {
 
         LivingEntity target = getTarget();
         if (target != null) {
-            if (!isOnGround() && event.isMoving() && !target.isDeadOrDying()) {
+            if (!isSpeedStingerOnGround() && event.isMoving() && !target.isDeadOrDying()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerPounce", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
@@ -169,8 +169,7 @@ public class SpeedStinger extends ADragonBase {
         data.addAnimationController(new AnimationController<SpeedStinger>(this, "speed_stinger_controller_attacks", 0, this::attackController));
     }
 
-    @Override
-    public boolean isOnGround() {
+    public boolean isSpeedStingerOnGround() {
         BlockPos solidPos = new BlockPos(this.position().x, this.position().y - 1, this.position().z);
         return !level.getBlockState(solidPos).isAir();
     }
@@ -208,30 +207,6 @@ public class SpeedStinger extends ADragonBase {
                 pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_PICKAXE) || pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_SHOVEL)
                 || isDarkEnoughToSpawn((ServerLevelAccessor) pLevel, pPos, pRandom) || pLevel.getBlockState(blockpos).isValidSpawn(pLevel, blockpos, pAnimal);
     }
-
-    public static boolean checkBatSpawnRules(EntityType<? extends Animal> pBat, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
-        if (pPos.getY() >= pLevel.getSeaLevel()) {
-            return false;
-        } else {
-            int $$5 = pLevel.getMaxLocalRawBrightness(pPos);
-            int $$6 = 4;
-            if (isHalloween()) {
-                $$6 = 7;
-            } else if (pRandom.nextBoolean()) {
-                return false;
-            }
-
-            return $$5 <= pRandom.nextInt($$6) && checkMobSpawnRules(pBat, pLevel, pSpawnType, pPos, pRandom);
-        }
-    }
-
-    private static boolean isHalloween() {
-        LocalDate $$0 = LocalDate.now();
-        int $$1 = $$0.get(ChronoField.DAY_OF_MONTH);
-        int $$2 = $$0.get(ChronoField.MONTH_OF_YEAR);
-        return $$2 == 10 && $$1 >= 20 || $$2 == 11 && $$1 <= 3;
-    }
-
 
     public static boolean isDarkEnoughToSpawn(ServerLevelAccessor pLevel, BlockPos pPos, Random pRandom) {
         if (pLevel.getBrightness(LightLayer.SKY, pPos) > pRandom.nextInt(32)) {
@@ -676,7 +651,7 @@ public class SpeedStinger extends ADragonBase {
             this.ss = pSpeedStinger;
         }
 
-        public BlockPos getMoveToTarget() {
+        public @NotNull BlockPos getMoveToTarget() {
             return this.blockPos;
         }
 
@@ -702,7 +677,7 @@ public class SpeedStinger extends ADragonBase {
         /**
          * Return true to set given position as destination
          */
-        protected boolean isValidTarget(LevelReader pLevel, BlockPos pPos) {
+        protected boolean isValidTarget(LevelReader pLevel, @NotNull BlockPos pPos) {
             return pLevel.getBlockState(pPos).is(Blocks.WATER) && pLevel.getBlockState(pPos.above()).isPathfindable(pLevel, pPos, PathComputationType.LAND);
         }
     }
@@ -717,11 +692,11 @@ public class SpeedStinger extends ADragonBase {
             return new PathFinder(this.nodeEvaluator, pMaxVisitedNodes);
         }
 
-        protected boolean hasValidPathType(BlockPathTypes pPathType) {
+        protected boolean hasValidPathType(@NotNull BlockPathTypes pPathType) {
             return pPathType == BlockPathTypes.WATER || pPathType == BlockPathTypes.DANGER_FIRE || super.hasValidPathType(pPathType);
         }
 
-        public boolean isStableDestination(BlockPos pPos) {
+        public boolean isStableDestination(@NotNull BlockPos pPos) {
             return this.level.getBlockState(pPos).is(Blocks.WATER) || super.isStableDestination(pPos);
         }
     }
@@ -750,9 +725,8 @@ public class SpeedStinger extends ADragonBase {
                     return false;
                 } else {
                     double d0 = Math.sqrt(this.speedStingerEntity.distanceToSqr(this.target.getX(), 0, this.target.getZ()));
-//                    if (!(d0 < 4.0D) && !(d0 > 16.0D)) {
                     if (d0 > 6) {
-                        if (!this.speedStingerEntity.isOnGround()) {
+                        if (!this.speedStingerEntity.isSpeedStingerOnGround()) {
                             return false;
                         } else {
                             return this.speedStingerEntity.getRandom().nextInt(reducedTickDelay(75)) == 0;

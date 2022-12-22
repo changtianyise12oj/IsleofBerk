@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.entity.AI.taming.T2DragonFeedTamingGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.GronkleEgg;
 import com.GACMD.isleofberk.registery.ModEntities;
@@ -182,14 +183,21 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         }
         return PlayState.STOP;
     }
-
+    private <E extends IAnimatable> PlayState rotUpController(AnimationEvent<E> event) {
+        if(isGoingUp()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("rot0", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
+    }
 
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<Gronckle>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<Gronckle>(this, "attack_Controller", 0, this::attackController));
-        data.addAnimationController(new AnimationController<Gronckle>(this, "turnController", 24, this::turnController));
+        data.addAnimationController(new AnimationController<Gronckle>(this, "turnController", 35, this::turnController));
+        data.addAnimationController(new AnimationController<Gronckle>(this, "rotUpController", 14, this::rotUpController));
     }
 
 

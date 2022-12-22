@@ -3,8 +3,8 @@ package com.GACMD.isleofberk.entity.AI.goal;
 //edit of vanilla FollowOwnerGoal
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
@@ -83,8 +83,10 @@ public class FollowOwnerNoTPGoal extends Goal {
      */
     public void start() {
         this.timeToRecalcPath = 0;
-        this.oldWaterCost = this.dragon.getPathfindingMalus(BlockPathTypes.WATER);
-        this.dragon.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        if (!(dragon instanceof SpeedStinger)) {
+            this.oldWaterCost = this.dragon.getPathfindingMalus(BlockPathTypes.WATER);
+            this.dragon.setPathfindingMalus(BlockPathTypes.WATER, 1.0F);
+        }
     }
 
     /**
@@ -93,7 +95,9 @@ public class FollowOwnerNoTPGoal extends Goal {
     public void stop() {
         this.owner = null;
         this.navigation.stop();
-        this.dragon.setPathfindingMalus(BlockPathTypes.WATER, this.oldWaterCost);
+        if (!(dragon instanceof SpeedStinger)) {
+            this.dragon.setPathfindingMalus(BlockPathTypes.WATER, this.oldWaterCost);
+        }
     }
 
     /**

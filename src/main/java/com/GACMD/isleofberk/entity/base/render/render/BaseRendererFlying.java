@@ -1,11 +1,9 @@
 package com.GACMD.isleofberk.entity.base.render.render;
 
-import com.GACMD.isleofberk.entity.base.render.layer.LayerDragonRider;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
-import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
 import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmare;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.dragons.tryiple_stryke.TripleStryke;
 import com.GACMD.isleofberk.entity.dragons.zippleback.ZippleBack;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -66,29 +64,20 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
 //                    if (dragon.isGoingUp() && boostedBodyPitch >= -40) {
 //                        boostedBodyPitch -= 1;
 //                    } else if (!dragon.isGoingUp()) {
-                        boostedBodyPitch = Mth.approach(boostedBodyPitch, 0, -1);
 //                    }
 
-                    // +90 dive -90 rise
-                    currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, getMaxRise());
-                    finalBodyPitch = currentBodyPitch + boostedBodyPitch;
-                    body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
-
+                    if (!dragon.isGoingUp()) {
+                        // +90 dive -90 rise
+                        currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, getMaxRise());
+                        finalBodyPitch = currentBodyPitch;
+                        body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
+                    }
                 }
 
-//                if (hasDynamicYawAndRoll() && dragon.getControllingPassenger() instanceof Player) {
-//                    float f = Mth.rotLerp(partialTicks, dragon.yBodyRotO, dragon.yBodyRot);
-//                    float f1 = Mth.rotLerp(partialTicks, dragon.yHeadRotO, dragon.yHeadRot);
-//                    changeInYaw = (f1 - f) * ((float) Math.PI / 180F) * -1.5F;
-//                    dragon.setChangeInYaw((f1 - f) * ((float) Math.PI / 180F) * -1.5F);
-////                         the rotation is based on yaw
-//                    body.setRotationZ(Mth.clamp(dragon.getChangeInYaw(), -8, 8));
-//                    body.setRotationZ(changeInYaw);
-//                } else
                 if (dragon.getControllingPassenger() == null) {
                     currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
                 }
-                if (dragon.isDragonFollowing() && dragon.getOwner() instanceof Player player && (dragon instanceof NightFury || dragon instanceof DeadlyNadder || dragon instanceof TripleStryke ||dragon instanceof MonstrousNightmare || dragon instanceof ZippleBack) && player.getVehicle() == null) {
+                if (dragon.isDragonFollowing() && dragon.getOwner() instanceof Player player && (dragon instanceof NightFury || dragon instanceof DeadlyNadder || dragon instanceof TripleStryke || dragon instanceof MonstrousNightmare || dragon instanceof ZippleBack) && player.getVehicle() == null) {
                     double ydist = dragon.getY() - player.getY();
                     if (ydist > 8.3F) {
                         pitch -= 4;

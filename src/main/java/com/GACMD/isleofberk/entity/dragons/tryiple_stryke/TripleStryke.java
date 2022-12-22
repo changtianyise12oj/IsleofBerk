@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.AI.target.DragonMeleeAttackGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.TripleStrykeEgg;
 import com.GACMD.isleofberk.entity.projectile.ScalableParticleType;
@@ -172,13 +173,21 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         return PlayState.STOP;
 
     }
+    private <E extends IAnimatable> PlayState rotUpController(AnimationEvent<E> event) {
+        if(isGoingUp()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("rot0", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
+    }
 
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<TripleStryke>(this, "basic_MovementController", 2, this::basicMovementController));
+        data.addAnimationController(new AnimationController<TripleStryke>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<TripleStryke>(this, "attack_Controller", 0, this::attackController));
-        data.addAnimationController(new AnimationController<TripleStryke>(this, "sting_attack_controller", 0, this::stingAttackController));
+//        data.addAnimationController(new AnimationController<TripleStryke>(this, "turnController", 35, this::turnController));
+        data.addAnimationController(new AnimationController<TripleStryke>(this, "rotUpController", 14, this::rotUpController));
     }
 
     public TripleStryke(EntityType<? extends TripleStryke> entityType, Level level) {
