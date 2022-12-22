@@ -419,10 +419,10 @@ public class SpeedStinger extends ADragonBase {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 35.0D)
-                .add(Attributes.ARMOR, 10)
+                .add(Attributes.MAX_HEALTH, 30.0D)
+                .add(Attributes.ARMOR, 2)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
-                .add(Attributes.ATTACK_DAMAGE, 3.5F)
+                .add(Attributes.ATTACK_DAMAGE, 8F)
                 .add(Attributes.FOLLOW_RANGE, 5F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
                 .add(ForgeMod.SWIM_SPEED.get(), 10);

@@ -56,11 +56,11 @@ public class LightFury extends NightFury {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 90.0D)
-                .add(Attributes.ARMOR, 10)
+                .add(Attributes.MAX_HEALTH, 60.0D)
+                .add(Attributes.ARMOR, 0.5)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
-                .add(Attributes.FLYING_SPEED, 0.14F)
-                .add(Attributes.ATTACK_DAMAGE, 15F)
+                .add(Attributes.FLYING_SPEED, 0.28F)
+                .add(Attributes.ATTACK_DAMAGE, 12F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F);
     }
 
