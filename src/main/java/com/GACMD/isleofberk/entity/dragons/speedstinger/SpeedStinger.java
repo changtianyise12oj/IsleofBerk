@@ -64,6 +64,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.pathfinder.PathFinder;
@@ -180,9 +181,6 @@ public class SpeedStinger extends ADragonBase {
         super(animal, world);
         this.xpReward = 25;
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
-        this.setPathfindingMalus(BlockPathTypes.LAVA, -1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1.0F);
     }
 
     private void floatStinger() {
@@ -195,6 +193,10 @@ public class SpeedStinger extends ADragonBase {
             }
         }
 
+    }
+
+    public boolean canStandOnFluid(FluidState p_204067_) {
+        return p_204067_.is(FluidTags.WATER);
     }
 
     /**
@@ -635,8 +637,12 @@ public class SpeedStinger extends ADragonBase {
         return new SpeedStingerPathNavigation(this , level);
     }
 
-    public float getWalkTargetValue(@NotNull BlockPos pPos, LevelReader pLevel) {
-        return pLevel.getFluidState(pPos).is(FluidTags.WATER) ? 10.0F : super.getWalkTargetValue(pPos, pLevel);
+    public float getWalkTargetValue(BlockPos pPos, LevelReader pLevel) {
+        if (pLevel.getBlockState(pPos).getFluidState().is(FluidTags.WATER)) {
+            return 10.0F;
+        } else {
+            return this.isInWater() || this.isWaterBelow() ? Float.NEGATIVE_INFINITY : 0.0F;
+        }
     }
 
 
@@ -689,11 +695,11 @@ public class SpeedStinger extends ADragonBase {
             return new PathFinder(this.nodeEvaluator, pMaxVisitedNodes);
         }
 
-        protected boolean hasValidPathType(@NotNull BlockPathTypes pPathType) {
-            return pPathType == BlockPathTypes.WATER || super.hasValidPathType(pPathType);
+        protected boolean hasValidPathType(BlockPathTypes pPathType) {
+            return pPathType != BlockPathTypes.WATER && pPathType != BlockPathTypes.DAMAGE_FIRE && pPathType != BlockPathTypes.DANGER_FIRE ? super.hasValidPathType(pPathType) : true;
         }
 
-        public boolean isStableDestination(@NotNull BlockPos pPos) {
+        public boolean isStableDestination(BlockPos pPos) {
             return this.level.getBlockState(pPos).is(Blocks.WATER) || super.isStableDestination(pPos);
         }
     }
