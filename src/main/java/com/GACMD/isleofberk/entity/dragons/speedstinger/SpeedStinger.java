@@ -180,7 +180,10 @@ public class SpeedStinger extends ADragonBase {
     public SpeedStinger(EntityType<? extends SpeedStinger> animal, Level world) {
         super(animal, world);
         this.xpReward = 25;
-        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 10.0F);
+        this.setPathfindingMalus(BlockPathTypes.LAVA, -1F);
+        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1F);
+        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1F);
     }
 
     private void floatStinger() {
