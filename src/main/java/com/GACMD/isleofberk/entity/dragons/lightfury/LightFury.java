@@ -59,7 +59,7 @@ public class LightFury extends NightFury {
                 .add(Attributes.MAX_HEALTH, 60.0D)
                 .add(Attributes.ARMOR, 0.5)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
-                .add(Attributes.FLYING_SPEED, 0.14F)
+                .add(Attributes.FLYING_SPEED, 0.18F)
                 .add(Attributes.ATTACK_DAMAGE, 12F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F);
     }
