@@ -2,6 +2,7 @@ package com.GACMD.isleofberk.entity.eggs.entity.eggs;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
+import com.GACMD.isleofberk.entity.dragons.stinger.Stinger;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.base.large.ADragonLargeEggBase;
 import com.GACMD.isleofberk.items.DragonEggItem;
@@ -20,7 +21,7 @@ public class StingerEgg extends ADragonLargeEggBase implements IAnimatable {
 
     public StingerEgg(EntityType<? extends ADragonLargeEggBase> animal, Level world) {
         super(animal, world);
-        this.dragonResult = new SpeedStinger(ModEntities.SPEED_STINGER.get(), level);
+        this.dragonResult = new Stinger(ModEntities.STINGER.get(), level);
         this.setDragonVariant(0);
     }
 
