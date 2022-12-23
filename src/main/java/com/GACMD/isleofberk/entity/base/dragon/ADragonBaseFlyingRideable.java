@@ -48,7 +48,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 
     public ADragonBaseFlyingRideable(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
-//        switchNavigator(true);
+        switchNavigator(true);
     }
 
     public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
@@ -333,6 +333,8 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         } else {
             this.setNoGravity(false);
         }
+
+//        System.out.println(navigation);
 
         // decrement per tick
         if (getTicksFlyWandering() > 1) {
