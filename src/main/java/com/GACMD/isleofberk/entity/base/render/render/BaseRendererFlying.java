@@ -55,34 +55,6 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
     protected void
     modifyPitch(GeoModel model, T dragon, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder,
                 int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-//        GeoBone body = getBone(model, getMainBodyBone()).get();
-//        if (dragon.getPassengers().size() < 2 || dragon.getControllingPassenger() == null) {
-//            if (dragon.isFlying()) {
-//                if (dragon.getControllingPassenger() instanceof Player pilot) {
-//                    if (!dragon.isGoingUp()) {
-//                        // +90 dive -90 rise
-//                        currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, getMaxRise());
-//                        finalBodyPitch = currentBodyPitch;
-//                        body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
-//                    } else {
-//                        body.setRotationX(toRadians(35));
-//                    }
-//                }
-//
-//                if (dragon.getControllingPassenger() == null) {
-//                    currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
-//                }
-//                if (dragon.isDragonFollowing() && dragon.getOwner() instanceof Player player && (dragon instanceof NightFury || dragon instanceof DeadlyNadder || dragon instanceof TripleStryke || dragon instanceof MonstrousNightmare || dragon instanceof ZippleBack) && player.getVehicle() == null) {
-//                    double ydist = dragon.getY() - player.getY();
-//                    if (ydist > 8.3F) {
-//                        pitch -= 4;
-//                        body.setRotationX(toRadians(Mth.clamp(pitch, -90, 0)));
-//                    } else {
-//                        pitch = 0;
-//                    }
-//                }
-//            }
-//        }
         GeoBone body = getBone(model, getMainBodyBone()).get();
         if (dragon.getPassengers().size() < 2) {
             if (dragon.isFlying()) {

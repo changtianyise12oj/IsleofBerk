@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.AI.path.air;
 
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.ai.control.MoveControl;
@@ -7,12 +8,12 @@ import net.minecraft.world.phys.Vec3;
 
 public class FlyingDragonMoveControl extends MoveControl {
 
-    ADragonBaseFlyingRideable dragon;
+    ADragonBase dragon;
     boolean isFlying;
     float speedBase;
     boolean lookAtTarget;
 
-    public FlyingDragonMoveControl(ADragonBaseFlyingRideable dragon, int speedBase, boolean lookAtTarget) {
+    public FlyingDragonMoveControl(ADragonBase dragon, int speedBase, boolean lookAtTarget) {
         super(dragon);
         this.dragon = dragon;
         this.speedBase = speedBase;

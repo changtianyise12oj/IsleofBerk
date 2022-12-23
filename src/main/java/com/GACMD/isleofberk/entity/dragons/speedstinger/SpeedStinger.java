@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBRandomLookAroundGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
+import com.GACMD.isleofberk.entity.AI.path.air.FlyingDragonMoveControl;
 import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
 import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
@@ -39,6 +40,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -288,10 +290,9 @@ public class SpeedStinger extends ADragonBase {
         return 3;
     }
 
-
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(5, new FollowOwnerNoTPGoal(this, 1.1D, 3.0F, 3.0F, false));
+        this.goalSelector.addGoal(1, new FollowOwnerNoTPGoal(this, 1.1D, 3.0F, 3.0F, false));
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED), 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new IOBRandomLookAroundGoal(this));
@@ -635,11 +636,7 @@ public class SpeedStinger extends ADragonBase {
     }
 
     public float getWalkTargetValue(@NotNull BlockPos pPos, LevelReader pLevel) {
-        if (pLevel.getBlockState(pPos).getFluidState().is(FluidTags.WATER)) {
-            return 10.0F;
-        } else {
-            return this.isInWater() ? Float.NEGATIVE_INFINITY : 0.0F;
-        }
+        return pLevel.getFluidState(pPos).is(FluidTags.WATER) ? 10.0F : super.getWalkTargetValue(pPos, pLevel);
     }
 
 
@@ -693,7 +690,7 @@ public class SpeedStinger extends ADragonBase {
         }
 
         protected boolean hasValidPathType(@NotNull BlockPathTypes pPathType) {
-            return pPathType == BlockPathTypes.WATER || pPathType == BlockPathTypes.DANGER_FIRE || super.hasValidPathType(pPathType);
+            return pPathType == BlockPathTypes.WATER || super.hasValidPathType(pPathType);
         }
 
         public boolean isStableDestination(@NotNull BlockPos pPos) {

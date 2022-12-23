@@ -80,10 +80,10 @@ public class FollowOwnerNoTPGoal extends Goal {
      */
     public void start() {
         this.timeToRecalcPath = 0;
-        if (!(dragon instanceof SpeedStinger)) {
-            this.oldWaterCost = this.dragon.getPathfindingMalus(BlockPathTypes.WATER);
-            this.dragon.setPathfindingMalus(BlockPathTypes.WATER, 1.0F);
-        }
+//        if (!(dragon instanceof SpeedStinger)) {
+//            this.oldWaterCost = this.dragon.getPathfindingMalus(BlockPathTypes.WATER);
+//            this.dragon.setPathfindingMalus(BlockPathTypes.WATER, 1.0F);
+//        }
     }
 
     /**
@@ -102,8 +102,8 @@ public class FollowOwnerNoTPGoal extends Goal {
      */
     public void tick() {
         this.dragon.getLookControl().setLookAt(this.owner, 10.0F, (float) this.dragon.getMaxHeadXRot());
-        if (--this.timeToRecalcPath <= 0) {
-            this.timeToRecalcPath = this.adjustedTickDelay(10);
+//        if (--this.timeToRecalcPath <= 0) {
+//            this.timeToRecalcPath = this.adjustedTickDelay(10);
             if (!this.dragon.isLeashed() && !this.dragon.isPassenger()) {
                 if (this.dragon.distanceToSqr(this.owner) >= 250.0D) {
                     this.navigation.stop();
@@ -111,6 +111,6 @@ public class FollowOwnerNoTPGoal extends Goal {
                     this.navigation.moveTo(this.owner, this.speedModifier);
                 }
             }
-        }
+//        }
     }
 }
