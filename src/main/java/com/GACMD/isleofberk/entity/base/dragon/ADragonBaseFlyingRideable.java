@@ -311,7 +311,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
                 }
 
                 if (this.isGoingUp()) {
-                    this.setDeltaMovement(this.getDeltaMovement().add(0, zza > 0 ? 0.1 : 0.2, 0));
+                    this.setDeltaMovement(this.getDeltaMovement().add(0, zza > 0 ? 0.1 : 0.3, 0));
                 } else if (this.isGoingDown()) {
                     this.setDeltaMovement(this.getDeltaMovement().add(0, zza > 0 ? -0.2 : -0.4, 0));
                 }
