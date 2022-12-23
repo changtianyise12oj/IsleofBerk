@@ -109,6 +109,38 @@
     "speed_stinger_leader_spawn_egg_info": "Tier 5 §6§lSharp Class §rDragon",
 
     "advancement.gronckle_iron.title": "The Iron Gronckle",
-    "advancement.gronckle_iron.desc": "Extremely strong yet lightweight!"
+    "advancement.gronckle_iron.desc": "Extremely strong yet lightweight!",
+    "advancement.gronckle_iron_tool.title": "Hmm... Hooligan stuff",
+    "advancement.gronckle_iron_tool.desc": "Just crafted your first Hooligan tool",
+    "advancement.gronckle_iron_tools.title": "A true Hooligan",
+    "advancement.gronckle_iron_tools.desc": "Full set of Hooligan tools",
+    "advancement.belzium.title": "Purple... Interesting",
+    "advancement.belzium.desc": "Flexible and Durable",
+    "advancement.belzium_tool.title": "Even better ?",
+    "advancement.belzium_tool.desc": "Stronger and more durable!",
+    "advancement.belzium_tools.title": "Ready for them all!",
+    "advancement.belzium_tools.desc": "With this, who can beat you ?",
+
+    "advancement.dragon.title": "Unique friendship",
+    "advancement.dragon.desc": "A bond between man and beast",
+    "advancement.boulder.title": "Rock eaters",
+    "advancement.boulder.desc": "Big, strong, thick but not so slow",
+    "advancement.mystery.title": "Stealthy and sneaky",
+    "advancement.mystery.desc": "Very scary big boys",
+    "advancement.sharp.title": "Vain and prideful",
+    "advancement.sharp.desc": "Being stroked and generally made a fuss of is good",
+    "advancement.stoker.title": "Hot-headed fire breathers",
+    "advancement.stoker.desc": "They set everything on fire, including themselves",
+    "advancement.strike.title": "Pinpoint accurate",
+    "advancement.strike.desc": "Fast, strong and intelligent",
+    "advancement.tidal.title": "Deep down the big blue",
+    "advancement.tidal.desc": "Large sea monsters",
+    "advancement.tracker.title": "Natural born hunters",
+    "advancement.tracker.desc": "Effortlessly track down and find anything",
+
+    "advancement.night_fury.title": "NO WAY!",
+    "advancement.night_fury.desc": "The unholy offspring of lightning and death itself",
+    "advancement.light_fury.title": "ANOTHER ONE!?",
+    "advancement.light_fury.desc": "No, not quite. It's more like a Light... Fury."
 }
 
