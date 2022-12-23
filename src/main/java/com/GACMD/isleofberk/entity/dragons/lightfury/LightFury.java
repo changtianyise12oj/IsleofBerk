@@ -79,19 +79,6 @@ public class LightFury extends NightFury {
     }
 
     @Override
-    protected void playerFireProjectile(Vec3 riderLook, Vec3 throat) {
-        if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
-            setTicksSinceLastFire(20);
-            FuryBolt bolt = new FuryBolt(this, throat, riderLook, level, getExplosionStrength());
-            bolt.shoot(riderLook, 1F);
-            bolt.setIsLightFuryTexture(true);
-            level.addFreshEntity(bolt);
-            setPlayerBoltBlastPendingScale(0);
-            setPlayerBoltBlastPendingStopThreshold(0);
-        }
-    }
-
-    @Override
     public void tick() {
         super.tick();
         if (isUsingSECONDAbility() && ticksSecondAbilityRecharge == 0) {
@@ -116,6 +103,33 @@ public class LightFury extends NightFury {
             if (getPassengers().size() > 1 && this.getPassengers().get(1) instanceof LivingEntity livingEntity) {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 5));
             }
+        }
+    }
+
+    @Override
+    protected void playerFireProjectile(Vec3 riderLook, Vec3 throat) {
+        if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
+            setTicksSinceLastFire(12);
+            FuryBolt bolt = new FuryBolt(this, throat, riderLook, level, getExplosionStrength());
+            bolt.setProjectileSize(getProjsSize());
+            bolt.shoot(riderLook, 1F);
+            bolt.setIsLightFuryTexture(true);
+            level.addFreshEntity(bolt);
+            setPlayerBoltBlastPendingScale(0);
+            setPlayerBoltBlastPendingStopThreshold(0);
+        }
+    }
+
+    public void dragonShootProjectile(Vec3 dragonLook, Vec3 throat) {
+        if ((tier1() || tier2() || tier3() || tier4())) {
+            setTicksSinceLastFire(20);
+            FuryBolt bolt = new FuryBolt(this, throat, dragonLook, level, getExplosionStrength());
+            bolt.shoot(dragonLook, 1F);
+            bolt.setProjectileSize(getProjsSize());
+            level.addFreshEntity(bolt);
+            bolt.setIsLightFuryTexture(true);
+            setPlayerBoltBlastPendingScale(0);
+            setPlayerBoltBlastPendingStopThreshold(0);
         }
     }
 

@@ -1,6 +1,5 @@
 package com.GACMD.isleofberk.entity.dragons.speedstinger;
 
-import com.GACMD.isleofberk.entity.AI.goal.DragonNearestAttackableTargetGoal;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBRandomLookAroundGoal;
@@ -180,10 +179,7 @@ public class SpeedStinger extends ADragonBase {
     public SpeedStinger(EntityType<? extends SpeedStinger> animal, Level world) {
         super(animal, world);
         this.xpReward = 25;
-        this.setPathfindingMalus(BlockPathTypes.WATER, 10.0F);
-        this.setPathfindingMalus(BlockPathTypes.LAVA, -1F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, -1F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, -1F);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 1.0F);
     }
 
     private void floatStinger() {
@@ -307,15 +303,14 @@ public class SpeedStinger extends ADragonBase {
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(2, new DragonOwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(2, new NonTameRandomTargetGoal<>(this, Animal.class, false, PREY_SELECTOR));
-        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, AbstractSkeleton.class, true));
-        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, Zombie.class, true));
-        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, ZombifiedPiglin.class, true));
-        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, Spider.class, true));
-        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, EnderMan.class, true));
-        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, Witch.class, true));
-        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, Slime.class, true));
-        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, Monster.class, true));
-        this.goalSelector.addGoal(5, new SpeedStingerGoToWater(this, 1.5D));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Zombie.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, ZombifiedPiglin.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Spider.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, EnderMan.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Witch.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, true));
     }
 
     @Override
@@ -658,45 +653,6 @@ public class SpeedStinger extends ADragonBase {
         }
     }
 
-
-    static class SpeedStingerGoToWater extends MoveToBlockGoal {
-        private final SpeedStinger ss;
-
-        SpeedStingerGoToWater(SpeedStinger pSpeedStinger, double pSpeedModifier) {
-            super(pSpeedStinger, pSpeedModifier, 8, 2);
-            this.ss = pSpeedStinger;
-        }
-
-        public @NotNull BlockPos getMoveToTarget() {
-            return this.blockPos;
-        }
-
-        /**
-         * Returns whether an in-progress EntityAIBase should continue executing
-         */
-        public boolean canContinueToUse() {
-            return !this.ss.isInWater() && this.isValidTarget(this.ss.level, this.blockPos);
-        }
-
-        /**
-         * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
-         * method as well.
-         */
-        public boolean canUse() {
-            return !this.ss.isInWater() && super.canUse();
-        }
-
-        public boolean shouldRecalculatePath() {
-            return this.tryTicks % 20 == 0;
-        }
-
-        /**
-         * Return true to set given position as destination
-         */
-        protected boolean isValidTarget(LevelReader pLevel, @NotNull BlockPos pPos) {
-            return pLevel.getBlockState(pPos).is(Blocks.WATER) && pLevel.getBlockState(pPos.above()).isPathfindable(pLevel, pPos, PathComputationType.LAND);
-        }
-    }
 
     static class SpeedStingerPathNavigation extends GroundPathNavigation {
 

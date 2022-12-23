@@ -41,6 +41,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Strider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -361,10 +362,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     public void updateTerrorLatch(Entity vehicle) {
         if (vehicle instanceof Player player) {
-            if (player.isSwimming()) {
-                player.getPassengers().stream().iterator().next().dismountTo(player.getX(), player.getY(), player.getZ());
-            }
-
             int passengerIndex = vehicle.getPassengers().indexOf(this);
             player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, Util.secondsToTicks(60), passengerIndex, false, false));
             player.addEffect(new MobEffectInstance(MobEffects.JUMP, Util.secondsToTicks(60), passengerIndex, false, false));
@@ -401,7 +398,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             this.yHeadRot = this.yBodyRot;
 
             // try to dismount
-            if (player.isShiftKeyDown() && player.getPassengers().iterator().next() == this && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved()) {
+            if (player.isShiftKeyDown() && player.getPassengers().iterator().next() == this && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved() || player.isUnderWater()) {
                 this.setLastMountedPlayerUUID(null);
                 player.ejectPassengers();
                 player.removeEffect(MobEffects.SLOW_FALLING);

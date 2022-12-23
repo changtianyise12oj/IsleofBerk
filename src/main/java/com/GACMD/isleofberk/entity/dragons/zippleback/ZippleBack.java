@@ -217,4 +217,9 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         ZippleBackEgg dragon = ModEntities.ZIPPLEBACK_EGG.get().create(level);
         return dragon;
     }
+
+    @Override
+    protected int getAggressionType() {
+        return 2;
+    }
 }

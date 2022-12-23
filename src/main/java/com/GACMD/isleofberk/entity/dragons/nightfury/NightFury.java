@@ -8,6 +8,7 @@ import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
+import com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt.FireBolt;
 import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBolt;
 import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.registery.ModEntities;
@@ -331,6 +332,19 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             bolt.shoot(riderLook, 1F);
             bolt.setIsLightFuryTexture(false);
             level.addFreshEntity(bolt);
+            setPlayerBoltBlastPendingScale(0);
+            setPlayerBoltBlastPendingStopThreshold(0);
+        }
+    }
+
+    public void dragonShootProjectile(Vec3 dragonLook, Vec3 throat) {
+        if ((tier1() || tier2() || tier3() || tier4())) {
+            setTicksSinceLastFire(20);
+            FuryBolt bolt = new FuryBolt(this, throat, dragonLook, level, getExplosionStrength());
+            bolt.shoot(dragonLook, 1F);
+            bolt.setProjectileSize(getProjsSize());
+            level.addFreshEntity(bolt);
+            bolt.setIsLightFuryTexture(false);
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
         }
