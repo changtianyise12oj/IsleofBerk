@@ -310,7 +310,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     // cannot breed night fury. they are too powerful
     @Override
     public boolean isBreedingFood(ItemStack pStack) {
-        return false;
+        return pStack.is(Items.HONEYCOMB);
     }
 
     @Override
