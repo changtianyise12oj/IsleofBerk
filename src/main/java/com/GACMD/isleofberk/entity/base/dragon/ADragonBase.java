@@ -96,7 +96,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     };
 
     public boolean renderedOnGUI;
-    protected int baseDragonOnGroundHeight;
     protected int ticksSinceLastAttack;
     public float changeInYaw;
     BlockPos homePos;
@@ -105,7 +104,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected ADragonBase(EntityType<? extends ADragonBase> animal, Level world) {
         super(animal, world);
         this.maxUpStep = 1;
-        this.baseDragonOnGroundHeight = 4;
     }
 
     @Override
@@ -832,23 +830,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return this.isDragonOnGround() && !this.isInWater() && !this.isWaterBelow();
     }
 
-    /**
-     * Check if the ground 4 blocks below is a solid. Replacement for Vanilla onGround
-     *
-     * @return solidBlockState
-     */
-    public void isDragonOnGroundTickLoop() {
-        for (int i = 0; getControllingPassenger() != null ? i < 3 : i < baseDragonOnGroundHeight; ++i) {
-            BlockPos solidPos = new BlockPos(this.position().x, this.position().y - i, this.position().z);
-            if (level.getBlockState(solidPos).isSolidRender(level, solidPos)) {
-                setIsDragonOnGround(false);
-                System.out.println(solidPos);
-                System.out.println("solid? " + level.getBlockState(solidPos).isSolidRender(level, solidPos));
-            } else {
-                setIsDragonOnGround(true);
-            }
-        }
-    }
 
     public static boolean isDarkEnoughToSleep(Level pLevel, BlockPos pPos, Random pRandom) {
         return pLevel.getBrightness(LightLayer.BLOCK, pPos) > 0 || pLevel.getBrightness(LightLayer.SKY, pPos) > pRandom.nextInt(32);
@@ -894,19 +875,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return throatPos;
 
     }
-
-    /**
-     * Applies this boat's yaw to the given entity. Used to update the orientation of its passenger.
-     */
-    protected void clampRotation(Entity pEntityToUpdate) {
-        pEntityToUpdate.setYBodyRot(this.getYRot());
-        float f = Mth.wrapDegrees(pEntityToUpdate.getYRot() - this.getYRot());
-        float f1 = Mth.clamp(f, -105.0F, 105.0F);
-        pEntityToUpdate.yRotO += f1 - f;
-        pEntityToUpdate.setYRot(pEntityToUpdate.getYRot() + f1 - f);
-        pEntityToUpdate.setYHeadRot(pEntityToUpdate.getYRot());
-    }
-
 
     private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
 

@@ -630,7 +630,16 @@ public class SpeedStinger extends ADragonBase {
             jumpTicks = 0;
         }
 
+        checkInsideBlocks();
         floatStinger();
+    }
+
+    protected float nextStep() {
+        return this.moveDist + 0.6F;
+    }
+
+    protected boolean shouldPassengersInheritMalus() {
+        return true;
     }
 
     protected @NotNull PathNavigation createNavigation(@NotNull Level pLevel) {
@@ -696,7 +705,7 @@ public class SpeedStinger extends ADragonBase {
         }
 
         protected boolean hasValidPathType(BlockPathTypes pPathType) {
-            return pPathType != BlockPathTypes.WATER && pPathType != BlockPathTypes.DAMAGE_FIRE && pPathType != BlockPathTypes.DANGER_FIRE ? super.hasValidPathType(pPathType) : true;
+            return pPathType == BlockPathTypes.WATER || pPathType == BlockPathTypes.DAMAGE_FIRE || pPathType == BlockPathTypes.DANGER_FIRE || super.hasValidPathType(pPathType);
         }
 
         public boolean isStableDestination(BlockPos pPos) {

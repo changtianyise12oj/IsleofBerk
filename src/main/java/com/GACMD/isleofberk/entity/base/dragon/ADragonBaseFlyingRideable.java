@@ -49,7 +49,6 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     public ADragonBaseFlyingRideable(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
         switchNavigator(true);
-        this.baseDragonOnGroundHeight = 5;
     }
 
     public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
