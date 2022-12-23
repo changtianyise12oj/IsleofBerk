@@ -19,17 +19,16 @@ public class DragonElytraFlyingWithOwnerGoal extends ADragonBaseBaseFlyingRideab
                 return false;
             }
             // terrors shouldn't fly with player, they need to mount you first
-            if (!dragon.canBeMounted()) {
+            if (!dragon.canBeMounted() && owner.isFallFlying()) {
                 return false;
             }
-
-            if (!dragon.isDragonFollowing()) {
-                return false;
-            }
+//            if (!dragon.isDragonFollowing()) {
+//                return false;
+//            }
 
             // follow if elytra flying and owner is riding on the dragon to the sky
-            return owner.isFallFlying() || (owner.getVehicle() != null && !owner.isOnGround()) || (owner.getVehicle() instanceof ADragonBaseFlyingRideable dragon && dragon.isDragonOnGround());
-//            return true;
+//            return owner.isFallFlying() || (owner.getVehicle() != null && !owner.isOnGround()) || (owner.getVehicle() instanceof ADragonBaseFlyingRideable dragon && dragon.isDragonOnGround());
+            return dragon.isDragonFollowing();
         }
         return false;
     }
