@@ -1,13 +1,12 @@
 package com.GACMD.isleofberk.entity.dragons.speedstinger;
 
+
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBRandomLookAroundGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
-import com.GACMD.isleofberk.entity.AI.path.air.FlyingDragonMoveControl;
 import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
-import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
@@ -28,7 +27,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
@@ -40,11 +38,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
@@ -66,13 +63,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.pathfinder.PathFinder;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.eventbus.api.Event;
 import org.jetbrains.annotations.NotNull;
@@ -88,7 +83,6 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nullable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoField;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
@@ -155,7 +149,7 @@ public class SpeedStinger extends ADragonBase {
 
         LivingEntity target = getTarget();
         if (target != null) {
-            if (!isSpeedStingerOnGround() && event.isMoving() && !target.isDeadOrDying()) {
+            if (!isSSOnGround() && event.isMoving() && !target.isDeadOrDying()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerPounce", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
@@ -164,6 +158,9 @@ public class SpeedStinger extends ADragonBase {
         return PlayState.STOP;
     }
 
+//    public boolean canStandOnFluid(Fluid fluid) {
+//        return fluid.isSame(FluidTags.WATER);
+//    }
 
     @Override
     public void registerControllers(AnimationData data) {
@@ -171,7 +168,7 @@ public class SpeedStinger extends ADragonBase {
         data.addAnimationController(new AnimationController<SpeedStinger>(this, "speed_stinger_controller_attacks", 0, this::attackController));
     }
 
-    public boolean isSpeedStingerOnGround() {
+    public boolean isSSOnGround() {
         BlockPos solidPos = new BlockPos(this.position().x, this.position().y - 1, this.position().z);
         return !level.getBlockState(solidPos).isAir();
     }
@@ -179,23 +176,7 @@ public class SpeedStinger extends ADragonBase {
     public SpeedStinger(EntityType<? extends SpeedStinger> animal, Level world) {
         super(animal, world);
         this.xpReward = 25;
-        this.setPathfindingMalus(BlockPathTypes.WATER, 1.0F);
-    }
-
-    private void floatStinger() {
-        if (this.isInWater()) {
-            CollisionContext collisioncontext = CollisionContext.of(this);
-            if (collisioncontext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level.getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
-                this.onGround = true;
-            } else {
-                this.setDeltaMovement(this.getDeltaMovement().scale(0.5D).add(0.0D, 0.05D, 0.0D));
-            }
-        }
-
-    }
-
-    public boolean canStandOnFluid(FluidState p_204067_) {
-        return p_204067_.is(FluidTags.WATER);
+        this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
 
     /**
@@ -203,13 +184,42 @@ public class SpeedStinger extends ADragonBase {
      *
      * @param pAnimal The animal entity to be spawned
      */
-    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pAnimal, LevelAccessor pLevel, MobSpawnType pReason, BlockPos pPos, Random pRandom) {
-        BlockPos blockpos = pPos.below();
-        return pLevel.getBlockState(pPos.below()).is(BlockTags.SAND) ||
-                pLevel.getBlockState(pPos.below()).is(BlockTags.LEAVES) || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS) ||
-                pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_PICKAXE) || pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_SHOVEL)
-                || isDarkEnoughToSpawn((ServerLevelAccessor) pLevel, pPos, pRandom) || pLevel.getBlockState(blockpos).isValidSpawn(pLevel, blockpos, pAnimal);
+//    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pAnimal, LevelAccessor pLevel, MobSpawnType pReason, BlockPos pPos, Random pRandom) {
+//        return pLevel.getBlockState(pPos.below()).is(BlockTags.SAND) ||
+//                pLevel.getBlockState(pPos.below()).is(BlockTags.LEAVES) || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS) ||
+//                pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_PICKAXE) || pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_SHOVEL)
+//                || (pLevel.getBlockState(pPos.below()).is(Blocks.CAVE_AIR));
+//    }
+
+//    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pBat, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
+//        if (pPos.getY() >= pLevel.getSeaLevel()) {
+//            return false;
+//        } else {
+//            int $$5 = pLevel.getMaxLocalRawBrightness(pPos);
+//            int $$6 = 4;
+//            if (isHalloween()) {
+//                $$6 = 7;
+//            } else if (pRandom.nextBoolean()) {
+//                return false;
+//            }
+//
+//            return $$5 > pRandom.nextInt($$6) ? false : checkMobSpawnRules(pBat, pLevel, pSpawnType, pPos, pRandom);
+//        }
+//    }
+    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pAnimal, ServerLevelAccessor pLevel, MobSpawnType pReason, BlockPos pPos, Random pRandom) {
+//        return pPos.getY() <= pLevel.getSeaLevel() - 33 && pLevel.getRawBrightness(pPos, 0) == 0 && pLevel.getBlockState(pPos).is(Blocks.WATER);
+//        return pPos.getY() <= pLevel.getSeaLevel() - 33 && pLevel.getRawBrightness(pPos, 0) == 0 && pLevel.getBlockState(pPos).is(Blocks.CAVE_AIR);
+        return pReason == MobSpawnType.SPAWNER || !pLevel.canSeeSky(pPos) && pPos.getY() <= 60 && checkMonsterSpawnRules(pAnimal, pLevel, pReason, pPos, pRandom);
+
     }
+
+    private static boolean isHalloween() {
+        LocalDate $$0 = LocalDate.now();
+        int $$1 = $$0.get(ChronoField.DAY_OF_MONTH);
+        int $$2 = $$0.get(ChronoField.MONTH_OF_YEAR);
+        return $$2 == 10 && $$1 >= 20 || $$2 == 11 && $$1 <= 3;
+    }
+
 
     public static boolean isDarkEnoughToSpawn(ServerLevelAccessor pLevel, BlockPos pPos, Random pRandom) {
         if (pLevel.getBrightness(LightLayer.SKY, pPos) > pRandom.nextInt(32)) {
@@ -222,6 +232,13 @@ public class SpeedStinger extends ADragonBase {
         }
     }
 
+    public static boolean checkMonsterSpawnRules(EntityType<? extends Animal> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
+        return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
+    }
+
+//    public static boolean checkMonsterSpawnRules(EntityType<? extends Animal> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
+//        return isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
+//    }
 
     public static boolean checkAnyLightMonsterSpawnRules(EntityType<? extends SpeedStinger> pType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
         return checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
@@ -281,19 +298,28 @@ public class SpeedStinger extends ADragonBase {
         return true;
     }
 
+//    @Override
+//    protected PathNavigation createNavigation(Level pLevel) {
+//        return super.createNavigation(pLevel);
+//    }
+
     @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
         return stack.is(Items.RABBIT);
     }
+
 
     @Override
     protected int getAggressionType() {
         return 3;
     }
 
+
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new FollowOwnerNoTPGoal(this, 1.1D, 3.0F, 3.0F, false));
+        this.goalSelector.addGoal(0, new FloatGoal(this));
+        this.goalSelector.addGoal(3, new SpeedStingerCustomMeleeAttackGoal(this, 1.4D, true));
+        this.goalSelector.addGoal(5, new FollowOwnerNoTPGoal(this, 1.1D, 3.0F, 3.0F, false));
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED), 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new IOBRandomLookAroundGoal(this));
@@ -375,7 +401,8 @@ public class SpeedStinger extends ADragonBase {
         Holder<Biome> biome = pLevel.getBiome(new BlockPos(this.position()));
         // if it spawns below ground probably less than y 70 set to black, regardless of the position of the biome it spawned in
         // surface biomes on biomeloading event is still considered lush caves
-        if (this.getY() < 0) {
+        // spawning is still set on caves though
+        if (this.getY() < 60) {
             return 1;
         } else {
             if (biome.is(Biomes.TAIGA) || biome.is(Biomes.SNOWY_TAIGA) || biome.is(Biomes.OLD_GROWTH_PINE_TAIGA) || biome.is(Biomes.OLD_GROWTH_SPRUCE_TAIGA) || biome.is(Biomes.STONY_SHORE)) {
@@ -395,10 +422,10 @@ public class SpeedStinger extends ADragonBase {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0D)
-                .add(Attributes.ARMOR, 2)
+                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.ARMOR, 10)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
-                .add(Attributes.ATTACK_DAMAGE, 8F)
+                .add(Attributes.ATTACK_DAMAGE, 3.5F)
                 .add(Attributes.FOLLOW_RANGE, 5F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
                 .add(ForgeMod.SWIM_SPEED.get(), 10);
@@ -432,6 +459,7 @@ public class SpeedStinger extends ADragonBase {
         return 6;
     }
 
+
     private void findPotentialLeader() {
         SpeedStingerLeader speedStingerLeaderEntity = level.getNearestEntity(level.getEntitiesOfClass(SpeedStingerLeader.class, getTargetSearchArea(this.getFollowDistance())),
                 TargetingConditions.forNonCombat(), this, this.getX(), this.getEyeY(), this.getZ());
@@ -443,6 +471,11 @@ public class SpeedStinger extends ADragonBase {
 
     public void removeLeader() {
         this.setLeaderViaUUID(Optional.empty());
+    }
+
+    private SpeedStingerLeader nearestLeader() {
+        return level.getNearestEntity(level.getEntitiesOfClass(SpeedStingerLeader.class, getTargetSearchArea(this.getFollowDistance())),
+                TargetingConditions.forNonCombat(), this, this.getX(), this.getEyeY(), this.getZ());
     }
 
     @Override
@@ -471,7 +504,6 @@ public class SpeedStinger extends ADragonBase {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
         if (!itemstack.isEmpty()) {
-            IForgeItem forgeItem = itemstack.getItem();
 //            int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
             int nutrition = 6;
             // hunger limits the player's phase one progress. Dragons don't eat when they are full.
@@ -535,6 +567,26 @@ public class SpeedStinger extends ADragonBase {
         return super.mobInteract(pPlayer, pHand);
     }
 
+    public void circleEntity(Entity target, float radius, float speed, boolean direction, int circleFrame, float offset, float moveSpeedMultiplier) {
+        int directionInt = direction ? 1 : -1;
+        double t = 1 * circleFrame * 0.5 * speed / radius + offset;
+        Vec3 movePos = target.position().add(radius * Math.cos(t), 0, radius * Math.sin(t));
+        this.navigation.moveTo(movePos.x(), movePos.y(), movePos.z(), speed * moveSpeedMultiplier);
+    }
+
+//    public void circleTarget(Entity target, float speed, float moveSpeedMultiplier, float radius, boolean direction) {
+//        int directionInt = direction ? 1 : -1;
+//        Vec2 rotation = target.getRotationVector();
+//        double t = 1 * tickCount * 1 * speed / radius;
+//        Vec3 movePos = target.position().add(radius * Math.cos(t), 0, radius * Math.sin(t));
+//        Vec3 movePos = target.position().add(
+//                radius * (target.getRotationVector().x - 45 * Math.PI / 180),
+//                0,
+//                radius * (target.getRotationVector().x - 45 * Math.PI / 180));
+//        this.navigation.moveTo(movePos.x(), movePos.y(), movePos.z(), speed * moveSpeedMultiplier);
+//    }
+
+
     @Override
     public void setTame(boolean pTamed) {
         if (pTamed) setHealth(getMaxHealth() + (getMaxHealth() * 0.20F));
@@ -597,6 +649,7 @@ public class SpeedStinger extends ADragonBase {
         }
     }
 
+
     @org.jetbrains.annotations.Nullable
     public ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {
         SpeedStingerEgg dragon = ModEntities.SPEED_STINGER_EGG.get().create(level);
@@ -632,28 +685,34 @@ public class SpeedStinger extends ADragonBase {
         floatStinger();
     }
 
-    protected float nextStep() {
-        return this.moveDist + 0.6F;
-    }
-
-    protected boolean shouldPassengersInheritMalus() {
-        return true;
-    }
-
     @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level pLevel) {
-        return new SpeedStingerPathNavigation(this , pLevel);
+        return new SpeedStingerPathNavigation(this, pLevel);
+//        return super.createNavigation(pLevel);
     }
 
-    public float getWalkTargetValue(BlockPos pPos, LevelReader pLevel) {
+    private void floatStinger() {
+        if (this.isInWater()) {
+            CollisionContext collisioncontext = CollisionContext.of(this);
+            if (collisioncontext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level.getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
+                this.onGround = true;
+            } else {
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.5D).add(0.0D, 0.05D, 0.0D));
+            }
+        }
+    }
+
+    public boolean canStandOnFluid(FluidState fluidstate) {
+        return fluidstate.is(FluidTags.WATER);
+    }
+
+    public float getWalkTargetValue(@NotNull BlockPos pPos, LevelReader pLevel) {
         if (pLevel.getBlockState(pPos).getFluidState().is(FluidTags.WATER)) {
             return 10.0F;
         } else {
             return this.isInWater() || this.isWaterBelow() ? Float.NEGATIVE_INFINITY : 0.0F;
         }
     }
-
-    // lava walking seems seemless
 
     static class SpeedStingerPathNavigation extends GroundPathNavigation {
 
@@ -678,7 +737,21 @@ public class SpeedStinger extends ADragonBase {
         }
     }
 
-    protected static class SpeedStingerCustomLeapAttackGoal extends LeapAtTargetGoal {
+//    protected PathNavigation createNavigation(Level pLevel) {
+//        return new SpeedStingerPathNavigation(this, level);
+//    }
+
+    protected class SpeedStingerCustomMeleeAttackGoal extends MeleeAttackGoal {
+
+        SpeedStinger speedStingerEntity;
+
+        public SpeedStingerCustomMeleeAttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
+            super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
+            this.speedStingerEntity = (SpeedStinger) pMob;
+        }
+    }
+
+    protected class SpeedStingerCustomLeapAttackGoal extends LeapAtTargetGoal {
 
         SpeedStinger speedStingerEntity;
 
@@ -702,8 +775,9 @@ public class SpeedStinger extends ADragonBase {
                     return false;
                 } else {
                     double d0 = Math.sqrt(this.speedStingerEntity.distanceToSqr(this.target.getX(), 0, this.target.getZ()));
+//                    if (!(d0 < 4.0D) && !(d0 > 16.0D)) {
                     if (d0 > 6) {
-                        if (!this.speedStingerEntity.isSpeedStingerOnGround()) {
+                        if (!this.speedStingerEntity.isOnGround()) {
                             return false;
                         } else {
                             return this.speedStingerEntity.getRandom().nextInt(reducedTickDelay(75)) == 0;
@@ -727,6 +801,32 @@ public class SpeedStinger extends ADragonBase {
             }
 
             this.speedStingerEntity.setDeltaMovement(vec31.x, (double) this.yd, vec31.z);
+        }
+    }
+
+    private class SpeedStingerPlayerSupport extends Goal {
+
+        SpeedStinger speedStinger;
+        Player player;
+
+        public SpeedStingerPlayerSupport(SpeedStinger speedStinger) {
+            this.speedStinger = speedStinger;
+            this.player = (Player) speedStinger.getOwner();
+        }
+
+        @Override
+        public boolean canUse() {
+            return speedStinger.isTame() && player != null && !isDragonSitting() && isDragonFollowing();
+        }
+
+        @Override
+        public void tick() {
+            Vec3 bodyOrigin = player.position();
+            double x = -Math.sin(player.getYRot() * Math.PI / 180) * 2.4;
+            double y = player.getY();
+            double z = Math.cos(player.getYRot() * Math.PI / 180) * 2.4;
+            Vec3 pos = bodyOrigin.add(new Vec3(x, y, z));
+            speedStinger.navigation.moveTo(pos.x() - 40, pos.y(), pos.z() - 40, 1.4F);
         }
     }
 }
