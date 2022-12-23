@@ -48,7 +48,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 
     public ADragonBaseFlyingRideable(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
-        switchNavigator(true);
+//        switchNavigator(true);
     }
 
     public boolean causeFallDamage(float pFallDistance, float pMultiplier, DamageSource pSource) {
@@ -199,16 +199,6 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     }
 
     @Override
-    public void dismountTo(double pX, double pY, double pZ) {
-        super.dismountTo(pX, pY, pZ);
-    }
-
-    @Override
-    protected void removePassenger(@NotNull Entity pPassenger) {
-        super.removePassenger(pPassenger);
-    }
-
-    @Override
     protected float getWaterSlowDown() {
         return 0.9F;
     }
@@ -233,96 +223,98 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     // facing forward: xHeadRot = 0;
     @Override
     public void travel(@NotNull Vec3 pTravelVector) {
-        if (this.isVehicle() && this.canBeControlledByRider()) {
-            // set rotations and tie it to pilot rotations
-            LivingEntity pilot = (LivingEntity) this.getControllingPassenger();
-            assert pilot != null;
-            pilot.setYBodyRot(pilot.getYHeadRot());
-            this.setYRot(pilot.getYRot());
+        if (isAlive()) {
+            if (this.isVehicle() && this.canBeControlledByRider()) {
+                // set rotations and tie it to pilot rotations
+                LivingEntity pilot = (LivingEntity) this.getControllingPassenger();
+                assert pilot != null;
+                pilot.setYBodyRot(pilot.getYHeadRot());
+                this.setYRot(pilot.getYRot());
 //                disabled for animation purposes
 //                this.yRotO = this.getYRot();
-            if (isFlying()) {
-                this.setXRot(pilot.getXRot() * 0.5F);
+                if (isFlying()) {
+                    this.setXRot(pilot.getXRot() * 0.5F);
+                } else {
+                    this.setXRot(0);
+                }
+                this.setRot(this.getYRot(), this.getXRot());
+                this.yBodyRot = this.getYRot();
+                this.yHeadRot = this.yBodyRot;
+
+                // xxa and zza half the xxa, zza is forward
+                float f = pilot.xxa * 0.5F;
+                float f1 = pilot.zza;
+                if (f1 <= 0.0F) {
+                    f1 *= 0.25F;
+                }
+
+                if (getControllingPassenger() != null) {
+                    byte turnState = 0;
+                    float rotationSpeed = 6;
+                    float yawDiff = yRotO - this.getYRot();
+                    // currently, 1 is left 2 is right
+                    // make it so 1 is left 2 is left2, -1 is right1 and -2 is right2
+                    // greater than zero > 0 means right
+                    turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff > 0 ? 1 : turnState;
+                    turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff > 4 ? 2 : turnState;
+                    // less than 0 < 0 meaning right
+                    turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff < 0 ? -1 : turnState;
+                    turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff < -4 ? -2 : turnState;
+                    this.setRotationState(turnState);
+                } else {
+                    setRotationState(0);
+                }
+
+                this.setYya(pilot.yya);
+                float xxa = pilot.xxa * 0.5F;
+                float zza = pilot.zza;
+
+                // facing straight up is -10 xRot, up is - and + is down
+                double xHeadRot;
+                if (this.getXRot() > 0) {
+                    xHeadRot = this.getXRot() / 2;
+                } else {
+                    xHeadRot = this.getXRot() / 3.6;
+                }
+
+                double xHeadRotABS = Math.abs(this.getXRot()) / 450;
+                double y = xHeadRot * -0.005;
+                if (zza <= 0.0F) {
+                    zza *= 0.25F;
+                }
+
+                // slow down movement by half
+                Vec3 delta = this.getDeltaMovement();
+                this.setDeltaMovement(delta.x / 2, delta.y / 2, delta.z / 2);
+
+                if (zza > 0.0F) {
+                    float f2 = Mth.sin(this.getYRot() * 0.017453292F);
+                    float f3 = Mth.cos(this.getYRot() * 0.017453292F);
+
+                    boolean isFlying = isFlying() && !isInWater();
+                    double speed = this.getAttributeValue(Attributes.FLYING_SPEED) * (isInWater() ? 0.2F : 1F);
+                    this.setDeltaMovement(delta.add(
+                            (isFlying ? -speed : -speed + xHeadRotABS) * f2,
+                            y, (isFlying ? speed : speed - xHeadRotABS) * f3));
+                }
+
+                if (this.isGoingUp()) {
+                    this.setDeltaMovement(this.getDeltaMovement().add(0, zza > 0 ? 0.1 : 0.3, 0));
+                } else if (this.isGoingDown()) {
+                    this.setDeltaMovement(this.getDeltaMovement().add(0, zza > 0 ? -0.2 : -0.4, 0));
+                }
+
+                if (this.isControlledByLocalInstance()) {
+                    this.setSpeed((float) this.getAttributeValue(Attributes.FLYING_SPEED));
+                    super.travel(new Vec3(xxa, y, zza)); // pTravelVector.y
+                } else if (pilot instanceof Player) {
+                    this.setDeltaMovement(Vec3.ZERO);
+                }
+                this.tryCheckInsideBlocks();
             } else {
-                this.setXRot(0);
+                this.setRotationState(0);
+                super.travel(pTravelVector);
             }
-            this.setRot(this.getYRot(), this.getXRot());
-            this.yBodyRot = this.getYRot();
-            this.yHeadRot = this.yBodyRot;
-
-            // xxa and zza half the xxa, zza is forward
-            float f = pilot.xxa * 0.5F;
-            float f1 = pilot.zza;
-            if (f1 <= 0.0F) {
-                f1 *= 0.25F;
-            }
-
-            if (getControllingPassenger() != null) {
-                byte turnState = 0;
-                float rotationSpeed = 6;
-                float yawDiff = yRotO - this.getYRot();
-                // currently, 1 is left 2 is right
-                // make it so 1 is left 2 is left2, -1 is right1 and -2 is right2
-                // greater than zero > 0 means right
-                turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff > 0 ? 1 : turnState;
-                turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff > 4 ? 2 : turnState;
-                // less than 0 < 0 meaning right
-                turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff < 0 ? -1 : turnState;
-                turnState = (Math.abs(yawDiff)) > rotationSpeed && yawDiff < -4 ? -2 : turnState;
-                this.setRotationState(turnState);
-            } else {
-                setRotationState(0);
-            }
-
-            this.setYya(pilot.yya);
-            float xxa = pilot.xxa * 0.5F;
-            float zza = pilot.zza;
-
-            // facing straight up is -10 xRot, up is - and + is down
-            double xHeadRot;
-            if (this.getXRot() > 0) {
-                xHeadRot = this.getXRot() / 2;
-            } else {
-                xHeadRot = this.getXRot() / 3.6;
-            }
-
-            double xHeadRotABS = Math.abs(this.getXRot()) / 450;
-            double y = xHeadRot * -0.005;
-            if (zza <= 0.0F) {
-                zza *= 0.25F;
-            }
-
-            // slow down movement by half
-            Vec3 delta = this.getDeltaMovement();
-            this.setDeltaMovement(delta.x / 2, delta.y / 2, delta.z / 2);
-
-            if (zza > 0.0F) {
-                float f2 = Mth.sin(this.getYRot() * 0.017453292F);
-                float f3 = Mth.cos(this.getYRot() * 0.017453292F);
-
-                boolean isFlying = isFlying() && !isInWater();
-                double speed = this.getAttributeValue(Attributes.FLYING_SPEED) * (isInWater() ? 0.2F : 1F);
-                this.setDeltaMovement(delta.add(
-                        (isFlying ? -speed : -speed + xHeadRotABS) * f2,
-                        y, (isFlying ? speed : speed - xHeadRotABS) * f3));
-            }
-
-            if (this.isGoingUp()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0, zza > 0 ? 0.1 : 0.3, 0));
-            } else if (this.isGoingDown()) {
-                this.setDeltaMovement(this.getDeltaMovement().add(0, zza > 0 ? -0.2 : -0.4, 0));
-            }
-
-            if (this.isControlledByLocalInstance()) {
-                this.setSpeed((float) this.getAttributeValue(Attributes.FLYING_SPEED));
-                super.travel(new Vec3(xxa, y, zza)); // pTravelVector.y
-            } else if (pilot instanceof Player) {
-                this.setDeltaMovement(Vec3.ZERO);
-            }
-            this.tryCheckInsideBlocks();
-        } else {
-            this.setRotationState(0);
-            super.travel(pTravelVector);
         }
     }
 
