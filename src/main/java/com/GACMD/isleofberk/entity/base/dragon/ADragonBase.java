@@ -528,17 +528,17 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 1.0F, 1.0F, true));;
-        this.goalSelector.addGoal(1, new DragonRideTilTamed(this, 1));
+        this.goalSelector.addGoal(1, new FollowOwnerNoTPGoal(this, 1.1D, 1.0F, 1.0F, true));;
+        this.goalSelector.addGoal(2, new DragonRideTilTamed(this, 1));
         this.goalSelector.addGoal(3, new DragonBreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, getMeleeAttackGoal());
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, 0.7D, 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new IOBRandomLookAroundGoal(this));
         this.targetSelector.addGoal(0, new DragonHurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new AggressionToPlayersGoal<>(this, Player.class, true, getAggressionType(), null));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, new DragonOwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(0, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(0, new DragonOwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(2, new AggressionToPlayersGoal<>(this, Player.class, true, getAggressionType(), null));
     }
 
     protected DragonMeleeAttackGoal getMeleeAttackGoal() {

@@ -273,7 +273,6 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 2.0F, 2.0F, true));
         this.targetSelector.addGoal(1, new T4DragonPotionRequirement(this, 1));
     }
 
