@@ -654,6 +654,12 @@ public class SpeedStinger extends ADragonBase {
     }
 
 
+    // lava walking seems seemless
+    @Override
+    protected boolean updateInWaterStateAndDoFluidPushing() {
+        return false;
+    }
+
     static class SpeedStingerPathNavigation extends GroundPathNavigation {
 
         SpeedStingerPathNavigation(SpeedStinger pSpeedStinger, Level pLevel) {

@@ -398,7 +398,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             this.yHeadRot = this.yBodyRot;
 
             // try to dismount
-            if (player.isShiftKeyDown() && player.getPassengers().iterator().next() == this && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved() || player.isUnderWater()) {
+            if (player.isShiftKeyDown() && player.getPassengers().iterator().next() == this && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved() || player.isUnderWater() || player.isVisuallySwimming() || player.isVisuallyCrawling()) {
                 this.setLastMountedPlayerUUID(null);
                 player.ejectPassengers();
                 player.removeEffect(MobEffects.SLOW_FALLING);
