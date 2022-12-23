@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.speedstinger;
 
+import com.GACMD.isleofberk.entity.AI.goal.DragonNearestAttackableTargetGoal;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBRandomLookAroundGoal;
@@ -113,7 +114,6 @@ public class SpeedStinger extends ADragonBase {
 
     protected int ticksSinceLastStingAttack = 0;
     protected int jumpTicks = 0;
-    private Object heal;
 
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if (event.isMoving() && !shouldStopMovingIndependently()) {
@@ -307,14 +307,14 @@ public class SpeedStinger extends ADragonBase {
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(2, new DragonOwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(2, new NonTameRandomTargetGoal<>(this, Animal.class, false, PREY_SELECTOR));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, AbstractSkeleton.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Zombie.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, ZombifiedPiglin.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Spider.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, EnderMan.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Witch.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Slime.class, true));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Monster.class, true));
+        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, AbstractSkeleton.class, true));
+        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, Zombie.class, true));
+        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, ZombifiedPiglin.class, true));
+        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, Spider.class, true));
+        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, EnderMan.class, true));
+        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, Witch.class, true));
+        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, Slime.class, true));
+        this.targetSelector.addGoal(3, new DragonNearestAttackableTargetGoal<>(this, Monster.class, true));
         this.goalSelector.addGoal(5, new SpeedStingerGoToWater(this, 1.5D));
     }
 
@@ -472,7 +472,7 @@ public class SpeedStinger extends ADragonBase {
     }
 
     @Override
-    public InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
         if (!itemstack.isEmpty()) {
@@ -500,7 +500,7 @@ public class SpeedStinger extends ADragonBase {
             } else {
                 if (this.isFoodEdibleToDragon(itemstack) && canEatWithFoodOnHand(true)) {
                     if (this.getHealth() < getMaxHealth()) {
-                        Object heal1 = this.heal;
+                        this.heal(5);
                         this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
                         this.addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
                         if (!pPlayer.getAbilities().instabuild) {
@@ -509,7 +509,7 @@ public class SpeedStinger extends ADragonBase {
                     }
                     // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
                     if (getHealth() < getMaxHealth()) {
-                        Object heal1 = this.heal;
+                        this.heal(5);
                         if (!pPlayer.getAbilities().instabuild) {
                             itemstack.shrink(1);
                         }
@@ -645,8 +645,9 @@ public class SpeedStinger extends ADragonBase {
         return true;
     }
 
+    @Override
     protected @NotNull PathNavigation createNavigation(@NotNull Level pLevel) {
-        return new SpeedStingerPathNavigation(this , level);
+        return new SpeedStingerPathNavigation(this , pLevel);
     }
 
     public float getWalkTargetValue(BlockPos pPos, LevelReader pLevel) {
@@ -698,20 +699,24 @@ public class SpeedStinger extends ADragonBase {
     }
 
     static class SpeedStingerPathNavigation extends GroundPathNavigation {
+
         SpeedStingerPathNavigation(SpeedStinger pSpeedStinger, Level pLevel) {
             super(pSpeedStinger, pLevel);
         }
 
+        @Override
         protected @NotNull PathFinder createPathFinder(int pMaxVisitedNodes) {
             this.nodeEvaluator = new WalkNodeEvaluator();
             return new PathFinder(this.nodeEvaluator, pMaxVisitedNodes);
         }
 
-        protected boolean hasValidPathType(BlockPathTypes pPathType) {
+        @Override
+        protected boolean hasValidPathType(@NotNull BlockPathTypes pPathType) {
             return pPathType == BlockPathTypes.WATER || pPathType == BlockPathTypes.DAMAGE_FIRE || pPathType == BlockPathTypes.DANGER_FIRE || super.hasValidPathType(pPathType);
         }
 
-        public boolean isStableDestination(BlockPos pPos) {
+        @Override
+        public boolean isStableDestination(@NotNull BlockPos pPos) {
             return this.level.getBlockState(pPos).is(Blocks.WATER) || super.isStableDestination(pPos);
         }
     }
