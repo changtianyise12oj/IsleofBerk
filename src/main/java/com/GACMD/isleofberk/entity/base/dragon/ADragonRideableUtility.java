@@ -595,7 +595,10 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         if (this.tickCount > 20 && !flag && this.isSaddled()) {
             this.playSound(SoundEvents.HORSE_SADDLE, 0.5F, 1.0F);
         }
-
+        boolean flag_a = this.hasChest();
+        if (this.tickCount > 20 && !flag_a && this.hasChest()) {
+            this.playSound(SoundEvents.DONKEY_CHEST, 0.5F, 1.0F);
+        }
     }
 
     @Override
