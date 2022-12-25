@@ -1036,10 +1036,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
             if (cancelled) {
                 //Reset the "inLove" state for the dragons
-//                this.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
-//                dragonPartner.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
-                this.setAge(Util.secondsToTicks(10));
-                dragonPartner.setAge(Util.secondsToTicks(10));
+                this.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+                dragonPartner.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+//                this.setAge(Util.secondsToTicks(10));
+//                dragonPartner.setAge(Util.secondsToTicks(10));
                 this.resetLove();
                 partner.resetLove();
                 return;
@@ -1055,10 +1055,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
                     CriteriaTriggers.BRED_ANIMALS.trigger(serverplayer, this, partner, egg);
                 }
 
-//                this.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
-//                dragonPartner.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
-                this.setAge(Util.secondsToTicks(10));
-                dragonPartner.setAge(Util.secondsToTicks(10));
+                this.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+                dragonPartner.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+//                this.setAge(Util.secondsToTicks(10));
+//                dragonPartner.setAge(Util.secondsToTicks(10));
                 this.resetLove();
                 partner.resetLove();
                 egg.setBaby(true);
