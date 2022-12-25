@@ -36,12 +36,12 @@ public class NightFuryRender extends BaseRendererFlying<NightFury> {
 
     @Override
     public int getMaxRise() {
-        return 45;
+        return 47;
     }
 
     @Override
     public int getMinRise() {
-        return -48;
+        return -47;
     }
 
     @Override
