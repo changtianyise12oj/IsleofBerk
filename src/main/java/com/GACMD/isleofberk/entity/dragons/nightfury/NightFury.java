@@ -364,6 +364,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     public void tick() {
         super.tick();
 
+        System.out.println(getPhase1Progress());
         if (this.tier1()) {
             setProjsSize(0);
             setExplosionStrength(0);

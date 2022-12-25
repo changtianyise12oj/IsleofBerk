@@ -141,5 +141,10 @@
     "advancement.night_fury.title": "NO WAY!",
     "advancement.night_fury.desc": "The unholy offspring of lightning and death itself",
     "advancement.light_fury.title": "ANOTHER ONE!?",
-    "advancement.light_fury.desc": "No, not quite. It's more like a Light... Fury."
+    "advancement.light_fury.desc": "No, not quite. It's more like a Light... Fury.",
+
+    "taming.phase1.25": "Dragon Taming is at 25%",
+    "taming.phase1.50": "Dragon Taming is at 50%",
+    "taming.phase1.75": "Dragon Taming is at 75% getting closer",
+    "taming.phase1.90": "Dragon Taming is at 90% nearly there"
 }

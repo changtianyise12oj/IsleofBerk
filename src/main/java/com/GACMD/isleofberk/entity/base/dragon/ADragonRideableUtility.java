@@ -1,10 +1,8 @@
 package com.GACMD.isleofberk.entity.base.dragon;
 
-import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
-import com.GACMD.isleofberk.gui.DragonContainerMenu;
-import com.GACMD.isleofberk.entity.AI.taming.DragonRideTilTamed;
 import com.GACMD.isleofberk.entity.dragons.terrible_terror.TerribleTerror;
+import com.GACMD.isleofberk.gui.DragonContainerMenu;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -45,7 +43,6 @@ import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.function.Predicate;
 
 public class ADragonRideableUtility extends ADragonBase implements ContainerListener, Saddleable, PlayerRideable {
@@ -94,7 +91,8 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
     @Override
     protected void registerGoals() {
-        super.registerGoals();;
+        super.registerGoals();
+        ;
     }
 
     /**
@@ -139,7 +137,18 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                         if (!pPlayer.getAbilities().instabuild) {
                             itemstack.shrink(1);
                         }
+
+
                     }
+                }
+                if (getPhase1Progress() > getPhase1Progress() * 0.25) {
+                    pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.25"), true);
+                } else if (getPhase1Progress() > getPhase1Progress() * 0.50) {
+                    pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.50"), true);
+                } else if (getPhase1Progress() > getPhase1Progress() * 0.75) {
+                    pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.75"), true);
+                } else if (getPhase1Progress() > getPhase1Progress() * 0.90) {
+                    pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.90"), true);
                 }
             } else {
                 // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
@@ -277,7 +286,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
     @Override
     public boolean canEatWithFoodOnHand(boolean pIgnoreHunger) {
-        if(isTame()) {
+        if (isTame()) {
             return true;
         } else {
             return pIgnoreHunger || (!isTamingPhaseBarFull());
@@ -737,8 +746,9 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             animal.setYHeadRot(this.getYRot());
             animal.yBodyRot = animal.getYRot();
             animal.yHeadRot = animal.yBodyRot;
-            pPassenger.setYBodyRot(((Animal)pPassenger).yBodyRot + 270);
-            pPassenger.setYHeadRot(pPassenger.getYHeadRot() + 270);;
+            pPassenger.setYBodyRot(((Animal) pPassenger).yBodyRot + 270);
+            pPassenger.setYHeadRot(pPassenger.getYHeadRot() + 270);
+            ;
         }
     }
 
