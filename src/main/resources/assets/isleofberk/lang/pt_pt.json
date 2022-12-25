@@ -63,7 +63,7 @@
     "block.isleofberk.gronckle_iron_block": "Bloco de Ferro de Gronckle",
     "block.isleofberk.raw_gronckle_iron_block": "Bloco de Ferro de Gronckle Bruto",
 
-    "iob.belzium.warn": "Dragon está muito pesado, reduz o inventário para 4",
+    "iob.belzium.warn": "O Dragão está muito pesado, reduz o inventário para 4",
     "iob.belzium.not own": "Desculpa, tu não és dono deste Dragão",
     "iob.dragonAir.needSaddle": "Este Dragão precisa de uma sela ou pode deixar-te cair enquanto voas",
     "iob.dragonGround.needSaddle": "O flanco do Dragão está a doer, equipa uma sela ",
@@ -134,7 +134,7 @@
     "advancement.strike.title": "Precisão Apurada",
     "advancement.strike.desc": "Rápidos, Fortes e Inteligentes",
     "advancement.tidal.title": "Muito abaixo nas Profundezas do Oceano",
-    "advancement.tidal.desc": "Enormes monstruos Marinhos",
+    "advancement.tidal.desc": "Enormes monstros Marinhos",
     "advancement.tracker.title": "Nascidos para serem Caçadores",
     "advancement.tracker.desc": "Perseguem e rastreiam qualquer coisa facilmente",
 
