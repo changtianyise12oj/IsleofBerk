@@ -34,6 +34,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -527,7 +528,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new FollowOwnerNoTPGoal(this, 1.1D, 1.0F, 1.0F, true));;
+        this.goalSelector.addGoal(1, new FollowOwnerNoTPGoal(this, 1.1D, 1.0F, 1.0F, true));
+        ;
         this.goalSelector.addGoal(2, new DragonRideTilTamed(this, 1));
         this.goalSelector.addGoal(3, new DragonBreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, getMeleeAttackGoal());
@@ -1028,27 +1030,44 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     public void spawnChildFromBreeding(ServerLevel serverLevel, Animal partner) {
-        super.spawnChildFromBreeding(serverLevel, partner);
         if (partner instanceof ADragonBase dragonPartner) {
             ADragonEggBase egg = this.getBreedEggResult(serverLevel, dragonPartner);
-            //Reset the "inLove" state for the dragonPartners
-            this.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
-            dragonPartner.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
-            this.resetLove();
-            dragonPartner.resetLove();
-
-            if (egg != null) {
-                this.setAge(6000);
-                dragonPartner.setAge(6000);
+            final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(this, partner, egg);
+            final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
+            if (cancelled) {
+                //Reset the "inLove" state for the dragons
+//                this.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+//                dragonPartner.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+                this.setAge(Util.secondsToTicks(10));
+                dragonPartner.setAge(Util.secondsToTicks(10));
                 this.resetLove();
-                dragonPartner.resetLove();
-                egg.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
-                serverLevel.addFreshEntityWithPassengers(egg);
-                serverLevel.broadcastEntityEvent(this, (byte) 18);
-                egg.setDragonVariant(random.nextInt(getMaxAmountOfVariants()));
+                partner.resetLove();
+                return;
             }
-            if (serverLevel.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
-                serverLevel.addFreshEntity(new ExperienceOrb(serverLevel, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
+            if (egg != null) {
+                ServerPlayer serverplayer = this.getLoveCause();
+                if (serverplayer == null && partner.getLoveCause() != null) {
+                    serverplayer = partner.getLoveCause();
+                }
+
+                if (serverplayer != null) {
+                    serverplayer.awardStat(Stats.ANIMALS_BRED);
+                    CriteriaTriggers.BRED_ANIMALS.trigger(serverplayer, this, partner, egg);
+                }
+
+//                this.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+//                dragonPartner.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+                this.setAge(Util.secondsToTicks(10));
+                dragonPartner.setAge(Util.secondsToTicks(10));
+                this.resetLove();
+                partner.resetLove();
+                egg.setBaby(true);
+                egg.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+                level.addFreshEntity(egg);
+                level.broadcastEntityEvent(this, (byte) 18);
+                if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+                    level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
+                }
             }
         }
     }

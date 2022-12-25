@@ -24,10 +24,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.HumanoidArm;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
@@ -39,11 +36,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class ADragonEggBase extends LivingEntity implements IAnimatable {
+public class ADragonEggBase extends AgeableMob implements IAnimatable {
     private static final EntityDataAccessor<Integer> DRAGON_VARIANT = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> TICK_HATCH_TIME = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> CAN_HATCH = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.BOOLEAN);
@@ -76,6 +74,12 @@ public class ADragonEggBase extends LivingEntity implements IAnimatable {
         super.moveTo(pVec);
     }
 
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(ServerLevel pLevel, AgeableMob pOtherParent) {
+        return null;
+    }
 
     @Override
     protected void defineSynchedData() {
