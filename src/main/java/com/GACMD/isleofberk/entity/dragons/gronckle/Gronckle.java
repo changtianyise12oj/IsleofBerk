@@ -588,4 +588,9 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         return 0.2F;
     }
 
+    @Override
+    protected int getInLoveCoolDownInMCDays() {
+        return 14;
+    }
+
 }

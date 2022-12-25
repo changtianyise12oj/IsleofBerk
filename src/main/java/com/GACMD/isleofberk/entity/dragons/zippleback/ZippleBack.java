@@ -222,4 +222,9 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     protected int getAggressionType() {
         return 2;
     }
+
+    @Override
+    protected int getInLoveCoolDownInMCDays() {
+        return 22;
+    }
 }

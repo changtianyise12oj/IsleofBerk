@@ -1,19 +1,15 @@
 package com.GACMD.isleofberk.entity.dragons.nightfury;
 
-import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
-import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightFuryEgg;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
-import com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt.FireBolt;
 import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBolt;
 import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.registery.ModEntities;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -27,7 +23,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -306,10 +301,13 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return this.factory;
     }
 
-    // cannot breed night fury. they are too powerful
     @Override
     public boolean isBreedingFood(ItemStack pStack) {
         return pStack.is(Items.HONEYCOMB);
+    }
+
+    protected int getInLoveCoolDownInMCDays() {
+        return 24;
     }
 
     @Override
@@ -347,6 +345,10 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
         }
+    }
+
+    protected int getChanceToFire() {
+        return 40;
     }
 
     @org.jetbrains.annotations.Nullable

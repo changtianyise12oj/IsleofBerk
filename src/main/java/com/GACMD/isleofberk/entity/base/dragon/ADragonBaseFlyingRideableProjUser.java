@@ -134,7 +134,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
         if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal) && (getTarget() instanceof Player player && !player.isCreative())) {
 
             if (!(getControllingPassenger() instanceof Player)) {
-                if (getRandom().nextInt(25) == 1) {
+                if (getRandom().nextInt(getChanceToFire()) == 1) {
                     setPlayerBoltBlastPendingScale((int) (getMaxPlayerBoltBlast() * getAIProjPowerPercentage()));
                     dragonShootProjectile(getViewVector(1F), getThroatPos(this));
                     ticksSinceLastProjShoot = Util.secondsToTicks(1);
@@ -146,6 +146,10 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
                 ticksSinceLastProjShoot=0;
             }
         }
+    }
+
+    protected int getChanceToFire() {
+        return 25;
     }
 
     protected float getAIProjPowerPercentage() {

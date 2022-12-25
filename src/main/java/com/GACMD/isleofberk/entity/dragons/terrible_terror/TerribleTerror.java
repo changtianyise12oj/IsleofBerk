@@ -262,6 +262,10 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         return pStack.is(Items.COD);
     }
 
+    protected int getInLoveCoolDownInMCDays() {
+        return 4;
+    }
+
     @Override
     public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);

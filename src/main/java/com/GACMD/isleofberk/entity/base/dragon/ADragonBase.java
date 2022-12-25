@@ -10,7 +10,6 @@ import com.GACMD.isleofberk.entity.AI.taming.DragonRideTilTamed;
 import com.GACMD.isleofberk.entity.AI.target.DragonHurtByTargetGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonMeleeAttackGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
-import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.StingerEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
@@ -562,9 +561,12 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return 0;
     }
 
+    protected int getInLoveCoolDownInMCDays() {
+        return 16;
+    }
+
     @Override
     public void setInLove(@javax.annotation.Nullable Player pPlayer) {
-        this.setInLoveTime(Util.mcDaysToMinutes(10));
         super.setInLove(pPlayer);
     }
 
@@ -721,6 +723,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     @Override
     public void tick() {
         super.tick();
+
+        System.out.println(getAge());
         if (this.getCommand() == 1) {
             this.setOrderedToSit(isDragonSitting());
         }
@@ -1028,8 +1032,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         if (partner instanceof ADragonBase dragonPartner) {
             ADragonEggBase egg = this.getBreedEggResult(serverLevel, dragonPartner);
             //Reset the "inLove" state for the dragonPartners
-            this.setAge(6000);
-            dragonPartner.setAge(6000);
+            this.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+            dragonPartner.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
             this.resetLove();
             dragonPartner.resetLove();
 

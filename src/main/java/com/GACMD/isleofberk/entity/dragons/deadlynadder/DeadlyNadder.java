@@ -496,6 +496,11 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         return 9;
     }
 
+    @Override
+    protected int getInLoveCoolDownInMCDays() {
+        return 14;
+    }
+
 }
 
 

@@ -702,4 +702,9 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     public int getMaxPlayerBoltBlast() {
         return 82;
     }
+
+    @Override
+    protected int getInLoveCoolDownInMCDays() {
+        return 22;
+    }
 }

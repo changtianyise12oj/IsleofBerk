@@ -291,4 +291,10 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         MonstrousNightmareEgg dragon = ModEntities.M_NIGHTMARE_EGG.get().create(level);
         return dragon;
     }
+
+    @Override
+    protected int getInLoveCoolDownInMCDays() {
+        return 22;
+    }
+
 }

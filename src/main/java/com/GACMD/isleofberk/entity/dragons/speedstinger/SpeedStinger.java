@@ -567,6 +567,10 @@ public class SpeedStinger extends ADragonBase {
         return super.mobInteract(pPlayer, pHand);
     }
 
+    protected int getInLoveCoolDownInMCDays() {
+        return 5;
+    }
+
     public void circleEntity(Entity target, float radius, float speed, boolean direction, int circleFrame, float offset, float moveSpeedMultiplier) {
         int directionInt = direction ? 1 : -1;
         double t = 1 * circleFrame * 0.5 * speed / radius + offset;
