@@ -140,19 +140,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
 
                     }
-                } else {
-                    if (getPhase1Progress() >= getPhase1Progress() * 0.25 && getPhase1Progress() < getPhase1Progress() * 0.50) {
-                        pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.25"), true);
-                    }
-                    if (getPhase1Progress() >= getPhase1Progress() * 0.50 && getPhase1Progress() < getPhase1Progress() * 0.75) {
-                        pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.50"), true);
-                    }
-                    if (getPhase1Progress() >= getPhase1Progress() * 0.75 && getPhase1Progress() < getPhase1Progress() * 0.90) {
-                        pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.75"), true);
-                    }
-                    if (getPhase1Progress() >= getPhase1Progress() * 0.90) {
-                        pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.90"), true);
-                    }
                 }
             } else {
                 // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
@@ -250,6 +237,14 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                     return InteractionResult.SUCCESS;
                 }
             }
+        }
+
+        if (itemstack.is(Items.STICK)) {
+            int i = getPhase1Progress();
+            String s = Integer.toString(i);
+            pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.25").append(s).append("%"), true);
+
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
 
         if (!isBreedingFood(itemstack) && !isFoodEdibleToDragon(itemstack)) {
