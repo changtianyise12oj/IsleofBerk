@@ -182,7 +182,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             }
 
             // add smoke particles to dragons that are full
-            if (isTamingPhaseBarFull()) {
+            if (isTamingPhaseBarFull() && !isTame()) {
                 addSmokeParticles();
                 if (!isTame()) ;
             }
