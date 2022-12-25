@@ -143,8 +143,8 @@
     "advancement.light_fury.title": "ANOTHER ONE!?",
     "advancement.light_fury.desc": "No, not quite. It's more like a Light... Fury.",
 
-    "taming.phase1.25": "Dragon Taming is at 25%",
-    "taming.phase1.50": "Dragon Taming is at 50%",
-    "taming.phase1.75": "Dragon Taming is at 75% getting closer",
-    "taming.phase1.90": "Dragon Taming is at 90% nearly there"
+    "taming.phase1.25": "Dragon Taming is greater than 25%",
+    "taming.phase1.50": "Dragon Taming is greater than 50%",
+    "taming.phase1.75": "Dragon Taming is greater than 75% getting closer",
+    "taming.phase1.90": "Dragon Taming is greater than 90% nearly there"
 }
