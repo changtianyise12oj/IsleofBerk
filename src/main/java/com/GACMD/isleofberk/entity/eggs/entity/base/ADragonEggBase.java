@@ -65,8 +65,14 @@ public class ADragonEggBase extends AgeableMob implements IAnimatable {
     public static AttributeSupplier.Builder createAttributes() {
         return LivingEntity.createLivingAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0D);
+                .add(Attributes.MOVEMENT_SPEED, 0D)
+                .add(Attributes.FOLLOW_RANGE, 5D);
 
+    }
+
+    @Override
+    public boolean canBreed() {
+        return false;
     }
 
     @Override
