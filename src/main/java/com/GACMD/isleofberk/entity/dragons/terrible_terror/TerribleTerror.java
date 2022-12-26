@@ -35,13 +35,15 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.BreedGoal;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Strider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -68,7 +70,10 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.function.Predicate;
 
 public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implements IAnimatable, NeutralMob {
@@ -375,19 +380,19 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             double offsetX, offsetY, offsetZ;
             if (passengerIndex == 0) {
                 float radius = -0.2F;
-                offsetX = (radius * -Math.sin(((Player) vehicle).yBodyRot * Math.PI / 180));
-                offsetZ = (radius * Math.cos(((Player) vehicle).yBodyRot * Math.PI / 180));
+                offsetX = (radius * -Math.sin(((Player) player).yBodyRot * Math.PI / 180));
+                offsetZ = (radius * Math.cos(((Player) player).yBodyRot * Math.PI / 180));
                 offsetY = 1.7D;
                 this.setPos(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
             } else if (passengerIndex == 1) {
-                float radius = player.isFallFlying() ? -0.4F: 0.4F;
+                float radius = 0.4F;
                 float angle = (float) (Math.PI / 180) * ((Player) vehicle).yBodyRot - 90;
                 offsetX = radius * Math.sin(Math.PI + angle);
                 offsetZ = radius * Math.cos(angle);
                 offsetY = 1.2D;
                 this.setPos(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
             } else if (passengerIndex == 2) {
-                float radius = player.isFallFlying() ? -0.4F: 0.4F;
+                float radius = 0.4F;
                 float angle = (float) (Math.PI / 180) * ((Player) vehicle).yBodyRot + 90;
                 offsetX = radius * Math.sin(Math.PI + angle);
                 offsetZ = radius * Math.cos(angle);
@@ -395,9 +400,11 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 this.setPos(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
             }
 
-            vehicle.setYBodyRot(vehicle.getYHeadRot());
-            this.setYRot(vehicle.getYRot());
-            this.yBodyRot = ((Player) vehicle).yBodyRot;
+            if (!player.isFallFlying()) {
+                player.setYBodyRot(player.getYHeadRot());
+            }
+            this.setYRot(player.getYRot());
+            this.yBodyRot = ((Player) player).yBodyRot;
             this.yHeadRot = this.yBodyRot;
 
             // try to dismount
