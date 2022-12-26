@@ -121,8 +121,8 @@ public class LightFury extends NightFury {
     }
 
     public void dragonShootProjectile(Vec3 dragonLook, Vec3 throat) {
-        if ((tier1() || tier2() || tier3() || tier4())) {
-            setTicksSinceLastFire(20);
+        if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
+            setTicksSinceLastFire(ticksSinceLastProjShootSet());
             FuryBolt bolt = new FuryBolt(this, throat, dragonLook, level, getExplosionStrength());
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());

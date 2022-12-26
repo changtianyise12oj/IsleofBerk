@@ -1,14 +1,14 @@
 package com.GACMD.isleofberk.entity.dragons.nightfury;
 
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightFuryEgg;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.NightFuryEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBolt;
-import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -210,8 +210,8 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        if(random.nextInt(1000) == 1) {
-             this.setDragonVariant(5);
+        if (random.nextInt(1000) == 1) {
+            this.setDragonVariant(5);
         } else {
             this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
         }
@@ -323,7 +323,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Override
     protected void playerFireProjectile(Vec3 riderLook, Vec3 throat) {
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
-            setTicksSinceLastFire(12);
+            setTicksSinceLastFire(ticksSinceLastProjShootSet());
             FuryBolt bolt = new FuryBolt(this, throat, riderLook, level, getExplosionStrength());
             bolt.setProjectileSize(getProjsSize());
             bolt.shoot(riderLook, 1F);
@@ -334,11 +334,11 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         }
     }
 
+    @Override
     public void dragonShootProjectile(Vec3 dragonLook, Vec3 throat) {
-        if ((tier1() || tier2() || tier3() || tier4())) {
-            setTicksSinceLastFire(20);
+        if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
+            setTicksSinceLastFire(ticksSinceLastProjShootSet());
             FuryBolt bolt = new FuryBolt(this, throat, dragonLook, level, getExplosionStrength());
-            setMarkFired(true);
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());
             level.addFreshEntity(bolt);
@@ -346,6 +346,11 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
         }
+    }
+
+    @Override
+    protected int ticksSinceLastProjShootSet() {
+        return 12;
     }
 
     protected int getChanceToFire() {

@@ -2,7 +2,6 @@ package com.GACMD.isleofberk.entity.base.dragon;
 
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt.FireBolt;
-import com.GACMD.isleofberk.util.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -17,7 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable {
-    private int ticksSinceLastProjShoot = 0;
 
     public ADragonBaseFlyingRideableProjUser(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -110,16 +108,6 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
                 }
             }
 
-            if (getTicksSinceLastFire() > 0) {
-                setTicksSinceLastFire(getTicksSinceLastFire() - 1);
-            }
-
-            if (getTicksSinceLastFire() < 2) {
-                setMarkFired(false);
-            } else {
-                setMarkFired(true);
-            }
-
             if (canFireProj()) {
                 playerFireProjectile(riderLook, throat);
             }
@@ -132,24 +120,30 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
         // probably scale the hitbox too
         // use in melee AI
         if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal) && (getTarget() instanceof Player player && !player.isCreative())) {
-
+//        if (getOwner() instanceof Player player) {
             if (!(getControllingPassenger() instanceof Player)) {
                 if (getRandom().nextInt(getChanceToFire()) == 1) {
                     setPlayerBoltBlastPendingScale((int) (getMaxPlayerBoltBlast() * getAIProjPowerPercentage()));
-                    dragonShootProjectile(getViewVector(1F), getThroatPos(this));
-                    ticksSinceLastProjShoot = Util.secondsToTicks(1);
+                    dragonShootProjectile(getViewVector(1.0F), getThroatPos(this));
                 }
-                if (ticksSinceLastProjShoot > 0) {
-                    ticksSinceLastProjShoot--;
-                }
-            } else {
-                ticksSinceLastProjShoot=0;
             }
+        }
+        if (getTicksSinceLastFire() > 0) {
+            setTicksSinceLastFire(getTicksSinceLastFire() - 1);
+        }
+        if (getTicksSinceLastFire() < 2) {
+            setMarkFired(false);
+        } else {
+            setMarkFired(true);
         }
     }
 
+    protected int ticksSinceLastProjShootSet() {
+        return 20;
+    }
+
     protected int getChanceToFire() {
-        return 25;
+        return 55;
     }
 
     protected float getAIProjPowerPercentage() {
@@ -186,7 +180,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     protected void playerFireProjectile(Vec3 riderLook, Vec3 throat) {
         FireBolt bolt = new FireBolt(this, throat, riderLook, level, getExplosionStrength());
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
-            setTicksSinceLastFire(20);
+            setTicksSinceLastFire(ticksSinceLastProjShootSet());
             bolt.shoot(riderLook, 1F);
             bolt.setProjectileSize(getProjsSize());
             level.addFreshEntity(bolt);
@@ -196,15 +190,14 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     }
 
     public void dragonShootProjectile(Vec3 dragonLook, Vec3 throat) {
-        if ((tier1() || tier2() || tier3() || tier4())) {
-            setTicksSinceLastFire(20);
-            setMarkFired(true);
+        if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
             FireBolt bolt = new FireBolt(this, throat, dragonLook, level, getExplosionStrength());
+            setTicksSinceLastFire(ticksSinceLastProjShootSet());
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());
-            level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
+            level.addFreshEntity(bolt);
         }
     }
 
