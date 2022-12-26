@@ -5,9 +5,9 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 
-public class DragonFollowPlayerRiding extends ADragonBaseBaseFlyingRideableGoal {
+public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal {
 
-    public DragonFollowPlayerRiding(ADragonBaseFlyingRideable dragonBaseFlyingRideable) {
+    public DragonFollowPlayerFlying(ADragonBaseFlyingRideable dragonBaseFlyingRideable) {
         super(dragonBaseFlyingRideable);
     }
 
