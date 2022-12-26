@@ -529,17 +529,14 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 Vec3 throat0 = getTerror0ThroatPosViaPlayer(vehicle);
                 if (isUsingAbility() && canUseBreath())
                     firePrimary(vehicleLook, throat0);
-//                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat0.x, throat0.y, throat0.z, 1,1,1);
             } else if (this == vehicle.getPassengers().get(1)) {
                 Vec3 throat1 = getTerror1ThroatPosViaPlayer(vehicle);
                 if (isUsingAbility() && canUseBreath())
                     firePrimary(vehicleLook, throat1);
-//                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat1.x, throat1.y, throat1.z, 1,1,1);
             } else if (this == vehicle.getPassengers().get(2)) {
                 Vec3 throat2 = getTerror2ThroatPosViaPlayer(vehicle);
                 if (isUsingAbility() && canUseBreath())
                     firePrimary(vehicleLook, throat2);
-//                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat2.x, throat2.y, throat2.z, 1,1,1);
             }
         }
     }

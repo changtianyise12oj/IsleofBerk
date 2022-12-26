@@ -1,12 +1,13 @@
 package com.GACMD.isleofberk.entity.AI.flight.player;
 
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.AI.flight.ADragonBaseBaseFlyingRideableGoal;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 
-public class DragonCatchOwnerGoal extends ADragonBaseBaseFlyingRideableGoal {
+public class DragonFollowPlayerRiding extends ADragonBaseBaseFlyingRideableGoal {
 
-    public DragonCatchOwnerGoal(ADragonBaseFlyingRideable dragonBaseFlyingRideable) {
+    public DragonFollowPlayerRiding(ADragonBaseFlyingRideable dragonBaseFlyingRideable) {
         super(dragonBaseFlyingRideable);
     }
 
@@ -24,7 +25,7 @@ public class DragonCatchOwnerGoal extends ADragonBaseBaseFlyingRideableGoal {
             }
 
             // prevent small terrible terrors from flying towards the player and catching it
-            if(!dragon.canBeMounted()) {
+            if (!dragon.canBeMounted()) {
                 return false;
             }
 
@@ -37,13 +38,9 @@ public class DragonCatchOwnerGoal extends ADragonBaseBaseFlyingRideableGoal {
                 return false;
             }
 
-            if(!dragon.isDragonFollowing()) {
-                return false;
-            }
-
             // land to ground instead of catch the player
             // if owner is on ground land next to owner
-            return owner.fallDistance > 4;
+            return dragon.isDragonFollowing();
         }
         return false;
     }
@@ -59,14 +56,21 @@ public class DragonCatchOwnerGoal extends ADragonBaseBaseFlyingRideableGoal {
             // don't catch if owner is too far away
             double followRange = 35;
 
-            if (dragon.distanceTo(owner) < followRange) {
-                // mount owner if close enough, otherwise move to owner
-                if (dragon.distanceTo(owner) <= dragon.getBbWidth() * 1.5 || dragon.distanceTo(owner) <= dragon.getBbHeight() * 1.5 && !owner.isShiftKeyDown() && dragon.isFlying()) {
-                    owner.startRiding(dragon);
-                } else {
-                    // y movement is too slow
-                    dragon.getNavigation().moveTo(owner.getX(), owner.getY() - 5, owner.getZ(), 8);
+            if (owner.fallDistance > 2) {
+                if (dragon.distanceTo(owner) < followRange) {
+                    // mount owner if close enough, otherwise move to owner
+                    if (dragon.distanceTo(owner) <= dragon.getBbWidth() * 1.5 || dragon.distanceTo(owner) <= dragon.getBbHeight() * 1.5 && !owner.isShiftKeyDown() && dragon.isFlying()) {
+                        owner.startRiding(dragon);
+                    } else {
+                        // y movement is too slow
+                        dragon.getNavigation().moveTo(owner.getX(), owner.getY() - 5, owner.getZ(), 8);
+                    }
                 }
+            } else {
+                Vec3 movePos = new Vec3(owner.getX(), owner.getY() + 4, owner.getZ());
+                // now count the index and make them spread, only happens when the entire class AI kicks in
+                tailingDragons.put(owner.getUUID(), dragon);
+                dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * 3), movePos.y(), movePos.z() + (tailingDragons.size() * 3), 4);
             }
         }
     }

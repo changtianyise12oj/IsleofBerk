@@ -5,9 +5,9 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.Vec3;
 
-public class DragonElytraFlyingWithOwnerGoal extends ADragonBaseBaseFlyingRideableGoal {
+public class DragonFollowOwnerFlying extends ADragonBaseBaseFlyingRideableGoal {
 
-    public DragonElytraFlyingWithOwnerGoal(ADragonBaseFlyingRideable dragonBase) {
+    public DragonFollowOwnerFlying(ADragonBaseFlyingRideable dragonBase) {
         super(dragonBase);
     }
 
@@ -28,7 +28,7 @@ public class DragonElytraFlyingWithOwnerGoal extends ADragonBaseBaseFlyingRideab
 
             // follow if elytra flying and owner is riding on the dragon to the sky
 //            return owner.isFallFlying() || (owner.getVehicle() != null && !owner.isOnGround()) || (owner.getVehicle() instanceof ADragonBaseFlyingRideable dragon && dragon.isDragonOnGround());
-            return dragon.isDragonFollowing();
+            return dragon.isDragonFollowing()||owner.fallDistance < 2;
         }
         return false;
     }

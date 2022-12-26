@@ -5,9 +5,7 @@ import com.GACMD.isleofberk.entity.AI.flight.own.DragonFlyAndAttackAirbourneTarg
 import com.GACMD.isleofberk.entity.AI.flight.own.UntamedDragonCircleFlightGoal;
 import com.GACMD.isleofberk.entity.AI.flight.player.AIDragonLand;
 import com.GACMD.isleofberk.entity.AI.flight.player.AIDragonRide;
-import com.GACMD.isleofberk.entity.AI.flight.player.DragonCatchOwnerGoal;
-import com.GACMD.isleofberk.entity.AI.flight.player.DragonElytraFlyingWithOwnerGoal;
-import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
+import com.GACMD.isleofberk.entity.AI.flight.player.DragonFollowPlayerRiding;
 import com.GACMD.isleofberk.entity.AI.path.air.DragonFlyingPathNavigation;
 import com.GACMD.isleofberk.entity.AI.path.air.FlyingDragonMoveControl;
 import com.GACMD.isleofberk.entity.AI.target.DragonNonTameRandomTargetGoal;
@@ -182,12 +180,11 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new DragonFloatGoal(this));
-        this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 1.0F, 1.0F, true));
-        this.goalSelector.addGoal(0, new DragonCatchOwnerGoal(this));
+        this.goalSelector.addGoal(0, new DragonFollowPlayerRiding(this));
         this.goalSelector.addGoal(0, new DragonFlyAndAttackAirbourneTargetGoal(this, 1, true));
         this.goalSelector.addGoal(1, new UntamedDragonCircleFlightGoal(this));
         this.goalSelector.addGoal(1, new AIDragonLand(this, 1));
-        this.goalSelector.addGoal(1, new DragonElytraFlyingWithOwnerGoal(this));
+//        this.goalSelector.addGoal(1, new DragonFollowOwnerFlying(this));
         this.goalSelector.addGoal(2, new AIDragonRide(this));
         this.targetSelector.addGoal(2, new DragonNonTameRandomTargetGoal<>(this, Animal.class, false, PREY_SELECTOR));
     }
