@@ -198,6 +198,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     public void dragonShootProjectile(Vec3 dragonLook, Vec3 throat) {
         if ((tier1() || tier2() || tier3() || tier4())) {
             setTicksSinceLastFire(20);
+            setMarkFired(true);
             FireBolt bolt = new FireBolt(this, throat, dragonLook, level, getExplosionStrength());
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());

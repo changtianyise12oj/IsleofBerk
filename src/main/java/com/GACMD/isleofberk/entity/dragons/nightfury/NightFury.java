@@ -338,6 +338,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         if ((tier1() || tier2() || tier3() || tier4())) {
             setTicksSinceLastFire(20);
             FuryBolt bolt = new FuryBolt(this, throat, dragonLook, level, getExplosionStrength());
+            setMarkFired(true);
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());
             level.addFreshEntity(bolt);
