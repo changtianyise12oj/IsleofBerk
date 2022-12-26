@@ -77,13 +77,12 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                 NetworkHooks.openGui((ServerPlayer) playerEntity, new MenuProvider() {
 
                     @Override
-                    public Component getDisplayName() {
+                    public @NotNull Component getDisplayName() {
                         return dragonName;
                     }
 
-                    @Nullable
                     @Override
-                    public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player playerEntity) {
+                    public @NotNull AbstractContainerMenu createMenu(int i, @NotNull Inventory playerInventory, @NotNull Player playerEntity) {
                         return new DragonContainerMenu(i, playerInventory, id);
                     }
                 }, buf -> buf.writeInt(id));
@@ -186,7 +185,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             // add smoke particles to dragons that are full
             if (isTamingPhaseBarFull() && !isTame()) {
                 addSmokeParticles();
-                if (!isTame()) ;
             }
         }
 
@@ -538,11 +536,11 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
     private SlotAccess createEquipmentSlotAccess(final int p_149503_, final Predicate<ItemStack> p_149504_) {
         return new SlotAccess() {
-            public ItemStack get() {
+            public @NotNull ItemStack get() {
                 return ADragonRideableUtility.this.dragonContainer.getItem(p_149503_);
             }
 
-            public boolean set(ItemStack p_149528_) {
+            public boolean set(@NotNull ItemStack p_149528_) {
                 if (!p_149504_.test(p_149528_)) {
                     return false;
                 } else {
@@ -749,6 +747,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             }
             hasChestVarChanged = false;
         }
+
         super.tick();
     }
 
