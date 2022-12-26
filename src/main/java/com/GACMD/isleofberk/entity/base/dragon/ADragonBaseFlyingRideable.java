@@ -10,6 +10,7 @@ import com.GACMD.isleofberk.entity.AI.path.air.DragonFlyingPathNavigation;
 import com.GACMD.isleofberk.entity.AI.path.air.FlyingDragonMoveControl;
 import com.GACMD.isleofberk.entity.AI.target.DragonNonTameRandomTargetGoal;
 import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -339,6 +340,20 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 
         if (this.getY() > 500) {
             this.setDeltaMovement(0, -1, 0);
+        }
+    }
+
+    protected void onGroundMechanics() {
+        if (getControllingPassenger() != null || getTicksFlyWandering() < 2) {
+            BlockPos pos1 = new BlockPos(position().add(0, -1, 0));
+            BlockPos pos2 = new BlockPos(position().add(0, -2, 0));
+            BlockPos pos3 = new BlockPos(position().add(0, -3, 0));
+            if (level.getBlockState(pos1).getMaterial().isSolid() || level.getBlockState(pos2).getMaterial().isSolid() || level.getBlockState(pos3).getMaterial().isSolid()
+                    || (level.getBlockState(pos1).getMaterial().isSolid() && !level.getBlockState(pos3).getMaterial().isSolid())) {
+                setIsDragonOnGround(true);
+            } else {
+                setIsDragonOnGround(false);
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.GACMD.isleofberk.entity.AI.flight.player;
 import com.GACMD.isleofberk.entity.AI.flight.ADragonBaseBaseFlyingRideableGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
 public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal {
@@ -20,21 +21,17 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
                 return false;
             }
 
-            if (dragon.getControllingPassenger() != null) {
-                return false;
-            }
-
             // prevent small terrible terrors from flying towards the player and catching it
-            if (!dragon.canBeMounted()) {
-                return false;
-            }
+//            if (!dragon.canBeMounted()) {
+//                return false;
+//            }
 
             // don't catch if owner has a working Elytra equipped
             if (owner.isFallFlying()) {
                 return false;
             }
 
-            if (dragon.isVehicle() || dragon.getVehicle() != null) {
+            if (dragon.getControllingPassenger() instanceof Player || dragon.getVehicle() != null) {
                 return false;
             }
 
@@ -56,7 +53,7 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
             // don't catch if owner is too far away
             double followRange = 35;
 
-            if (owner.fallDistance > 2) {
+            if (owner.fallDistance > 4) {
                 if (dragon.distanceTo(owner) < followRange) {
                     // mount owner if close enough, otherwise move to owner
                     if (dragon.distanceTo(owner) <= dragon.getBbWidth() * 1.5 || dragon.distanceTo(owner) <= dragon.getBbHeight() * 1.5 && !owner.isShiftKeyDown() && dragon.isFlying()) {
@@ -69,7 +66,7 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
             } else {
                 Vec3 movePos = new Vec3(owner.getX(), owner.getY() + 4, owner.getZ());
                 // now count the index and make them spread, only happens when the entire class AI kicks in
-                tailingDragons.put(owner.getUUID(), dragon);
+                tailingDragons.put(owner.getUUID(),dragon);
                 dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * 3), movePos.y(), movePos.z() + (tailingDragons.size() * 3), 4);
             }
         }

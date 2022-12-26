@@ -735,18 +735,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             this.setRot(this.getYRot(), this.getXRot());
         }
 
-
-        BlockPos pos1 = new BlockPos(position().add(0, -1, 0));
-        BlockPos pos2 = new BlockPos(position().add(0, -2, 0));
-        BlockPos pos3 = new BlockPos(position().add(0, -3, 0));
-        if (level.getBlockState(pos1).getMaterial().isSolid() || level.getBlockState(pos2).getMaterial().isSolid() || level.getBlockState(pos3).getMaterial().isSolid()
-                || (level.getBlockState(pos1).getMaterial().isSolid() && !level.getBlockState(pos3).getMaterial().isSolid())) {
-
-            setIsDragonOnGround(true);
-        } else {
-            setIsDragonOnGround(false);
-        }
-
         if (getSleepDisturbTicks() > 0)
             setSleepDisturbTicks(getSleepDisturbTicks() - 1);
 
@@ -780,6 +768,20 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         }
 
         sleepMechanics();
+        onGroundMechanics();
+    }
+
+    protected void onGroundMechanics() {
+        BlockPos pos1 = new BlockPos(position().add(0, -1, 0));
+        BlockPos pos2 = new BlockPos(position().add(0, -2, 0));
+        BlockPos pos3 = new BlockPos(position().add(0, -3, 0));
+        if (level.getBlockState(pos1).getMaterial().isSolid() || level.getBlockState(pos2).getMaterial().isSolid() || level.getBlockState(pos3).getMaterial().isSolid()
+                || (level.getBlockState(pos1).getMaterial().isSolid() && !level.getBlockState(pos3).getMaterial().isSolid())) {
+
+            setIsDragonOnGround(true);
+        } else {
+            setIsDragonOnGround(false);
+        }
     }
 
     protected void sleepMechanics() {
