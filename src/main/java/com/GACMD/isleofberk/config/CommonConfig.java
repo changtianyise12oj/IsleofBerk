@@ -23,17 +23,17 @@ public class CommonConfig {
     static {
         BUILDER.push("Isle of Berk Config");
 
-        USE_LARGER_SCALING = BUILDER.comment("Should use larger dragon scales?").define("Should use larger dragon scales?", true);
-        N_FURY_SPAWN_CHANCE = BUILDER.comment("Night Fury Spawn Chance").define("Night Fury Spawn Chance?", 0.05F);
-        L_FURY_SPAWN_CHANCE = BUILDER.comment("Light Fury Spawn Chance").define("Light Fury Spawn Chance?", 0.05F);
-        GROCNKLE__SPAWN_CHANCE = BUILDER.comment("Gronckle Spawn Chance").define("Gronckle Spawn Chance?", 0.05F);
-        NADDER_SPAWN_CHANCE = BUILDER.comment("Deadly Nadder Spawn Chance").define("DeadlyNadder Spawn Chance?", 0.05F);
-        ZIPP_SPAWN_CHANCE = BUILDER.comment("Zippleback Spawn Chance").define("Zippleback Spawn Chance?", 0.04F);
-        NIGHTMARE_SPAWN_CHANCE = BUILDER.comment("Monstrous Nightmare Spawn Chance").define("Monstrous Nightmare Spawn Chance?", 0.04F);
-        STRYKE_SPAWN_CHANCE = BUILDER.comment("Triple Stryke Spawn Chance").define("Triple Stryke Spawn Chance?", 0.03F);
-        TERROR_SPAWN_CHANCE = BUILDER.comment("Terrible Terror Spawn Chance").define("Terrible Terror Spawn Chance?", 0.06F);
-        SPEED_STINGER_SPAWN_CHANCE = BUILDER.comment("Speed Stinger Spawn Chance").define("Speed Stinger Spawn Chance?", 0.08F);
-        STINGER = BUILDER.comment("Stinger Spawn Chance").define("Stinger Spawn Chance?", 0.05F);
+        USE_LARGER_SCALING = BUILDER.comment("Should use larger dragon scaling?").define("Should use larger dragon scaling?", true);
+        N_FURY_SPAWN_CHANCE = BUILDER.comment("Night Fury Spawn Chancem Lower decimal numbers means lower spawning").define("Night Fury Spawn Chancem Lower decimal numbers means lower spawning?", 0.05F);
+        L_FURY_SPAWN_CHANCE = BUILDER.comment("Light Fury Spawn Chancem Lower decimal numbers means lower spawning").define("Light Fury Spawn Chancem Lower decimal numbers means lower spawning?", 0.05F);
+        GROCNKLE__SPAWN_CHANCE = BUILDER.comment("Gronckle Spawn Chancem Lower decimal numbers means lower spawning").define("Gronckle Spawn Chancem Lower decimal numbers means lower spawning?", 0.05F);
+        NADDER_SPAWN_CHANCE = BUILDER.comment("Deadly Nadder Spawn Chancem Lower decimal numbers means lower spawning").define("DeadlyNadder Spawn Chancem Lower decimal numbers means lower spawning?", 0.05F);
+        ZIPP_SPAWN_CHANCE = BUILDER.comment("Zippleback Spawn Chancem Lower decimal numbers means lower spawning").define("Zippleback Spawn Chancem Lower decimal numbers means lower spawning?", 0.04F);
+        NIGHTMARE_SPAWN_CHANCE = BUILDER.comment("Monstrous Nightmare Spawn Chancem Lower decimal numbers means lower spawning").define("Monstrous Nightmare Spawn Chancem Lower decimal numbers means lower spawning?", 0.04F);
+        STRYKE_SPAWN_CHANCE = BUILDER.comment("Triple Stryke Spawn Chancem Lower decimal numbers means lower spawning").define("Triple Stryke Spawn Chancem Lower decimal numbers means lower spawning?", 0.03F);
+        TERROR_SPAWN_CHANCE = BUILDER.comment("Terrible Terror Spawn Chancem Lower decimal numbers means lower spawning").define("Terrible Terror Spawn Chancem Lower decimal numbers means lower spawning?", 0.06F);
+        SPEED_STINGER_SPAWN_CHANCE = BUILDER.comment("Speed Stinger Spawn Chancem Lower decimal numbers means lower spawning").define("Speed Stinger Spawn Chancem Lower decimal numbers means lower spawning?", 0.08F);
+        STINGER = BUILDER.comment("Stinger Spawn Chancem Lower decimal numbers means lower spawning").define("Stinger Spawn Chancem Lower decimal numbers means lower spawning?", 0.05F);
 
         BUILDER.pop();
         SPEC = BUILDER.build();
