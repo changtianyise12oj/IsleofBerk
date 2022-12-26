@@ -41,9 +41,9 @@ public class DragonHeldItemLayer extends GeoLayerRenderer<TerribleTerror> {
             pMatrixStack.translate(0.0D, 0.10D, -0.03D);
             pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(10.0F));
         } else if (terror.isDragonSleeping()) {
-            pMatrixStack.translate(-0.05D, -0.05D, -0.5D);
-            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(40.0F));
-            pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(-15.0F));
+            pMatrixStack.translate(0.3D, -0.3D, 0.0D);
+            pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(0F));
+            pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(40F));
         } else if (entity != null) {
             Entity entity1 = terror.getVehicle().getVehicle();
             if (entity1 instanceof LivingEntity livingEntity) {
@@ -55,9 +55,11 @@ public class DragonHeldItemLayer extends GeoLayerRenderer<TerribleTerror> {
 
             if (entity instanceof Player player && player.isFallFlying()) {
                 pMatrixStack.translate(0.0D, -0.3D, 0.0D);
-
+            } else {
+                pMatrixStack.translate(0.0D, 0.0D, 0.0D);
             }
         }
+
         pMatrixStack.translate(0.15D, entity == null ? 0.3D : 0.55D, terror.getVehicle() == null ? -0.6D : -0.58D);
 
 

@@ -380,14 +380,14 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 offsetY = 1.7D;
                 this.setPos(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
             } else if (passengerIndex == 1) {
-                float radius = 0.4F;
+                float radius = player.isFallFlying() ? -0.4F: 0.4F;
                 float angle = (float) (Math.PI / 180) * ((Player) vehicle).yBodyRot - 90;
                 offsetX = radius * Math.sin(Math.PI + angle);
                 offsetZ = radius * Math.cos(angle);
                 offsetY = 1.2D;
                 this.setPos(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
             } else if (passengerIndex == 2) {
-                float radius = 0.4F;
+                float radius = player.isFallFlying() ? -0.4F: 0.4F;
                 float angle = (float) (Math.PI / 180) * ((Player) vehicle).yBodyRot + 90;
                 offsetX = radius * Math.sin(Math.PI + angle);
                 offsetZ = radius * Math.cos(angle);
