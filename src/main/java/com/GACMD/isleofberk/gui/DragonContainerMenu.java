@@ -9,6 +9,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 
 public class DragonContainerMenu extends AbstractContainerMenu {
     public ADragonRideableUtility dragon;
@@ -26,7 +27,7 @@ public class DragonContainerMenu extends AbstractContainerMenu {
             /**
              * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
              */
-            public boolean mayPlace(ItemStack itemStack) {
+            public boolean mayPlace(@NotNull ItemStack itemStack) {
                 return itemStack.is(Items.SADDLE) && !this.hasItem() && dragon.isSaddleable();
             }
 
@@ -42,7 +43,7 @@ public class DragonContainerMenu extends AbstractContainerMenu {
             /**
              * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
              */
-            public boolean mayPlace(ItemStack itemStack) {
+            public boolean mayPlace(@NotNull ItemStack itemStack) {
                 return itemStack.is(Items.CHEST);
             }
 
@@ -77,22 +78,22 @@ public class DragonContainerMenu extends AbstractContainerMenu {
     /**
      * Determines whether supplied player can use this dragonContainer
      */
-    public boolean stillValid(Player pPlayer) {
+    public boolean stillValid(@NotNull Player pPlayer) {
         return !this.dragon.hasInventoryChanged(this.dragonContainer) && this.dragon.isAlive() && this.dragon.distanceTo(pPlayer) < 8.0F; //
     }
 
     private boolean hasChest(ADragonRideableUtility p_150578_) {
-        return p_150578_ instanceof ADragonRideableUtility && ((ADragonRideableUtility) p_150578_).hasChest();
+        return p_150578_ != null && ((ADragonRideableUtility) p_150578_).hasChest();
     }
 
     /**
      * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
      * inventory and the other inventory(s).
      */
-    public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
+    public @NotNull ItemStack quickMoveStack(@NotNull Player pPlayer, int pIndex) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(pIndex);
-        if (slot != null && slot.hasItem() && dragon.hasChest()) {
+        if (slot.hasItem() && dragon.hasChest()) {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             int i = this.dragonContainer.getContainerSize();

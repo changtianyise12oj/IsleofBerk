@@ -12,6 +12,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
@@ -34,7 +35,7 @@ public class ClientMessageGuiDragon {
     public static void handle(ClientMessageGuiDragon message, Supplier<NetworkEvent.Context> ctx) {
         NetworkEvent.Context context = ctx.get();
         //The server Player
-        Player player = context.getSender();
+        ServerPlayer player = context.getSender();
         //The Dragon entity
         ADragonBase dragon = (ADragonBase) player.level.getEntity(message.entityId);
 
@@ -45,15 +46,14 @@ public class ClientMessageGuiDragon {
                     if (!player.level.isClientSide() && player.isPassenger() && player.getVehicle() instanceof ADragonBase) {
                         Component dragonName = dragon.getName();
                         int id = dragon.getId();
-                        NetworkHooks.openGui((ServerPlayer) player, new MenuProvider() {
+                        NetworkHooks.openGui(player, new MenuProvider() {
                             @Override
-                            public Component getDisplayName() {
+                            public @NotNull Component getDisplayName() {
                                 return dragonName;
                             }
 
-                            @Nullable
                             @Override
-                            public AbstractContainerMenu createMenu(int i, Inventory playerInventory, Player playerEntity) {
+                            public @NotNull AbstractContainerMenu createMenu(int i, @NotNull Inventory playerInventory, @NotNull Player playerEntity) {
                                 return new DragonContainerMenu(i, playerInventory, id);
                             }
                         }, buf -> buf.writeInt(id));

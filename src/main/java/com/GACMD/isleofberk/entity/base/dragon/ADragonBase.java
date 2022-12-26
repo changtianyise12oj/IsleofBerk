@@ -726,7 +726,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public void tick() {
         super.tick();
 
-        System.out.println(getAge());
         if (this.getCommand() == 1) {
             this.setOrderedToSit(isDragonSitting());
         }

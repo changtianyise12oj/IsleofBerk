@@ -16,6 +16,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.*;
@@ -52,6 +53,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
     protected static final String DRAGON_NEEDS_SADDLE = "iob.dragonAir.needSaddle";
 
+    private boolean hasChestVarChanged = false;
     public SimpleContainer dragonContainer;
     protected AnimationFactory factory = new AnimationFactory(this);
 
@@ -392,6 +394,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     }
 
     public void setChest(boolean chested) {
+        hasChestVarChanged = true;
         entityData.set(DATA_ID_CHEST, chested);
     }
 
@@ -411,16 +414,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         entityData.set(DATA_ID_SADDLE, saddle);
     }
 
-    protected void dropEquipment() {
-        super.dropEquipment();
-        if (this.hasChest()) {
-            if (!this.level.isClientSide) {
-                this.spawnAtLocation(Blocks.CHEST);
-            }
-
-            this.setChest(false);
-        }
-    }
 
     @Nullable
     @Override
@@ -448,19 +441,22 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         if (!this.dragonContainer.getItem(1).isEmpty()) {
             pCompound.put("ChestItem", this.dragonContainer.getItem(1).save(new CompoundTag()));
         }
-        ListTag listtag = new ListTag();
 
-        for (int i = 2; i < this.dragonContainer.getContainerSize(); ++i) {
-            ItemStack itemstack = this.dragonContainer.getItem(i);
-            if (!itemstack.isEmpty()) {
-                CompoundTag compoundtag = new CompoundTag();
-                compoundtag.putByte("Slot", (byte) i);
-                itemstack.save(compoundtag);
-                listtag.add(compoundtag);
+        if (hasChest()) {
+            ListTag listtag = new ListTag();
+
+            for (int i = 2; i < this.dragonContainer.getContainerSize(); ++i) {
+                ItemStack itemstack = this.dragonContainer.getItem(i);
+                if (!itemstack.isEmpty()) {
+                    CompoundTag compoundtag = new CompoundTag();
+                    compoundtag.putByte("Slot", (byte) i);
+                    itemstack.save(compoundtag);
+                    listtag.add(compoundtag);
+                }
             }
-        }
 
-        pCompound.put("Items", listtag);
+            pCompound.put("Items", listtag);
+        }
 
     }
 
@@ -483,17 +479,41 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             }
         }
         this.createInventory();
-        ListTag listtag = pCompound.getList("Items", 10);
 
-        for (int i = 0; i < listtag.size(); ++i) {
-            CompoundTag compoundtag = listtag.getCompound(i);
-            int j = compoundtag.getByte("Slot") & 255;
-            if (j >= 2 && j < this.dragonContainer.getContainerSize()) {
-                this.dragonContainer.setItem(j, ItemStack.of(compoundtag));
+        if (this.hasChest()) {
+            ListTag listtag = pCompound.getList("Items", 10);
+
+            for (int i = 0; i < listtag.size(); ++i) {
+                CompoundTag compoundtag = listtag.getCompound(i);
+                int j = compoundtag.getByte("Slot") & 255;
+                if (j >= 2 && j < this.dragonContainer.getContainerSize()) {
+                    this.dragonContainer.setItem(j, ItemStack.of(compoundtag));
+                }
             }
         }
 
         this.updateContainerEquipment();
+    }
+
+    @Override
+    protected void dropEquipment() {
+        super.dropEquipment();
+        if (this.hasChest()) {
+            if (!this.level.isClientSide) {
+                this.spawnAtLocation(Blocks.CHEST);
+            }
+
+            this.setChest(false);
+        }
+
+        if (this.dragonContainer != null) {
+            for (int i = 0; i < this.dragonContainer.getContainerSize(); ++i) {
+                ItemStack itemstack = this.dragonContainer.getItem(i);
+                if (!itemstack.isEmpty()) {
+                    this.spawnAtLocation(itemstack);
+                }
+            }
+        }
     }
 
     protected void createInventory() {
@@ -628,7 +648,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
 
     @Override
-    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @javax.annotation.Nullable net.minecraft.core.Direction facing) {
+    public <T> net.minecraftforge.common.util.@NotNull LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @javax.annotation.Nullable net.minecraft.core.Direction facing) {
         if (this.isAlive() && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && itemHandler != null)
             return itemHandler.cast();
         return super.getCapability(capability, facing);
@@ -670,17 +690,15 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                 boolean groundRideNoSaddle = noSaddleRideTicks > 300;
                 if (this instanceof ADragonBaseGroundRideable && groundRideNoSaddle) {
                     this.ejectPassengers();
-                    player.displayClientMessage(new TranslatableComponent(DRAGON_NEEDS_SADDLE), false);
+                    player.displayClientMessage(new TranslatableComponent("iob.dragonAir.needSaddle"), false);
                 } else if (this instanceof ADragonBaseFlyingRideable && airRideNoSaddle) {
                     this.ejectPassengers();
-                    player.displayClientMessage(new TranslatableComponent(DRAGON_NEEDS_SADDLE), false);
+                    player.displayClientMessage(new TranslatableComponent("iob.dragonAir.needSaddle"), false);
                 }
             }
         } else {
             noSaddleRideTicks = 0;
         }
-//        System.out.println("Food tame threshold" + getFoodTameLimiterBar());
-//        System.out.println("phase 2 progress" + getPhase1Progress());
 
         if (canCarryCargo()) {
             if (getControllingPassenger() != null && getControllingPassenger() instanceof Player && !this.isSeatLocked() && isTame()) {
@@ -717,6 +735,19 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             if (getControllingPassenger() != this.getOwner() && isTame()) {
                 this.ejectPassengers();
             }
+        }
+
+        if (hasChestVarChanged && dragonContainer != null && !this.hasChest()) {
+            // 0 slot is for saddle and 1 slot is for chest the rest is for item chests
+            for (int i = 2; i < 17; i++) {
+                if (!dragonContainer.getItem(i).isEmpty()) {
+                    if (!level.isClientSide) {
+                        this.spawnAtLocation(dragonContainer.getItem(i), 1);
+                    }
+                    dragonContainer.removeItemNoUpdate(i);
+                }
+            }
+            hasChestVarChanged = false;
         }
         super.tick();
     }
