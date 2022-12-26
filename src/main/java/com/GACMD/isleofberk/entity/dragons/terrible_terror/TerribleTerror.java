@@ -113,7 +113,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             if (player.isOnGround() || player.isInWater() || player.isInLava()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("PlayerHeadIdle", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
-            } else if (player.getVehicle() != null && player.getVehicle().isOnGround() || player.isInWater() || player.isInLava()) {
+            } else if (player.getVehicle() != null) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("PlayerHeadIdle", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             } else if (player.isFallFlying()) {

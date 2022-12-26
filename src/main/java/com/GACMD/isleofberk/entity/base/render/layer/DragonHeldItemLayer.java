@@ -49,7 +49,7 @@ public class DragonHeldItemLayer extends GeoLayerRenderer<TerribleTerror> {
             if (entity1 instanceof LivingEntity livingEntity) {
                 if ((livingEntity instanceof ADragonBaseFlyingRideable dragonFly && dragonFly.isFlying()) || !livingEntity.isOnGround() ||
                         (livingEntity instanceof ADragonBase dragonBase && !dragonBase.isDragonOnGround())) {
-                    pMatrixStack.translate(0.0D, -0.3D, 0.0D);
+                    pMatrixStack.translate(0.0D, 0.0D, 0.0D);
                 }
             }
 
