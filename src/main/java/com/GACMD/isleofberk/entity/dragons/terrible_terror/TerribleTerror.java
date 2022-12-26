@@ -7,6 +7,7 @@ import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
 import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.TerribleTerrorEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
@@ -506,7 +507,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     public int getMaxFuel() {
-        return 125;
+        return 85;
     }
 
     @Override
@@ -541,6 +542,16 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 //                level.addParticle(ParticleTypes.HAPPY_VILLAGER, throat2.x, throat2.y, throat2.z, 1,1,1);
             }
         }
+    }
+
+    @Override
+    protected boolean canUseBreath() {
+        if(getVehicle() instanceof Player player) {
+            if(player.getVehicle() instanceof ADragonBaseFlyingRideableBreathUser || player.getVehicle() instanceof ADragonBaseFlyingRideableProjUser) {
+                return false;
+            }
+        }
+        return super.canUseBreath();
     }
 
     @Override
