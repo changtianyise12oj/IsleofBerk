@@ -3,6 +3,7 @@ package com.GACMD.isleofberk.entity.AI.goal;
 //edit of vanilla FollowOwnerGoal
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -55,6 +56,8 @@ public class FollowOwnerNoTPGoal extends Goal {
         } else if (this.dragon.distanceToSqr(livingentity) > 250.0D) {
             return false;
         } else if (!dragon.isDragonFollowing()) {
+            return false;
+        } else if(dragon instanceof ADragonBaseFlyingRideable) {
             return false;
         } else {
             this.owner = livingentity;

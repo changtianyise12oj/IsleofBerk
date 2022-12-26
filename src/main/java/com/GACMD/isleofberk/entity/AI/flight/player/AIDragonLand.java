@@ -38,7 +38,11 @@ public class AIDragonLand extends ADragonBaseBaseFlyingRideableGoal {
             if (owner.fallDistance > 4) {
                 return false;
             }
-            if (!owner.isOnGround() && dragon.isDragonFollowing()) {
+            if (!owner.isOnGround()) {
+                return false;
+            }
+
+            if(dragon.isDragonFollowing()) {
                 return false;
             }
         }
