@@ -334,7 +334,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 //        System.out.println(navigation);
 
         // decrement per tick
-        if (getTicksFlyWandering() > 1) {
+        if (getTicksFlyWandering() > 0) {
             setTicksFlyWandering(getTicksFlyWandering() - 1);
         }
 
