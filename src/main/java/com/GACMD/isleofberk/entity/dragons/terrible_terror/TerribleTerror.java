@@ -397,8 +397,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
             vehicle.setYBodyRot(vehicle.getYHeadRot());
             this.setYRot(vehicle.getYRot());
-            this.setRot(this.getYRot(), this.getXRot());
-            this.yBodyRot = this.getYRot();
+            this.yBodyRot = ((Player) vehicle).yBodyRot;
             this.yHeadRot = this.yBodyRot;
 
             // try to dismount
