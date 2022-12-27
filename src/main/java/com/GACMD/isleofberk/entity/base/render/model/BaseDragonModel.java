@@ -66,6 +66,9 @@ public class BaseDragonModel<T extends ADragonBase & IAnimatable> extends Animat
 
         if (dragon instanceof ADragonRideableUtility dragonRideableUtility && !dragonRideableUtility.guiLocked()) {
             getGeoBone("Bags").setHidden(!dragonRideableUtility.hasChest());
+
+            // used because speed stingers have no saddle models and can't be mounted
+            // can't be mounted are applied to normal mountable dragons when they are babies
             if (dragonRideableUtility.canBeMounted()) {
                 getGeoBone("Saddle").setHidden(!dragonRideableUtility.isSaddled());
             }
