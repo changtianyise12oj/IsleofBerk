@@ -2,7 +2,6 @@ package com.GACMD.isleofberk.entity.base.render.model;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
-import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -71,6 +70,7 @@ public class BaseDragonModel<T extends ADragonBase & IAnimatable> extends Animat
             // can't be mounted are applied to normal mountable dragons when they are babies
             if (dragonRideableUtility.canBeMounted()) {
                 getGeoBone("Saddle").setHidden(!dragonRideableUtility.isSaddled());
+                getGeoBone("Saddle").hideChildBonesToo = false;
             }
         }
 
