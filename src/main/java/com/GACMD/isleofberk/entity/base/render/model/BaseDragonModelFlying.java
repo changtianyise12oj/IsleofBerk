@@ -41,7 +41,7 @@ public class BaseDragonModelFlying<T extends ADragonBaseFlyingRideable & IAnimat
                         // approach to 0 if not boosting
                         // approach to maxRise if boosting
                         if (dragon.isGoingUp() && boostedBodyPitch >= -40) {
-                            boostedBodyPitch -= 4;
+                            boostedBodyPitch -= 1;
                         } else if (!dragon.isGoingUp()) {
                             boostedBodyPitch = Mth.approach(boostedBodyPitch, 0, -1);
                         }
