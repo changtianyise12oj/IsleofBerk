@@ -2,10 +2,11 @@ package com.GACMD.isleofberk.entity.dragons.zippleback;
 
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
+import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 
-public class ZippleBackModel extends BaseDragonModel<ZippleBack> {
+public class ZippleBackModel extends BaseDragonModelFlying<ZippleBack> {
 
     @Override
     public ResourceLocation getModelLocation(ZippleBack entity) {

@@ -40,82 +40,9 @@ public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatabl
 
     @Override
     public void render(GeoModel model, T dragon, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        if (!dragon.isRenderedOnGUI())
-            modifyPitch(model, dragon, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         // Lastly we super the render method.
         super.render(model, dragon, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
     }
 
-    public String getMainBodyBone() {
-        return "Chest";
-    }
-
-    /**
-     * Mojang yaw pitch and roll and Geckolib yaw pitch and roll are inversed, use negative and positive values
-     */
-    protected void
-    modifyPitch(GeoModel model, T dragon, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder,
-                int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        GeoBone body = getBone(model, getMainBodyBone()).get();
-        if (dragon.getPassengers().size() < 2) {
-            if (dragon.isFlying()) {
-                if (dragon.getControllingPassenger() instanceof Player pilot) {
-                    // approach to 0 if not boosting
-                    // approach to maxRise if boosting
-                    if (dragon.isGoingUp() && boostedBodyPitch >= -40) {
-                        boostedBodyPitch -= 4;
-                    } else if (!dragon.isGoingUp()) {
-                        boostedBodyPitch = Mth.approach(boostedBodyPitch, 0, -1);
-                    }
-
-                    // +90 dive -90 rise
-                    currentBodyPitch = Mth.lerp(0.1F, pilot.xRotO, getMaxRise());
-                    finalBodyPitch = currentBodyPitch + boostedBodyPitch;
-                    body.setRotationX(toRadians(Mth.clamp(-finalBodyPitch, getMinRise(), getMaxRise())));
-
-
-                } else if (dragon.getControllingPassenger() == null) {
-                    currentBodyPitch = Mth.lerp(0.1F, dragon.xRotO, getMaxRise());
-                }
-
-                if (dragon.isDragonFollowing() && dragon.getOwner() instanceof Player player
-                        && (dragon instanceof NightFury  || dragon instanceof MonstrousNightmare || dragon instanceof ZippleBack||dragon instanceof DeadlyNadder
-                        || dragon instanceof TripleStryke || dragon instanceof Gronckle)) {
-                    double ydist = dragon.getY() - player.getY();
-                    if (ydist > 8.3F) {
-                        pitch-=4;
-                        pitch -= 4;
-                        body.setRotationX(toRadians(Mth.clamp(pitch, -90, 0)));
-//                        }
-                    } else {
-                        pitch = 0;
-                    }
-                }
-            }
-
-            if (!dragon.isFlying()) {
-                boostedBodyPitch = 0;
-                currentBodyPitch = 0;
-                finalBodyPitch = 0;
-
-                currentBodyYawForRoll = 0;
-                currentBodyYaw = 0;
-            }
-        }
-
-    }
-
-
-    public boolean hasDynamicYawAndRoll() {
-        return true;
-    }
-
-    public int getMaxRise() {
-        return 40;
-    }
-
-    public int getMinRise() {
-        return -40;
-    }
 }
 

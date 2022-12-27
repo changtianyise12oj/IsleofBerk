@@ -2,6 +2,7 @@ package com.GACMD.isleofberk.entity.dragons.gronckle;
 
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
+import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -13,7 +14,7 @@ import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 @OnlyIn(Dist.CLIENT)
-public class GronckleModel extends BaseDragonModel<Gronckle> {
+public class GronckleModel extends BaseDragonModelFlying<Gronckle> {
     public GronckleModel(EntityRendererProvider.Context renderManager) {
         super();
     }

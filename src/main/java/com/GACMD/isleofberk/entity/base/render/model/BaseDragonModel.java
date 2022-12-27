@@ -93,4 +93,8 @@ public class BaseDragonModel<T extends ADragonBase & IAnimatable> extends Animat
             }
         }
     }
+
+    protected String getMainBodyBone() {
+        return "Chest";
+    }
 }

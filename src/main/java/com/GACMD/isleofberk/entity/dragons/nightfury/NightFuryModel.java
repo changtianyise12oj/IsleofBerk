@@ -3,12 +3,13 @@ package com.GACMD.isleofberk.entity.dragons.nightfury;
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
+import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class NightFuryModel extends BaseDragonModel<NightFury> {
+public class NightFuryModel extends BaseDragonModelFlying<NightFury> {
 
     @Override
     protected float getAdultSize() { return CommonConfig.USE_LARGER_SCALING.get() ? 1.1f: 1; }
@@ -43,6 +44,16 @@ public class NightFuryModel extends BaseDragonModel<NightFury> {
     @Override
     public ResourceLocation getAnimationFileLocation(NightFury entity) {
         return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/nightfury.animation.json");
+    }
+
+    @Override
+    public int getMaxRise() {
+        return 47;
+    }
+
+    @Override
+    public int getMinRise() {
+        return -47;
     }
 
 /*    @Override

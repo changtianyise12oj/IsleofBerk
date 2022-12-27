@@ -2,9 +2,10 @@ package com.GACMD.isleofberk.entity.dragons.lightfury;
 
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
+import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
 import net.minecraft.resources.ResourceLocation;
 
-public class LightFuryModel extends BaseDragonModel<LightFury> {
+public class LightFuryModel extends BaseDragonModelFlying<LightFury> {
 
     @Override
     public ResourceLocation getModelLocation(LightFury entity) {

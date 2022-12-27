@@ -3,6 +3,7 @@ package com.GACMD.isleofberk.entity.dragons.tryiple_stryke;
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
+import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -14,7 +15,7 @@ import software.bernie.geckolib3.core.processor.IBone;
 import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 @OnlyIn(Dist.CLIENT)
-public class TripleStrykeModel extends BaseDragonModel<TripleStryke> {
+public class TripleStrykeModel extends BaseDragonModelFlying<TripleStryke> {
 
     public TripleStrykeModel(EntityRendererProvider.Context renderManager) {
         super();

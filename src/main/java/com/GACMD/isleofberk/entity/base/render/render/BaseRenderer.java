@@ -44,11 +44,6 @@ public class BaseRenderer<T extends ADragonBase & IAnimatable> extends GeoEntity
     public String getDragonFolder() {
         return "";
     }
-    private static final float DEGREES_TO_RADIANS = 0.017453292519943295F;
-
-    public static float toRadians(float angdeg) {
-        return angdeg * DEGREES_TO_RADIANS;
-    }
 
 
 }
