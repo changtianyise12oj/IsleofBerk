@@ -2,6 +2,7 @@ package com.GACMD.isleofberk.entity.base.render.model;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
+import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -65,7 +66,9 @@ public class BaseDragonModel<T extends ADragonBase & IAnimatable> extends Animat
 
         if (dragon instanceof ADragonRideableUtility dragonRideableUtility && !dragonRideableUtility.guiLocked()) {
             getGeoBone("Bags").setHidden(!dragonRideableUtility.hasChest());
-            getGeoBone("Saddle").setHidden(!dragonRideableUtility.isSaddled());
+            if (!(dragonRideableUtility instanceof SpeedStinger)) {
+                getGeoBone("Saddle").setHidden(!dragonRideableUtility.isSaddled());
+            }
         }
 
         float adultSize = this.getAdultSize();
