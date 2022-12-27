@@ -28,8 +28,5 @@ public class DeadlyNadderRender extends BaseRendererFlying<DeadlyNadder> {
     public String getDragonFolder() {
         return "deadly_nadder";
     }
-    @Override
-    public String getMainBodyBone() {
-        return "rotation";
-    }
+
 }

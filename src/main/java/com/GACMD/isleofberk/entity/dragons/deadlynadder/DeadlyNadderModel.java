@@ -121,4 +121,9 @@ public class DeadlyNadderModel extends BaseDragonModelFlying<DeadlyNadder> {
         tailSpike1.setHidden(dragon.getRemainingSecondFuel() == 0);
 
     }
+
+    @Override
+    public String getMainBodyBone() {
+        return "rotation";
+    }
 }
