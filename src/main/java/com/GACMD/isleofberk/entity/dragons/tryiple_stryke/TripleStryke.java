@@ -425,7 +425,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     @Override
     public int getMaxAmountOfVariants() {
-        return 8;
+        return 6;
     }
 
     @Override

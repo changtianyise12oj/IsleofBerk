@@ -80,7 +80,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public int getMaxAmountOfVariants() {
-        return 10;
+        return 9;
     }
 
     @Override

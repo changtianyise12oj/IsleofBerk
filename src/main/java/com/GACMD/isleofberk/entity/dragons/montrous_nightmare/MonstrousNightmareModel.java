@@ -23,23 +23,23 @@ public class MonstrousNightmareModel extends BaseDragonModel<MonstrousNightmare>
             case 0:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/hookfang.png");
             case 1:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/black.png");
-            case 2:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/blue.png");
-            case 3:
+            case 2:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/yellow.png");
-            case 4:
+            case 3:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/mint.png");
-            case 5:
+            case 4:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/pink.png");
-            case 6:
+            case 5:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/cyan.png");
-            case 7:
+            case 6:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/orange.png");
-            case 8:
+            case 7:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/green.png");
-            case 9:
+            case 8:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/magenta.png");
+            case 9:
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/nightmare/black.png");
         }
     }
 
