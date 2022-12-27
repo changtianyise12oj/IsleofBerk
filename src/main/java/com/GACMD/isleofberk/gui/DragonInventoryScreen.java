@@ -49,7 +49,7 @@ public class DragonInventoryScreen extends AbstractContainerScreen<DragonContain
             this.blit(pPoseStack, i + 7, j + 35 - 18, 18, this.imageHeight + 54, 18, 18);
         }
 
-        this.blit(pPoseStack, i + 7, j + 35, 38, this.imageHeight + 54, 18, 18);
+        this.blit(pPoseStack, i + 7, j + 35, 36, this.imageHeight + 54, 18, 18);
 
         InventoryScreen.renderEntityInInventory(i + 51, j + 70, 8, (float) (i + 51) - this.xMouse, (float) (j + 75 - 50) - this.yMouse, this.dragon);
     }
