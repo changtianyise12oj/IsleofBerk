@@ -3,7 +3,7 @@ package com.GACMD.isleofberk.entity.base.dragon;
 
 import com.GACMD.isleofberk.entity.AI.flight.own.DragonFlyAndAttackAirbourneTargetGoal;
 import com.GACMD.isleofberk.entity.AI.flight.own.UntamedDragonCircleFlightGoal;
-import com.GACMD.isleofberk.entity.AI.flight.player.AIDragonLand;
+import com.GACMD.isleofberk.entity.AI.flight.own.AIDragonLand;
 import com.GACMD.isleofberk.entity.AI.flight.player.AIDragonRide;
 import com.GACMD.isleofberk.entity.AI.flight.player.DragonFollowPlayerFlying;
 import com.GACMD.isleofberk.entity.AI.path.air.DragonFlyingPathNavigation;

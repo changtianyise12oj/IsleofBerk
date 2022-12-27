@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.entity.AI.flight.player;
+package com.GACMD.isleofberk.entity.AI.flight.own;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.AI.flight.ADragonBaseBaseFlyingRideableGoal;
@@ -33,11 +33,7 @@ public class AIDragonLand extends ADragonBaseBaseFlyingRideableGoal {
     @Override
     public boolean canUse() {
         LivingEntity owner = dragon.getOwner();
-        // don't land but catch owner instead
         if (owner != null) {
-            if (owner.fallDistance > 4) {
-                return false;
-            }
             if (!owner.isOnGround()) {
                 return false;
             }
