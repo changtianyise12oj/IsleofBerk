@@ -53,7 +53,7 @@ public class BaseSaddleAndChestsLayer<T extends ADragonBase & IAnimatable> exten
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, T dragon1, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 
-        // to add a saddle, use the getDragonFolder in the base renderer, it will get a saddle.png inside the folder
+        // to add a saddle, use the getDragonFolder in the base renderer, it will get a equipment.png inside the folder
         if (dragon1 instanceof ADragonRideableUtility dragonRideableUtility) {
             if (dragonRideableUtility.isSaddled() || dragonRideableUtility.hasChest()) {
                     RenderType cameo = RenderType.entityCutout(getSaddleTexture());
@@ -65,6 +65,6 @@ public class BaseSaddleAndChestsLayer<T extends ADragonBase & IAnimatable> exten
     }
 
     protected ResourceLocation getSaddleTexture() {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/" + baseRenderer.getDragonFolder() + "/saddle.png");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/" + baseRenderer.getDragonFolder() + "/equipment.png");
     }
 }
