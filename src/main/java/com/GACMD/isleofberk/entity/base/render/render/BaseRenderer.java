@@ -1,8 +1,7 @@
 package com.GACMD.isleofberk.entity.base.render.render;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
-import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
-import com.GACMD.isleofberk.entity.base.render.layer.BaseSaddleLayer;
+import com.GACMD.isleofberk.entity.base.render.layer.BaseSaddleAndChestsLayer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -21,7 +20,7 @@ public class BaseRenderer<T extends ADragonBase & IAnimatable> extends GeoEntity
 
     protected BaseRenderer(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
-        this.addLayer(new BaseSaddleLayer<>(this));
+        this.addLayer(new BaseSaddleAndChestsLayer<>(this));
     }
 
     protected String getMainBodyBone() {

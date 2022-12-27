@@ -1,11 +1,11 @@
 package com.GACMD.isleofberk.entity.dragons.zippleback;
 
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.ZippleBackEgg;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.entity.eggs.entity.eggs.ZippleBackEgg;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZipBreathProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZippleBackAOECloud;
 import com.GACMD.isleofberk.registery.ModEntities;
@@ -100,12 +100,12 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @javax.annotation.Nullable
-    public <T extends ZippleBackAOECloud> T getNearestGasCloud(List<? extends T> pEntities, TargetingConditions pPredicate, @javax.annotation.Nullable LivingEntity pTarget, double pX, double pY, double pZ) {
+    public <T extends ZippleBackAOECloud> T getNearestGasCloud(List<? extends T> pEntities, @javax.annotation.Nullable LivingEntity attacker, double pX, double pY, double pZ) {
         double d0 = -1.0D;
         T t = null;
 
         for (T t1 : pEntities) {
-            if (test(pTarget, t1, pPredicate, 17)) {
+            if (test(attacker, t1, 17, 1.5D, 1.5D)) {
                 double d1 = t1.distanceToSqr(pX, pY, pZ);
                 if (d0 == -1.0D || d1 < d0) {
                     d0 = d1;
@@ -116,19 +116,30 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         return t;
     }
 
-    public boolean test(@javax.annotation.Nullable LivingEntity pAttacker, ZippleBackAOECloud pTarget, TargetingConditions targetCon, int range) {
+    public boolean test(@javax.annotation.Nullable LivingEntity pAttacker, ZippleBackAOECloud pTarget, double yRange, double xRange, double zRange) {
         if (pAttacker != null) {
-            if (range > 0.0D) {
-                double d1 = Math.max(range, 2.0D);
-                double d2 = pAttacker.distanceToSqr(pTarget.getX(), pTarget.getY(), pTarget.getZ());
-                if (d2 > d1 * d1) {
+            if (yRange > 0.0D || xRange > 0.0D || zRange > 0.0D) {
+                double d1 = Math.max(yRange, 2.0D);
+                double d2 = Math.max(xRange, 1.5D);
+                double d3 = Math.max(zRange, 1.5D);
+                double x = getX() - pTarget.getX();
+                double y = getY() - pTarget.getY();
+                double z = getZ() - pTarget.getZ();
+
+                System.out.println(y);
+
+                if (y > d1 * d1 || y < 0) {
+                    return false;
+                }
+                if (x > d2 * d2) {
+                    return false;
+                }
+                if (z > d3 * d3) {
                     return false;
                 }
             }
 
-            if (pAttacker instanceof Mob mob) {
-                return mob.getSensing().hasLineOfSight(pTarget);
-            }
+            return this.getSensing().hasLineOfSight(pTarget);
         }
         return true;
     }
@@ -143,7 +154,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
             level.addParticle(ParticleTypes.LAVA, t1.x, t1.y, t1.z, 1, 1, 1);
             ticksUsingSecondAbility++;
         } else {
-            ticksUsingSecondAbility=0;
+            ticksUsingSecondAbility = 0;
         }
 
         if (isUsingSECONDAbility()) {
@@ -151,7 +162,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         }
 
         ZippleBackAOECloud zipCloud = this.getNearestGasCloud(level.getEntitiesOfClass(ZippleBackAOECloud.class, getTargetSearchArea(this.getFollowDistance())),
-                TargetingConditions.forNonCombat(), this, this.getX(), this.getEyeY(), this.getZ());
+                 this, this.getX(), this.getEyeY(), this.getZ());
         if (zipCloud != null) {
             if (ticksUsingSecondAbility > 2) {
                 zipCloud.hurt(DamageSource.IN_FIRE, 1);
@@ -164,7 +175,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
         String s = ChatFormatting.stripFormatting(this.getName().getString());
         if (s != null) {
-            if (s.equals("Barf and Belch") || s.equals("barf and belch")|| s.equals("Barf & Belch")|| s.equals("barf & belch")|| s.equals("Barf && Belch")|| s.equals("barf && belch")) {
+            if (s.equals("Barf and Belch") || s.equals("barf and belch") || s.equals("Barf & Belch") || s.equals("barf & belch") || s.equals("Barf && Belch") || s.equals("barf && belch")) {
                 this.setDragonVariant(0);
             }
         }

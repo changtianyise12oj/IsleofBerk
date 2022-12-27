@@ -19,7 +19,7 @@ import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 
 import java.util.Optional;
 
-public class BaseSaddleLayer<T extends ADragonBase & IAnimatable> extends GeoLayerRenderer<T> {
+public class BaseSaddleAndChestsLayer<T extends ADragonBase & IAnimatable> extends GeoLayerRenderer<T> {
 
     BaseRenderer<T> baseRenderer;
 
@@ -32,7 +32,7 @@ public class BaseSaddleLayer<T extends ADragonBase & IAnimatable> extends GeoLay
     int pitch = 0;
     private static final float DEGREES_TO_RADIANS = 0.017453292519943295F;
 
-    public BaseSaddleLayer(IGeoRenderer<T> entityRendererIn) {
+    public BaseSaddleAndChestsLayer(IGeoRenderer<T> entityRendererIn) {
         super(entityRendererIn);
         this.baseRenderer = (BaseRenderer<T>) entityRendererIn;
     }
