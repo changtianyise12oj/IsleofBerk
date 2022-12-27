@@ -2,6 +2,7 @@ package com.GACMD.isleofberk.gui;
 
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
+import com.GACMD.isleofberk.util.math.MathX;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
@@ -51,7 +52,7 @@ public class DragonInventoryScreen extends AbstractContainerScreen<DragonContain
 
         this.blit(pPoseStack, i + 7, j + 35, 36, this.imageHeight + 54, 18, 18);
 
-        InventoryScreen.renderEntityInInventory(i + 51, j + 70, 8, (float) (i + 51) - this.xMouse, (float) (j + 75 - 50) - this.yMouse, this.dragon);
+        InventoryScreen.renderEntityInInventory(i + 51, j + 70, 8, (float) (i + 51) - this.xMouse, MathX.clamp((float) (j + 75 - 50) - this.yMouse, -120, 5), this.dragon);
     }
 
     public void render(PoseStack pPoseStack, int pMouseX, int pMouseY, float pPartialTick) {
