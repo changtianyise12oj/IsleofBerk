@@ -41,7 +41,7 @@ public class DeadlyNadderSpike extends AbstractArrow {
 
     public DeadlyNadderSpike(Level pLevel, LivingEntity pShooter) {
         super(ModEntities.NADDER_SPIKE.get(), pShooter, pLevel);
-        this.setBaseDamage(4);
+        this.setBaseDamage(6);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class DeadlyNadderSpike extends AbstractArrow {
         Entity entity = pResult.getEntity();
         float f = (float)this.getDeltaMovement().length();
         // reduced damage to players from arrows
-        int i = Mth.ceil(Mth.clamp((double)f *  (entity instanceof Player ? 2 : this.baseDamage), 0.0D, 2.147483647E9D));
+        int i = Mth.ceil(Mth.clamp((double)f *  (entity instanceof Player ? 4 : this.baseDamage), 0.0D, 2.147483647E9D));
         if (this.getPierceLevel() > 0) {
             if (this.piercingIgnoreEntityIds == null) {
                 this.piercingIgnoreEntityIds = new IntOpenHashSet(5);
