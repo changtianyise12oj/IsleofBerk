@@ -42,12 +42,6 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         super(entityType, level);
     }
 
-    @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
-        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
-        return pSpawnData;
-    }
 
     @Override
     protected void defineSynchedData() {
@@ -73,6 +67,16 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         this.setOnFireAbility(pCompound.getBoolean("is_on_fire_ability"));
     }
 
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
+        pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
+        if (random.nextInt(200) == 1) {
+            this.setDragonVariant(1);
+        } else {
+            this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        }
+        return pSpawnData;
+    }
 
     @Override
     public int getMaxAmountOfVariants() {

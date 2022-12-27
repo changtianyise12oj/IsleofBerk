@@ -14,9 +14,9 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 public class SpeedStingerModel extends BaseDragonModel<SpeedStinger> {
 
 	public static final ResourceLocation SPEED_STINGER = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/speed_stinger.png");
-	public static final ResourceLocation FLOUTSCOUT = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/speed_stinger_cave.png");
-	public static final ResourceLocation ICE_BREAKER = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/speed_stinger_ice.png");
-	public static final ResourceLocation SWEET_STING = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/speed_stinger_tropic.png");
+	public static final ResourceLocation FLOUTSCOUT = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/floutscout.png");
+	public static final ResourceLocation ICE_BREAKER = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/ice_breaker.png");
+	public static final ResourceLocation SWEET_STING = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/sweet_sting.png");
 
 	@Override
 	public ResourceLocation getAnimationFileLocation(SpeedStinger speed_stinger) {
