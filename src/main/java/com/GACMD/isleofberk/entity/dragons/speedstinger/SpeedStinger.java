@@ -8,6 +8,7 @@ import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal
 import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.SpeedStingerEgg;
@@ -87,7 +88,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
-public class SpeedStinger extends ADragonBase {
+public class SpeedStinger extends ADragonRideableUtility {
 
     /**
      * 1. Find the leader closest to the speed stinger,
@@ -503,6 +504,13 @@ public class SpeedStinger extends ADragonBase {
     public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
+        boolean ownedByPlayer = this.isOwnedBy(pPlayer);
+
+        if (pPlayer.isCrouching() && ownedByPlayer && !guiLocked() && item != Items.STICK) {
+            this.openGUI(pPlayer);
+            return InteractionResult.SUCCESS;
+        }
+
         if (!itemstack.isEmpty()) {
 //            int nutrition = Objects.requireNonNull(forgeItem.getFoodProperties(itemstack, this)).getNutrition();
             int nutrition = 6;
@@ -687,6 +695,16 @@ public class SpeedStinger extends ADragonBase {
 
         checkInsideBlocks();
         floatStinger();
+    }
+
+    @Override
+    public boolean canBeMounted() {
+        return false;
+    }
+
+    @Override
+    public boolean isSaddleable() {
+        return false;
     }
 
     @Override

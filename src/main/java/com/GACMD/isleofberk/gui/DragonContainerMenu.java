@@ -79,7 +79,7 @@ public class DragonContainerMenu extends AbstractContainerMenu {
      * Determines whether supplied player can use this dragonContainer
      */
     public boolean stillValid(@NotNull Player pPlayer) {
-        return !this.dragon.hasInventoryChanged(this.dragonContainer) && this.dragon.isAlive() && this.dragon.distanceTo(pPlayer) < 8.0F; //
+        return !this.dragon.hasInventoryChanged(this.dragonContainer) && this.dragon.isAlive() && this.dragon.distanceTo(pPlayer) < 8.0F;
     }
 
     private boolean hasChest(ADragonRideableUtility p_150578_) {
@@ -116,7 +116,7 @@ public class DragonContainerMenu extends AbstractContainerMenu {
                     if (!this.moveItemStackTo(itemstack1, i, j, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (pIndex >= i && pIndex < j) {
+                } else if (pIndex < j) {
                     if (!this.moveItemStackTo(itemstack1, j, k, false)) {
                         return ItemStack.EMPTY;
                     }
