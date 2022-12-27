@@ -65,6 +65,7 @@ public class BaseDragonModel<T extends ADragonBase & IAnimatable> extends Animat
 
         if (dragon instanceof ADragonRideableUtility dragonRideableUtility && !dragonRideableUtility.guiLocked()) {
             getGeoBone("Bags").setHidden(!dragonRideableUtility.hasChest());
+            getGeoBone("Saddle").setHidden(!dragonRideableUtility.isSaddled());
         }
 
         float adultSize = this.getAdultSize();

@@ -55,16 +55,11 @@ public class BaseSaddleLayer<T extends ADragonBase & IAnimatable> extends GeoLay
 
         // to add a saddle, use the getDragonFolder in the base renderer, it will get a saddle.png inside the folder
         if (dragon1 instanceof ADragonRideableUtility dragonRideableUtility) {
-            if (dragonRideableUtility.isSaddled()) {
-//                if(baseRenderer instanceof BaseRendererFlying rendererFlying) {
+            if (dragonRideableUtility.isSaddled() || dragonRideableUtility.hasChest()) {
                     RenderType cameo = RenderType.entityCutout(getSaddleTexture());
                     GeoModel model = getEntityModel().getModel(baseRenderer.getGeoModelProvider().getModelLocation(dragon1));
                     this.getRenderer().render(model, dragon1, partialTicks, cameo, matrixStackIn, bufferIn,
                             bufferIn.getBuffer(cameo), packedLightIn, OverlayTexture.NO_OVERLAY, 1f, 1f, 1f, 1f);
-//                    if (getBone(model, "Saddle").isPresent()) {
-//                        getBone(model, "Saddle").get().setRotationX(toRadians(Mth.clamp(-finalBodyPitch, rendererFlying.getMinRise(), rendererFlying.getMaxRise())));
-//                    }
-//                }
             }
         }
     }
