@@ -411,13 +411,21 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        if (random.nextInt(100) == 1) {
+            this.setDragonVariant(6);
+        }
+        else if (random.nextInt(250) == 1) {
+            this.setDragonVariant(3);
+        } else {
+            this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        }
+
         return pSpawnData;
     }
 
     @Override
     public int getMaxAmountOfVariants() {
-        return 8;
+        return 6;
     }
 
     @Override

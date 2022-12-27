@@ -47,15 +47,15 @@ public class TripleStrykeModel extends BaseDragonModel<TripleStryke> {
                 case 2:
                     return new ResourceLocation("isleofberk:textures/dragons/triple_stryke/nikora_triple_stryke.png");
                 case 3:
-                    return new ResourceLocation("isleofberk:textures/dragons/triple_stryke/rosethorn.png");
-                case 4:
                     return new ResourceLocation("isleofberk:textures/dragons/triple_stryke/starstreak.png");
-                case 5:
+                case 4:
                     return new ResourceLocation("isleofberk:textures/dragons/triple_stryke/triple_stryke.png");
+                case 5:
+                    return new ResourceLocation("isleofberk:textures/dragons/triple_stryke/spyro.png");
                 case 6:
                     return new ResourceLocation("isleofberk:textures/dragons/triple_stryke/blue.png");
                 case 7:
-                    return new ResourceLocation("isleofberk:textures/dragons/triple_stryke/spyro.png");
+                    return new ResourceLocation("isleofberk:textures/dragons/triple_stryke/rosethorn.png");
 
             }
         }

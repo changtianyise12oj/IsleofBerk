@@ -17,9 +17,9 @@ public class SpeedStingerLeaderModel extends BaseDragonModel<SpeedStingerLeader>
 	protected float getAdultSize() { return 1.2f; }
 
 	public static final ResourceLocation SPEED_STINGER = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/speed_stinger_leader.png");
-	public static final ResourceLocation FLOUTSCOUT = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/speed_stinger_cave_lead.png");
-	public static final ResourceLocation ICE_BREAKER = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/speed_stinger_ice_lead.png");
-	public static final ResourceLocation SWEET_STING = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/speed_stinger_tropical_lead.png");
+	public static final ResourceLocation FLOUTSCOUT = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/floutscout_leader.png");
+	public static final ResourceLocation ICE_BREAKER = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/ice_breaker_leader.png");
+	public static final ResourceLocation SWEET_STING = new ResourceLocation("isleofberk:textures/dragons/speed_stinger/sweet_sting_leader.png");
 
 	@Override
 	public ResourceLocation getAnimationFileLocation(SpeedStingerLeader speed_stinger) {
