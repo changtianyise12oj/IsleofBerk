@@ -25,14 +25,6 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 @OnlyIn(Dist.CLIENT)
 public class BaseRendererFlying<T extends ADragonBaseFlyingRideable & IAnimatable> extends BaseRenderer<T> {
 
-    public float changeInYaw;
-    protected float currentBodyPitch;
-    protected float currentBodyYawForRoll;
-    protected float currentBodyYaw;
-    protected float boostedBodyPitch;
-    public float finalBodyPitch;
-    int pitch = 0;
-
     protected BaseRendererFlying(EntityRendererProvider.Context renderManager, AnimatedGeoModel<T> modelProvider) {
         super(renderManager, modelProvider);
 //        this.addLayer(new LayerDragonRider<>(this));

@@ -23,10 +23,6 @@ public class BaseRenderer<T extends ADragonBase & IAnimatable> extends GeoEntity
         this.addLayer(new BaseSaddleAndChestsLayer<>(this));
     }
 
-    protected String getMainBodyBone() {
-        return "Chest";
-    }
-
     /**
      * Get bone also checks if the bone is present
      *
