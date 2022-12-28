@@ -608,14 +608,14 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     @Override
-    public void swing(InteractionHand pHand) {
+    public void swing(@NotNull InteractionHand pHand) {
         this.swing(pHand, true);
 
         ticksSinceLastAttack = 0;
     }
 
     @Override
-    public boolean doHurtTarget(Entity pEntity) {
+    public boolean doHurtTarget(@NotNull Entity pEntity) {
         return super.doHurtTarget(pEntity);
     }
 
@@ -641,6 +641,11 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
                 }
             }
         }
+
+        if(pSource.getEntity() != null && pSource.getEntity().getVehicle() instanceof ADragonBase) {
+            return false;
+        }
+
         return super.hurt(pSource, pAmount);
     }
 
@@ -1077,6 +1082,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return 0;
     }
 
+    private float getPartialTick() {
+        return Minecraft.getInstance().getFrameTime();
+    }
+
     /**
      * @param dragon
      * @param entity
@@ -1194,10 +1203,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         }
 
         @Override
-        public boolean hurt(DamageSource pSource, float pAmount) { //  && pSource.getEntity().getVehicle() != parent
+        public boolean hurt(DamageSource pSource, float pAmount) {
             Entity entity = pSource.getEntity();
             if (entity instanceof LivingEntity rider) {
-                if (pSource.equals(DamageSource.mobAttack(rider)) && rider.getVehicle() == parent) {
+                if (pSource.equals(DamageSource.mobAttack(rider)) || rider.getVehicle() == parent) {
                     return false;
                 }
             }

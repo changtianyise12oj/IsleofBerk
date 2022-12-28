@@ -301,7 +301,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
+    public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
         return super.hurt(pSource, pAmount);
     }
 

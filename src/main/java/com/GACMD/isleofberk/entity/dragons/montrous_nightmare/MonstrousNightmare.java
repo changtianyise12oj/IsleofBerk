@@ -181,7 +181,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
+    public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
         LivingEntity attacker = getLastHurtByMob();
         if (attacker != null) {
             attacker.setSecondsOnFire(3);

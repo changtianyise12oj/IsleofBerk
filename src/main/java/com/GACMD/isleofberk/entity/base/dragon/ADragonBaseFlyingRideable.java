@@ -190,7 +190,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     }
 
     @Override
-    public boolean hurt(DamageSource pSource, float pAmount) {
+    public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
 //        setTicksFlyWandering(200);
         return super.hurt(pSource, pAmount);
     }

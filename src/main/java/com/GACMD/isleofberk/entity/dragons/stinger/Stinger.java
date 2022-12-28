@@ -157,6 +157,8 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         if (isUsingAbility()) {
             this.knockBack(this.level.getEntities(this, this.stingerRamOffset.getBoundingBox().inflate(0.3D, 0.3D, 0.3D).move(0.0D, -0.3D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
 
+            Vec3 vec3 = this.getDeltaMovement();
+//            boolean isMoving = vec3.x > 0 || vec3.y > 0 || vec3.z > 0;
             if (!level.isClientSide()) {
                 this.hurt(this.level.getEntities(this, this.stingerRamOffset.getBoundingBox().inflate(1.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
             }
