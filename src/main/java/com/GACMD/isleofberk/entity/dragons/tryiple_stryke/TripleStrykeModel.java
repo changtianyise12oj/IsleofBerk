@@ -109,4 +109,9 @@ public class TripleStrykeModel extends BaseDragonModelFlying<TripleStryke> {
             head.setRotationX(rotHeadX + extraData.headPitch * ((float) Math.PI / 180F) / 4);
         }
     }
+
+    @Override
+    public String getMainBodyBone() {
+        return "main";
+    }
 }

@@ -31,10 +31,6 @@ public class StingerRender extends BaseRenderer<Stinger> {
         return "stinger";
     }
 
-    protected String getMainBodyBone() {
-        return "Root";
-    }
-
     @Override
     public void render(GeoModel model, Stinger animatable, float partialTicks, RenderType type, PoseStack matrixStackIn, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
         super.render(model, animatable, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);

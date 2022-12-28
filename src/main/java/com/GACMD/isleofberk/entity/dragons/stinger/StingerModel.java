@@ -71,4 +71,9 @@ public class StingerModel extends BaseDragonModel<Stinger> {
             headTrack3.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
         } */
     }
+
+    @Override
+    protected String getMainBodyBone() {
+        return "Root";
+    }
 }
