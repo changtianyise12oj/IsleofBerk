@@ -1,12 +1,10 @@
 package com.GACMD.isleofberk.entity.dragons.stinger;
 
 import com.GACMD.isleofberk.entity.AI.taming.T2DragonFeedTamingGoal;
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseGroundRideable;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.StingerEgg;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
-import com.GACMD.isleofberk.util.math.MathX;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.util.math.MathX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
@@ -39,7 +37,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import java.util.List;
-import java.util.Objects;
 
 public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     DragonPart[] subParts;
@@ -159,6 +156,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
 
             Vec3 vec3 = this.getDeltaMovement();
 //            boolean isMoving = vec3.x > 0 || vec3.y > 0 || vec3.z > 0;
+//            && (xxa > 0 || zza > 0 || yya > 0
             if (!level.isClientSide()) {
                 this.hurt(this.level.getEntities(this, this.stingerRamOffset.getBoundingBox().inflate(1.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
             }
