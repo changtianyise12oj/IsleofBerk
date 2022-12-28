@@ -35,44 +35,44 @@ public class SpeedStingerLeader extends SpeedStinger {
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if (event.isMoving() && !shouldStopMovingIndependently()) {
             if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 8) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerRun",  ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerRun", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
 
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerWalk",  ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerWalk", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
         }
 
-        if (this.isDragonSitting()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerSit",  ILoopType.EDefaultLoopTypes.LOOP));
+        if (this.isDragonSitting() && !isDragonSleeping()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerSit", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
         if (this.isDragonSleeping()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerSleep",  ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerSleep", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
         if (this.getLookControl().isLookingAtTarget()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerCurious",  ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerCurious", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerIdle",  ILoopType.EDefaultLoopTypes.LOOP));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerIdle", ILoopType.EDefaultLoopTypes.LOOP));
         return PlayState.CONTINUE;
     }
 
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
         if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
             if (getCurrentAttackType() == 0) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerBite",  ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerBite", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             } else if (getCurrentAttackType() == 1) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerSting",  ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerSting", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
         }
         if (getTarget() != null) {
             if (!isOnGround() && event.isMoving() && !getTarget().isDeadOrDying()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerPounce",  ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerPounce", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
         }

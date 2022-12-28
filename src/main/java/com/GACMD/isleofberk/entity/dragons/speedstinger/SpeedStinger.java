@@ -7,7 +7,6 @@ import com.GACMD.isleofberk.entity.AI.goal.IOBRandomLookAroundGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
 import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
@@ -121,7 +120,7 @@ public class SpeedStinger extends ADragonRideableUtility {
             }
         }
 
-        if (this.isDragonSitting()) {
+        if (this.isDragonSitting() && !isDragonSleeping()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerSit", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }

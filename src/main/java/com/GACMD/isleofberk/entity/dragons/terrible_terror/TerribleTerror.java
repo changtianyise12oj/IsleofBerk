@@ -130,7 +130,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 return PlayState.CONTINUE;
             }
         }
-        if (this.isDragonSitting()) {
+        if (this.isDragonSitting() && !isDragonSleeping()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Sit", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
@@ -543,8 +543,8 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     protected boolean canUseBreath() {
-        if(getVehicle() instanceof Player player) {
-            if(player.getVehicle() instanceof ADragonBaseFlyingRideableBreathUser || player.getVehicle() instanceof ADragonBaseFlyingRideableProjUser) {
+        if (getVehicle() instanceof Player player) {
+            if (player.getVehicle() instanceof ADragonBaseFlyingRideableBreathUser || player.getVehicle() instanceof ADragonBaseFlyingRideableProjUser) {
                 return false;
             }
         }

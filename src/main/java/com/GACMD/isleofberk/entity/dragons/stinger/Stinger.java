@@ -18,6 +18,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -58,7 +59,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
 
     private <E extends IAnimatable> PlayState predicate2(AnimationEvent<E> event) {
         if (isDragonOnGround()) {
-            if (this.isDragonSitting()) {
+            if (this.isDragonSitting() && !isDragonSleeping()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Sit", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
@@ -150,15 +151,15 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         float cosY = Mth.cos(yRotRadians);
 
         this.tickPart(this.stingerRamOffset, 3 * -sinY * 1, isUsingAbility() ? 0.4D : 2D, 3 * cosY * 1);
+        Vec3 vec3 = this.getDeltaMovement();
+        boolean isMoving = vec3.x > 0 || vec3.y > 0 || vec3.z > 0;
+        if (getControllingPassenger() instanceof Player player) {
+            if (isUsingAbility()) {
+                this.knockBack(this.level.getEntities(this, this.stingerRamOffset.getBoundingBox().inflate(0.3D, 0.3D, 0.3D).move(0.0D, -0.3D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
 
-        if (isUsingAbility()) {
-            this.knockBack(this.level.getEntities(this, this.stingerRamOffset.getBoundingBox().inflate(0.3D, 0.3D, 0.3D).move(0.0D, -0.3D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
-
-            Vec3 vec3 = this.getDeltaMovement();
-//            boolean isMoving = vec3.x > 0 || vec3.y > 0 || vec3.z > 0;
-//            && (xxa > 0 || zza > 0 || yya > 0
-            if (!level.isClientSide()) {
-                this.hurt(this.level.getEntities(this, this.stingerRamOffset.getBoundingBox().inflate(1.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
+                if (!level.isClientSide()) {
+                    this.hurt(this.level.getEntities(this, this.stingerRamOffset.getBoundingBox().inflate(1.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
+                }
             }
         }
     }

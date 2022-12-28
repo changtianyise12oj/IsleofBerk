@@ -4,7 +4,6 @@ import com.GACMD.isleofberk.entity.AI.taming.T2DragonFeedTamingGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.DeadlyNadderEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
@@ -98,7 +97,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
                 }
             }
         } else {
-            if (this.isDragonSitting()) {
+            if (this.isDragonSitting() && !isDragonSleeping()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderSit", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
@@ -137,7 +136,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         }
 
         if (isMarkFired()) {
-            if(isFlying()) {
+            if (isFlying()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderTailWhipDartAir"));
                 return PlayState.CONTINUE;
             } else {
@@ -201,7 +200,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
             return PlayState.CONTINUE;
         }
 
-        if(isGoingUp()) {
+        if (isGoingUp()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("rot0", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
             return PlayState.CONTINUE;
         }
@@ -312,7 +311,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
             ticksSinceLastStingAttack--;
 
         int threshold = 3;
-        if(isUsingSECONDAbility() && ticksSinceLastStingAttack < threshold + 6) {
+        if (isUsingSECONDAbility() && ticksSinceLastStingAttack < threshold + 6) {
             ticksSinceLastStingAttack++;
         }
 
@@ -327,7 +326,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         }
 
         if (getControllingPassenger() instanceof Player player) {
-            if(ticksSinceLastStingAttack > threshold && !isUsingSECONDAbility()) {
+            if (ticksSinceLastStingAttack > threshold && !isUsingSECONDAbility()) {
                 Vec3 riderLook = player.getLookAngle();
                 performRangedAttack(riderLook, 1);
             }

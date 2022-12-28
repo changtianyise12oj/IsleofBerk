@@ -98,7 +98,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
             }
         } else {
-            if (this.isDragonSitting()) {
+            if (this.isDragonSitting() && !isDragonSleeping()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.sit", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }

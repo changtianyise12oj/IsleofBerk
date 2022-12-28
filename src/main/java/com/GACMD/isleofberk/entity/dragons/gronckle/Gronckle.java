@@ -4,7 +4,6 @@ import com.GACMD.isleofberk.entity.AI.taming.T2DragonFeedTamingGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
-import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.GronkleEgg;
 import com.GACMD.isleofberk.registery.ModEntities;
@@ -119,7 +118,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             }
         }
 
-        if (this.isDragonSitting()) {
+        if (this.isDragonSitting() && !isDragonSleeping()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Sit", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
