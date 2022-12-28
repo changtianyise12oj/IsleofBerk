@@ -696,6 +696,15 @@ public class SpeedStinger extends ADragonRideableUtility {
         floatStinger();
     }
 
+    protected void onGroundMechanics() {
+        BlockPos pos1 = new BlockPos(position().add(0, -1, 0));
+        if (level.getBlockState(pos1).getMaterial().isSolid()) {
+            setIsDragonOnGround(true);
+        } else {
+            setIsDragonOnGround(false);
+        }
+    }
+
     @Override
     public boolean canBeMounted() {
         return false;
