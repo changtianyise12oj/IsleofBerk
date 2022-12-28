@@ -290,9 +290,10 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 
                     boolean isFlying = isFlying() && !isInWater();
                     double speed = this.getAttributeValue(Attributes.FLYING_SPEED) * (isInWater() ? 0.2F : 1F);
+                    double groundSpeed = this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (isInWater() ? 0.2F : 1F);
                     this.setDeltaMovement(delta.add(
-                            (isFlying ? -speed : -speed / 4 + xHeadRotABS) * f2,
-                            y, (isFlying ? speed : speed / 4 - xHeadRotABS) * f3));
+                            (isFlying ? -speed : -groundSpeed / 2 + xHeadRotABS) * f2,
+                            y, (isFlying ? speed : groundSpeed / 2 - xHeadRotABS) * f3));
                 }
 
                 if (this.isGoingUp()) {
