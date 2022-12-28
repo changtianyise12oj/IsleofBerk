@@ -22,13 +22,13 @@ public class LightFuryModel extends BaseDragonModelFlying<LightFury> {
             case 1:
                 return new ResourceLocation("isleofberk:textures/dragons/light_fury/sveinn.png");
             case 2:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/dróttinn.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/drottinn.png");
             case 3:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/grógaldr.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/grogaldr.png");
             case 4:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/dróttinn_grógaldr.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/drottinn_grogaldr.png");
             case 5:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/sveinn_grógaldr.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/sveinn_grogaldr.png");
         }
     }
 
