@@ -189,10 +189,14 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType
-            pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        if (random.nextInt(10) == 1) {
+            this.setDragonVariant(7);
+        } else {
+            this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        }
+
         return pSpawnData;
     }
 
@@ -203,7 +207,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public int getMaxAmountOfVariants() {
-        return 8;
+        return 7;
     }
 
     @Override

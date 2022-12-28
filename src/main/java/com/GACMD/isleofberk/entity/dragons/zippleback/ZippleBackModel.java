@@ -21,7 +21,7 @@ public class ZippleBackModel extends BaseDragonModelFlying<ZippleBack> {
             case 0:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/pistill.png");
             case 1:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/hamfeist.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/sandr.png");
             case 2:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/fart_n_sniff.png");
             case 3:
@@ -33,7 +33,7 @@ public class ZippleBackModel extends BaseDragonModelFlying<ZippleBack> {
             case 6:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/whip_n_lash.png");
             case 7:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/sandr.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/zippleback/hamfeist.png");
         }
     }
 

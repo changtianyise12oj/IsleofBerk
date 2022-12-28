@@ -70,8 +70,8 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        if (random.nextInt(200) == 1) {
-            this.setDragonVariant(1);
+        if (random.nextInt(50) == 1) {
+            this.setDragonVariant(9);
         } else {
             this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
         }
