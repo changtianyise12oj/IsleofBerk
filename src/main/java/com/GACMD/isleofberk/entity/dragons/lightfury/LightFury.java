@@ -40,17 +40,22 @@ public class LightFury extends NightFury {
         return dragon;
     }
 
-    @Override
-    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @Nullable SpawnGroupData pSpawnData, @Nullable CompoundTag pDataTag) {
+
+    @Nullable
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        if (random.nextInt(20) == 1) {
+            this.setDragonVariant(5);
+        } else {
+            this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        }
         this.setGlowVariant(getMaxAmountOfGlowVariants());
         return pSpawnData;
     }
 
     @Override
     public int getMaxAmountOfVariants() {
-        return 6;
+        return 5;
     }
 
     //  Attributes
