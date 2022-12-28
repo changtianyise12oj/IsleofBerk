@@ -25,15 +25,15 @@ public class NightFuryModel extends BaseDragonModelFlying<NightFury> {
         switch (entity.getDragonVariant()) {
             default:
             case 0:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/regular2.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/night_fury.png");
             case 1:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/blue.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/sentinel.png");
             case 2:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/purple.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/karma.png");
             case 3:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/black1.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/arsian.png");
             case 4:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/black2.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/svartr.png");
             case 5:
                 return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/night_fury/albino.png");
             case 101:

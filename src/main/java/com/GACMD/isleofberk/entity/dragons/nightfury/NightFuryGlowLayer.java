@@ -30,9 +30,9 @@ public class NightFuryGlowLayer<T extends NightFury & IAnimatable> extends GeoLa
         switch (entity.getGlowVariants()) {
             default:
             case 0:
-                return new ResourceLocation("isleofberk:textures/dragons/night_fury/nightfury_glow_1.png");
+                return new ResourceLocation("isleofberk:textures/dragons/night_fury/night_fury_glow.png");
             case 1:
-                return new ResourceLocation("isleofberk:textures/dragons/night_fury/nightfury_glow_2.png");
+                return new ResourceLocation("isleofberk:textures/dragons/night_fury/sentinel_glow.png");
         }
     }
 }
