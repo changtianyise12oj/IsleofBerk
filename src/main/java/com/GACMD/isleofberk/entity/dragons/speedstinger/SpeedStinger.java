@@ -254,7 +254,7 @@ public class SpeedStinger extends ADragonRideableUtility {
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL) {
+        if (this.isTame() && this.level.getDifficulty() == Difficulty.PEACEFUL) {
             this.discard();
         } else if (!this.isPersistenceRequired() && !this.requiresCustomPersistence()) {
             Entity entity = this.level.getNearestPlayer(this, -1.0D);
@@ -283,10 +283,11 @@ public class SpeedStinger extends ADragonRideableUtility {
                     this.noActionTime = 0;
                 }
             }
+        } else if (this.isTame()) {
+            this.discard();
         } else {
             this.noActionTime = 0;
         }
-
     }
 
     @Override
@@ -859,5 +860,6 @@ public class SpeedStinger extends ADragonRideableUtility {
             speedStinger.navigation.moveTo(pos.x() - 40, pos.y(), pos.z() - 40, 1.4F);
         }
     }
+
 }
 
