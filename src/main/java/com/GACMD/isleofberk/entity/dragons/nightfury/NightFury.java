@@ -1,6 +1,5 @@
 package com.GACMD.isleofberk.entity.dragons.nightfury;
 
-import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
@@ -269,7 +268,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     @Override
-    protected void registerGoals(Player pPlayer) {
+    public void registerGoals(Player pPlayer) {
     }
 
     protected void defineSynchedData() {

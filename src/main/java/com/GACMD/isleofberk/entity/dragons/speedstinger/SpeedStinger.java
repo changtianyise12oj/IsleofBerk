@@ -248,13 +248,17 @@ public class SpeedStinger extends ADragonRideableUtility {
         return !isTame();
     }
 
+    protected boolean shouldDespawn() {
+        return !isTame();
+    }
+
     @Override
     public boolean requiresCustomPersistence() {
         return !isTame() && !isBaby();
     }
 
     public void checkDespawn() {
-        if (this.isTame() && this.level.getDifficulty() == Difficulty.PEACEFUL) {
+        if (!this.isTame() && this.level.getDifficulty() == Difficulty.PEACEFUL) {
             this.discard();
         } else if (!this.isPersistenceRequired() && !this.requiresCustomPersistence()) {
             Entity entity = this.level.getNearestPlayer(this, -1.0D);

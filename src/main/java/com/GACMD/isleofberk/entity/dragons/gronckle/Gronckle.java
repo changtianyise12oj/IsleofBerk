@@ -72,7 +72,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     }
 
     @Override
-    protected void registerGoals(Player pPlayer) {
+    public void registerGoals(Player pPlayer) {
     }
 
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
