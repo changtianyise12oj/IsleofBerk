@@ -529,7 +529,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FollowOwnerNoTPGoal(this, 1.1D, 1.0F, 1.0F, true));
-        ;
         this.goalSelector.addGoal(2, new DragonRideTilTamed(this, 1));
         this.goalSelector.addGoal(3, new DragonBreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, getMeleeAttackGoal());

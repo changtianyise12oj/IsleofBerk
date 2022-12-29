@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
-public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable {
+public abstract class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable {
 
     public ADragonBaseFlyingRideableProjUser(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -43,6 +43,8 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     public void setProjsSize(int projSize) {
         this.projSize = projSize;
     }
+
+    protected abstract void registerGoals(Player pPlayer);
 
     @Override
     protected void defineSynchedData() {

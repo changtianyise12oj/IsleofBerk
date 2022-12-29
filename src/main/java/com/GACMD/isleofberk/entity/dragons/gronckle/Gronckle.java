@@ -71,6 +71,10 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         this.subParts = new DragonPart[]{this.GronckleRamArea};
     }
 
+    @Override
+    protected void registerGoals(Player pPlayer) {
+    }
+
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if ((isFlying() && !event.isMoving())) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); // flyup

@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.nightfury;
 
+import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
@@ -20,6 +21,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -193,6 +195,27 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return PlayState.STOP;
     }
 
+    @Override
+    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+
+        if (this.isItemStackForTaming(itemstack)) {
+            if (pPlayer.hasEffect(MobEffects.NIGHT_VISION)) {
+                this.tame(pPlayer);
+                return InteractionResult.SUCCESS;
+            }
+            else {
+                return InteractionResult.FAIL;
+            }
+        }
+        return super.mobInteract(pPlayer, pHand);
+    }
+
+    @Override
+    public void registerGoals() {
+        this.targetSelector.addGoal(1, new T4DragonPotionRequirement(this, 1));
+    }
+
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
@@ -245,6 +268,10 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         this.entityData.set(GLOW_VARIANT, flying);
     }
 
+    @Override
+    protected void registerGoals(Player pPlayer) {
+    }
+
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(GLOW_VARIANT, 0);
@@ -263,12 +290,6 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Override
     public float getRideCameraDistanceFront() {
         return 3;
-    }
-
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.targetSelector.addGoal(1, new T4DragonPotionRequirement(this, 1));
     }
 
     //  Attributes
@@ -361,11 +382,6 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     public ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {
         NightFuryEgg dragon = ModEntities.NIGHT_FURY_EGG.get().create(level);
         return dragon;
-    }
-
-    @Override
-    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        return super.mobInteract(pPlayer, pHand);
     }
 
     @Override

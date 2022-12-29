@@ -1,6 +1,15 @@
 package com.GACMD.isleofberk.entity.dragons.lightfury;
 
+import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
+import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
+import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
+import com.GACMD.isleofberk.entity.AI.goal.IOBRandomLookAroundGoal;
+import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
+import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
+import com.GACMD.isleofberk.entity.AI.taming.DragonRideTilTamed;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
+import com.GACMD.isleofberk.entity.AI.target.DragonHurtByTargetGoal;
+import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
@@ -12,11 +21,16 @@ import com.GACMD.isleofberk.util.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -40,6 +54,10 @@ public class LightFury extends NightFury {
         return dragon;
     }
 
+    @Override
+    public void registerGoals() {
+        this.targetSelector.addGoal(1, new T4DragonPotionRequirement(this, 1));
+    }
 
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
@@ -146,12 +164,6 @@ public class LightFury extends NightFury {
         return null;
     }
 
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.targetSelector.addGoal(1, new T4DragonPotionRequirement(this, 1));
-    }
-
     /**
      * Add bonus damage to boss mobs with high health
      *
@@ -178,6 +190,22 @@ public class LightFury extends NightFury {
     public @Nullable ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {
         LightFuryEgg dragon = ModEntities.LIGHT_FURY_EGG.get().create(level);
         return dragon;
+    }
+
+    @Override
+    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+
+        if (this.isItemStackForTaming(itemstack)) {
+            if (pPlayer.hasEffect(MobEffects.INVISIBILITY)) {
+                this.tame(pPlayer);
+                return InteractionResult.SUCCESS;
+            }
+            else {
+                return InteractionResult.FAIL;
+            }
+        }
+        return super.mobInteract(pPlayer, pHand);
     }
 
 }
