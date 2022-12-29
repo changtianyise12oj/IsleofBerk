@@ -44,10 +44,6 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
         this.projSize = projSize;
     }
 
-    public void registerGoals(Player pPlayer) {
-
-    }
-
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();

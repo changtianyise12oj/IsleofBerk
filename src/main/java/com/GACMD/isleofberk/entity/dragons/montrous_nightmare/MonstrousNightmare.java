@@ -19,16 +19,12 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -120,22 +116,6 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
         return throatPos;
 
-    }
-
-    @Override
-    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-
-        if (this.isItemStackForTaming(itemstack)) {
-            if (pPlayer.hasEffect(MobEffects.FIRE_RESISTANCE)) {
-                this.tame(pPlayer);
-                return InteractionResult.SUCCESS;
-            }
-            else {
-                return InteractionResult.FAIL;
-            }
-        }
-        return super.mobInteract(pPlayer, pHand);
     }
 
     @Override
