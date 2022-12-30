@@ -24,8 +24,8 @@ public class CommonConfig {
         BUILDER.push("Isle of Berk Config");
 
         USE_LARGER_SCALING = BUILDER.comment("Should use larger dragon scaling?").define("Should use larger dragon scaling?", true);
-        N_FURY_SPAWN_CHANCE = BUILDER.comment("Night Fury Spawn Chancem Lower decimal numbers means lower spawning").define("Night Fury Spawn Chancem Lower decimal numbers means lower spawning?", 0.05F);
-        L_FURY_SPAWN_CHANCE = BUILDER.comment("Light Fury Spawn Chancem Lower decimal numbers means lower spawning").define("Light Fury Spawn Chancem Lower decimal numbers means lower spawning?", 0.05F);
+        N_FURY_SPAWN_CHANCE = BUILDER.comment("Night Fury Spawn Chancem Lower decimal numbers means lower spawning").define("Night Fury Spawn Chancem Lower decimal numbers means lower spawning?", 0.00005F);
+        L_FURY_SPAWN_CHANCE = BUILDER.comment("Light Fury Spawn Chancem Lower decimal numbers means lower spawning").define("Light Fury Spawn Chancem Lower decimal numbers means lower spawning?", 0.00002F);
         GROCNKLE__SPAWN_CHANCE = BUILDER.comment("Gronckle Spawn Chancem Lower decimal numbers means lower spawning").define("Gronckle Spawn Chancem Lower decimal numbers means lower spawning?", 0.05F);
         NADDER_SPAWN_CHANCE = BUILDER.comment("Deadly Nadder Spawn Chancem Lower decimal numbers means lower spawning").define("DeadlyNadder Spawn Chancem Lower decimal numbers means lower spawning?", 0.05F);
         ZIPP_SPAWN_CHANCE = BUILDER.comment("Zippleback Spawn Chancem Lower decimal numbers means lower spawning").define("Zippleback Spawn Chancem Lower decimal numbers means lower spawning?", 0.04F);
