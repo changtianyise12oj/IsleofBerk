@@ -11,6 +11,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
+
 public class DragonContainerMenu extends AbstractContainerMenu {
     public ADragonRideableUtility dragon;
     public Container dragonContainer;
@@ -38,13 +40,28 @@ public class DragonContainerMenu extends AbstractContainerMenu {
             public boolean isActive() {
                 return dragon.isSaddleable();
             }
+
+            // don't remove saddle when dragon is chested
+            @Override
+            public @NotNull Optional<ItemStack> tryRemove(int pCount, int pDecrement, @NotNull Player pPlayer) {
+                if (!dragon.hasChest()) {
+                    return super.tryRemove(pCount, pDecrement, pPlayer);
+                } else {
+                    return Optional.empty();
+                }
+            }
         });
         this.addSlot(new Slot(dragonContainer, 1, 8, 36) {
             /**
              * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
              */
             public boolean mayPlace(@NotNull ItemStack itemStack) {
-                return itemStack.is(Items.CHEST);
+                if (dragon.isSaddleable()) {
+                    if (!dragon.isSaddled()) {
+                        return false;
+                    }
+                }
+                return itemStack.is(Items.CHEST) && dragon.isChestable();
             }
 
             /**
@@ -53,6 +70,12 @@ public class DragonContainerMenu extends AbstractContainerMenu {
              */
             public int getMaxStackSize() {
                 return 1;
+            }
+
+            @Override
+            public boolean isActive() {
+
+                return dragon.isChestable();
             }
         });
         if (dragon.hasChest()) {

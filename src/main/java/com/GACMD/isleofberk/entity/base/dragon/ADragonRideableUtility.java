@@ -632,6 +632,10 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         return this.isAlive() && !this.isBaby() && this.isTame();
     }
 
+    public boolean isChestable() {
+        return true;
+    }
+
     @Override
     public void equipSaddle(@Nullable SoundSource p_21748_) {
         this.dragonContainer.setItem(0, new ItemStack(Items.SADDLE));
