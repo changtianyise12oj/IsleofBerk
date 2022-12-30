@@ -84,17 +84,17 @@ public class ModSpawnRegistration {
                 1, 1, 1, CommonConfig.N_FURY_SPAWN_CHANCE.get(), Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
                 Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.NIGHT_FURY.get(),
-                1, 1, 1, 0.01F, Biomes.STONY_SHORE, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.BIRCH_FOREST);
+                1, 1, 1, 0.00005F, Biomes.STONY_SHORE, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.BIRCH_FOREST);
 
         /**
          * LIGHT FURY
          */
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.LIGHT_FURY.get(),
-                1, 1, 1, CommonConfig.STRYKE_SPAWN_CHANCE.get(), Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS,
+                1, 1, 1, CommonConfig.L_FURY_SPAWN_CHANCE.get(), Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS,
                 Biomes.WINDSWEPT_FOREST);
 
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.LIGHT_FURY.get(),
-                1, 1, 1, 0.01F, Biomes.STONY_SHORE, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.BIRCH_FOREST);
+                1, 1, 1, 0.00005F, Biomes.STONY_SHORE, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.BIRCH_FOREST);
 
         /**
          * MONSTROUS NIGHTMARE
