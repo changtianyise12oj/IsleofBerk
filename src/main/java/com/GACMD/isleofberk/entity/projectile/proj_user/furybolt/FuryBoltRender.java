@@ -28,11 +28,13 @@ public class FuryBoltRender extends GeoProjectilesRenderer<FuryBolt> {
     public void renderEarly(FuryBolt animatable, PoseStack stackIn, float ticks, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float partialTicks) {
         super.renderEarly(animatable, stackIn, ticks, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, partialTicks);
         if (animatable.getOwner() instanceof NightFury furyEntity) {
-            if(furyEntity.tier1() || furyEntity.tier2()) {
-                stackIn.scale(2.7F, 2.7F, 2.7F);
-            } else if(furyEntity.tier3()) {
-                stackIn.scale(2.9F, 2.9F, 2.9F);
-            } else if(furyEntity.tier4()) {
+            if(animatable.getProjectileSize() == 0) {
+                stackIn.scale(2.2F, 2.2F, 2.2F);
+            } else if(animatable.getProjectileSize() == 1) {
+                stackIn.scale(2.6F, 2.6F, 2.6F);
+            } else if(animatable.getProjectileSize() == 2) {
+                stackIn.scale(3.1F, 3.1F, 3.1F);
+            } else if(animatable.getProjectileSize() == 3) {
                 stackIn.scale(3.1F, 3.1F, 3.1F);
             }
         }
