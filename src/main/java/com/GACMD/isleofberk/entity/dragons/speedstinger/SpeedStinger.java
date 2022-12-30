@@ -244,13 +244,14 @@ public class SpeedStinger extends ADragonRideableUtility {
         return checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
     }
 
+    @Override
     protected boolean shouldDespawnInPeaceful() {
         return !isTame();
     }
 
     @Override
     public boolean requiresCustomPersistence() {
-        return !isTame() && !isBaby();
+        return !isTame() || !isBaby();
     }
 
     public void checkDespawn() {
