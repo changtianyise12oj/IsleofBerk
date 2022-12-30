@@ -44,19 +44,19 @@ public class TerribleTerrorModel extends BaseDragonModel<TerribleTerror> {
                 case 0:
                     return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/terrible_terror.png");
                 case 1:
-                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/blue.png");
+                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/blar.png");
                 case 2:
-                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/cyan.png");
+                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/sneaky.png");
                 case 3:
-                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/green.png");
+                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/terror.png");
                 case 4:
-                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/mint.png");
+                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/sharpshot.png");
                 case 5:
-                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/orange.png");
+                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/iggy.png");
                 case 6:
-                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/purple.png");
+                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/pain.png");
                 case 7:
-                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/yellow.png");
+                    return new ResourceLocation("isleofberk:textures/dragons/terrible_terror/head.png");
             }
         }
     }

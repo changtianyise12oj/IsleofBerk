@@ -18,17 +18,17 @@ public class LightFuryModel extends BaseDragonModelFlying<LightFury> {
         switch (entity.getDragonVariant()) {
             default:
             case 0:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_1.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/light_fury.png");
             case 1:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_2.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/sveinn.png");
             case 2:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_3.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/drottinn.png");
             case 3:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_4.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/grogaldr.png");
             case 4:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_5.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/drottinn_grogaldr.png");
             case 5:
-                return new ResourceLocation("isleofberk:textures/dragons/light_fury/fight_fury_6.png");
+                return new ResourceLocation("isleofberk:textures/dragons/light_fury/sveinn_grogaldr.png");
         }
     }
 

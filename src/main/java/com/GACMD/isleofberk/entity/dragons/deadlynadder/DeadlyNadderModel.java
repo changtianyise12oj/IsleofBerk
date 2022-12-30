@@ -32,25 +32,25 @@ public class DeadlyNadderModel extends BaseDragonModelFlying<DeadlyNadder> {
             case 0:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/stormfly.png");
             case 1:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/scardian.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/deadly_nadder.png");
             case 2:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/red.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/kingstail.png");
             case 3:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/purple.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/scardian.png");
             case 4:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/pink.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/springshedder.png");
             case 5:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/mint.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/hjarta.png");
             case 6:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/green.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/bork_week.png");
             case 7:
                 return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/flystorm.png");
             case 8:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/dark_purple.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/hjaldr.png");
             case 9:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/brown.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/barklethorn.png");
             case 10:
-                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/blue.png");
+                return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/lethal_lancebeak.png");
         }
     }
 

@@ -1,6 +1,7 @@
 package com.GACMD.isleofberk.entity.AI.taming;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
 import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmare;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.entity.dragons.zippleback.ZippleBack;
@@ -52,6 +53,9 @@ public class T4DragonPotionRequirement extends ADragonTamingGoalBase {
             return false;
         }
         if (dragon instanceof NightFury && player.hasEffect(MobEffects.NIGHT_VISION)) {
+            return false;
+        }
+        if (dragon instanceof LightFury && player.hasEffect(MobEffects.INVISIBILITY)) {
             return false;
         }
         if (dragon instanceof ZippleBack && player.hasEffect(MobEffects.REGENERATION)) {

@@ -32,16 +32,16 @@ public class DeadlyNadderWingLayer<T extends DeadlyNadder & IAnimatable> extends
     protected ResourceLocation getNadderEntityTexture(DeadlyNadder entity) {
         return switch (entity.getDragonVariant()) {
             case 0 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/stormfly_membranes.png");
-            case 1 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/scardian_membranes.png");
-            case 2 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/red_membranes.png");
-            case 3 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/purple_membranes.png");
-            case 4 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/pink_membranes.png");
-            case 5 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/mint_membranes.png");
-            case 6 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/green_membranes.png");
+            case 1 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/deadly_nadder_membranes.png");
+            case 2 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/kingstail_membranes.png");
+            case 3 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/scardian_membranes.png");
+            case 4 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/springshedder_membranes.png");
+            case 5 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/hjarta_membranes.png");
+            case 6 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/bork_week_membranes.png");
             case 7 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/flystorm_membranes.png");
-            case 8 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/dark_purple_membranes.png");
-            case 9 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/brown_membranes.png");
-            case 10 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/blue_membranes.png");
+            case 8 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/hjaldr_membranes.png");
+            case 9 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/barklethorn_membranes.png");
+            case 10 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/lethal_lancebeak_membranes.png");
             default -> throw new IllegalStateException("Unexpected value: " + entity.getDragonVariant());
         };
     }

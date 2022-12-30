@@ -36,23 +36,23 @@ public class GronckleModel extends BaseDragonModelFlying<Gronckle> {
             case 0:
                 return new ResourceLocation("isleofberk:textures/dragons/gronckle/meatlug.png");
             case 1:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/green.png");
+                return new ResourceLocation("isleofberk:textures/dragons/gronckle/hjarta.png");
             case 2:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/blue.png");
+                return new ResourceLocation("isleofberk:textures/dragons/gronckle/junior_tuffnut_junior.png");
             case 3:
                 return new ResourceLocation("isleofberk:textures/dragons/gronckle/gronckle.png");
             case 4:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/orange.png");
+                return new ResourceLocation("isleofberk:textures/dragons/gronckle/cheesemonger.png");
             case 5:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/purple.png");
+                return new ResourceLocation("isleofberk:textures/dragons/gronckle/exiled.png");
             case 6:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/red.png");
+                return new ResourceLocation("isleofberk:textures/dragons/gronckle/rubblegrubber.png");
             case 7:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/rose.png");
+                return new ResourceLocation("isleofberk:textures/dragons/gronckle/barn.png");
             case 8:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/valentine.png");
+                return new ResourceLocation("isleofberk:textures/dragons/gronckle/crubble.png");
             case 9:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/lime.png");
+                return new ResourceLocation("isleofberk:textures/dragons/gronckle/yawnckle.png");
         }
     }
 

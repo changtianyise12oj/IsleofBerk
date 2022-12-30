@@ -254,9 +254,9 @@ public class SpeedStinger extends ADragonRideableUtility {
     }
 
     public void checkDespawn() {
-        if (this.level.getDifficulty() == Difficulty.PEACEFUL) {
+        if (!isTame() && this.level.getDifficulty() == Difficulty.PEACEFUL) {
             this.discard();
-        } else if (!this.isPersistenceRequired() && !this.requiresCustomPersistence()) {
+        } else if (!isTame() && !this.isPersistenceRequired() && !this.requiresCustomPersistence()) {
             Entity entity = this.level.getNearestPlayer(this, -1.0D);
             Event.Result result = ForgeEventFactory.canEntityDespawn(this);
             if (result == Event.Result.DENY) {
@@ -267,7 +267,7 @@ public class SpeedStinger extends ADragonRideableUtility {
                 entity = null;
             }
 
-            if (entity != null) {
+            if (!isTame() && entity != null) {
                 double d0 = entity.distanceToSqr(this);
                 int i = this.getType().getCategory().getDespawnDistance();
                 int j = i * i;
