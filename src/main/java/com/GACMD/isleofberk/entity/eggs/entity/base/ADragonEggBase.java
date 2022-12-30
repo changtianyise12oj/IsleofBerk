@@ -219,6 +219,16 @@ public class ADragonEggBase extends AgeableMob implements IAnimatable {
         return Util.mcDaysToMinutes(5);
     }
 
+    @Override
+    protected boolean shouldDespawnInPeaceful() {
+        return false;
+    }
+
+    @Override
+    public boolean requiresCustomPersistence() {
+        return true;
+    }
+
     public boolean isCold() {
         BlockPos pos = new BlockPos(getX(), getY(), getZ());
         int i5 = level.getLightEngine().getLayerListener(LightLayer.BLOCK).getLightValue(pos);
