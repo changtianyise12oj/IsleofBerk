@@ -70,7 +70,6 @@ public class BaseDragonModel<T extends ADragonBase & IAnimatable> extends Animat
             // can't be mounted are applied to normal mountable dragons when they are babies
             if (dragonRideableUtility.canBeMounted()) {
                 getGeoBone("Saddle").setHidden(!dragonRideableUtility.isSaddled());
-                getGeoBone("Saddle").hideChildBonesToo = false;
             }
         }
 

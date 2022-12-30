@@ -25,29 +25,6 @@
 					]
 				},
 				{
-					"name": "Equipment",
-					"parent": "Body",
-					"pivot": [-0.5, 45, -0.5]
-				},
-				{
-					"name": "Bags",
-					"parent": "Equipment",
-					"pivot": [5.5, 45, 6.5],
-					"cubes": [
-						{"origin": [4.5, 37, 6.5], "size": [5, 9, 10], "pivot": [5.5, 45, 6.5], "rotation": [-5, -7.5, -27.5], "uv": [124, 93]},
-						{"origin": [-9.5, 37, 6.5], "size": [5, 9, 10], "pivot": [-5.5, 45, 6.5], "rotation": [-5, 7.5, 27.5], "uv": [124, 93], "mirror": true}
-					]
-				},
-				{
-					"name": "Saddle",
-					"parent": "Equipment",
-					"pivot": [0, 0, 0],
-					"cubes": [
-						{"origin": [-4.5, 45, -0.5], "size": [9, 1, 11], "uv": [80, 97]},
-						{"origin": [-3.5, 45, 9.5], "size": [7, 3, 1], "pivot": [-0.5, 45, 10.5], "rotation": [-32.5, 0, 0], "uv": [85, 113]}
-					]
-				},
-				{
 					"name": "Chest1",
 					"parent": "Body",
 					"pivot": [0, 25, -6],
@@ -767,6 +744,24 @@
 					"rotation": [-60, 0, 0],
 					"cubes": [
 						{"origin": [-1, 45, 3], "size": [2, 8, 2], "uv": [180, 38]}
+					]
+				},
+				{
+					"name": "Saddle",
+					"parent": "Body",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-4.5, 45, -0.5], "size": [9, 1, 11], "uv": [80, 97]},
+						{"origin": [-3.5, 45, 9.5], "size": [7, 3, 1], "pivot": [-0.5, 45, 10.5], "rotation": [-32.5, 0, 0], "uv": [85, 113]}
+					]
+				},
+				{
+					"name": "Bags",
+					"parent": "Saddle",
+					"pivot": [5.5, 45, 6.5],
+					"cubes": [
+						{"origin": [4.5, 37, 6.5], "size": [5, 9, 10], "pivot": [5.5, 45, 6.5], "rotation": [-5, -7.5, -27.5], "uv": [124, 93]},
+						{"origin": [-9.5, 37, 6.5], "size": [5, 9, 10], "pivot": [-5.5, 45, 6.5], "rotation": [-5, 7.5, 27.5], "uv": [124, 93], "mirror": true}
 					]
 				}
 			]

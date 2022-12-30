@@ -826,13 +826,8 @@
 					]
 				},
 				{
-					"name": "Equipment",
-					"parent": "Chest",
-					"pivot": [0, 0, 0]
-				},
-				{
 					"name": "Saddle",
-					"parent": "Equipment",
+					"parent": "Chest",
 					"pivot": [0, 36.39162, -3.09133],
 					"rotation": [-12.5, 0, 0],
 					"cubes": [
@@ -842,7 +837,7 @@
 				},
 				{
 					"name": "Bags",
-					"parent": "Equipment",
+					"parent": "Saddle",
 					"pivot": [0, 36.39162, -3.09133]
 				},
 				{
