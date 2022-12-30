@@ -507,4 +507,5 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     protected float getAIProjPowerPercentage() {
         return 0.35F;
     }
+
 }

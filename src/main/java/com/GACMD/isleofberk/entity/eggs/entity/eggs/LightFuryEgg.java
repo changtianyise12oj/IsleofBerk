@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.base.medium.ADragonMediumEggBase;
 import com.GACMD.isleofberk.items.DragonEggItem;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import com.GACMD.isleofberk.util.Util;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.Level;
@@ -44,5 +45,10 @@ public class LightFuryEgg extends ADragonMediumEggBase implements IAnimatable {
     @Override
     protected DragonEggItem getItemVersion() {
         return ModItems.LIGHT_FURY_EGG.get();
+    }
+
+    @Override
+    protected int getHatchTimeMinecraftDays() {
+        return Util.mcDaysToMinutes(12);
     }
 }

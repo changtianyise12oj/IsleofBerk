@@ -8,6 +8,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.items.DragonEggItem;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import com.GACMD.isleofberk.util.Util;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
@@ -131,5 +132,10 @@ public class SpeedStingerEgg extends ADragonSmallEggBase {
     @Override
     protected int particleEggShellCount() {
         return 6;
+    }
+
+    @Override
+    protected int getHatchTimeMinecraftDays() {
+        return Util.mcDaysToMinutes(6);
     }
 }

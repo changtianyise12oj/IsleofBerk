@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.items.DragonEggItem;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import com.GACMD.isleofberk.util.Util;
 import com.google.common.collect.Sets;
 import com.mojang.datafixers.util.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -264,5 +265,10 @@ public class GronkleEgg extends ADragonMediumEggBase implements IAnimatable {
             }
 
         }
+    }
+
+    @Override
+    protected int getHatchTimeMinecraftDays() {
+        return Util.mcDaysToMinutes(7);
     }
 }
