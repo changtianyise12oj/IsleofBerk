@@ -129,22 +129,6 @@ public class LightFury extends NightFury {
         }
     }
 
-    @Override
-    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-
-        if (this.isItemStackForTaming(itemstack)) {
-            if (pPlayer.hasEffect(MobEffects.INVISIBILITY)) {
-                this.tame(pPlayer);
-                return InteractionResult.SUCCESS;
-            }
-            else {
-                return InteractionResult.FAIL;
-            }
-        }
-        return super.mobInteract(pPlayer, pHand);
-    }
-
     public void dragonShootProjectile(Vec3 dragonLook, Vec3 throat) {
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
             setTicksSinceLastFire(ticksSinceLastProjShootSet());
