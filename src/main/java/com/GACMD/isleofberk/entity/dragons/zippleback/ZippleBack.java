@@ -77,22 +77,6 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
     }
 
-    @Override
-    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-
-        if (this.isItemStackForTaming(itemstack)) {
-            if (pPlayer.hasEffect(MobEffects.REGENERATION)) {
-                this.tame(pPlayer);
-                return InteractionResult.SUCCESS;
-            }
-            else {
-                return InteractionResult.FAIL;
-            }
-        }
-        return super.mobInteract(pPlayer, pHand);
-    }
-
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 

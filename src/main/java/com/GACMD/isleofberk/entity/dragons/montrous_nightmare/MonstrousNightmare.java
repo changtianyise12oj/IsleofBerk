@@ -83,22 +83,6 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @Override
-    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-
-        if (this.isItemStackForTaming(itemstack)) {
-            if (pPlayer.hasEffect(MobEffects.FIRE_RESISTANCE)) {
-                this.tame(pPlayer);
-                return InteractionResult.SUCCESS;
-            }
-            else {
-                return InteractionResult.FAIL;
-            }
-        }
-        return super.mobInteract(pPlayer, pHand);
-    }
-
-    @Override
     public int getMaxAmountOfVariants() {
         return 9;
     }

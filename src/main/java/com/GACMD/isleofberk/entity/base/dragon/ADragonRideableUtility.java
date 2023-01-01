@@ -127,7 +127,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             // thus preventing the quick tame of dragon's
             // dragon that is subject for taming will not fly away
             if (!isTame()) {
-                if (itemstack.is(tameItem())) {
+                if (itemstack.is(tameItem()) && getTarget() == null) {
                     if (this.getFoodTameLimiterBar() < this.getFoodTamingPhaseMaximumLevel()) {
                         // food limits how much you can feed currently fills up faster
                         this.modifyFoodTamingThreshold(nutrition * 3);

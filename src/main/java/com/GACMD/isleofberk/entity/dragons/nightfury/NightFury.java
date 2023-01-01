@@ -194,22 +194,6 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return PlayState.STOP;
     }
 
-    @Override
-    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
-        ItemStack itemstack = pPlayer.getItemInHand(pHand);
-
-        if (this.isItemStackForTaming(itemstack)) {
-            if (pPlayer.hasEffect(MobEffects.NIGHT_VISION)) {
-                this.tame(pPlayer);
-                return InteractionResult.SUCCESS;
-            }
-            else {
-                return InteractionResult.FAIL;
-            }
-        }
-        return super.mobInteract(pPlayer, pHand);
-    }
-
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
