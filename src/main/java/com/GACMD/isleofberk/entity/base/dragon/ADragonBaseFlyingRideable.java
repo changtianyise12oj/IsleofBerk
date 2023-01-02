@@ -1,9 +1,9 @@
 package com.GACMD.isleofberk.entity.base.dragon;
 
 
+import com.GACMD.isleofberk.entity.AI.flight.own.AIDragonLand;
 import com.GACMD.isleofberk.entity.AI.flight.own.DragonFlyAndAttackAirbourneTargetGoal;
 import com.GACMD.isleofberk.entity.AI.flight.own.UntamedDragonCircleFlightGoal;
-import com.GACMD.isleofberk.entity.AI.flight.own.AIDragonLand;
 import com.GACMD.isleofberk.entity.AI.flight.player.AIDragonRide;
 import com.GACMD.isleofberk.entity.AI.flight.player.DragonFollowPlayerFlying;
 import com.GACMD.isleofberk.entity.AI.path.air.DragonFlyingPathNavigation;
@@ -15,6 +15,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -39,11 +40,13 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     private static final EntityDataAccessor<Boolean> IS_LANDING = SynchedEntityData.defineId(ADragonBaseFlyingRideable.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_GOINGUP = SynchedEntityData.defineId(ADragonBaseFlyingRideable.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> IS_GOINDOWN = SynchedEntityData.defineId(ADragonBaseFlyingRideable.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> IS_HOVERING = SynchedEntityData.defineId(ADragonBaseFlyingRideable.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> IS_FLAPPING = SynchedEntityData.defineId(ADragonBaseFlyingRideable.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> USING_SECOND_NAVIGATOR = SynchedEntityData.defineId(ADragonBaseFlyingRideable.class, EntityDataSerializers.BOOLEAN);
 
     public boolean isLandNavigator;
     public int ticksUnderwater;
+    public float oFlapTime;
+    public float flapTime;
 
     public ADragonBaseFlyingRideable(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -118,12 +121,12 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         this.entityData.set(IS_GOINDOWN, goingdown);
     }
 
-    public boolean isHovering() {
-        return this.entityData.get(IS_HOVERING);
+    public boolean shouldPlayFlapping() {
+        return this.entityData.get(IS_FLAPPING);
     }
 
-    public void setIsHovering(boolean hovering) {
-        this.entityData.set(IS_HOVERING, hovering);
+    public void setShouldPlayFlapping(boolean hovering) {
+        this.entityData.set(IS_FLAPPING, hovering);
     }
 
     public void switchNavigator(boolean useLandNavigationController) {
@@ -147,7 +150,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         this.entityData.define(IS_LANDING, false);
         this.entityData.define(IS_GOINGUP, false);
         this.entityData.define(IS_GOINDOWN, false);
-        this.entityData.define(IS_HOVERING, false);
+        this.entityData.define(IS_FLAPPING, false);
         this.entityData.define(USING_SECOND_NAVIGATOR, false);
     }
 
@@ -160,7 +163,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         pCompound.putInt("rotation_state", this.getRotationState());
         pCompound.putBoolean("is_goingup", this.isGoingUp());
         pCompound.putBoolean("is_goingdown", this.isGoingDown());
-        pCompound.putBoolean("is_hovering", this.isHovering());
+        pCompound.putBoolean("play_flapping", this.shouldPlayFlapping());
         pCompound.putBoolean("is_using_second_navigator", this.IsUsingSecondNavigator());
     }
 
@@ -173,7 +176,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         this.setRotationState(pCompound.getInt("rotation_state"));
         this.setIsGoingUp(pCompound.getBoolean("is_goingup"));
         this.setIsGoingDown(pCompound.getBoolean("is_goingdown"));
-        this.setIsHovering(pCompound.getBoolean("is_hovering"));
+        this.setShouldPlayFlapping(pCompound.getBoolean("play_flapping"));
         this.setIsUsingSecondNavigator(pCompound.getBoolean("is_using_second_navigator"));
     }
 
@@ -316,6 +319,25 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         }
     }
 
+    public boolean isFlapping() {
+        float f = Mth.cos(this.flapTime * ((float) Math.PI * 2F));
+        float f1 = Mth.cos(this.oFlapTime * ((float) Math.PI * 2F));
+        return f1 <= -0.3F && f >= -0.3F;
+    }
+
+    public void onFlap() {
+        if (this.level.isClientSide && !this.isSilent() && shouldPlayFlapping() && !isInWater() && !isInLava() && isFlying() && shouldPlayFlapping()) {
+            this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.LAVA_POP, this.getSoundSource(), 5.0F, 0.8F + this.random.nextFloat() * 0.3F, false);
+        }
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        this.oFlapTime = this.flapTime;
+        this.flapTime += 0.15F;
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -331,8 +353,6 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         } else {
             this.setNoGravity(false);
         }
-
-//        System.out.println(navigation);
 
         // decrement per tick
         if (getTicksFlyWandering() > 0) {

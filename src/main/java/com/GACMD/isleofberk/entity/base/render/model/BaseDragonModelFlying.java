@@ -7,6 +7,7 @@ import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmare
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.entity.dragons.tryiple_stryke.TripleStryke;
 import com.GACMD.isleofberk.entity.dragons.zippleback.ZippleBack;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import software.bernie.geckolib3.core.IAnimatable;

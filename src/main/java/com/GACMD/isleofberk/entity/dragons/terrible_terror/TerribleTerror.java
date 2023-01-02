@@ -105,7 +105,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             if (!isDragonOnGround()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
-            } else if (isHovering()) {
+            } else if (shouldPlayFlapping()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Hover", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             } else if (!isDragonSitting() && !isDragonIncapacitated()) {
