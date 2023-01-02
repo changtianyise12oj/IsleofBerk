@@ -10,6 +10,10 @@ import com.GACMD.isleofberk.entity.AI.path.air.DragonFlyingPathNavigation;
 import com.GACMD.isleofberk.entity.AI.path.air.FlyingDragonMoveControl;
 import com.GACMD.isleofberk.entity.AI.target.DragonNonTameRandomTargetGoal;
 import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
+import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
+import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
+import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
+import com.GACMD.isleofberk.entity.dragons.tryiple_stryke.TripleStryke;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.resources.sounds.ElytraOnPlayerSoundInstance;
@@ -296,7 +300,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
                     float f3 = Mth.cos(this.getYRot() * 0.017453292F);
 
                     boolean isFlying = isFlying() && !isInWater();
-                    double speed = this.getAttributeValue(Attributes.FLYING_SPEED) * (isInWater() ? 0.2F : 1.2F);
+                    double speed = this.getAttributeValue(Attributes.FLYING_SPEED) * (isInWater() ? 0.2F : 1F);
                     double groundSpeed = this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (isInWater() ? 0.2F : 1F);
                     this.setDeltaMovement(delta.add(
                             (isFlying ? -speed : -groundSpeed / 2 + xHeadRotABS) * f2,
@@ -349,7 +353,27 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     public void aiStep() {
         super.aiStep();
         this.oFlapTime = this.flapTime;
-        this.flapTime += 0.15F;
+        this.flapTime += getFlapSpeedPerFlyingDragon();
+    }
+
+    private float getFlapSpeedPerFlyingDragon() {
+        if (this instanceof Gronckle ) {
+            return 0.15F;
+        }
+
+        if(this instanceof DeadlyNadder) {
+            return 0.04F;
+        }
+
+        if(this instanceof NightFury) {
+            return 0.042F;
+        }
+
+        if(this instanceof TripleStryke) {
+            return 0.042F;
+        }
+
+        return 0.3F;
     }
 
     @Override

@@ -59,6 +59,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if ((isFlying() && !event.isMoving())) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); // hover
+            setShouldPlayFlapping(true);
             return PlayState.CONTINUE;
         }
         if (isFlying()) {
@@ -66,14 +67,17 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
                 if (getControllingPassenger() instanceof Player) {
                     if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        setShouldPlayFlapping(true);
                         return PlayState.CONTINUE;
                     }
                     if (this.getXRot() >= 11 && this.getXRot() < 26 && !isGoingUp()) { // < 20
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
+                        setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
                     if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderDive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
+                        setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
                 } else if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
@@ -81,18 +85,22 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
                     double ydist = this.getY() - player.getY();
                     if (dist > 4.3F && ydist < 5F) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        setShouldPlayFlapping(true);
                         return PlayState.CONTINUE;
                     }
                     if (dist < 4.3F && ydist < 5F) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlide", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderGlide", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
                     if (ydist > 5F && dist > 7.8F) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderDive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
+                        setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
                 } else {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("DeadlyNadderFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                    setShouldPlayFlapping(true);
                     return PlayState.CONTINUE;
                 }
             }

@@ -59,6 +59,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         if ((isFlying() && !event.isMoving())) {
             // the head looks down during hover which looks awful and distorted so temporary disabled
             event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); // hover
+            setShouldPlayFlapping(true);
             return PlayState.CONTINUE;
         }
         if (isFlying()) {
@@ -66,15 +67,18 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                 if (getControllingPassenger() instanceof Player) {
 //                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
                     if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(true);
                         return PlayState.CONTINUE;
                     }
                     if (this.getXRot() >= 11 && this.getXRot() < 26 && !isGoingUp()) { // < 20
+                        setShouldPlayFlapping(false);
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
                         return PlayState.CONTINUE;
                     }
                     if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
+                        setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
                     // different values for pitch and roll when following elytra flying player
@@ -82,18 +86,22 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                     float dist = distanceTo(player);
                     double ydist = this.getY() - player.getY();
                     if (dist > 8.3F && ydist < 4 || ydist < -1.8F) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(true);
                         return PlayState.CONTINUE;
                     }
                     if (dist < 8.3F || ydist > 4) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     } else {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(true);
                         return PlayState.CONTINUE;
                     }
                 } else {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                    setShouldPlayFlapping(true);
                     return PlayState.CONTINUE;
                 }
 
