@@ -10,11 +10,15 @@ import com.GACMD.isleofberk.entity.AI.path.air.DragonFlyingPathNavigation;
 import com.GACMD.isleofberk.entity.AI.path.air.FlyingDragonMoveControl;
 import com.GACMD.isleofberk.entity.AI.target.DragonNonTameRandomTargetGoal;
 import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.resources.sounds.ElytraOnPlayerSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -326,9 +330,15 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     }
 
     public void onFlap() {
-        if (this.level.isClientSide && !this.isSilent() && shouldPlayFlapping() && !isInWater() && !isInLava() && isFlying() && shouldPlayFlapping()) {
-            this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.LAVA_POP, this.getSoundSource(), 5.0F, 0.8F + this.random.nextFloat() * 0.3F, false);
+        if (this.level.isClientSide && !this.isSilent() && !isInWater() && !isInLava() && isFlying()) {
+            if (shouldPlayFlapping()) {
+                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), getFlapSound(), this.getSoundSource(), 5.0F, 0.8F + this.random.nextFloat() * 0.3F, false);
+            } 
         }
+    }
+
+    protected SoundEvent getFlapSound() {
+        return SoundEvents.ENDER_DRAGON_FLAP;
     }
 
     @Override
