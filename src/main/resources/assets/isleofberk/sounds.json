@@ -24,7 +24,7 @@
     "sounds": [
       "isleofberk:entity/speed_stinger/growl_1",
       "isleofberk:entity/speed_stinger/growl_2",
-      "isleofberk:entity/speed_stinger/growl_3",
+      "isleofberk:entity/speed_stinger/growl_3"
     ]
   },
   "entity.speed_stinger.hurt": {

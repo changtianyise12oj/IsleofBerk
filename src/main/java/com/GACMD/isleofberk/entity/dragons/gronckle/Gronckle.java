@@ -8,6 +8,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.GronkleEgg;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.util.math.MathX;
 import net.minecraft.ChatFormatting;
@@ -483,7 +484,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
         if (getStoneDigestionTicks() == 10) {
             if (random.nextInt(45) == 1) {
-                this.playSound(SoundEvents.PLAYER_BURP, 1, 1);
+                this.playSound(ModSounds.GRONCKLE_SPIT_IRON.get(), 1, 1);
                 this.playSound(SoundEvents.GENERIC_BURN, 1, 1);
                 this.shootGronckIron(itemStack);
                 setTicksSinceLastFire(20);
