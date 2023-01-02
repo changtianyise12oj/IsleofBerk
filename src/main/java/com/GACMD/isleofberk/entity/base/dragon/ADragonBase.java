@@ -87,6 +87,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> ON_GROUND = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> IS_ROARING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> COMMANDS = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> CURRENT_ATTACK = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
 
@@ -100,6 +101,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public float changeInYaw;
     BlockPos homePos;
     boolean hasHomePosition;
+    protected int roarTicks = 0;
 
     protected ADragonBase(EntityType<? extends ADragonBase> animal, Level world) {
         super(animal, world);
@@ -133,6 +135,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.define(SLEEPING, false);
         this.entityData.define(ON_GROUND, false);
         this.entityData.define(SITTING, false);
+        this.entityData.define(IS_ROARING, false);
         this.entityData.define(IS_MALE, random.nextBoolean());
         this.entityData.define(CURRENT_ATTACK, 0);
     }
@@ -158,6 +161,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         pCompound.putBoolean("sleeping", this.isDragonSleeping());
         pCompound.putBoolean("dragonOnGround", this.isDragonOnGround());
         pCompound.putBoolean("sitting", this.isDragonSitting());
+        pCompound.putBoolean("roaring", this.isDragonRoaring());
         pCompound.putBoolean("incapacitated", this.isDragonIncapacitated());
         pCompound.putBoolean("wandering", this.isDragonWandering());
         pCompound.putBoolean("is_male", this.isDragonMale());
@@ -180,6 +184,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.setIsUsingSECONDAbility(pCompound.getBoolean("s_ability"));
         this.setIsDragonIncapacitated(pCompound.getBoolean("incapacitated"));
         this.setIsDragonSitting(pCompound.getBoolean("sitting"));
+        this.setIsDragonRoaring(pCompound.getBoolean("roaring"));
         this.setIsDragonSleeping(pCompound.getBoolean("sleeping"));
         this.setIsDragonOnGround(pCompound.getBoolean("dragonOnGround"));
         this.setIsDragonWandering(pCompound.getBoolean("wandering"));
@@ -306,6 +311,14 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     public void setIsDragonSleeping(boolean sleeping) {
         this.entityData.set(SLEEPING, sleeping);
+    }
+
+    public boolean isDragonRoaring() {
+        return this.entityData.get(IS_ROARING);
+    }
+
+    public void setIsDragonRoaring(boolean roar) {
+        this.entityData.set(IS_ROARING, roar);
     }
 
     public boolean isDragonOnGround() {

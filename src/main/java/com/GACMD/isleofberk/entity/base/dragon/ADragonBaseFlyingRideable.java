@@ -333,11 +333,15 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         if (this.level.isClientSide && !this.isSilent() && !isInWater() && !isInLava() && isFlying()) {
             if (shouldPlayFlapping()) {
                 this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), getFlapSound(), this.getSoundSource(), 5.0F, 0.8F + this.random.nextFloat() * 0.3F, false);
-            } 
+            }
         }
     }
 
     protected SoundEvent getFlapSound() {
+        return SoundEvents.ENDER_DRAGON_FLAP;
+    }
+
+    protected SoundEvent getRoarSound() {
         return SoundEvents.ENDER_DRAGON_FLAP;
     }
 
