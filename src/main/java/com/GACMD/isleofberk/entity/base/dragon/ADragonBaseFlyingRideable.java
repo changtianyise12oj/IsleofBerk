@@ -14,9 +14,6 @@ import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.entity.dragons.tryiple_stryke.TripleStryke;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
-import net.minecraft.client.resources.sounds.ElytraOnPlayerSoundInstance;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -343,6 +340,21 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 
     protected SoundEvent getFlapSound() {
         return SoundEvents.ENDER_DRAGON_FLAP;
+    }
+
+
+    /**
+     * Plays living's sound at its position
+     */
+    @Override
+    public void playAmbientSound() {
+        if (!isFlying()) {
+            SoundEvent soundevent = this.getAmbientSound();
+            if (soundevent != null) {
+                this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
+            }
+        }
+
     }
 
     protected SoundEvent getRoarSound() {

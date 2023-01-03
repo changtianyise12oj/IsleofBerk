@@ -249,7 +249,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
 //                            entity.hurt(this.getDamageSource(), 22F);
                             double d11 = d10;
                             if (entity instanceof LivingEntity) {
-                                d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
+                                d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10 / 2);
                             }
 
                             entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));

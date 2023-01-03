@@ -1143,6 +1143,14 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return null;
     }
 
+
+    /**
+     * Get number of ticks, at least during which the living entity will be silent.
+     */
+    public int getAmbientSoundInterval() {
+        return 400;
+    }
+
     protected void addParticlesAroundSelf(ParticleOptions p_36209_) {
         for (int i = 0; i < 4; ++i) {
             double d0 = this.random.nextGaussian() * 0.02D;
