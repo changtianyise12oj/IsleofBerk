@@ -425,19 +425,19 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     @Nullable
     @Override
     protected SoundEvent getAmbientSound() {
-        return ModSounds.FURY_GROWL_0.get();
+        return ModSounds.NIGHT_FURY_GROWL.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getDeathSound() {
-        return ModSounds.FURY_DEATH_0.get();
+        return ModSounds.NIGHT_FURY_DEATH.get();
     }
 
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return ModSounds.FURY_HURT_0.get();
+        return ModSounds.NIGHT_FURY_HURT.get();
     }
 
     @Override
