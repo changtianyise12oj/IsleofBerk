@@ -456,7 +456,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 .add(Attributes.MAX_HEALTH, 100.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3F)
                 .add(Attributes.ARMOR, 8)
-                .add(Attributes.FLYING_SPEED, 0.06F)
+                .add(Attributes.FLYING_SPEED, 0.08F)
                 .add(Attributes.ATTACK_DAMAGE, 16F)
                 .add(Attributes.FOLLOW_RANGE, 4.5F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F);
