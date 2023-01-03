@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:dungeon",
+  "type": "minecraft:pillager_outpost",
   "config": {
     "start_pool": "isleofberk:ss_cave_nest",
     "size": 2
@@ -25,5 +25,5 @@
         }
       ]
     }
-  }
+  },
 }
