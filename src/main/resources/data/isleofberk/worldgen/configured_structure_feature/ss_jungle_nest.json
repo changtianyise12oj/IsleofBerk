@@ -1,13 +1,13 @@
 {
 
   "config": {
-    "start_pool": "isleofberk:ss_cave_nest",
+    "start_pool": "isleofberk:ss_jungle_nest",
     "size": 2
   },
   "max_distance_from_center": 45,
-  "biomes": "#isleofberk:has_structure/ss_cave_nest",
+  "biomes": "#isleofberk:has_structure/ss_jungle_nest",
   "adapt_noise": true,
-  "step": "underground_structures",
+  "step": "surface_structures",
   "start_height": {
     "absolute": 0
   },
