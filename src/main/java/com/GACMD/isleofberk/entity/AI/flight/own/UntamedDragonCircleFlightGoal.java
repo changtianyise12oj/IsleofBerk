@@ -41,10 +41,6 @@ public class UntamedDragonCircleFlightGoal extends ADragonBaseBaseFlyingRideable
             return false;
         }
 
-        if(!dragon.canBeMounted()) {
-            return false;
-        }
-
         if(dragon.shouldStopMoving()) {
             return false;
         }
@@ -89,11 +85,11 @@ public class UntamedDragonCircleFlightGoal extends ADragonBaseBaseFlyingRideable
             dragon.setIsFlying(true);
         }
         if (dragon.getTicksFlyWandering() > 3 && targetPos != null) {
-            // that's why it's facing the ground
-            // another tweak to the path direction
-
-            // make varying methods per dragon, gronckles and terrible terrors don't need to fly that high and wide
-            dragon.circleEntity(new Vec3(targetPos.x(), targetPos.y() + 40, targetPos.z()), 30, 1, true, dragon.tickCount, 1, 1);
+            if(dragon.canBeMounted()) {
+                dragon.circleEntity(new Vec3(targetPos.x(), targetPos.y() + 40, targetPos.z()), 30, 1, true, dragon.tickCount, 1, 1);
+            } else {
+                dragon.circleEntity(new Vec3(targetPos.x(), targetPos.y() + 5, targetPos.z()), 4, 1, true, dragon.tickCount, 1, 1);
+            }
         }
     }
 }
