@@ -143,7 +143,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     }
 
     protected int getChanceToFire() {
-        return 55;
+        return 120;
     }
 
     protected float getAIProjPowerPercentage() {
