@@ -363,7 +363,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     protected int getChanceToFire() {
-        return 40;
+        return 80;
     }
 
     @org.jetbrains.annotations.Nullable
