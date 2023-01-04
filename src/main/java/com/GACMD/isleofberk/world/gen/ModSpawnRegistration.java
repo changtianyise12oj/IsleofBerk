@@ -34,10 +34,10 @@ public class ModSpawnRegistration {
          */
         addMobSpawn(event, List.of(Biome.BiomeCategory.UNDERGROUND, Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.TAIGA),
                 MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                3, 3, 4, CommonConfig.SPEED_STINGER_SPAWN_CHANCE.get());
+                3, 7, 9, CommonConfig.SPEED_STINGER_SPAWN_CHANCE.get());
 
         addMobSpawnOnSpecificBiomes(event, MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                3, 3, 4, CommonConfig.SPEED_STINGER_SPAWN_CHANCE.get(), Biomes.FROZEN_OCEAN, Biomes.FROZEN_PEAKS,
+                3, 7, 9, CommonConfig.SPEED_STINGER_SPAWN_CHANCE.get(), Biomes.FROZEN_OCEAN, Biomes.FROZEN_PEAKS,
                 Biomes.FROZEN_RIVER, Biomes.DEEP_FROZEN_OCEAN, Biomes.ICE_SPIKES);
 
         /**
