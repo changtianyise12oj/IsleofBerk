@@ -175,51 +175,13 @@ public class SpeedStinger extends ADragonRideableUtility {
 
     public SpeedStinger(EntityType<? extends SpeedStinger> animal, Level world) {
         super(animal, world);
-        this.xpReward = 25;
+        this.xpReward = 3;
         this.setPathfindingMalus(BlockPathTypes.WATER, 0.0F);
     }
 
-    /**
-     * Static predicate for determining whether or not an animal can spawn at the provided location.
-     *
-     * @param pAnimal The animal entity to be spawned
-     */
-//    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pAnimal, LevelAccessor pLevel, MobSpawnType pReason, BlockPos pPos, Random pRandom) {
-//        return pLevel.getBlockState(pPos.below()).is(BlockTags.SAND) ||
-//                pLevel.getBlockState(pPos.below()).is(BlockTags.LEAVES) || pLevel.getBlockState(pPos.below()).is(BlockTags.REPLACEABLE_PLANTS) ||
-//                pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_PICKAXE) || pLevel.getBlockState(pPos.below()).is(BlockTags.MINEABLE_WITH_SHOVEL)
-//                || (pLevel.getBlockState(pPos.below()).is(Blocks.CAVE_AIR));
-//    }
-
-//    public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pBat, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
-//        if (pPos.getY() >= pLevel.getSeaLevel()) {
-//            return false;
-//        } else {
-//            int $$5 = pLevel.getMaxLocalRawBrightness(pPos);
-//            int $$6 = 4;
-//            if (isHalloween()) {
-//                $$6 = 7;
-//            } else if (pRandom.nextBoolean()) {
-//                return false;
-//            }
-//
-//            return $$5 > pRandom.nextInt($$6) ? false : checkMobSpawnRules(pBat, pLevel, pSpawnType, pPos, pRandom);
-//        }
-//    }
     public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pAnimal, ServerLevelAccessor pLevel, MobSpawnType pReason, BlockPos pPos, Random pRandom) {
-//        return pPos.getY() <= pLevel.getSeaLevel() - 33 && pLevel.getRawBrightness(pPos, 0) == 0 && pLevel.getBlockState(pPos).is(Blocks.WATER);
-//        return pPos.getY() <= pLevel.getSeaLevel() - 33 && pLevel.getRawBrightness(pPos, 0) == 0 && pLevel.getBlockState(pPos).is(Blocks.CAVE_AIR);
-        return pReason == MobSpawnType.SPAWNER || !pLevel.canSeeSky(pPos) && pPos.getY() <= 60 && checkMonsterSpawnRules(pAnimal, pLevel, pReason, pPos, pRandom);
-
+        return pReason == MobSpawnType.SPAWNER || !pLevel.canSeeSky(pPos) || pLevel.canSeeSky(pPos) && checkMonsterSpawnRules(pAnimal, pLevel, pReason, pPos, pRandom);
     }
-
-    private static boolean isHalloween() {
-        LocalDate $$0 = LocalDate.now();
-        int $$1 = $$0.get(ChronoField.DAY_OF_MONTH);
-        int $$2 = $$0.get(ChronoField.MONTH_OF_YEAR);
-        return $$2 == 10 && $$1 >= 20 || $$2 == 11 && $$1 <= 3;
-    }
-
 
     public static boolean isDarkEnoughToSpawn(ServerLevelAccessor pLevel, BlockPos pPos, Random pRandom) {
         if (pLevel.getBrightness(LightLayer.SKY, pPos) > pRandom.nextInt(32)) {
@@ -234,14 +196,6 @@ public class SpeedStinger extends ADragonRideableUtility {
 
     public static boolean checkMonsterSpawnRules(EntityType<? extends Animal> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
         return pLevel.getDifficulty() != Difficulty.PEACEFUL && isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
-    }
-
-//    public static boolean checkMonsterSpawnRules(EntityType<? extends Animal> pType, ServerLevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
-//        return isDarkEnoughToSpawn(pLevel, pPos, pRandom) && checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
-//    }
-
-    public static boolean checkAnyLightMonsterSpawnRules(EntityType<? extends SpeedStinger> pType, LevelAccessor pLevel, MobSpawnType pSpawnType, BlockPos pPos, Random pRandom) {
-        return checkMobSpawnRules(pType, pLevel, pSpawnType, pPos, pRandom);
     }
 
     @Override
@@ -299,22 +253,15 @@ public class SpeedStinger extends ADragonRideableUtility {
         return true;
     }
 
-//    @Override
-//    protected PathNavigation createNavigation(Level pLevel) {
-//        return super.createNavigation(pLevel);
-//    }
-
     @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
         return stack.is(Items.RABBIT);
     }
 
-
     @Override
     protected int getAggressionType() {
         return 3;
     }
-
 
     @Override
     protected void registerGoals() {
@@ -403,7 +350,7 @@ public class SpeedStinger extends ADragonRideableUtility {
         // if it spawns below ground probably less than y 70 set to black, regardless of the position of the biome it spawned in
         // surface biomes on biomeloading event is still considered lush caves
         // spawning is still set on caves though
-        if (this.getY() < 60) {
+        if (this.getY() < 0) {
             return 1;
         } else {
             if (biome.is(Biomes.TAIGA) || biome.is(Biomes.SNOWY_TAIGA) || biome.is(Biomes.OLD_GROWTH_PINE_TAIGA) || biome.is(Biomes.OLD_GROWTH_SPRUCE_TAIGA) || biome.is(Biomes.STONY_SHORE)) {
@@ -619,7 +566,7 @@ public class SpeedStinger extends ADragonRideableUtility {
         ItemStack itemstack2 = new ItemStack(ModItems.SPEED_STINGER_EGG_ICE_BREAKER.get(), 1);
         ItemStack itemstack3 = new ItemStack(ModItems.SPEED_STINGER_EGG_SWEET_STING.get(), 1);
 
-        if (random.nextBoolean()) {
+        if (random.nextInt(7) == 1) {
             if (getDragonVariant() == 0) {
                 if (!itemstack0.isEmpty()) { //  && random.nextInt(10) == 1
                     this.spawnAtLocation(itemstack0);
