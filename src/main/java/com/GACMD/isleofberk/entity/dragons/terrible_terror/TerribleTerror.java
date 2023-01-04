@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.terrible_terror;
 
+import com.GACMD.isleofberk.entity.AI.flight.own.UntamedDragonCircleFlightGoal;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
@@ -113,7 +114,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 return PlayState.CONTINUE;
             }
         }
-
         Entity vehicle = getVehicle();
         if (vehicle instanceof Player player) {
             if (player.isOnGround() || player.isInWater() || player.isInLava()) {
@@ -142,9 +142,13 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             event.getController().setAnimation(new AnimationBuilder().addAnimation("HeadCurious", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
-
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("Idle", ILoopType.EDefaultLoopTypes.LOOP));
-        return PlayState.CONTINUE;
+        if (!isDragonOnGround()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        } else {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("Idle", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
     }
 
     public TerribleTerror(EntityType<? extends TerribleTerror> animal, Level world) {
@@ -231,7 +235,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, 0.7D, 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
-//        this.goalSelector.addGoal(1, new DragonRideTilTamed(this, 1));
+        this.goalSelector.addGoal(1, new UntamedDragonCircleFlightGoal(this));
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
         this.targetSelector.addGoal(2, new NonTameRandomTargetGoal<>(this, LivingEntity.class, false, PREY_SELECTOR));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
@@ -670,7 +674,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             setIsDragonOnGround(false);
         }
     }
-
 
     @javax.annotation.Nullable
     public UUID getPersistentAngerTarget() {

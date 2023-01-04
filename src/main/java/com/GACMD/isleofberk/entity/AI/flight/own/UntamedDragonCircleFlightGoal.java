@@ -86,9 +86,9 @@ public class UntamedDragonCircleFlightGoal extends ADragonBaseBaseFlyingRideable
         }
         if (dragon.getTicksFlyWandering() > 3 && targetPos != null) {
             if(dragon.canBeMounted()) {
-                dragon.circleEntity(new Vec3(targetPos.x(), targetPos.y() + 40, targetPos.z()), 30, 1, true, dragon.tickCount, 1, 1);
+                dragon.circleEntity(new Vec3(targetPos.x(), targetPos.y() + 40, targetPos.z()), 30, 1, random.nextInt(50) == 1, dragon.tickCount, 1, 1);
             } else {
-                dragon.circleEntity(new Vec3(targetPos.x(), targetPos.y() + 5, targetPos.z()), 4, 1, true, dragon.tickCount, 1, 1);
+                dragon.circleEntity(new Vec3(targetPos.x(), targetPos.y() + 5, targetPos.z()), 4, 1, random.nextInt(50) == 1, dragon.tickCount, 1, 1);
             }
         }
     }
