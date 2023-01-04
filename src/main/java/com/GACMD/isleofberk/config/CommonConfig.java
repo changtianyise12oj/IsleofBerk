@@ -30,6 +30,8 @@ public class CommonConfig {
     public static final ForgeConfigSpec.ConfigValue<Integer> SPEED_STINGER_SPAWN_WEIGHT;
     public static final ForgeConfigSpec.ConfigValue<Integer> STINGER_SPAWN_WEIGHT;
 
+    public static final ForgeConfigSpec.ConfigValue<Integer> SS_STINGER_EGG_DROP_CHANCE;
+
     static {
         BUILDER.push("Isle of Berk Config");
 
@@ -55,6 +57,8 @@ public class CommonConfig {
         TERROR_SPAWN_WEIGHT = BUILDER.comment("Terrible Terror Spawn Weight, Lower weight means lower spawning, weight is defined by the value of this entity to spawn first before another entity").define("Terrible Terror Spawn Weight, Lower weight means lower spawning, weight is defined by the value of this entity to spawn first before another entity?", 3);
         SPEED_STINGER_SPAWN_WEIGHT = BUILDER.comment("Speed Stinger Spawn Weight, Lower weight means lower spawning, weight is defined by the value of this entity to spawn first before another entity").define("Speed Stinger Spawn Weight, Lower weight means lower spawning, weight is defined by the value of this entity to spawn first before another entity?", 45);
         STINGER_SPAWN_WEIGHT = BUILDER.comment("Stinger Spawn Weight, Lower weight means lower spawning, weight is defined by the value of this entity to spawn first before another entity").define("Stinger Spawn Weight, Lower weight means lower spawning, weight is defined by the value of this entity to spawn first before another entity?", 1);
+
+        SS_STINGER_EGG_DROP_CHANCE = BUILDER.comment("Speed Stinger egg drop chance, gets a 1 to x chance to drop an egg, higher value maens higher chance, added here since more ss spawning means more chance to drop eggs").define("Speed Stinger egg drop chance, gets a 1 to x chance to drop an egg, higher value maens higher chance, added here since more ss spawning means more chance to drop eggs?", 8);
 
         BUILDER.pop();
         SPEC = BUILDER.build();

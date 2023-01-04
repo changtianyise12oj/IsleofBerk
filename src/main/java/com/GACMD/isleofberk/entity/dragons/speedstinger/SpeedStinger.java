@@ -1,6 +1,7 @@
 package com.GACMD.isleofberk.entity.dragons.speedstinger;
 
 
+import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBRandomLookAroundGoal;
@@ -566,7 +567,7 @@ public class SpeedStinger extends ADragonRideableUtility {
         ItemStack itemstack2 = new ItemStack(ModItems.SPEED_STINGER_EGG_ICE_BREAKER.get(), 1);
         ItemStack itemstack3 = new ItemStack(ModItems.SPEED_STINGER_EGG_SWEET_STING.get(), 1);
 
-        if (random.nextInt(7) == 1) {
+        if (random.nextInt(CommonConfig.SS_STINGER_EGG_DROP_CHANCE.get()) == 1) {
             if (getDragonVariant() == 0) {
                 if (!itemstack0.isEmpty()) { //  && random.nextInt(10) == 1
                     this.spawnAtLocation(itemstack0);
