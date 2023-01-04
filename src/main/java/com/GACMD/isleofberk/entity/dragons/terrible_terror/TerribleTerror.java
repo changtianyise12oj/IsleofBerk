@@ -661,6 +661,17 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         return true;
     }
 
+    @Override
+    protected void onGroundMechanics() {
+        BlockPos pos1 = new BlockPos(position().add(0, -1, 0));
+        if (level.getBlockState(pos1).getMaterial().isSolid()) {
+            setIsDragonOnGround(true);
+        } else {
+            setIsDragonOnGround(false);
+        }
+    }
+
+
     @javax.annotation.Nullable
     public UUID getPersistentAngerTarget() {
         return this.persistentAngerTarget;
