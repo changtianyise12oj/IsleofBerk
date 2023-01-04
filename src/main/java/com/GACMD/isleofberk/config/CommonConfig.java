@@ -32,7 +32,7 @@ public class CommonConfig {
         NIGHTMARE_SPAWN_CHANCE = BUILDER.comment("Monstrous Nightmare Spawn Chances Lower decimal numbers means lower spawning").define("Monstrous Nightmare Spawn Chances Lower decimal numbers means lower spawning?", 0.04F);
         STRYKE_SPAWN_CHANCE = BUILDER.comment("Triple Stryke Spawn Chances Lower decimal numbers means lower spawning").define("Triple Stryke Spawn Chances Lower decimal numbers means lower spawning?", 0.03F);
         TERROR_SPAWN_CHANCE = BUILDER.comment("Terrible Terror Spawn Chances Lower decimal numbers means lower spawning").define("Terrible Terror Spawn Chances Lower decimal numbers means lower spawning?", 0.06F);
-        SPEED_STINGER_SPAWN_CHANCE = BUILDER.comment("Speed Stinger Spawn Chances Lower decimal numbers means lower spawning").define("Speed Stinger Spawn Chances Lower decimal numbers means lower spawning?", 0.08F);
+        SPEED_STINGER_SPAWN_CHANCE = BUILDER.comment("Speed Stinger Spawn Chances Lower decimal numbers means lower spawning").define("Speed Stinger Spawn Chances Lower decimal numbers means lower spawning?", 0.07F);
         STINGER = BUILDER.comment("Stinger Spawn Chances Lower decimal numbers means lower spawning").define("Stinger Spawn Chances Lower decimal numbers means lower spawning?", 0.05F);
 
         BUILDER.pop();
