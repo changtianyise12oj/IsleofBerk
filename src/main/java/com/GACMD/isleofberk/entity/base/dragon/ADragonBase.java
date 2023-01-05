@@ -772,8 +772,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
         if (!isTame()) {
             // used in tamingFood levels
-            if (level.random.nextInt(85) == 1) {
-                this.modifyFoodTamingThreshold(-1);
+            if (level.random.nextInt(85) == 1 && !isPhaseTwo()) {
+                this.modifyFoodTamingLimiterBar(-1);
             }
 
             // gradually reduce if player isn't consistent about their taming
@@ -1005,7 +1005,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.homePos = homePos;
     }
 
-    public void modifyFoodTamingThreshold(int x) {
+    public void modifyFoodTamingLimiterBar(int x) {
         int i = Mth.clamp(this.getFoodTameLimiterBar() + x, 0, this.getFoodTamingPhaseMaximumLevel());
         this.setFoodTameLimiterBar(i);
     }

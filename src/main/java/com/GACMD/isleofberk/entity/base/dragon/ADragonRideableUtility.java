@@ -16,7 +16,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.*;
@@ -130,7 +129,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                 if (itemstack.is(tameItem()) && getTarget() == null) {
                     if (this.getFoodTameLimiterBar() < this.getFoodTamingPhaseMaximumLevel()) {
                         // food limits how much you can feed currently fills up faster
-                        this.modifyFoodTamingThreshold(nutrition * 3);
+                        this.modifyFoodTamingLimiterBar(nutrition * 3);
                         // phase 1 max(100), if full, allows you to ride til tamed, grows slower
                         this.modifyPhase1Progress(getDragonProgressSpeed());
                         this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
