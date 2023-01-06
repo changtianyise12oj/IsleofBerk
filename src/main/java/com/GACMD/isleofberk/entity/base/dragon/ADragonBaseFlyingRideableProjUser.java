@@ -2,6 +2,7 @@ package com.GACMD.isleofberk.entity.base.dragon;
 
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt.FireBolt;
+import com.GACMD.isleofberk.registery.ModSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -183,6 +184,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
             setTicksSinceLastFire(ticksSinceLastProjShootSet());
             bolt.shoot(riderLook, 1F);
             bolt.setProjectileSize(getProjsSize());
+            playProjectileSound();
             level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
@@ -195,6 +197,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
             setTicksSinceLastFire(ticksSinceLastProjShootSet());
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());
+            playProjectileSound();
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
             level.addFreshEntity(bolt);
