@@ -271,6 +271,10 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
                 this.hurt(this.level.getEntities(this, this.TSStingArea.getBoundingBox().inflate(1.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
             }
         }
+
+        if(ticksSinceLastStingAttackPlayer == 44) {
+            playSound(ModSounds.TRIPLE_STRYKE_STING.get(), 1, 1);
+        }
     }
 
     /**

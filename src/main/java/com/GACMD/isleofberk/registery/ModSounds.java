@@ -31,6 +31,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> TRIPLE_STRYKE_DEATH              = registerSoundEvent("entity.triple_stryke.death");
     public static final RegistryObject<SoundEvent> TRIPLE_STRYKE_TAME               = registerSoundEvent("entity.triple_stryke.tame");
     public static final RegistryObject<SoundEvent> TRIPLE_STRYKE_SLEEP              = registerSoundEvent("entity.triple_stryke.sleep");
+    public static final RegistryObject<SoundEvent> TRIPLE_STRYKE_STING              = registerSoundEvent("entity.triple_stryke.sting");
     public static final RegistryObject<SoundEvent> TRIPLE_STRYKE_FIRE               = registerSoundEvent("entity.triple_stryke.fire");
 
     public static final RegistryObject<SoundEvent> DEADLY_NADDER_GROWL              = registerSoundEvent("entity.deadly_nadder.growl");
