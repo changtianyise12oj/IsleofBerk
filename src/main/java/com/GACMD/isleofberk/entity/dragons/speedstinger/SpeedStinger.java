@@ -14,6 +14,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.SpeedStingerEgg;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -25,6 +26,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
@@ -807,6 +809,23 @@ public class SpeedStinger extends ADragonRideableUtility {
             Vec3 pos = bodyOrigin.add(new Vec3(x, y, z));
             speedStinger.navigation.moveTo(pos.x() - 40, pos.y(), pos.z() - 40, 1.4F);
         }
+    }
+
+    protected SoundEvent getAmbientSound() {
+        if (this.isDragonSleeping()) {
+            return ModSounds.SPEED_STINGER_SLEEP.get();
+        }
+        else {
+            return ModSounds.SPEED_STINGER_GROWL.get();
+        }
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.SPEED_STINGER_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.SPEED_STINGER_DEATH.get();
     }
 }
 

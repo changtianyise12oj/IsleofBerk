@@ -2,7 +2,9 @@ package com.GACMD.isleofberk.entity.dragons.speedstingerleader;
 
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModSounds;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -196,5 +198,22 @@ public class SpeedStingerLeader extends SpeedStinger {
     @Override
     public void ageUp(int p_146759_) {
         super.ageUp(p_146759_);
+    }
+
+    protected SoundEvent getAmbientSound() {
+        if (this.isDragonSleeping()) {
+            return ModSounds.SPEED_STINGER_SLEEP.get();
+        }
+        else {
+            return ModSounds.SPEED_STINGER_GROWL.get();
+        }
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.SPEED_STINGER_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.SPEED_STINGER_DEATH.get();
     }
 }

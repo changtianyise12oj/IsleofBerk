@@ -9,6 +9,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.eggs.DeadlyNadderEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.other.nadder_spike.DeadlyNadderSpike;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -17,6 +18,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -509,7 +511,22 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         return 14;
     }
 
+    protected SoundEvent getAmbientSound() {
+        if (this.isDragonSleeping()) {
+            return ModSounds.DEADLY_NADDER_SLEEP.get();
+        }
+        else {
+            return ModSounds.DEADLY_NADDER_GROWL.get();
+        }
+    }
 
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.DEADLY_NADDER_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.DEADLY_NADDER_DEATH.get();
+    }
 }
 
 

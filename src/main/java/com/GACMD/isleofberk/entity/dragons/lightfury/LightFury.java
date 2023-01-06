@@ -8,12 +8,15 @@ import com.GACMD.isleofberk.entity.eggs.entity.eggs.LightFuryEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBolt;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -184,5 +187,20 @@ public class LightFury extends NightFury {
         return dragon;
     }
 
+    protected SoundEvent getAmbientSound() {
+        if (this.isDragonSleeping()) {
+            return ModSounds.LIGHT_FURY_SLEEP.get();
+        }
+        else {
+            return ModSounds.LIGHT_FURY_GROWL.get();
+        }
+    }
 
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.LIGHT_FURY_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.LIGHT_FURY_DEATH.get();
+    }
 }
