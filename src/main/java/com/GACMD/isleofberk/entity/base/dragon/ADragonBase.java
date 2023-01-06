@@ -1136,6 +1136,14 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return null;
     }
 
+    protected SoundEvent getProjectileSound() {
+        return null;
+    }
+
+    public void playProjectileSound() {
+        playSound(getProjectileSound(), 1 ,1);
+    }
+
     @Nullable
     @Override
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {

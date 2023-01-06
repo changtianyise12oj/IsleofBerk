@@ -562,7 +562,8 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
         FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
         fireProj.setProjectileSize(0);
-        fireProj.shootNoScaling(riderLook, 1F, 7F);
+        fireProj.shootNoScaling(riderLook, 1F, 7F);        // make the breath sound play less
+        playProjectileSound();
         level.addFreshEntity(fireProj);
     }
 
@@ -827,8 +828,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     protected SoundEvent getAmbientSound() {
         if (this.isDragonSleeping()) {
             return ModSounds.TERRIBLE_TERROR_SLEEP.get();
-        }
-        else {
+        } else {
             return ModSounds.TERRIBLE_TERROR_GROWL.get();
         }
     }

@@ -126,6 +126,7 @@ public class LightFury extends NightFury {
             bolt.setProjectileSize(getProjsSize());
             bolt.shoot(riderLook, 1F);
             bolt.setIsLightFuryTexture(true);
+            playProjectileSound();
             level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
@@ -138,6 +139,7 @@ public class LightFury extends NightFury {
             FuryBolt bolt = new FuryBolt(this, throat, dragonLook, level, getExplosionStrength());
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());
+            playProjectileSound();
             level.addFreshEntity(bolt);
             bolt.setIsLightFuryTexture(true);
             setPlayerBoltBlastPendingScale(0);
