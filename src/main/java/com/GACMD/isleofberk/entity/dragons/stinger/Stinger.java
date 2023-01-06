@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.entity.AI.taming.T2DragonFeedTamingGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseGroundRideable;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.math.MathX;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -11,6 +12,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -306,4 +308,20 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         return 0.2F;
     }
 
+    protected SoundEvent getAmbientSound() {
+        if (this.isDragonSleeping()) {
+            return ModSounds.STINGER_SLEEP.get();
+        }
+        else {
+            return ModSounds.STINGER_GROWL.get();
+        }
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.STINGER_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.STINGER_DEATH.get();
+    }
 }

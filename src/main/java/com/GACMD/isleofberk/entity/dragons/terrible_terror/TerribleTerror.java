@@ -17,6 +17,7 @@ import com.GACMD.isleofberk.network.ControlNetwork;
 import com.GACMD.isleofberk.network.message.*;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModKeyBinds;
+import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -25,6 +26,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.TimeUtil;
@@ -32,6 +34,7 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -821,4 +824,20 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         }
     }
 
+    protected SoundEvent getAmbientSound() {
+        if (this.isDragonSleeping()) {
+            return ModSounds.TERRIBLE_TERROR_SLEEP.get();
+        }
+        else {
+            return ModSounds.TERRIBLE_TERROR_GROWL.get();
+        }
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.TERRIBLE_TERROR_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.TERRIBLE_TERROR_DEATH.get();
+    }
 }

@@ -20,6 +20,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
@@ -601,4 +602,20 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         return 14;
     }
 
+    protected SoundEvent getAmbientSound() {
+        if (this.isDragonSleeping()) {
+            return ModSounds.GRONCKLE_SLEEP.get();
+        }
+        else {
+            return ModSounds.GRONCKLE_GROWL.get();
+        }
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.GRONCKLE_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.DEADLY_NADDER_DEATH.get();
+    }
 }

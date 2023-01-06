@@ -14,6 +14,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -247,5 +248,22 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     @Override
     protected int getInLoveCoolDownInMCDays() {
         return 22;
+    }
+
+    protected SoundEvent getAmbientSound() {
+        if (this.isDragonSleeping()) {
+            return ModSounds.HIDEOUS_ZIPPLEBACK_SLEEP.get();
+        }
+        else {
+            return ModSounds.HIDEOUS_ZIPPLEBACK_GROWL.get();
+        }
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.HIDEOUS_ZIPPLEBACK_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.HIDEOUS_ZIPPLEBACK_DEATH.get();
     }
 }

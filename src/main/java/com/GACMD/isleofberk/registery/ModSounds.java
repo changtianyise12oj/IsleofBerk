@@ -55,13 +55,13 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> MONSTROUS_NIGHTMARE_SLEEP        = registerSoundEvent("entity.monstrous_nightmare.sleep");
     public static final RegistryObject<SoundEvent> MONSTROUS_NIGHTMARE_FIRE         = registerSoundEvent("entity.monstrous_nightmare.fire");
 
-    public static final RegistryObject<SoundEvent> ZIPPLEBACK_GROWL                 = registerSoundEvent("entity.zippleback.growl");
-    public static final RegistryObject<SoundEvent> ZIPPLEBACK_HURT                  = registerSoundEvent("entity.zippleback.hurt");
-    public static final RegistryObject<SoundEvent> ZIPPLEBACK_DEATH                 = registerSoundEvent("entity.zippleback.death");
-    public static final RegistryObject<SoundEvent> ZIPPLEBACK_TAME                  = registerSoundEvent("entity.zippleback.tame");
-    public static final RegistryObject<SoundEvent> ZIPPLEBACK_SLEEP                 = registerSoundEvent("entity.zippleback.sleep");
-    public static final RegistryObject<SoundEvent> ZIPPLEBACK_LIGHTER               = registerSoundEvent("entity.zippleback.lighter");
-    public static final RegistryObject<SoundEvent> ZIPPLEBACK_POISON_BREATH         = registerSoundEvent("entity.zippleback.poison_breath");
+    public static final RegistryObject<SoundEvent> HIDEOUS_ZIPPLEBACK_GROWL                 = registerSoundEvent("entity.zippleback.growl");
+    public static final RegistryObject<SoundEvent> HIDEOUS_ZIPPLEBACK_HURT                  = registerSoundEvent("entity.zippleback.hurt");
+    public static final RegistryObject<SoundEvent> HIDEOUS_ZIPPLEBACK_DEATH                 = registerSoundEvent("entity.zippleback.death");
+    public static final RegistryObject<SoundEvent> HIDEOUS_ZIPPLEBACK_TAME                  = registerSoundEvent("entity.zippleback.tame");
+    public static final RegistryObject<SoundEvent> HIDEOUS_ZIPPLEBACK_SLEEP                 = registerSoundEvent("entity.zippleback.sleep");
+    public static final RegistryObject<SoundEvent> HIDEOUS_ZIPPLEBACK_LIGHTER               = registerSoundEvent("entity.zippleback.lighter");
+    public static final RegistryObject<SoundEvent> HIDEOUS_ZIPPLEBACK_POISON_BREATH         = registerSoundEvent("entity.zippleback.poison_breath");
 
     public static final RegistryObject<SoundEvent> TERRIBLE_TERROR_GROWL            = registerSoundEvent("entity.terrible_terror.growl");
     public static final RegistryObject<SoundEvent> TERRIBLE_TERROR_HURT             = registerSoundEvent("entity.terrible_terror.hurt");

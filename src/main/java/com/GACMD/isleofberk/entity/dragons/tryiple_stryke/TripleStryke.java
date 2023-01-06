@@ -10,6 +10,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.eggs.TripleStrykeEgg;
 import com.GACMD.isleofberk.entity.projectile.ScalableParticleType;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.util.math.MathX;
 import net.minecraft.client.Minecraft;
@@ -24,6 +25,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -722,5 +724,22 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     @Override
     protected int getInLoveCoolDownInMCDays() {
         return 22;
+    }
+
+    protected SoundEvent getAmbientSound() {
+        if (this.isDragonSleeping()) {
+            return ModSounds.TRIPLE_STRYKE_SLEEP.get();
+        }
+        else {
+            return ModSounds.TRIPLE_STRYKE_GROWL.get();
+        }
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.TRIPLE_STRYKE_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.TRIPLE_STRYKE_DEATH.get();
     }
 }

@@ -422,24 +422,6 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return 20;
     }
 
-    @Nullable
-    @Override
-    protected SoundEvent getAmbientSound() {
-        return ModSounds.NIGHT_FURY_GROWL.get();
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getDeathSound() {
-        return ModSounds.NIGHT_FURY_DEATH.get();
-    }
-
-    @Nullable
-    @Override
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return ModSounds.NIGHT_FURY_HURT.get();
-    }
-
     @Override
     public int getMaxPlayerBoltBlast() {
         return 100;
@@ -500,4 +482,20 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return 0.35F;
     }
 
+    protected SoundEvent getAmbientSound() {
+        if (this.isDragonSleeping()) {
+            return ModSounds.NIGHT_FURY_SLEEP.get();
+        }
+        else {
+            return ModSounds.NIGHT_FURY_GROWL.get();
+        }
+    }
+
+    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+        return ModSounds.NIGHT_FURY_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.NIGHT_FURY_DEATH.get();
+    }
 }
