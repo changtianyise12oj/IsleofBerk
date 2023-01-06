@@ -9,6 +9,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.eggs.ZippleBackEgg;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZipBreathProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZippleBackAOECloud;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -169,6 +170,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
                  this, this.getX(), this.getEyeY(), this.getZ());
         if (zipCloud != null) {
             if (ticksUsingSecondAbility > 2) {
+                playSound(ModSounds.ZIPPLEBACK_LIGHTER.get(), 1,1);
                 zipCloud.hurt(DamageSource.IN_FIRE, 1);
             }
         }
