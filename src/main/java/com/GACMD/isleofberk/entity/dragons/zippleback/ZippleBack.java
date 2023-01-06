@@ -169,6 +169,15 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
                 playSound(ModSounds.HIDEOUS_ZIPPLEBACK_LIGHTER.get(), 1, 1);
                 zipCloud.hurt(DamageSource.IN_FIRE, 1);
             }
+
+            if (getControllingPassenger() == null && !isTame()) {
+                if (random.nextInt(50) == 1) {
+                    ticksUsingSecondAbility = 4;
+                    level.addParticle(ParticleTypes.LAVA, t1.x, t1.y, t1.z, 1, 1, 1);
+                } else {
+                    ticksUsingSecondAbility = 0;
+                }
+            }
         }
 
         if (this.getEffect(MobEffects.POISON) != null) {
