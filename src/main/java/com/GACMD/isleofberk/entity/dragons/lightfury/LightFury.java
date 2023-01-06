@@ -201,6 +201,11 @@ public class LightFury extends NightFury {
     protected SoundEvent getTameSound() {
         return ModSounds.LIGHT_FURY_TAME.get();
     }
+
+    protected SoundEvent getProjectileSound() {
+        return ModSounds.LIGHT_FURY_FIRE.get();
+    }
+
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return ModSounds.LIGHT_FURY_HURT.get();
     }

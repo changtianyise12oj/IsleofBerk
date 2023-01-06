@@ -739,6 +739,10 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         return ModSounds.TRIPLE_STRYKE_TAME.get();
     }
 
+    protected SoundEvent getProjectileSound() {
+        return ModSounds.TRIPLE_STRYKE_FIRE.get();
+    }
+
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return ModSounds.TRIPLE_STRYKE_HURT.get();
     }

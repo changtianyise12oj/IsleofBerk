@@ -272,6 +272,10 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         return ModSounds.HIDEOUS_ZIPPLEBACK_TAME.get();
     }
 
+    protected SoundEvent getProjectileSound() {
+        return ModSounds.HIDEOUS_ZIPPLEBACK_POISON_BREATH.get();
+    }
+
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return ModSounds.HIDEOUS_ZIPPLEBACK_HURT.get();
     }
