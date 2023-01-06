@@ -493,6 +493,10 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         }
     }
 
+    protected SoundEvent getTameSound() {
+        return ModSounds.NIGHT_FURY_TAME.get();
+    }
+
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return ModSounds.NIGHT_FURY_HURT.get();
     }

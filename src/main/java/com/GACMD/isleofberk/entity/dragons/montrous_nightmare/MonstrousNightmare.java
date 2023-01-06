@@ -312,6 +312,10 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         }
     }
 
+    protected SoundEvent getTameSound() {
+        return ModSounds.MONSTROUS_NIGHTMARE_TAME.get();
+    }
+
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return ModSounds.MONSTROUS_NIGHTMARE_HURT.get();
     }

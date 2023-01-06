@@ -833,6 +833,10 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         }
     }
 
+    protected SoundEvent getTameSound() {
+        return ModSounds.TERRIBLE_TERROR_TAME.get();
+    }
+
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return ModSounds.TERRIBLE_TERROR_HURT.get();
     }

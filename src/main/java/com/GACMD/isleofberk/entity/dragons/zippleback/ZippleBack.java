@@ -16,11 +16,16 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -163,10 +168,10 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         }
 
         ZippleBackAOECloud zipCloud = this.getNearestGasCloud(level.getEntitiesOfClass(ZippleBackAOECloud.class, getTargetSearchArea(this.getFollowDistance())),
-                this, this.getX(), this.getEyeY(), this.getZ());
+                 this, this.getX(), this.getEyeY(), this.getZ());
         if (zipCloud != null) {
             if (ticksUsingSecondAbility > 2) {
-                playSound(ModSounds.HIDEOUS_ZIPPLEBACK_LIGHTER.get(), 1, 1);
+                playSound(ModSounds.HIDEOUS_ZIPPLEBACK_LIGHTER.get(), 1,1);
                 zipCloud.hurt(DamageSource.IN_FIRE, 1);
             }
 
@@ -195,8 +200,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     @Override
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
         ZipBreathProjectile fireProj = new ZipBreathProjectile(this, throat, riderLook, level);
-        fireProj.shoot(riderLook, 1F, 7F);        // make the breath sound play less
-        playProjectileSound();
+        fireProj.shoot(riderLook, 1F, 7F);
         level.addFreshEntity(fireProj);
     }
 
@@ -258,9 +262,14 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     protected SoundEvent getAmbientSound() {
         if (this.isDragonSleeping()) {
             return ModSounds.HIDEOUS_ZIPPLEBACK_SLEEP.get();
-        } else {
+        }
+        else {
             return ModSounds.HIDEOUS_ZIPPLEBACK_GROWL.get();
         }
+    }
+
+    protected SoundEvent getTameSound() {
+        return ModSounds.HIDEOUS_ZIPPLEBACK_TAME.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
