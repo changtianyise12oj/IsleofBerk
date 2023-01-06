@@ -263,8 +263,8 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
         fireProj.setProjectileSize(2);
         fireProj.shoot(riderLook, 1F, 7F);
-        level.addFreshEntity(fireProj);
         playProjectileSound();
+        level.addFreshEntity(fireProj);
     }
 
     @Override
