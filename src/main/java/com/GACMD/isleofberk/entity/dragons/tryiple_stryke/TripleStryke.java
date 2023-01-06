@@ -500,6 +500,10 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             ticksSinceLastStingAttackPlayer--;
         }
 
+        if(ticksSinceLastStingAttackAI == 55) {
+            playSound(ModSounds.TRIPLE_STRYKE_STING.get(), 1, 1);
+        }
+
         if (getTicksSinceLastSting() > 0) {
             setTicksSinceLastSting(getTicksSinceLastSting() - 1);
         }
