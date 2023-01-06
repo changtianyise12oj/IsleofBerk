@@ -317,6 +317,10 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         }
     }
 
+    protected SoundEvent getTameSound() {
+        return ModSounds.STINGER_TAME.get();
+    }
+
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return ModSounds.STINGER_HURT.get();
     }

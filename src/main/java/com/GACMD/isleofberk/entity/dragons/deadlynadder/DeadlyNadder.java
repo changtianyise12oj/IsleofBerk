@@ -520,6 +520,10 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         }
     }
 
+    protected SoundEvent getTameSound() {
+        return ModSounds.DEADLY_NADDER_TAME.get();
+    }
+
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
         return ModSounds.DEADLY_NADDER_HURT.get();
     }

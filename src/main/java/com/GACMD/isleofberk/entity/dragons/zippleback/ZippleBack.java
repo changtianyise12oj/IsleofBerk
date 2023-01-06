@@ -171,7 +171,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
                  this, this.getX(), this.getEyeY(), this.getZ());
         if (zipCloud != null) {
             if (ticksUsingSecondAbility > 2) {
-                playSound(ModSounds.ZIPPLEBACK_LIGHTER.get(), 1,1);
+                playSound(ModSounds.HIDEOUS_ZIPPLEBACK_LIGHTER.get(), 1,1);
                 zipCloud.hurt(DamageSource.IN_FIRE, 1);
             }
         }
@@ -257,6 +257,10 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         else {
             return ModSounds.HIDEOUS_ZIPPLEBACK_GROWL.get();
         }
+    }
+
+    protected SoundEvent getTameSound() {
+        return ModSounds.HIDEOUS_ZIPPLEBACK_TAME.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
