@@ -92,7 +92,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     @Override
     protected void registerGoals() {
         super.registerGoals();
-        ;
     }
 
     /**

@@ -542,7 +542,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FollowOwnerNoTPGoal(this, 1.1D, 1.0F, 1.0F, true));
-        ;
         this.goalSelector.addGoal(2, new DragonRideTilTamed(this, 1));
         this.goalSelector.addGoal(3, new DragonBreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, getMeleeAttackGoal());
@@ -1125,10 +1124,16 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             CriteriaTriggers.TAME_ANIMAL.trigger((ServerPlayer) pPlayer, this);
         }
 
+        playSound(getTameSound(), 1, 1);
+
         modifyPhase1Progress(100);
 
         this.level.broadcastEntityEvent(this, (byte) 7);
         return true;
+    }
+
+    protected SoundEvent getTameSound() {
+        return null;
     }
 
     @Nullable
