@@ -1,0 +1,129 @@
+{
+  "display": {
+    "icon": {
+      "item": "isleofberk:gronckle_iron_doubleaxe"
+    },
+    "title": {
+      "translate": "advancement.gronckle_iron_tools.title"
+    },
+    "description": {
+      "translate": "advancement.gronckle_iron_tools.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "isleofberk:gronckle_iron_tool",
+  "criteria": {
+    "sword": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "isleofberk:gronckle_iron_sword"
+            ]
+          }
+        ]
+      }
+    },
+    "pickaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "isleofberk:gronckle_iron_pickaxe"
+            ]
+          }
+        ]
+      }
+    },
+    "axe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "isleofberk:gronckle_iron_axe"
+            ]
+          }
+        ]
+      }
+    },
+    "doubleaxe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "isleofberk:gronckle_iron_doubleaxe"
+            ]
+          }
+        ]
+      }
+    },
+    "mace": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "isleofberk:gronckle_iron_mace"
+            ]
+          }
+        ]
+      }
+    },
+    "dagger": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "isleofberk:gronckle_iron_dagger"
+            ]
+          }
+        ]
+      }
+    },
+    "hammer": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "isleofberk:gronckle_iron_hammer"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "pickaxe"
+    ],
+    [
+      "sword"
+    ],
+    [
+      "dagger"
+    ],
+    [
+      "mace"
+    ],
+    [
+      "hammer"
+    ],
+    [
+      "axe"
+    ],
+    [
+      "doubleaxe"
+    ]
+  ],
+  "rewards": {
+    "experience": 250
+  }
+}
