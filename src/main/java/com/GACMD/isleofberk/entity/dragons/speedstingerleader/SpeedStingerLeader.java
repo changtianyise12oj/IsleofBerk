@@ -107,7 +107,7 @@ public class SpeedStingerLeader extends SpeedStinger {
 
     public SpeedStingerLeader(EntityType<? extends SpeedStingerLeader> animal, Level world) {
         super(animal, world);
-        this.xpReward = 1000;
+        this.xpReward = 750;
     }
 
     @Override
@@ -159,7 +159,7 @@ public class SpeedStingerLeader extends SpeedStinger {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.MAX_HEALTH, 140.0D)
                 .add(Attributes.ARMOR, 2)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.ATTACK_DAMAGE, 10F)
