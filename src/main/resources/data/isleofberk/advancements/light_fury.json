@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "isleofberk:light_fury_spawn_egg"
+      "item": "isleofberk:lightfury_spawn_egg"
     },
     "title": {
       "translate": "advancement.light_fury.title"
@@ -9,7 +9,7 @@
     "description": {
       "translate": "advancement.light_fury.desc"
     },
-    "frame": "task",
+    "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true
   },

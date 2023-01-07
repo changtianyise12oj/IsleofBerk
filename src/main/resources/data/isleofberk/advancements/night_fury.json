@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "isleofberk:night_fury_spawn_egg"
+      "item": "isleofberk:nightfury_spawn_egg"
     },
     "title": {
       "translate": "advancement.night_fury.title"
@@ -9,7 +9,7 @@
     "description": {
       "translate": "advancement.night_fury.desc"
     },
-    "frame": "task",
+    "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true
   },
