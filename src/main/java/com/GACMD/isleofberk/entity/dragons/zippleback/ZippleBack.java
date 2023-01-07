@@ -111,7 +111,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         T t = null;
 
         for (T t1 : pEntities) {
-            if (test(attacker, t1, 17, 1.5D, 1.5D)) {
+            if (test(attacker, t1, 17, 3D, 3D)) {
                 double d1 = t1.distanceToSqr(pX, pY, pZ);
                 if (d0 == -1.0D || d1 < d0) {
                     d0 = d1;
@@ -131,8 +131,6 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
                 double x = getX() - pTarget.getX();
                 double y = getY() - pTarget.getY();
                 double z = getZ() - pTarget.getZ();
-
-                System.out.println(y);
 
                 if (y > d1 * d1 || y < 0) {
                     return false;

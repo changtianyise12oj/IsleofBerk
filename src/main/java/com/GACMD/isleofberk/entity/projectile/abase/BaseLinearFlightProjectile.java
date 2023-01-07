@@ -411,23 +411,6 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
         }
     }
 
-    /**
-     * biggest without looking weird is 1.25F
-     *
-     * @param scalableParticleType
-     */
-    public void scaleParticleSize(ScalableParticleType scalableParticleType, BaseLinearFlightProjectile projectile) {
-        if (projectile.getDamageTier() == 1) {
-            scalableParticleType.setScale(0.15f);
-        } else if (projectile.getDamageTier() == 2) {
-            scalableParticleType.setScale(0.55f);
-        } else if (projectile.getDamageTier() == 3) {
-            scalableParticleType.setScale(0.85f);
-        } else if (projectile.getDamageTier() == 4) {
-            scalableParticleType.setScale(1.25f);
-        }
-    }
-
     @Override
     public boolean isOnFire() {
         return false;
