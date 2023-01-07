@@ -1,0 +1,53 @@
+{
+  "display": {
+    "icon": {
+      "item": "isleofberk:night_fury_spawn_egg"
+    },
+    "title": {
+      "translate": "advancement.strike.title"
+    },
+    "description": {
+      "translate": "advancement.strike.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "isleofberk:isleofberk",
+  "criteria": {
+    "night_fury": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:night_fury"
+        }
+      }
+    },
+    "light_fury": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:light_fury"
+        }
+      }
+    },
+    "triple_stryke": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:triple_stryke"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "night_fury",
+      "light_fury",
+      "triple_stryke"
+    ]
+  ],
+  "rewards": {
+    "experience": 250
+  }
+}

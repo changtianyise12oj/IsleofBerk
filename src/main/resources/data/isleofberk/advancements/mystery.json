@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "isleofberk:zippleback_spawn_egg"
+    },
+    "title": {
+      "translate": "advancement.mystery.title"
+    },
+    "description": {
+      "translate": "advancement.mystery.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "isleofberk:isleofberk",
+  "criteria": {
+    "requirements": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:zippleback"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 25
+  }
+}

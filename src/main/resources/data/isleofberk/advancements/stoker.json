@@ -1,0 +1,44 @@
+{
+  "display": {
+    "icon": {
+      "item": "isleofberk:monstrous_nightmare_spawn_egg"
+    },
+    "title": {
+      "translate": "advancement.stoker.title"
+    },
+    "description": {
+      "translate": "advancement.stoker.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "isleofberk:isleofberk",
+  "criteria": {
+    "monstrous_nightmare": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:monstrous_nightmare"
+        }
+      }
+    },
+    "terrible_terror": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:terrible_terror"
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "monstrous_nightmare",
+      "terrible_terror"
+    ]
+  ],
+  "rewards": {
+    "experience": 250
+  }
+}

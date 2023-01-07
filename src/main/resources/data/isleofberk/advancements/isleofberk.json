@@ -3,25 +3,114 @@
     "icon": {
       "item": "isleofberk:speed_stinger_spawn_egg"
     },
-    "title": "advancements.isleofberk.title",
-    "description": "advancements.isleofberk.description",
+    "title": {
+      "translate": "advancement.dragon.title"
+    },
+    "description": {
+      "translate": "advancement.dragon.desc"
+    },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
-	"background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+    "background": "isleofberk:textures/block/raw_gronckle_iron_block.png"
   },
   "criteria": {
-    "requirement": {
-      "trigger": "minecraft:inventory_changed",
+    "deadly_nadder": {
+      "trigger": "minecraft:tame_animal",
       "conditions": {
-        "items": [
-          {
-            "items": [
-              "minecraft:crafting_table"
-            ]
-          }
-        ]
+        "entity": {
+          "type": "isleofberk:deadly_nadder"
+        }
+      }
+    },
+    "gronckle": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:gronckle"
+        }
+      }
+    },
+    "night_fury": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:night_fury"
+        }
+      }
+    },
+    "light_fury": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:light_fury"
+        }
+      }
+    },
+    "triple_stryke": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:triple_stryke"
+        }
+      }
+    },
+    "monstrous_nightmare": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:terrible_terror"
+        }
+      }
+    },
+    "zippleback": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:zippleback"
+        }
+      }
+    },
+    "terrible_terror": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:terrible_terror"
+        }
+      }
+    },
+    "speed_stinger": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:speed_stinger"
+        }
+      }
+    },
+    "stinger": {
+      "trigger": "minecraft:tame_animal",
+      "conditions": {
+        "entity": {
+          "type": "isleofberk:stinger"
+        }
       }
     }
+  },
+  "requirements": [
+    [
+      "deadly_nadder",
+      "gronckle",
+      "monstrous_nightmare",
+      "zippleback",
+      "night_fury",
+      "light_fury",
+      "triple_stryke",
+      "terrible_terror",
+      "speed_stinger",
+      "stinger"
+    ]
+  ],
+  "rewards": {
+    "experience": 250
   }
 }

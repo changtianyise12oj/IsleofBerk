@@ -9,11 +9,11 @@
     "description": {
       "translate": "advancement.gronckle_iron.desc"
     },
-    "background": "isleofberk:textures/block/raw_gronckle_iron_block.png",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true
   },
+  "parent": "isleofberk:boulder",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:inventory_changed",
