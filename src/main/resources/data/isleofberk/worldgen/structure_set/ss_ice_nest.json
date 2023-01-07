@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "isleofberk:ss_ice_nest",
+      "weight": 18
+    }
+  ],
+  "placement": {
+    "salt": 83036474,
+    "spacing": 40,
+    "separation": 6,
+    "type": "minecraft:random_spread"
+  }
+}

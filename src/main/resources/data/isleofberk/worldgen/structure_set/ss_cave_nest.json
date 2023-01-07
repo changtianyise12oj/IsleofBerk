@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "isleofberk:ss_cave_nest",
+      "weight": 18
+    }
+  ],
+  "placement": {
+    "salt": 73036476,
+    "spacing": 20,
+    "separation": 6,
+    "type": "minecraft:random_spread"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "isleofberk:ss_jungle_nest",
+      "weight": 18
+    }
+  ],
+  "placement": {
+    "salt": 83036474,
+    "spacing": 30,
+    "separation": 6,
+    "type": "minecraft:random_spread"
+  }
+}
