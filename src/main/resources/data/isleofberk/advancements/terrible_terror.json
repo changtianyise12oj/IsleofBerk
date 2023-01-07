@@ -3,13 +3,18 @@
     "icon": {
       "item": "isleofberk:terrible_terror_spawn_egg"
     },
-    "title": "Not Bad Not Terrible",
-    "description": "Tame a Terrible Terror",
+    "title": {
+      "translate": "advancements.terrible_terror.title"
+    },
+    "description": {
+      "translate": "advancements.terrible_terror.description"
+    },
     "frame": "task",
     "show_toast": true,
-    "announce_to_chat": true
+    "announce_to_chat": true,
+    "hidden": true,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
   },
-  "parent": "isleofberk:isleofberk",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:tame_animal",
