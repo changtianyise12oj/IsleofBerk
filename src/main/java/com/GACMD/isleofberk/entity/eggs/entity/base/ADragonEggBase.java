@@ -77,7 +77,7 @@ public class ADragonEggBase extends AgeableMob implements IAnimatable {
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
 
-        if (pReason == MobSpawnType.NATURAL) {
+        if (pReason == MobSpawnType.STRUCTURE) {
             // do not make eggs spawning natural hatchable
             this.setCanHatch(false);
         } else {
