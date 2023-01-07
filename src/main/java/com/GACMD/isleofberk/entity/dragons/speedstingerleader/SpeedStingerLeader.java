@@ -4,7 +4,11 @@ import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModSounds;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -16,6 +20,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.common.ForgeMod;
+import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -33,6 +38,8 @@ public class SpeedStingerLeader extends SpeedStinger {
 
     AnimationFactory factory = new AnimationFactory(this);
     protected final List<SpeedStinger> groupMembers = new ArrayList<>();
+    private final ServerBossEvent bossEvent = (ServerBossEvent)(new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
+
 
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if (event.isMoving() && !shouldStopMovingIndependently()) {
@@ -111,6 +118,14 @@ public class SpeedStingerLeader extends SpeedStinger {
     @Override
     public void readAdditionalSaveData(CompoundTag pCompound) {
         super.readAdditionalSaveData(pCompound);
+        if (this.hasCustomName()) {
+            this.bossEvent.setName(this.getDisplayName());
+        }
+    }
+
+    public void setCustomName(@Nullable Component pName) {
+        super.setCustomName(pName);
+        this.bossEvent.setName(this.getDisplayName());
     }
 
     @Override
@@ -159,10 +174,39 @@ public class SpeedStingerLeader extends SpeedStinger {
         super.tick();
     }
 
+    @Override
+    protected void customServerAiStep() {
+        super.customServerAiStep();
+        this.bossEvent.setProgress(this.getHealth() / this.getMaxHealth());
+    }
+
+    /**
+     * Add the given player to the list of players tracking this entity. For instance, a player may track a boss in order
+     * to view its associated boss bar.
+     */
+    public void startSeenByPlayer(@NotNull ServerPlayer pPlayer) {
+        super.startSeenByPlayer(pPlayer);
+        this.bossEvent.addPlayer(pPlayer);
+    }
+
+    /**
+     * Removes the given player from the list of players tracking this entity. See {@link Entity#startSeenByPlayer} for
+     * more information on tracking.
+     */
+    public void stopSeenByPlayer(@NotNull ServerPlayer pPlayer) {
+        super.stopSeenByPlayer(pPlayer);
+        this.bossEvent.removePlayer(pPlayer);
+    }
+
     public void addMember(SpeedStinger speedStinger) {
         if (speedStinger.getLeaderUUID() == this.getUUID()) {
             groupMembers.add(speedStinger);
         }
+    }
+
+    @Override
+    public boolean requiresCustomPersistence() {
+        return true;
     }
 
     @Override

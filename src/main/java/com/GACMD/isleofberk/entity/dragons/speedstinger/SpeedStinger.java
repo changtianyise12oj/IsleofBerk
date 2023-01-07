@@ -59,7 +59,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.*;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
@@ -84,8 +87,6 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
-import java.time.LocalDate;
-import java.time.temporal.ChronoField;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
@@ -103,7 +104,7 @@ public class SpeedStinger extends ADragonRideableUtility {
      * 1. add advancements like unit type such as. 0:FRONT, 1:FLANKER, 2:GUARD,
      */
     private static final EntityDataAccessor<Optional<UUID>> LEADER_UUID = SynchedEntityData.defineId(SpeedStinger.class, EntityDataSerializers.OPTIONAL_UUID);
-    private static final Optional<Object> ABSENT_LEADER = Optional.empty();
+    private static final Optional<Boolean> DO_NOT_DESPAWN = Optional.empty();
     private static final EntityDataAccessor<Byte> UNIT_TYPE = SynchedEntityData.defineId(SpeedStinger.class, EntityDataSerializers.BYTE);
 
     AnimationFactory factory = new AnimationFactory(this);
@@ -363,6 +364,8 @@ public class SpeedStinger extends ADragonRideableUtility {
                     || biome.is(Biomes.FROZEN_RIVER)
                     || biome.is(Biomes.SNOWY_BEACH) || biome.is(Biomes.SNOWY_PLAINS) || biome.is(Biomes.SNOWY_TAIGA) || biome.is(Biomes.SNOWY_SLOPES)) {
                 return 2;
+            } else if (biome.is(Biomes.STONY_PEAKS) || biome.is(Biomes.JAGGED_PEAKS) || biome.is(Biomes.MEADOW)) {
+                return 1;
             } else if (biome.is(BiomeTags.IS_JUNGLE)) {
                 return 3;
             }
@@ -814,8 +817,7 @@ public class SpeedStinger extends ADragonRideableUtility {
     protected SoundEvent getAmbientSound() {
         if (this.isDragonSleeping()) {
             return ModSounds.SPEED_STINGER_SLEEP.get();
-        }
-        else {
+        } else {
             return ModSounds.SPEED_STINGER_GROWL.get();
         }
     }
