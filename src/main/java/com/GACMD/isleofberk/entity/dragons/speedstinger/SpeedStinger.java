@@ -614,6 +614,17 @@ public class SpeedStinger extends ADragonRideableUtility {
         }
     }
 
+    @Override
+    protected void playAttackSound() {
+        if(getCurrentAttackType() == 0) {
+            playSound(get1stAttackSound(), 1 , 1);
+        }
+
+        if(getCurrentAttackType() == 1) {
+            playSound(get2ndAttackSound(), 1, 1);
+
+        }
+    }
 
     @org.jetbrains.annotations.Nullable
     public ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {

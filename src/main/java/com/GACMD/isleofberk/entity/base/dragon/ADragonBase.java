@@ -630,6 +630,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     public boolean doHurtTarget(@NotNull Entity pEntity) {
+        playAttackSound();
         return super.doHurtTarget(pEntity);
     }
 

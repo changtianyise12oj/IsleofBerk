@@ -26,6 +26,7 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -388,7 +389,25 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             this.setLastHurtMob(pEntity);
         }
 
+        playAttackSound();
+
         return flag;
+    }
+
+    @Override
+    protected void playAttackSound() {
+        if(getCurrentAttackType() == 0) {
+            playSound(SoundEvents.SHEEP_SHEAR, 1 , 1);
+        }
+
+        if(getCurrentAttackType() == 1) {
+            playSound(get1stAttackSound(), 1, 1);
+
+        }
+
+        if(getCurrentAttackType() == 2) {
+            playSound(get2ndAttackSound(), 1 ,1);
+        }
     }
 
     private void maybeDisableShield(Player pPlayer, ItemStack pMobItemStack, ItemStack pPlayerItemStack) {
