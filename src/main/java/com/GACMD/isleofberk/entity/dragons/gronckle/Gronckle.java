@@ -613,11 +613,19 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
     @Override
     protected SoundEvent getFlapSound() {
-        return SoundEvents.ENDER_DRAGON_FLAP;
+        return ModSounds.GRONCKLE_FLAP.get();
     }
 
     protected SoundEvent getTameSound() {
         return ModSounds.GRONCKLE_TAME.get();
+    }
+
+    protected float getFlapVol() {
+        return 0.1F;
+    }
+
+    protected float getFlapPitch() {
+        return 0.8F;
     }
 
     protected SoundEvent getProjectileSound() {

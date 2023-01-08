@@ -333,9 +333,17 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     public void onFlap() {
         if (this.level.isClientSide && !this.isSilent() && !isInWater() && !isInLava() && isFlying()) {
             if (shouldPlayFlapping()) {
-                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), getFlapSound(), this.getSoundSource(), 5.0F, 0.8F + this.random.nextFloat() * 0.3F, false);
+                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), getFlapSound(), this.getSoundSource(), getFlapVol(), getFlapPitch() + this.random.nextFloat() * 0.3F, false);
             }
         }
+    }
+
+    protected float getFlapVol() {
+        return 5F;
+    }
+
+    protected float getFlapPitch() {
+        return 0.8F;
     }
 
     protected SoundEvent getFlapSound() {
