@@ -298,7 +298,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 
                     boolean isFlying = isFlying() && !isInWater();
                     double speed = this.getAttributeValue(Attributes.FLYING_SPEED) * (isInWater() ? 0.2F : 1F);
-                    double groundSpeed = this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (isInWater() ? 0.2F : 1F);
+                    double groundSpeed = this.getAttributeValue(Attributes.MOVEMENT_SPEED) * (isInWater() ? 0.2F : 1F) / 8;
                     this.setDeltaMovement(delta.add(
                             (isFlying ? -speed : -groundSpeed / 2 + xHeadRotABS) * f2,
                             y, (isFlying ? speed : groundSpeed / 2 - xHeadRotABS) * f3));
@@ -374,7 +374,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         }
 
         if (this instanceof DeadlyNadder) {
-            return 0.04F;
+            return 0.046F;
         }
 
         if (this instanceof NightFury) {
