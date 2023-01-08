@@ -170,6 +170,11 @@
       "isleofberk:entity/monstrous_nightmare/growl_alt"
     ]
   },
+  "entity.monstrous_nightmare.sleep": {
+    "sounds": [
+      "isleofberk:entity/monstrous_nightmare/sleep"
+    ]
+  },
   "entity.monstrous_nightmare.hurt": {
     "sounds": [
       "isleofberk:entity/monstrous_nightmare/hurt",
@@ -195,6 +200,47 @@
   "entity.monstrous_nightmare.tame": {
     "sounds": [
       "isleofberk:entity/monstrous_nightmare/tame"
+    ]
+  },
+
+  "entity.terrible_terror.growl": {
+    "sounds": [
+      "isleofberk:entity/terrible_terror/growl",
+      "isleofberk:entity/terrible_terror/growl_alt"
+    ]
+  },
+  "entity.terrible_terror.hurt": {
+    "sounds": [
+      "isleofberk:entity/terrible_terror/hurt",
+      "isleofberk:entity/terrible_terror/hurt_alt"
+    ]
+  },
+  "entity.terrible_terror.death": {
+    "sounds": [
+      "isleofberk:entity/terrible_terror/death"
+    ]
+  },
+  "entity.terrible_terror.fire": {
+    "sounds": [
+      "isleofberk:entity/terrible_terror/fire",
+      "isleofberk:entity/terrible_terror/fire_alt"
+    ]
+  },
+  "entity.terrible_terror.bite": {
+    "sounds": [
+      "isleofberk:entity/terrible_terror/bite"
+    ]
+  },
+  "entity.terrible_terror.sleep": {
+    "sounds": [
+      "isleofberk:entity/terrible_terror/sleep",
+      "isleofberk:entity/terrible_terror/sleep_alt",
+      "isleofberk:entity/terrible_terror/sleep_alt_2"
+    ]
+  },
+  "entity.terrible_terror.tame": {
+    "sounds": [
+      "isleofberk:entity/terrible_terror/tame"
     ]
   },
 
@@ -251,12 +297,6 @@
     "sounds": [
       "isleofberk:entity/stinger/death",
       "isleofberk:entity/stinger/death_alt"
-    ]
-  },
-  "entity.tame.death": {
-    "sounds": [
-      "isleofberk:entity/tame/death",
-      "isleofberk:entity/tame/death_alt"
     ]
   }
 }
