@@ -20,6 +20,7 @@ import com.GACMD.isleofberk.network.message.ControlMessageJumping;
 import com.GACMD.isleofberk.network.message.ControlMessageSECONDAbility;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModKeyBinds;
+import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
