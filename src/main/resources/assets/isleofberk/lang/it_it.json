@@ -55,7 +55,7 @@
     "item.isleofberk.terrible_terror_egg": "Â§dUovo di Terribile Terrore",
     "item.isleofberk.speed_stinger_egg": "Â§dUovo di PungiRapido",
     "item.isleofberk.speed_stinger_egg_floutscout": "Â§dFloutscout Speed ",
-    "item.isleofberk.speed_stinger_egg_ice_breaker": "Â§dUovo di PungiRa“ido rompi ghiaccio",
+    "item.isleofberk.speed_stinger_egg_ice_breaker": "Â§dUovo di PungiRaï¿½ido rompi ghiaccio",
     "item.isleofberk.speed_stinger_egg_sweet_sting": "Â§dUovo di PUngiRapido pungiglione-dolce",
 
     "block.isleofberk.belzium_ore": "Belzium grezzo",
@@ -63,10 +63,10 @@
     "block.isleofberk.gronckle_iron_block": "Bloccoo di Ferro di Gronkio",
     "block.isleofberk.raw_gronckle_iron_block": "Blocco di Belzium grezzo",
 
-    "iob.belzium.warn": "Il drago è troppo pesante, riduci item nel inventario a 4",
+    "iob.belzium.warn": "Il drago ï¿½ troppo pesante, riduci item nel inventario a 4",
     "iob.belzium.not own": "Spiacente, non possiedi questo drago",
     "iob.dragonAir.needSaddle": "Questo drago ha bisogno di una sella o potrebbe farti cadere",
-    "iob.dragonGround.needSaddle": "Il drago è ferito, equipaggiare sella",
+    "iob.dragonGround.needSaddle": "Il drago ï¿½ ferito, equipaggiare sella",
 
     "iob.mode.sit": "Sedersi",
     "iob.mode.notsitting": "Alzarsi",
@@ -75,25 +75,25 @@
     "iob.gui.dragon.hunger": "Fame",
 
     "iob.command.wandering": "Il tuo drago itinerante",
-    "iob.command.sitting": "Il tuo drago è seduto",
+    "iob.command.sitting": "Il tuo drago ï¿½ seduto",
     "iob.command.following": "Il tuo drago tis ta seguendo",
     "iob.command.seatLock.on": "Serratura sedile: Abilitata",
     "iob.command.seatLock.off": "Serratura sedile: Disabilitata",
 
-    "egg.warm.toHatch": "L’uovo è in condizioni ottimali",
-    "egg.cold.toHatch": "L’uovo non è in condizioni ottimali",
+    "egg.warm.toHatch": "Lï¿½uovo ï¿½ in condizioni ottimali",
+    "egg.cold.toHatch": "Lï¿½uovo non ï¿½ in condizioni ottimali",
 
-    "item.egg.tame.hatchling": "Si schiuderà tra poco. Domare il prima possibile.",
+    "item.egg.tame.hatchling": "Si schiuderï¿½ tra poco. Domare il prima possibile.",
 
     "iob.speed_stinger.owned": "Possiedi questo PungiRapido",
     "iob.speed_stinger.not_owned": "Non possiedi questo PungiRapido",
 
     "iob.baby.owned": "Possiedi questo drago",
     "iob.baby.not_owned": "Non possiedi questo drago",
-    "iob.only.owner.breed": "Solo il proprietario può nutrire questo drago",
+    "iob.only.owner.breed": "Solo il proprietario puï¿½ nutrire questo drago",
 
-    "key.isleofberk.keyAbility": "Abilità di fuoco",
-    "key.isleofberk.keySecondAbility": "Abilità speciale",
+    "key.isleofberk.keyAbility": "Abilitï¿½ di fuoco",
+    "key.isleofberk.keySpecialAbility": "Abilitï¿½ speciale",
     "key.isleofberk.keyDown": "Volo basso",
 
     "nightfury_spawn_egg_info": "Tier 4 Â§5Â§lStrike Class Â§rDragon",
@@ -117,9 +117,9 @@
     "advancement.belzium.title": "VIola... Interessante",
     "advancement.belzium.desc": "Flessibile e resistente",
     "advancement.belzium_tool.title": "Anche meglio ?",
-    "advancement.belzium_tool.desc": "Pià forte e più resistente!",
+    "advancement.belzium_tool.desc": "Piï¿½ forte e piï¿½ resistente!",
     "advancement.belzium_tools.title": "Pronto a tutto!",
-    "advancement.belzium_tools.desc": "Con questo, chi può sconfiggerti ?",
+    "advancement.belzium_tools.desc": "Con questo, chi puï¿½ sconfiggerti ?",
 
     "advancement.dragon.title": "Amicizia unica",
     "advancement.dragon.desc": "Legame tra un uomo e una bestia",
@@ -128,7 +128,7 @@
     "advancement.mystery.title": "Furtivo",
     "advancement.mystery.desc": "Grandi ragazzi spaventosi",
     "advancement.sharp.title": "Potenti",
-    "advancement.sharp.desc": "Essere accarezzato è bello",
+    "advancement.sharp.desc": "Essere accarezzato ï¿½ bello",
     "advancement.stoker.title": "Teste calde sputa-fuoco",
     "advancement.stoker.desc": "Infuocano tutto, anche se stessi",
     "advancement.strike.title": "Precisione Millimetrica",
@@ -139,7 +139,7 @@
     "advancement.tracker.desc": "Cerca e trova tutto senza fatica",
 
     "advancement.night_fury.title": "IMPOSSIBILE!",
-    "advancement.night_fury.desc": "La progenie diabolica nata dall’unione del fulmine e della morte",
-    "advancement.light_fury.title": "UN’ALTRA!?",
-    "advancement.light_fury.desc": "No, è più una furia chiara."
+    "advancement.night_fury.desc": "La progenie diabolica nata dallï¿½unione del fulmine e della morte",
+    "advancement.light_fury.title": "UNï¿½ALTRA!?",
+    "advancement.light_fury.desc": "No, ï¿½ piï¿½ una furia chiara."
 }

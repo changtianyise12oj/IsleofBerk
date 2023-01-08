@@ -93,7 +93,7 @@
     "iob.only.owner.breed": "Hanya pemilik yang bisa memberi makan semur mencurigakan untuk membiakkan naga ini",
 
     "key.isleofberk.keyAbility": "Kemampuan Api",
-    "key.isleofberk.keySecondAbility": "Kemampuan khusus",
+    "key.isleofberk.keySpecialAbility": "Kemampuan khusus",
     "key.isleofberk.keyDown": "Terbang ke bawah",
 
     "nightfury_spawn_egg_info": "Tingkat 4 §5§lKelas Strike §rNaga",
@@ -118,7 +118,7 @@
     "advancement.belzium.desc": "Fleksibel dan Tahan Lama",
     "advancement.belzium_tool.title": "Bahkan lebih baik ?",
     "advancement.belzium_tool.desc": "Lebih kuat dan lebih tahan lama!",
-    "advancement.belzium_tools.title": Siap untuk mereka semua!",
+    "advancement.belzium_tools.title": "Siap untuk mereka semua!",
     "advancement.belzium_tools.desc": "Dengan ini, siapa yang bisa mengalahkanmu?",
 
     "advancement.dragon.title": "Persahabatan unik",

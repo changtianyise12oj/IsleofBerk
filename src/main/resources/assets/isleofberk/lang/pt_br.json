@@ -91,8 +91,9 @@
     "iob.baby.owned": "Este dragão bebê te pertence",
     "iob.baby.not_owned": "Este dragão bebê não te pertence",
     "iob.only.owner.breed": "Só o dono do dragão pode alimenta-lo ensopado suspeito para faze-lo procriar",
+
     "key.isleofberk.keyAbility": "Abilidade de Fogo",
-    "key.isleofberk.keySecondAbility": "Abilidade Especial",
+    "key.isleofberk.keySpecialAbility": "Abilidade Especial",
     "key.isleofberk.keyDown": "Pousar",
 
     "nightfury_spawn_egg_info": "Dragão Classe Relâmpago Nível 4",
