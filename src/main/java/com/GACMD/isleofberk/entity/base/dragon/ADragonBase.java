@@ -35,6 +35,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -632,6 +633,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return super.doHurtTarget(pEntity);
     }
 
+    protected void playAttackSound() {
+        playSound(get1stAttackSound(), 1 ,1);
+    }
+
     @Override
     public void setTarget(@Nullable LivingEntity pLivingEntity) {
         if (!this.isBaby()) {
@@ -1134,6 +1139,14 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     protected SoundEvent getTameSound() {
+        return null;
+    }
+
+    protected SoundEvent get1stAttackSound() {
+        return null;
+    }
+
+    protected SoundEvent get2ndAttackSound() {
         return null;
     }
 

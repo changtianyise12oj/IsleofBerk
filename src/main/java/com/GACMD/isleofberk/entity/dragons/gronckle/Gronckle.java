@@ -76,7 +76,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if ((isFlying() && !event.isMoving())) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); // flyup
-            setShouldPlayFlapping(true);
+            setShouldPlayFlapping(false);
             return PlayState.CONTINUE;
         }
 
@@ -85,12 +85,12 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 if (getControllingPassenger() instanceof Player) {
                     if (this.getXRot() <= -3 || isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-                        setShouldPlayFlapping(true);
+                        setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
                     if (this.getXRot() > -3 && this.getXRot() <= 15 && !isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
-                        setShouldPlayFlapping(true);
+                        setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
                     if (this.getXRot() > 15 && getPassengers().size() < 2 && !isGoingUp()) {
@@ -103,7 +103,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                     double ydist = this.getY() - player.getY();
                     if (dist > 2F && ydist < 5) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-                        setShouldPlayFlapping(true);
+                        setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
                     if (ydist > 5) {
@@ -113,7 +113,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                     }
                 } else {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-                    setShouldPlayFlapping(true);
+                    setShouldPlayFlapping(false);
                     return PlayState.CONTINUE;
                 }
             }

@@ -354,7 +354,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     /**
-     * Override method to reduce stinger damage on armored players so taming won't be as hard
+     * Override method to reduce stryke damage on armored players so taming won't be as hard
      *
      * @param pEntity
      * @return
