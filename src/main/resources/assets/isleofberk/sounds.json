@@ -40,6 +40,11 @@
     "sounds": [
       "isleofberk:entity/gronckle/growl"
     ]
+  }, 
+  "entity.gronckle.flap": {
+    "sounds": [
+      "isleofberk:entity/gronckle/flap"
+    ]
   },
   "entity.gronckle.hurt": {
     "sounds": [

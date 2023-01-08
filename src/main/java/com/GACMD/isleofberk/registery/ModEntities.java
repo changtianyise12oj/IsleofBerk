@@ -84,19 +84,19 @@ public class ModEntities {
      * Projectiles
      */
     public static final RegistryObject<EntityType<FuryBolt>> FURY_BOLT = ENTITIES.register("fury_bolt",
-            () -> EntityType.Builder.<FuryBolt>of(FuryBolt::new, MobCategory.MISC).sized(1.8f, 1.8f)
+            () -> EntityType.Builder.<FuryBolt>of(FuryBolt::new, MobCategory.MISC).sized(2.2F, 2.2F)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "fury_bolt").toString()));
 
     public static final RegistryObject<EntityType<DeadlyNadderSpike>> NADDER_SPIKE = ENTITIES.register("nadder_spike",
-            () -> EntityType.Builder.<DeadlyNadderSpike>of(DeadlyNadderSpike::new, MobCategory.MISC).sized(0.5F, 0.5f)
+            () -> EntityType.Builder.<DeadlyNadderSpike>of(DeadlyNadderSpike::new, MobCategory.MISC).sized(0.7F, 0.7f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "nadder_spike").toString()));
 
     public static final RegistryObject<EntityType<FireBolt>> FIRE_BOLT = ENTITIES.register("fire_bolt",
-            () -> EntityType.Builder.<FireBolt>of(FireBolt::new, MobCategory.MISC).sized(1.8f, 1.8f)
+            () -> EntityType.Builder.<FireBolt>of(FireBolt::new, MobCategory.MISC).sized(2.2F, 2.2F)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "fire_bolt").toString()));
 
     public static final RegistryObject<EntityType<ZipBreathProjectile>> ZIP_POISON = ENTITIES.register("zip_poison",
-            () -> EntityType.Builder.<ZipBreathProjectile>of(ZipBreathProjectile::new, MobCategory.MISC).sized(1.8f, 1.8f)
+            () -> EntityType.Builder.<ZipBreathProjectile>of(ZipBreathProjectile::new, MobCategory.MISC).sized(2.2F, 2.2F)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "zip_poison").toString()));
 
     public static final RegistryObject<EntityType<ZippleBackAOECloud>> ZIP_CLOUD = ENTITIES.register("zip_cloud",
@@ -105,7 +105,7 @@ public class ModEntities {
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "zip_cloud").toString()));
 
     public static final RegistryObject<EntityType<FireBreathProjectile>> FIRE_PROJ = ENTITIES.register("fire_proj",
-            () -> EntityType.Builder.<FireBreathProjectile>of(FireBreathProjectile::new, MobCategory.MISC).sized(1.8f, 1.8f)
+            () -> EntityType.Builder.<FireBreathProjectile>of(FireBreathProjectile::new, MobCategory.MISC).sized(2.2F, 2.2F)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "fire_proj").toString()));
 
     /**

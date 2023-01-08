@@ -46,6 +46,7 @@ public class ModSounds {
 
     public static final RegistryObject<SoundEvent> GRONCKLE_GROWL                   = registerSoundEvent("entity.gronckle.growl");
     public static final RegistryObject<SoundEvent> GRONCKLE_HURT                    = registerSoundEvent("entity.gronckle.hurt");
+    public static final RegistryObject<SoundEvent> GRONCKLE_FLAP                    = registerSoundEvent("entity.gronckle.flap");
     public static final RegistryObject<SoundEvent> GRONCKLE_DEATH                   = registerSoundEvent("entity.gronckle.death");
     public static final RegistryObject<SoundEvent> GRONCKLE_TAME                    = registerSoundEvent("entity.gronckle.tame");
     public static final RegistryObject<SoundEvent> GRONCKLE_SLEEP                   = registerSoundEvent("entity.gronckle.sleep");

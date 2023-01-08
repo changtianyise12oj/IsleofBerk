@@ -16,11 +16,9 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -337,7 +335,13 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             bolt.setProjectileSize(getProjsSize());
             bolt.shoot(riderLook, 1F);
             bolt.setIsLightFuryTexture(false);
-            playProjectileSound();
+            if (tier4()) {
+                playProjectileSound();
+            }
+
+            if (tier1() || tier2() || tier3()) {
+                playSound(SoundEvents.LAVA_POP, 14, 0.05F);
+            }
             level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
@@ -351,7 +355,13 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             FuryBolt bolt = new FuryBolt(this, throat, dragonLook, level, getExplosionStrength());
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());
-            playProjectileSound();
+            if (tier4()) {
+                playProjectileSound();
+            }
+
+            if (tier1() || tier2() || tier3()) {
+                playSound(SoundEvents.LAVA_POP, 14, 0.05F);
+            }
             level.addFreshEntity(bolt);
             bolt.setIsLightFuryTexture(false);
             setPlayerBoltBlastPendingScale(0);
@@ -487,8 +497,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     protected SoundEvent getAmbientSound() {
         if (this.isDragonSleeping()) {
             return ModSounds.NIGHT_FURY_SLEEP.get();
-        }
-        else {
+        } else {
             return ModSounds.NIGHT_FURY_GROWL.get();
         }
     }
