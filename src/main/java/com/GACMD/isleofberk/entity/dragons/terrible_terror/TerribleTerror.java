@@ -408,7 +408,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 this.setPos(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
             }
 
-            if (!player.isFallFlying()) {
+            if (player.isPassenger() && !player.isFallFlying()) {
                 player.setYBodyRot(player.getYHeadRot());
             }
             this.setYRot(player.getYRot());
