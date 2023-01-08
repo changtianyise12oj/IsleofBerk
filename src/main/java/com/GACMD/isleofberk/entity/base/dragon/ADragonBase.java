@@ -1143,10 +1143,17 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return null;
     }
 
+    /**
+     * Commonly used for bite attack sounds, other sounds can be used too
+     * @return SoundEvents
+     */
     protected SoundEvent get1stAttackSound() {
         return null;
     }
-
+    /**
+     * Commonly used for sting attack sounds, other sounds can be used too
+     * @return SoundEvents
+     */
     protected SoundEvent get2ndAttackSound() {
         return null;
     }

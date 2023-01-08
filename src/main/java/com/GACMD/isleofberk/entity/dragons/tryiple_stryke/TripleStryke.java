@@ -397,16 +397,16 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     @Override
     protected void playAttackSound() {
         if(getCurrentAttackType() == 0) {
-            playSound(SoundEvents.SHEEP_SHEAR, 1 , 1);
+            playSound(get1stAttackSound(), 1, 1);
         }
 
         if(getCurrentAttackType() == 1) {
-            playSound(get1stAttackSound(), 1, 1);
+            playSound(get2ndAttackSound(), 1 ,1);
 
         }
 
         if(getCurrentAttackType() == 2) {
-            playSound(get2ndAttackSound(), 1 ,1);
+            playSound(SoundEvents.SHEEP_SHEAR, 1 , 1);
         }
     }
 
