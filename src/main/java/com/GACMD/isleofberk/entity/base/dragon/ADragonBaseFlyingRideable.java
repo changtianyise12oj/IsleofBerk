@@ -358,7 +358,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     }
 
     protected SoundEvent getRoarSound() {
-        return SoundEvents.ENDER_DRAGON_FLAP;
+        return null;
     }
 
     @Override
