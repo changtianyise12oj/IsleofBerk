@@ -621,7 +621,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     }
 
     protected float getFlapVol() {
-        return 0.1F;
+        return 0.07F;
     }
 
     protected float getFlapPitch() {
