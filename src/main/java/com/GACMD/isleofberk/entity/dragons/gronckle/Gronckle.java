@@ -90,7 +90,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                     }
                     if (this.getXRot() > -3 && this.getXRot() <= 15 && !isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
-                        setShouldPlayFlapping(false);
+                        setShouldPlayFlapping(true);
                         return PlayState.CONTINUE;
                     }
                     if (this.getXRot() > 15 && getPassengers().size() < 2 && !isGoingUp()) {
@@ -621,11 +621,11 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     }
 
     protected float getFlapVol() {
-        return 0.07F;
+        return 1F;
     }
 
     protected float getFlapPitch() {
-        return 0.8F;
+        return 1F;
     }
 
     protected SoundEvent getProjectileSound() {

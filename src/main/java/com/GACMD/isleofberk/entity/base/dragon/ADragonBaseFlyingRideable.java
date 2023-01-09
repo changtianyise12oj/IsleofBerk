@@ -378,7 +378,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 
     private float getFlapSpeedPerFlyingDragon() {
         if (this instanceof Gronckle) {
-            return 0.15F;
+            return 0.09F;
         }
 
         if (this instanceof DeadlyNadder) {

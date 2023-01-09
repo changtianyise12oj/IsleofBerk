@@ -238,7 +238,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, 0.7D, 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(1, new UntamedDragonCircleFlightGoal(this));
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
         this.targetSelector.addGoal(2, new NonTameRandomTargetGoal<>(this, LivingEntity.class, false, PREY_SELECTOR));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
