@@ -20,7 +20,6 @@ import com.GACMD.isleofberk.network.message.ControlMessageJumping;
 import com.GACMD.isleofberk.network.message.ControlMessageSECONDAbility;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModKeyBinds;
-import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.client.Minecraft;
@@ -35,7 +34,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -43,6 +41,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -635,7 +634,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     protected void playAttackSound() {
-        playSound(get1stAttackSound(), 1 ,1);
+        playSound(get1stAttackSound(), 1, 1);
     }
 
     @Override
@@ -661,7 +660,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             }
         }
 
-        if(pSource.getEntity() != null && pSource.getEntity().getVehicle() instanceof ADragonBase) {
+        if (pSource.getEntity() != null && pSource.getEntity().getVehicle() instanceof ADragonBase) {
             return false;
         }
 
@@ -858,11 +857,11 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             return false;
         }
 
-        if(isDragonSitting()) {
+        if (isDragonSitting()) {
             return true;
         }
 
-        if(isDragonWandering()) {
+        if (isDragonWandering()) {
             return true;
         }
 
@@ -1145,25 +1144,39 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     /**
      * Commonly used for bite attack sounds, other sounds can be used too
+     *
      * @return SoundEvents
      */
     protected SoundEvent get1stAttackSound() {
         return null;
     }
+
     /**
      * Commonly used for sting attack sounds, other sounds can be used too
+     *
      * @return SoundEvents
      */
     protected SoundEvent get2ndAttackSound() {
         return null;
     }
 
+
     protected SoundEvent getProjectileSound() {
         return null;
     }
 
     public void playProjectileSound() {
-        playSound(getProjectileSound(), 0.8F ,1);
+        playSound(getProjectileSound(), 0.8F, 1);
+    }
+
+    @Override
+    protected void playHurtSound(DamageSource pSource) {
+        SoundEvent soundevent = this.getHurtSound(pSource);
+        if (soundevent != null) {
+            if (((random.nextInt(8) == 1) && (getEffect(MobEffects.POISON) != null || getEffect(MobEffects.WITHER) != null)) || random.nextInt(3) == 1) {
+                this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
+            }
+        }
     }
 
     @Nullable

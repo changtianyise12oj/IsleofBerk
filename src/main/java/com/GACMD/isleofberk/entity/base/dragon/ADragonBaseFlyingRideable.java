@@ -14,6 +14,7 @@ import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.entity.dragons.tryiple_stryke.TripleStryke;
+import com.GACMD.isleofberk.registery.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -339,15 +340,15 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     }
 
     protected float getFlapVol() {
-        return 1.2F;
+        return 5F;
     }
 
     protected float getFlapPitch() {
-        return 0.8F;
+        return 0.4F;
     }
 
     protected SoundEvent getFlapSound() {
-        return SoundEvents.ENDER_DRAGON_FLAP;
+        return ModSounds.GRONCKLE_FLAP.get();
     }
 
 

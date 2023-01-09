@@ -240,7 +240,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     }
 
     public boolean tier1() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.27 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.50;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.20 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.50;
     }
 
     public boolean tier2() {
