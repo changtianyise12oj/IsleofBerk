@@ -310,6 +310,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     private void hurt(List<Entity> pEntities) {
         for (Entity entity : pEntities) {
             if (entity instanceof LivingEntity livingEntity) {
+                playSound(SoundEvents.GENERIC_BIG_FALL, 1, 1);
                 livingEntity.hurt(DamageSource.mobAttack(this), 22F);
                 this.doEnchantDamageEffects(this, livingEntity);
             }
