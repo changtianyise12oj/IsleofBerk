@@ -632,10 +632,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         return ModSounds.GRONCKLE_TAME.get();
     }
 
-    protected float getFlapVol() {
-        return 1F;
-    }
-
     protected float getFlapPitch() {
         return 1F;
     }

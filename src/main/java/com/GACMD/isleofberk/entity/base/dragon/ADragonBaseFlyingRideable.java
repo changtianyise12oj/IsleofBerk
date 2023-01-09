@@ -340,7 +340,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     }
 
     protected float getFlapVol() {
-        return 5F;
+        return 6F;
     }
 
     protected float getFlapPitch() {
