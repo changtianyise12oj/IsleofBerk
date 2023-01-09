@@ -12,6 +12,7 @@ import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.util.math.MathX;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -539,7 +540,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             setExplosionStrength(0);
         } else if (this.tier2()) {
             setProjsSize(1);
-            setExplosionStrength(3);
+            setExplosionStrength(1);
         } else if (this.tier3()) {
             setExplosionStrength(3);
             setProjsSize(2);
@@ -555,6 +556,16 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             }
         }
 
+    }
+
+    @Override
+    public float getSoundPitch() {
+        return 1F;
+    }
+
+    @Override
+    protected float getSoundVolume() {
+        return 0.7F;
     }
 
     @Override

@@ -1163,7 +1163,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     public void playProjectileSound() {
-        playSound(getProjectileSound(), 1 ,1);
+        playSound(getProjectileSound(), 0.8F ,1);
     }
 
     @Nullable
@@ -1183,7 +1183,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
      * Get number of ticks, at least during which the living entity will be silent.
      */
     public int getAmbientSoundInterval() {
-        return 800;
+        return 1400;
     }
 
     protected void addParticlesAroundSelf(ParticleOptions p_36209_) {
@@ -1193,6 +1193,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             double d2 = this.random.nextGaussian() * 0.02D;
             this.level.addParticle(p_36209_, this.getRandomThroatX(!isBaby() ? 0.4D : 0.1), getThroatRandomY(0.4D), this.getThroatRandomZ(0.4D), d0, d1, d2);
         }
+
 
     }
 

@@ -2,7 +2,6 @@ package com.GACMD.isleofberk.entity.projectile.abase;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
-import com.GACMD.isleofberk.entity.projectile.ScalableParticleType;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -10,7 +9,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffects;
@@ -18,6 +16,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
+import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -187,10 +187,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                         boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
                         if (flag) {
                             this.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
-                            if (this instanceof BaseLinearBoltProjectile) {
-                                level.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
-                                level.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
-                            }
+                            callExplosionEffects(flag, dragon);
                         }
                         this.discard();
                         this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
@@ -239,16 +236,9 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                                 this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
                             }
                         }
-                        if (this instanceof BaseLinearBoltProjectile) {
-                            if (this.level.isClientSide) {
-                                this.level.playLocalSound(end.x, end.y, end.z, SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (this.level.random.nextFloat() - this.level.random.nextFloat()) * 0.2F) * 0.7F, false);
-                            }
-                        }
                         boolean flag = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
                         this.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
-                        if (this instanceof BaseLinearBoltProjectile) {
-                            level.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
-                        }
+                        callExplosionEffects(flag, dragon);
                     }
                 }
             }
@@ -260,6 +250,34 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
             this.discard();
             ticksExisted = 0;
         }
+    }
+
+    /**
+     * Some dragons don't need cool explosions unless they reach teh most powerful size
+     *
+     * @param flag
+     */
+    protected void callExplosionEffects(boolean flag, ADragonRideableUtility dragon) {
+        if (this instanceof BaseLinearBoltProjectile) {
+            if (getProjectileSize() == 3 || getProjectileSize() == 2 || getProjectileSize() == 1) {
+                level.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+            }
+
+            if (getProjectileSize() == 0) {
+                this.level.addParticle(ParticleTypes.EXPLOSION, getX(), getY(), getZ(), 1, 0, 0);
+                playSound(SoundEvents.FIREWORK_ROCKET_BLAST_FAR, 4F, 1f);
+            }
+        }
+    }
+
+    protected void addParticlesAroundSelf(ParticleOptions p_36209_) {
+        for (int i = 0; i < 4; ++i) {
+            double d0 = this.random.nextGaussian() * 0.02D;
+            double d1 = this.random.nextGaussian() * 0.02D;
+            double d2 = this.random.nextGaussian() * 0.02D;
+//            this.level.addParticle(p_36209_, getRandomX(0.4D), 0.4, getRandomZ(0.4D), d0, d1, d2);
+        }
+
     }
 
     /**

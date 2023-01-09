@@ -7,6 +7,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -184,10 +185,17 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
             setTicksSinceLastFire(ticksSinceLastProjShootSet());
             bolt.shoot(riderLook, 1F);
             bolt.setProjectileSize(getProjsSize());
-            playProjectileSound();
+            if (tier4()) {
+                playProjectileSound();
+            }
+
+            if (tier1() || tier2() || tier3()) {
+                playSound(SoundEvents.LAVA_POP, 14, 0.05F);
+            }
             level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
+
         }
     }
 
@@ -197,10 +205,17 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
             setTicksSinceLastFire(ticksSinceLastProjShootSet());
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());
-            playProjectileSound();
+            if (tier4()) {
+                playProjectileSound();
+            }
+
+            if (tier1() || tier2() || tier3()) {
+                playSound(SoundEvents.LAVA_POP, 14, 0.05F);
+            }
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
             level.addFreshEntity(bolt);
+
         }
     }
 
@@ -229,11 +244,11 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     }
 
     public boolean tier2() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.50 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.85;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.50 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.75;
     }
 
     public boolean tier3() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.85 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast();
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.75 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.92;
     }
 
     public boolean tier4() {
