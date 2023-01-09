@@ -44,7 +44,9 @@
   "entity.gronckle.flap": {
     "sounds": [
       "isleofberk:entity/gronckle/flap_1",
-      "isleofberk:entity/gronckle/flap_2"
+      "isleofberk:entity/gronckle/flap_2",
+      "isleofberk:entity/gronckle/flap_3",
+      "isleofberk:entity/gronckle/flap_4"
     ]
   },
   "entity.gronckle.hurt": {
