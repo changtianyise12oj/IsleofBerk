@@ -551,7 +551,6 @@ public class SpeedStinger extends ADragonRideableUtility {
 //        this.navigation.moveTo(movePos.x(), movePos.y(), movePos.z(), speed * moveSpeedMultiplier);
 //    }
 
-
     @Override
     public void setTame(boolean pTamed) {
         if (pTamed) setHealth(getMaxHealth() + (getMaxHealth() * 0.20F));
