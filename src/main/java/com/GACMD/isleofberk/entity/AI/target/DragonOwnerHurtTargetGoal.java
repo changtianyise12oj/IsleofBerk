@@ -26,7 +26,7 @@ public class DragonOwnerHurtTargetGoal extends TargetGoal {
     }
 
     public boolean canUse() {
-        if (this.dragon.isTame() && !this.dragon.isOrderedToSit()) {
+        if (this.dragon.isTame() && !dragon.isDragonSitting()) {
             LivingEntity $$0 = this.dragon.getOwner();
             if ($$0 == null) {
                 return false;

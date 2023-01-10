@@ -28,6 +28,7 @@ public class DragonFlyAndAttackAirbourneTargetGoal extends ADragonBaseBaseFlying
 
 
         // disabled
+//        return target != null && dragon.distanceTo(target) < 6;
         return false;
     }
 

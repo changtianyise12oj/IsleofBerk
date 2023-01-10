@@ -299,7 +299,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     public void setIsDragonSitting(boolean sitting) {
         if (sitting) {
-            this.setOrderedToSit(isDragonSitting());
             this.entityData.set(COMMANDS, 1);
         }
     }
@@ -544,7 +543,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new FollowOwnerNoTPGoal(this, 1.1D, 1.0F, 1.0F, true));
+        this.goalSelector.addGoal(1, new FollowOwnerNoTPGoal(this, 1.1D, 4.0F, 4.0F, true));
         this.goalSelector.addGoal(2, new DragonRideTilTamed(this, 1));
         this.goalSelector.addGoal(3, new DragonBreedGoal(this, 1.0D));
         this.goalSelector.addGoal(3, getMeleeAttackGoal());
@@ -790,9 +789,15 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public void tick() {
         super.tick();
 
-        if (this.getCommand() == 1) {
-            this.setOrderedToSit(isDragonSitting());
+        if (isDragonSitting()) {
+            this.setOrderedToSit(true);
         }
+
+        if(!isDragonSitting()) {
+            this.setOrderedToSit(false);
+        }
+
+        System.out.println(isOrderedToSit());
         if (shouldStopMoving()) {
             this.getNavigation().stop();
             this.getNavigation().timeoutPath();
