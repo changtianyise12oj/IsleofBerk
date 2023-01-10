@@ -336,6 +336,8 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                 this.setIsDragonWandering(true);
             if (isDragonSleeping())
                 setIsDragonSleeping(false);
+            if(getTarget() != null)
+                setTarget(null);
         }
     }
 

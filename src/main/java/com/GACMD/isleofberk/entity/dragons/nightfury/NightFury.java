@@ -281,8 +281,8 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 80.0D)
-                .add(Attributes.ARMOR, 1)
+                .add(Attributes.MAX_HEALTH, 100.0D)
+                .add(Attributes.ARMOR, 2)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.18F)
                 .add(Attributes.ATTACK_DAMAGE, 16F)
