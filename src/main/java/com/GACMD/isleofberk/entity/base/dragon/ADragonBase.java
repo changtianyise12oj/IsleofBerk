@@ -42,7 +42,6 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -1176,7 +1175,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.ambientSoundTime = -this.getAmbientSoundInterval();
         SoundEvent soundevent = this.getHurtSound(pSource);
         if (soundevent != null) {
-            if (pSource.getEntity() instanceof  LivingEntity living && pSource.equals(DamageSource.mobAttack(living))) {
+            if (pSource.getEntity() instanceof LivingEntity) {
                 this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
             } else {
                 this.playSound(SoundEvents.GENERIC_HURT, this.getSoundVolume(), this.getVoicePitch());
