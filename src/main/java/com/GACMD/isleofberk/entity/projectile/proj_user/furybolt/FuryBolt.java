@@ -103,7 +103,8 @@ public class FuryBolt extends BaseLinearBoltProjectile implements IAnimatable {
 
     @Override
     protected void callExplosionEffects(boolean flag, ADragonRideableUtility dragon) {
-        level.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+//        level.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
+        super.callExplosionEffects(flag, dragon);
     }
 
     @Override

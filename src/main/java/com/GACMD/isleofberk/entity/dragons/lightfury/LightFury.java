@@ -13,17 +13,14 @@ import com.GACMD.isleofberk.util.Util;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -126,7 +123,13 @@ public class LightFury extends NightFury {
             bolt.setProjectileSize(getProjsSize());
             bolt.shoot(riderLook, 1F);
             bolt.setIsLightFuryTexture(true);
-            playProjectileSound();
+            if (tier4() || tier3()) {
+                playProjectileSound();
+            }
+
+            if (tier1() || tier2()) {
+                playSound(SoundEvents.LAVA_POP, 18, 0.05F);
+            }
             level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
             setPlayerBoltBlastPendingStopThreshold(0);
@@ -139,7 +142,13 @@ public class LightFury extends NightFury {
             FuryBolt bolt = new FuryBolt(this, throat, dragonLook, level, getExplosionStrength());
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());
-            playProjectileSound();
+            if (tier4() || tier3()) {
+                playProjectileSound();
+            }
+
+            if (tier1() || tier2()) {
+                playSound(SoundEvents.LAVA_POP, 18, 0.05F);
+            }
             level.addFreshEntity(bolt);
             bolt.setIsLightFuryTexture(true);
             setPlayerBoltBlastPendingScale(0);
@@ -192,8 +201,7 @@ public class LightFury extends NightFury {
     protected SoundEvent getAmbientSound() {
         if (this.isDragonSleeping()) {
             return ModSounds.LIGHT_FURY_SLEEP.get();
-        }
-        else {
+        } else {
             return ModSounds.LIGHT_FURY_GROWL.get();
         }
     }

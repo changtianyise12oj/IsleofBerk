@@ -335,12 +335,12 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             bolt.setProjectileSize(getProjsSize());
             bolt.shoot(riderLook, 1F);
             bolt.setIsLightFuryTexture(false);
-            if (tier4()) {
+            if (tier4() || tier3()) {
                 playProjectileSound();
             }
 
-            if (tier1() || tier2() || tier3()) {
-                playSound(SoundEvents.LAVA_POP, 14, 0.05F);
+            if (tier1() || tier2()) {
+                playSound(SoundEvents.LAVA_POP, 18, 0.05F);
             }
             level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
@@ -355,12 +355,12 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             FuryBolt bolt = new FuryBolt(this, throat, dragonLook, level, getExplosionStrength());
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());
-            if (tier4()) {
+            if (tier4() || tier3()) {
                 playProjectileSound();
             }
 
-            if (tier1() || tier2() || tier3()) {
-                playSound(SoundEvents.LAVA_POP, 14, 0.05F);
+            if (tier1() || tier2()) {
+                playSound(SoundEvents.LAVA_POP, 18, 0.05F);
             }
             level.addFreshEntity(bolt);
             bolt.setIsLightFuryTexture(false);
