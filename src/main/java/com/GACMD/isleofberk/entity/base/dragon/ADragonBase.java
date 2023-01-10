@@ -1177,7 +1177,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             if (pSource.getEntity() instanceof  LivingEntity living && pSource.equals(DamageSource.mobAttack(living))) {
                 this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
             } else {
-                this.playSound(SoundEvents.GENERIC_HURT, 1, 1);
+                this.playSound(SoundEvents.GENERIC_HURT, this.getSoundVolume(), this.getVoicePitch());
             }
         }
     }
