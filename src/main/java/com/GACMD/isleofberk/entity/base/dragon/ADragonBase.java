@@ -34,6 +34,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
@@ -1170,18 +1171,20 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     @Override
-    protected void playHurtSound(DamageSource pSource) {
+    protected void playHurtSound(@NotNull DamageSource pSource) {
         SoundEvent soundevent = this.getHurtSound(pSource);
         if (soundevent != null) {
-            if (((random.nextInt(8) == 1) && (getEffect(MobEffects.POISON) != null || getEffect(MobEffects.WITHER) != null)) || random.nextInt(3) == 1) {
+            if (pSource.getEntity() instanceof  LivingEntity living && pSource.equals(DamageSource.mobAttack(living))) {
                 this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
+            } else {
+                this.playSound(SoundEvents.GENERIC_HURT, 1, 1);
             }
         }
     }
 
     @Nullable
     @Override
-    protected SoundEvent getHurtSound(DamageSource pDamageSource) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource pDamageSource) {
         return null;
     }
 
