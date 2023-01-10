@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.entity.AI.flight.own.DragonFlyAndAttackAirbourneTarg
 import com.GACMD.isleofberk.entity.AI.flight.own.UntamedDragonCircleFlightGoal;
 import com.GACMD.isleofberk.entity.AI.flight.player.AIDragonRide;
 import com.GACMD.isleofberk.entity.AI.flight.player.DragonFollowPlayerFlying;
+import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.path.air.DragonFlyingPathNavigation;
 import com.GACMD.isleofberk.entity.AI.path.air.FlyingDragonMoveControl;
 import com.GACMD.isleofberk.entity.AI.target.DragonNonTameRandomTargetGoal;
@@ -191,6 +192,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         super.registerGoals();
         this.goalSelector.addGoal(1, new DragonFloatGoal(this));
         this.goalSelector.addGoal(0, new DragonFollowPlayerFlying(this));
+//        this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 4, 4, true));
         this.goalSelector.addGoal(0, new DragonFlyAndAttackAirbourneTargetGoal(this, 1, true));
         this.goalSelector.addGoal(1, new UntamedDragonCircleFlightGoal(this));
         this.goalSelector.addGoal(1, new AIDragonLand(this, 1));

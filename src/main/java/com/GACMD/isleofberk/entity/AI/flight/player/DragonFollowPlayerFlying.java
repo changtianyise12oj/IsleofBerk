@@ -32,6 +32,7 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
             }
 
             // land to ground instead of catch the player
+
             // if owner is on ground land next to owner
             return dragon.isDragonFollowing();
         }
