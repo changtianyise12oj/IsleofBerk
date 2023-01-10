@@ -51,6 +51,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -68,6 +69,7 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 import java.util.function.Predicate;
 
@@ -610,6 +612,45 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             }
         }
         return super.mobInteract(pPlayer, pHand);
+    }
+
+    /**
+     * make nametags be placed by owner only to prevent other players changing dragon type to special
+     * Many players can grief by changing dragon name and dragon name cannot be reset
+     * @param pPlayer
+     * @param pHand
+     * @return
+     */
+    @Override
+    public InteractionResult checkAndHandleImportantInteractions(Player pPlayer, InteractionHand pHand) {
+        ItemStack itemstack = pPlayer.getItemInHand(pHand);
+        if (itemstack.is(Items.LEAD) && this.canBeLeashed(pPlayer)) {
+            this.setLeashedTo(pPlayer, true);
+            itemstack.shrink(1);
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
+        } else {
+            if (itemstack.is(Items.NAME_TAG) && isOwnedBy(pPlayer)) {
+                InteractionResult interactionresult = itemstack.interactLivingEntity(pPlayer, this, pHand);
+                if (interactionresult.consumesAction()) {
+                    return interactionresult;
+                }
+            }
+
+            if (itemstack.getItem() instanceof SpawnEggItem) {
+                if (this.level instanceof ServerLevel) {
+                    SpawnEggItem spawneggitem = (SpawnEggItem)itemstack.getItem();
+                    Optional<Mob> optional = spawneggitem.spawnOffspringFromSpawnEgg(pPlayer, this, (EntityType<? extends Mob>)this.getType(), (ServerLevel)this.level, this.position(), itemstack);
+                    optional.ifPresent((p_21476_) -> {
+                        this.onOffspringSpawnedFromEgg(pPlayer, p_21476_);
+                    });
+                    return optional.isPresent() ? InteractionResult.SUCCESS : InteractionResult.PASS;
+                } else {
+                    return InteractionResult.CONSUME;
+                }
+            } else {
+                return InteractionResult.PASS;
+            }
+        }
     }
 
     public boolean shouldStopMoving() {
