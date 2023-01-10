@@ -1172,6 +1172,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     protected void playHurtSound(@NotNull DamageSource pSource) {
+        // RESET AMBIENT SOUND TIME
+        this.ambientSoundTime = -this.getAmbientSoundInterval();
         SoundEvent soundevent = this.getHurtSound(pSource);
         if (soundevent != null) {
             if (pSource.getEntity() instanceof  LivingEntity living && pSource.equals(DamageSource.mobAttack(living))) {
