@@ -20,6 +20,14 @@
       "isleofberk:entity/deadly_nadder/sleep_alt"
     ]
   },
+  "entity.deadly_nadder.flap": {
+    "sounds": [
+      "isleofberk:entity/deadly_nadder/flap_1",
+      "isleofberk:entity/deadly_nadder/flap_2",
+      "isleofberk:entity/deadly_nadder/flap_3",
+      "isleofberk:entity/deadly_nadder/flap_4"
+    ]
+  },
   "entity.deadly_nadder.sting": {
     "sounds": [
       "isleofberk:entity/deadly_nadder/sting"

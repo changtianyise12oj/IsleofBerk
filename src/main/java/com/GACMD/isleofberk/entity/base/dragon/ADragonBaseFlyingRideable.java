@@ -348,7 +348,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     }
 
     protected SoundEvent getFlapSound() {
-        return ModSounds.GRONCKLE_FLAP.get();
+        return ModSounds.DEADLY_NADDER_FLAP.get();
     }
 
 
