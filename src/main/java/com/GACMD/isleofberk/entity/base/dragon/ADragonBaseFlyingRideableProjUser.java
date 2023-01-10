@@ -185,12 +185,12 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
             setTicksSinceLastFire(ticksSinceLastProjShootSet());
             bolt.shoot(riderLook, 1F);
             bolt.setProjectileSize(getProjsSize());
-            if (tier4()) {
+            if (tier4() || tier3()) {
                 playProjectileSound();
             }
 
-            if (tier1() || tier2() || tier3()) {
-                playSound(SoundEvents.LAVA_POP, 14, 0.05F);
+            if (tier1() || tier2()) {
+                playSound(SoundEvents.LAVA_POP, 18, 0.05F);
             }
             level.addFreshEntity(bolt);
             setPlayerBoltBlastPendingScale(0);
@@ -205,11 +205,11 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
             setTicksSinceLastFire(ticksSinceLastProjShootSet());
             bolt.shoot(dragonLook, 1F);
             bolt.setProjectileSize(getProjsSize());
-            if (tier4()) {
+            if (tier4() || tier3()) {
                 playProjectileSound();
             }
 
-            if (tier1() || tier2() || tier3()) {
+            if (tier1() || tier2()) {
                 playSound(SoundEvents.LAVA_POP, 14, 0.05F);
             }
             setPlayerBoltBlastPendingScale(0);
