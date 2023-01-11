@@ -339,11 +339,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.set(IS_INCAPACITATED, incapacitated);
     }
 
-    public void setReady() {
-        this.setIsDragonSleeping(false);
-        this.setIsDragonSitting(false);
-    }
-
     // Variant
     public int getDragonVariant() {
         return this.entityData.get(DRAGON_VARIANT);

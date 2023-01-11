@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.terrible_terror;
 
+import com.GACMD.isleofberk.entity.AI.flight.own.AIDragonLand;
 import com.GACMD.isleofberk.entity.AI.flight.own.DragonFlyAndAttackAirbourneTargetGoal;
 import com.GACMD.isleofberk.entity.AI.flight.own.UntamedDragonCircleFlightGoal;
 import com.GACMD.isleofberk.entity.AI.flight.player.DragonFollowPlayerFlying;
@@ -108,7 +109,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if ((isFlying() && !event.isMoving())) {
-            // the head looks down during hover which looks awful and distorted so temporary disabled
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP)); // hover
             setShouldPlayFlapping(true);
             return PlayState.CONTINUE;
@@ -244,6 +244,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         this.goalSelector.addGoal(0, new DragonFlyAndAttackAirbourneTargetGoal(this, 1, true));
         this.goalSelector.addGoal(1, new DragonFloatGoal(this));
         this.goalSelector.addGoal(1, new BreedGoal(this, 1));
+        this.goalSelector.addGoal(1, new AIDragonLand(this, 1));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, 0.7D, 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
@@ -275,6 +276,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 .add(Attributes.MOVEMENT_SPEED, 0.3F)
                 .add(Attributes.ATTACK_DAMAGE, 2F)
                 .add(ForgeMod.SWIM_SPEED.get(), 4F)
+                .add(Attributes.FLYING_SPEED, 0.04F)
                 .add(Attributes.ATTACK_DAMAGE, 2F);
     }
 

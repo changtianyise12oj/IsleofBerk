@@ -61,7 +61,7 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
                 // don't catch if owner is too far away
                 double followRange = 35;
 
-                if (owner.fallDistance > 4 && !owner.isFallFlying()) {
+                if (owner.fallDistance > 4 && !owner.isFallFlying() && dragon.canBeMounted()) {
                     if (dragon.distanceTo(owner) < followRange) {
                         // mount owner if close enough, otherwise move to owner
                         if (dragon.distanceTo(owner) <= dragon.getBbWidth() * 1.4 || dragon.distanceTo(owner) <= dragon.getBbHeight() * 1.0 && !owner.isShiftKeyDown() && dragon.isFlying()) {
