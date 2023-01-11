@@ -10,6 +10,7 @@ import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBolt;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModSounds;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -400,6 +401,12 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         } else if (this.tier4()) {
             setProjsSize(3);
             setExplosionStrength(7);
+
+            if(level.isRainingAt(new BlockPos(position()))) {
+                LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+                lightningBolt.setPos(getX(), getY() + 5, getZ());
+                level.addFreshEntity( lightningBolt);
+            }
         }
 
         String s = ChatFormatting.stripFormatting(this.getName().getString());
