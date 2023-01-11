@@ -185,7 +185,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
 
     @Override
     public void playProjectileSound() {
-        if (random.nextInt(5) == 1) {
+        if (random.nextInt(25) == 1) {
             playSound(getProjectileSound(), 1, 1);
         }
     }
