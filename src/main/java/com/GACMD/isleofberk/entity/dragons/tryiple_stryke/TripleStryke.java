@@ -482,7 +482,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             ticksSinceLastClawAttack = 0;
         }
 
-        if (random1 > 200) {
+        if (random1 > 210) {
             ticksSinceLastStingAttackAI = Util.secondsToTicks(3);
             ticksSinceLastClawAttack = 0;
             ticksSinceLastBiteAttack = 0;
