@@ -8,8 +8,15 @@ import net.minecraft.world.phys.Vec3;
 
 public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal {
 
-    public DragonFollowPlayerFlying(ADragonBaseFlyingRideable dragonBaseFlyingRideable) {
+    private int xDist;
+    private int yDist;
+    private int zDist;
+
+    public DragonFollowPlayerFlying(ADragonBaseFlyingRideable dragonBaseFlyingRideable, int xDist, int yDist, int zDist) {
         super(dragonBaseFlyingRideable);
+        this.xDist=xDist;
+        this.yDist=yDist;
+        this.zDist=zDist;
     }
 
     @Override
@@ -65,10 +72,10 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
                         }
                     }
                 } else {
-                    Vec3 movePos = new Vec3(owner.getX(), owner.getY() + 4, owner.getZ());
+                    Vec3 movePos = new Vec3(owner.getX(), owner.getY() + yDist, owner.getZ());
                     // now count the index and make them spread, only happens when the entire class AI kicks in
                     tailingDragons.put(owner.getUUID(), dragon);
-                    dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * 3), movePos.y(), movePos.z() + (tailingDragons.size() * 3), 4);
+                    dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * xDist), movePos.y(), movePos.z() + (tailingDragons.size() * zDist), 4);
                 }
             }
         }

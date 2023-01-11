@@ -27,9 +27,9 @@ public class DragonFlyAndAttackAirbourneTargetGoal extends ADragonBaseBaseFlying
         }
 
 
+        return target != null && dragon.distanceTo(target) < 6 && !dragon.isDragonFollowing();
         // disabled
-//        return target != null && dragon.distanceTo(target) < 6;
-        return false;
+//        return false;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class DragonFlyAndAttackAirbourneTargetGoal extends ADragonBaseBaseFlying
             }
 
             if (dragon.isFlying())
-                dragon.getNavigation().moveTo(target, 1);
+                dragon.getNavigation().moveTo(target, 4);
         }
     }
 }

@@ -191,7 +191,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new DragonFloatGoal(this));
-        this.goalSelector.addGoal(0, new DragonFollowPlayerFlying(this));
+        this.goalSelector.addGoal(0, new DragonFollowPlayerFlying(this, 3, 4, 3));
 //        this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 4, 4, true));
         this.goalSelector.addGoal(0, new DragonFlyAndAttackAirbourneTargetGoal(this, 1, true));
         this.goalSelector.addGoal(1, new UntamedDragonCircleFlightGoal(this));

@@ -1,6 +1,8 @@
 package com.GACMD.isleofberk.entity.dragons.terrible_terror;
 
+import com.GACMD.isleofberk.entity.AI.flight.own.DragonFlyAndAttackAirbourneTargetGoal;
 import com.GACMD.isleofberk.entity.AI.flight.own.UntamedDragonCircleFlightGoal;
+import com.GACMD.isleofberk.entity.AI.flight.player.DragonFollowPlayerFlying;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
@@ -232,7 +234,9 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 2.0F, 2.0F, false));
+//        this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 2.0F, 2.0F, false));
+        this.goalSelector.addGoal(0, new DragonFollowPlayerFlying(this, 2, 1, 2));
+        this.goalSelector.addGoal(0, new DragonFlyAndAttackAirbourneTargetGoal(this, 1, true));
         this.goalSelector.addGoal(1, new DragonFloatGoal(this));
         this.goalSelector.addGoal(1, new BreedGoal(this, 1));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, true));
