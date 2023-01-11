@@ -342,6 +342,14 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                     LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
                     lightningBolt.setPos(getX() - 6, getY() + 4, getZ() + 6);
                     level.addFreshEntity(lightningBolt);
+
+                    LightningBolt lightningBolt1 = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+                    lightningBolt1.setPos(getX() - 6, getY() + 4, getZ() + 6);
+                    level.addFreshEntity(lightningBolt1);
+
+                    LightningBolt lightningBolt2 = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+                    lightningBolt2.setPos(getX() - 6, getY() + 4, getZ() + 6);
+                    level.addFreshEntity(lightningBolt2);
                 }
             }
 
@@ -364,11 +372,19 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             bolt.setProjectileSize(getProjsSize());
             if (tier4() || tier3()) {
                 playProjectileSound();
-                
+
                 if (level.isRaining()) {
                     LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
                     lightningBolt.setPos(getX() - 6, getY() + 4, getZ() + 6);
                     level.addFreshEntity(lightningBolt);
+
+                    LightningBolt lightningBolt1 = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+                    lightningBolt1.setPos(getX() - 6, getY() + 4, getZ() + 6);
+                    level.addFreshEntity(lightningBolt1);
+
+                    LightningBolt lightningBolt2 = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
+                    lightningBolt2.setPos(getX() - 6, getY() + 4, getZ() + 6);
+                    level.addFreshEntity(lightningBolt2);
                 }
             }
 
