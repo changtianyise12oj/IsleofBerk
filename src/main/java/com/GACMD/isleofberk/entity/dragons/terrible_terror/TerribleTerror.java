@@ -235,7 +235,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     @Override
     protected void registerGoals() {
 //        this.goalSelector.addGoal(0, new FollowOwnerNoTPGoal(this, 1.1D, 2.0F, 2.0F, false));
-        this.goalSelector.addGoal(0, new DragonFollowPlayerFlying(this, 2, 1, 2));
+        this.goalSelector.addGoal(0, new DragonFollowPlayerFlying(this, 2, 3, 2));
         this.goalSelector.addGoal(0, new DragonFlyAndAttackAirbourneTargetGoal(this, 1, true));
         this.goalSelector.addGoal(1, new DragonFloatGoal(this));
         this.goalSelector.addGoal(1, new BreedGoal(this, 1));
