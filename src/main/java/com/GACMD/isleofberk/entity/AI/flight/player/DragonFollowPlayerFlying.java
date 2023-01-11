@@ -43,28 +43,33 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
     public void tick() {
         // catch owner in flight if possible, only when it is standing do so.
 //        if (!dragon.isFlying()) {
+        LivingEntity target = dragon.getTarget();
         dragon.setIsFlying(true);
 //        }
         LivingEntity owner = dragon.getOwner();
-        if (owner != null) {
-            // don't catch if owner is too far away
-            double followRange = 35;
+        if (target != null && dragon.distanceTo(target) < 8) {
+            dragon.getNavigation().moveTo(target.getX(), target.getY(), target.getZ(), 4);
+        } else {
+            if (owner != null) {
+                // don't catch if owner is too far away
+                double followRange = 35;
 
-            if (owner.fallDistance > 4 && !owner.isFallFlying()) {
-                if (dragon.distanceTo(owner) < followRange) {
-                    // mount owner if close enough, otherwise move to owner
-                    if (dragon.distanceTo(owner) <= dragon.getBbWidth() * 1.4 || dragon.distanceTo(owner) <= dragon.getBbHeight() * 1.0 && !owner.isShiftKeyDown() && dragon.isFlying()) {
-                        owner.startRiding(dragon);
-                    } else {
-                        // y movement is too slow
-                        dragon.getNavigation().moveTo(owner.getX(), owner.getY() - 5, owner.getZ(), 4F);
+                if (owner.fallDistance > 4 && !owner.isFallFlying()) {
+                    if (dragon.distanceTo(owner) < followRange) {
+                        // mount owner if close enough, otherwise move to owner
+                        if (dragon.distanceTo(owner) <= dragon.getBbWidth() * 1.4 || dragon.distanceTo(owner) <= dragon.getBbHeight() * 1.0 && !owner.isShiftKeyDown() && dragon.isFlying()) {
+                            owner.startRiding(dragon);
+                        } else {
+                            // y movement is too slow
+                            dragon.getNavigation().moveTo(owner.getX(), owner.getY() - 5, owner.getZ(), 4F);
+                        }
                     }
+                } else {
+                    Vec3 movePos = new Vec3(owner.getX(), owner.getY() + 4, owner.getZ());
+                    // now count the index and make them spread, only happens when the entire class AI kicks in
+                    tailingDragons.put(owner.getUUID(), dragon);
+                    dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * 3), movePos.y(), movePos.z() + (tailingDragons.size() * 3), 4);
                 }
-            } else {
-                Vec3 movePos = new Vec3(owner.getX(), owner.getY() + 4, owner.getZ());
-                // now count the index and make them spread, only happens when the entire class AI kicks in
-                tailingDragons.put(owner.getUUID(), dragon);
-                dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * 3), movePos.y(), movePos.z() + (tailingDragons.size() * 3), 4);
             }
         }
     }
