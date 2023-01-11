@@ -274,7 +274,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         }
 
         if (ticksSinceLastStingAttackPlayer == 44) {
-            playSound(ModSounds.TRIPLE_STRYKE_STING.get(), 1, 1);
+            playSound(ModSounds.TRIPLE_STRYKE_STING.get(), 5, 1);
         }
     }
 
@@ -304,7 +304,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     private void hurt(List<Entity> pEntities) {
         for (Entity entity : pEntities) {
             if (entity instanceof LivingEntity livingEntity) {
-                playSound(SoundEvents.GENERIC_BIG_FALL, 1, 1);
+                playSound(SoundEvents.GENERIC_BIG_FALL, 3, 1);
                 livingEntity.hurt(DamageSource.mobAttack(this), 36.0F);
                 this.doEnchantDamageEffects(this, livingEntity);
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, Util.secondsToTicks(20)));
@@ -399,16 +399,16 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     @Override
     protected void playAttackSound() {
         if (getCurrentAttackType() == 0) {
-            playSound(get1stAttackSound(), 1, 1);
+            playSound(get1stAttackSound(), 3, 1);
         }
 
         if (getCurrentAttackType() == 1) {
-            playSound(get2ndAttackSound(), 1, 1);
+            playSound(get2ndAttackSound(), 3, 1);
 
         }
 
         if (getCurrentAttackType() == 2) {
-            playSound(SoundEvents.SHEEP_SHEAR, 1, 1);
+            playSound(SoundEvents.SHEEP_SHEAR, 3, 1);
         }
     }
 

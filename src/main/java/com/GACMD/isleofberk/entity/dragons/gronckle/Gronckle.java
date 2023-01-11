@@ -310,7 +310,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     private void hurt(List<Entity> pEntities) {
         for (Entity entity : pEntities) {
             if (entity instanceof LivingEntity livingEntity) {
-                playSound(SoundEvents.GENERIC_BIG_FALL, 1, 1);
+                playSound(SoundEvents.GENERIC_BIG_FALL, 3, 1);
                 livingEntity.hurt(DamageSource.mobAttack(this), 22F);
                 this.doEnchantDamageEffects(this, livingEntity);
             }
@@ -487,15 +487,15 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
         if (getStoneDigestionTicks() == 10) {
             if (random.nextInt(45) == 1) {
-                this.playSound(ModSounds.GRONCKLE_SPIT_IRON.get(), 1, 1);
-                this.playSound(SoundEvents.GENERIC_BURN, 1, 1);
+                this.playSound(ModSounds.GRONCKLE_SPIT_IRON.get(), 4, 1);
+                this.playSound(SoundEvents.GENERIC_BURN, 4, 1);
                 this.shootGronckIron(itemStack);
                 setTicksSinceLastFire(20);
                 addParticlesAroundSelf(ParticleTypes.LAVA);
                 addParticlesAroundSelf(ParticleTypes.LARGE_SMOKE);
             } else {
                 addParticlesAroundSelf(ParticleTypes.LARGE_SMOKE);
-                this.playSound(SoundEvents.LAVA_POP, 1, 1);
+                this.playSound(SoundEvents.LAVA_POP, 4, 1);
             }
         }
 

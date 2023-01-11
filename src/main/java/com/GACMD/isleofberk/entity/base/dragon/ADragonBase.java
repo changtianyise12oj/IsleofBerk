@@ -1170,7 +1170,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             CriteriaTriggers.TAME_ANIMAL.trigger((ServerPlayer) pPlayer, this);
         }
 
-        playSound(getTameSound(), 1, 1);
+        playSound(getTameSound(), 3, 1);
 
         modifyPhase1Progress(100);
 
@@ -1206,7 +1206,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     public void playProjectileSound() {
-        playSound(getProjectileSound(), 0.8F, 1);
+        playSound(getProjectileSound(), 3F, 1);
     }
 
     @Override

@@ -655,7 +655,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             ItemEntity itementity = new ItemEntity(this.level, this.getX() + this.getLookAngle().x, this.getY() + 1.0D, this.getZ() + this.getLookAngle().z, pStack);
             itementity.setPickUpDelay(40);
             itementity.setThrower(this.getUUID());
-            this.playSound(SoundEvents.FOX_SPIT, 1.0F, 1.0F);
+            this.playSound(SoundEvents.FOX_SPIT, 3.0F, 1.0F);
             this.level.addFreshEntity(itementity);
         }
     }
