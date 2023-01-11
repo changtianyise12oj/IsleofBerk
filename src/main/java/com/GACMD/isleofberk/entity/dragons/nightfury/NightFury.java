@@ -517,4 +517,9 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     protected SoundEvent getDeathSound() {
         return ModSounds.NIGHT_FURY_DEATH.get();
     }
+
+    @Override
+    protected SoundEvent get1stAttackSound() {
+        return ModSounds.NIGHT_FURY_BITE.get();
+    }
 }

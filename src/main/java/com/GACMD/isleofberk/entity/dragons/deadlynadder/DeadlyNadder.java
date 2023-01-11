@@ -535,6 +535,11 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     protected SoundEvent getDeathSound() {
         return ModSounds.DEADLY_NADDER_DEATH.get();
     }
+
+    @Override
+    protected SoundEvent get1stAttackSound() {
+        return ModSounds.DEADLY_NADDER_BITE.get();
+    }
 }
 
 

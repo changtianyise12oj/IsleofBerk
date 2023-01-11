@@ -281,4 +281,9 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     protected SoundEvent getDeathSound() {
         return ModSounds.HIDEOUS_ZIPPLEBACK_DEATH.get();
     }
+
+    @Override
+    protected SoundEvent get1stAttackSound() {
+        return ModSounds.HIDEOUS_ZIPPLEBACK_BITE.get();
+    }
 }

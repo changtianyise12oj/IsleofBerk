@@ -221,4 +221,9 @@ public class LightFury extends NightFury {
     protected SoundEvent getDeathSound() {
         return ModSounds.LIGHT_FURY_DEATH.get();
     }
+
+    @Override
+    protected SoundEvent get1stAttackSound() {
+        return ModSounds.LIGHT_FURY_BITE.get();
+    }
 }

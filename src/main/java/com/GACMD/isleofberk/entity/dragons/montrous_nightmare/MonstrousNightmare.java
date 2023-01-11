@@ -327,4 +327,9 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     protected SoundEvent getDeathSound() {
         return ModSounds.MONSTROUS_NIGHTMARE_DEATH.get();
     }
+
+    @Override
+    protected SoundEvent get1stAttackSound() {
+        return ModSounds.MONSTROUS_NIGHTMARE_BITE.get();
+    }
 }

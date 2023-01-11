@@ -773,4 +773,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     protected SoundEvent getDeathSound() {
         return ModSounds.TRIPLE_STRYKE_DEATH.get();
     }
+
+
 }

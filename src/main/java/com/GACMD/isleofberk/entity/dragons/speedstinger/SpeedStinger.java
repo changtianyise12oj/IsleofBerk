@@ -613,18 +613,6 @@ public class SpeedStinger extends ADragonRideableUtility {
         }
     }
 
-    @Override
-    protected void playAttackSound() {
-        if(getCurrentAttackType() == 0) {
-            playSound(get1stAttackSound(), 1 , 1);
-        }
-
-        if(getCurrentAttackType() == 1) {
-            playSound(get2ndAttackSound(), 1, 1);
-
-        }
-    }
-
     @org.jetbrains.annotations.Nullable
     public ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {
         SpeedStingerEgg dragon = ModEntities.SPEED_STINGER_EGG.get().create(level);
@@ -838,6 +826,28 @@ public class SpeedStinger extends ADragonRideableUtility {
 
     protected SoundEvent getDeathSound() {
         return ModSounds.SPEED_STINGER_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent get1stAttackSound() {
+        return ModSounds.SPEED_STINGER_BITE.get();
+    }
+
+    @Override
+    protected SoundEvent get2ndAttackSound() {
+        return ModSounds.SPEED_STINGER_STING.get();
+    }
+
+    @Override
+    protected void playAttackSound() {
+        if (getCurrentAttackType() == 0) {
+            playSound(get1stAttackSound(), 1, 1);
+        }
+
+        if (getCurrentAttackType() == 1) {
+            playSound(get2ndAttackSound(), 1, 1);
+
+        }
     }
 }
 

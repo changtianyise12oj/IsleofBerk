@@ -640,11 +640,16 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         return ModSounds.GRONCKLE_FIRE.get();
     }
 
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+    protected SoundEvent getHurtSound(@NotNull DamageSource damageSourceIn) {
         return ModSounds.GRONCKLE_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return ModSounds.DEADLY_NADDER_DEATH.get();
+        return ModSounds.GRONCKLE_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent get1stAttackSound() {
+        return ModSounds.DEADLY_NADDER_BITE.get();
     }
 }
