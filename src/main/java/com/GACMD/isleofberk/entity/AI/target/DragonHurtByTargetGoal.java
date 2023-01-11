@@ -9,6 +9,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.phys.AABB;
 
@@ -39,6 +40,12 @@ public class DragonHurtByTargetGoal extends TargetGoal {
         // adults won't kill babies of same type, babies don't attack
         if(this.mob.isBaby()) {
             return false;
+        }
+
+        if($$1 instanceof Player player) {
+            if(player.isCreative()) {
+                return false;
+            }
         }
 
         if ($$0 != this.timestamp && $$1 != null) {

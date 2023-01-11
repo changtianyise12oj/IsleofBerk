@@ -184,7 +184,7 @@ public class SpeedStinger extends ADragonRideableUtility {
     }
 
     public static boolean checkSpeedStingerSpawnRules(EntityType<? extends Animal> pAnimal, ServerLevelAccessor pLevel, MobSpawnType pReason, BlockPos pPos, Random pRandom) {
-        return pReason == MobSpawnType.SPAWNER || !pLevel.canSeeSky(pPos) || pLevel.canSeeSky(pPos) && checkMonsterSpawnRules(pAnimal, pLevel, pReason, pPos, pRandom);
+        return pReason == MobSpawnType.SPAWNER || pReason == MobSpawnType.STRUCTURE || !pLevel.canSeeSky(pPos) || pLevel.canSeeSky(pPos) && checkMonsterSpawnRules(pAnimal, pLevel, pReason, pPos, pRandom);
     }
 
     public static boolean isDarkEnoughToSpawn(ServerLevelAccessor pLevel, BlockPos pPos, Random pRandom) {
