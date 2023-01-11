@@ -274,10 +274,9 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.ARMOR, 0.5)
                 .add(Attributes.MOVEMENT_SPEED, 0.3F)
-                .add(Attributes.ATTACK_DAMAGE, 2F)
                 .add(ForgeMod.SWIM_SPEED.get(), 4F)
                 .add(Attributes.FLYING_SPEED, 0.04F)
-                .add(Attributes.ATTACK_DAMAGE, 2F);
+                .add(Attributes.ATTACK_DAMAGE, 5F);
     }
 
     @Override
