@@ -42,13 +42,14 @@ public class DragonHurtByTargetGoal extends TargetGoal {
             return false;
         }
 
-        if($$1 instanceof Player player) {
-            if(player.isCreative()) {
-                return false;
-            }
-        }
-
         if ($$0 != this.timestamp && $$1 != null) {
+
+            if($$1 instanceof Player player) {
+                if(player.isCreative()) {
+                    return false;
+                }
+            }
+            
             if ($$1.getType() == EntityType.PLAYER && this.mob.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
                 return false;
             } else {
