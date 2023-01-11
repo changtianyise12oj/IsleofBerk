@@ -49,7 +49,7 @@ public class DragonHurtByTargetGoal extends TargetGoal {
                     return false;
                 }
             }
-            
+
             if ($$1.getType() == EntityType.PLAYER && this.mob.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
                 return false;
             } else {
