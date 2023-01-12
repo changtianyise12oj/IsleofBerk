@@ -73,90 +73,82 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     DragonPart[] subParts;
     DragonPart TSStingArea;
 
-    /**
-     * 0 is default - value is up and positive value is down
-     *
-     * @param event
-     * @param <E>
-     * @return
-     */
+    boolean stingAttack;
+
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if ((isFlying() && !event.isMoving())) {
-            // the head looks down during hover which looks awful and distorted so temporary disabled
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); // hover
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); // flyup
             setShouldPlayFlapping(true);
             return PlayState.CONTINUE;
         }
         if (isFlying()) {
             if (event.isMoving()) {
                 if (getControllingPassenger() instanceof Player) {
-//                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
-                    if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2) {
+                    if (this.getXRot() < 4 || isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
                         setShouldPlayFlapping(true);
                         return PlayState.CONTINUE;
                     }
-                    if (this.getXRot() >= 11 && this.getXRot() < 26 && !isGoingUp()) { // < 20
-                        setShouldPlayFlapping(false);
+                    if (this.getXRot() >= 4 && this.getXRot() < 15 && !isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeGlide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
+                        setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
-                    if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
+                    if (this.getXRot() >= 15 && getPassengers().size() < 2 && !isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeDive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
                         setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
-                    // different values for pitch and roll when following elytra flying player
                 } else if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
                     float dist = distanceTo(player);
                     double ydist = this.getY() - player.getY();
-                    if (dist > 8.3F && ydist < 4 || ydist < -1.8F) {
+                    if (dist > 4.3F && ydist < 5F) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
                         setShouldPlayFlapping(true);
                         return PlayState.CONTINUE;
                     }
-                    if (dist < 8.3F || ydist > 4) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeDive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                    if (dist < 4.3F && ydist < 5F) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeGlide", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
                         setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
-                    } else {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-                        setShouldPlayFlapping(true);
+                    }
+                    if (ydist > 5F && dist > 7.8F) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeDive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
+                        setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
                 } else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
                     setShouldPlayFlapping(true);
                     return PlayState.CONTINUE;
                 }
-
             }
-        } else {
-            if (this.isDragonSitting() && !isDragonSleeping()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSit", ILoopType.EDefaultLoopTypes.LOOP));
+        }
+        if (event.isMoving() && !shouldStopMovingIndependently()) {
+            if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeRun", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            } else {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeWalk", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (event.isMoving() && !shouldStopMovingIndependently()) {
-                if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeRun", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
+        }
 
-                } else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeWalk", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                }
-            }
-            if (this.isDragonSleeping()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSleep", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
-            }
+        if (this.isDragonSitting() && !isDragonSleeping()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSit", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
+        if (this.isDragonSleeping()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSleep", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
+        if (!isVehicle() && isDragonIncapacitated()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSurrender", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
 
-            if (!isVehicle() && isDragonIncapacitated()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSurrender", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
+        }
 
-            }
-
+        if (isDragonOnGround()){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeIdle", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }

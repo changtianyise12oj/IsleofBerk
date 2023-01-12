@@ -12,7 +12,6 @@ import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.util.math.MathX;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -119,7 +118,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 }
             }
         }
-        if (event.isMoving() && !shouldStopMovingIndependently()) {
+        if (event.isMoving() && !shouldStopMovingIndependently() && isDragonOnGround()) {
             if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Run", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
@@ -138,7 +137,10 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             return PlayState.CONTINUE;
         }
 
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Idle", ILoopType.EDefaultLoopTypes.LOOP));
+        if (isDragonOnGround()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Idle", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
         return PlayState.CONTINUE;
     }
 
@@ -617,8 +619,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     protected SoundEvent getAmbientSound() {
         if (this.isDragonSleeping()) {
             return ModSounds.GRONCKLE_SLEEP.get();
-        }
-        else {
+        } else {
             return ModSounds.GRONCKLE_GROWL.get();
         }
     }
