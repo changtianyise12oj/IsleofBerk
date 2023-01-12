@@ -2,9 +2,7 @@ package com.GACMD.isleofberk.entity.dragons.terrible_terror;
 
 import com.GACMD.isleofberk.entity.AI.flight.own.AIDragonLand;
 import com.GACMD.isleofberk.entity.AI.flight.own.DragonFlyAndAttackAirbourneTargetGoal;
-import com.GACMD.isleofberk.entity.AI.flight.own.UntamedDragonCircleFlightGoal;
 import com.GACMD.isleofberk.entity.AI.flight.player.DragonFollowPlayerFlying;
-import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
@@ -110,7 +108,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     };
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if ((isFlying() && !event.isMoving())) {
+        if (isFlying() && !event.isMoving() && !isPassenger()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP)); // hover
             setShouldPlayFlapping(true);
             return PlayState.CONTINUE;
@@ -155,13 +153,9 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             event.getController().setAnimation(new AnimationBuilder().addAnimation("HeadCurious", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
-        if (!isDragonOnGround()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-        } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("Idle", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-        }
+
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("Idle", ILoopType.EDefaultLoopTypes.LOOP));
+        return PlayState.CONTINUE;
     }
 
     public TerribleTerror(EntityType<? extends TerribleTerror> animal, Level world) {
