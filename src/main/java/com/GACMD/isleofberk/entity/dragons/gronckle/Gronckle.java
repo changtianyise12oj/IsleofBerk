@@ -137,10 +137,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             return PlayState.CONTINUE;
         }
 
-        if (isDragonOnGround()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Idle", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-        }
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Idle", ILoopType.EDefaultLoopTypes.LOOP));
         return PlayState.CONTINUE;
     }
 

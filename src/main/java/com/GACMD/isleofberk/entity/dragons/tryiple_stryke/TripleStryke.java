@@ -149,10 +149,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
         }
 
-        if (isDragonOnGround()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeIdle", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-        }
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeIdle", ILoopType.EDefaultLoopTypes.LOOP));
         return PlayState.CONTINUE;
     }
 
