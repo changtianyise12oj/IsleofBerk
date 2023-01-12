@@ -336,7 +336,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                 this.setIsDragonWandering(true);
             if (isDragonSleeping())
                 setIsDragonSleeping(false);
-            if(getTarget() != null)
+            if (getTarget() != null)
                 setTarget(null);
         }
     }
@@ -712,11 +712,14 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                     for (Entity entity : list) {
                         if (!entity.hasPassenger(this)) {
                             if (flag && this.getPassengers().size() < 2 && !entity.isPassenger() && entity.getBbWidth() < this.getBbWidth()) {
-                                if (entity instanceof LivingEntity && !(entity instanceof WaterAnimal) && !(entity instanceof Player) && !(entity instanceof Enemy) && !isSeatLocked()) {
+                                if (!(entity instanceof ADragonBase) && entity instanceof LivingEntity && !(entity instanceof WaterAnimal) && !(entity instanceof Player) && !(entity instanceof Enemy) && !isSeatLocked()) {
                                     entity.startRiding(this);
-                                } else if ((entity instanceof ADragonBase dragonBase)) {
-                                    if (dragonBase.isBaby() || dragonBase instanceof TerribleTerror || (dragonBase instanceof SpeedStinger speedStinger && speedStinger.isTame()))
+                                }
+
+                                if ((entity instanceof ADragonBase dragonBase)) {
+                                    if (dragonBase.isBaby() || dragonBase instanceof TerribleTerror || (dragonBase instanceof SpeedStinger speedStinger && speedStinger.isTame())) {
                                         dragonBase.startRiding(this);
+                                    }
                                 }
                             } else {
                                 this.push(entity);
