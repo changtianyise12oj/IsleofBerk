@@ -93,7 +93,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                         setShouldPlayFlapping(true);
                         return PlayState.CONTINUE;
                     }
-                    if (this.getXRot() > 15 && getPassengers().size() < 2 && !isGoingUp()) {
+                    if (this.getXRot() > 15 && !isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
                         setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;

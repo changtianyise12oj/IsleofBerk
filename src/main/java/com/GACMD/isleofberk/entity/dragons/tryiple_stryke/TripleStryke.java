@@ -81,8 +81,8 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             setShouldPlayFlapping(true);
             return PlayState.CONTINUE;
         }
-        if (isFlying()) {
-            if (event.isMoving()) {
+        if (event.isMoving()) {
+            if (isFlying()) {
                 if (getControllingPassenger() instanceof Player) {
                     if (this.getXRot() < 4 || isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
@@ -94,7 +94,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
                         setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
-                    if (this.getXRot() >= 15 && getPassengers().size() < 2 && !isGoingUp()) {
+                    if (this.getXRot() >= 15 && !isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeDive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
                         setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
@@ -122,15 +122,16 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
                     setShouldPlayFlapping(true);
                     return PlayState.CONTINUE;
                 }
-            }
-        }
-        if (event.isMoving() && !shouldStopMovingIndependently()) {
-            if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeRun", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeWalk", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
+                if (!shouldStopMovingIndependently()) {
+                    if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeRun", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeWalk", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    }
+                }
             }
         }
 
@@ -148,7 +149,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
         }
 
-        if (isDragonOnGround()){
+        if (isDragonOnGround()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeIdle", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
