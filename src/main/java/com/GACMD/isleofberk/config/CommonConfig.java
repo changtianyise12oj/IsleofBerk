@@ -44,7 +44,7 @@ public class CommonConfig {
         NIGHTMARE_SPAWN_PROBABILITY = BUILDER.comment("Monstrous Nightmare Spawn Chances, Lower decimal numbers means lower spawning").define("Monstrous Nightmare Spawn Chances, Lower decimal numbers means lower spawning?", 0.04F);
         STRYKE_SPAWN_PROBABILITY = BUILDER.comment("Triple Stryke Spawn Chances, Lower decimal numbers means lower spawning").define("Triple Stryke Spawn Chances, Lower decimal numbers means lower spawning?", 0.03F);
         TERROR_SPAWN_PROBABILITY = BUILDER.comment("Terrible Terror Spawn Chances, Lower decimal numbers means lower spawning").define("Terrible Terror Spawn Chances, Lower decimal numbers means lower spawning?", 0.06F);
-        SPEED_STINGER_SPAWN_PROBABILITY = BUILDER.comment("Speed Stinger Spawn Chances, Lower decimal numbers means lower spawning").define("Speed Stinger Spawn Chances, Lower decimal numbers means lower spawning?", 0.08F);
+        SPEED_STINGER_SPAWN_PROBABILITY = BUILDER.comment("Speed Stinger Spawn Chances, Lower decimal numbers means lower spawning").define("Speed Stinger Spawn Chances, Lower decimal numbers means lower spawning?", 0.00008F);
         STINGER_SPAWN_PROBABILITY = BUILDER.comment("Stinger Spawn Chances, Lower decimal numbers means lower spawning").define("Stinger Spawn Chances, Lower decimal numbers means lower spawning?", 0.05F);
 
         N_FURY_SPAWN_WEIGHT = BUILDER.comment("Night Fury Spawn Weight, Lower weight means lower spawning, weight is defined by the value of this entity to spawn first before another entity").define("Night Fury Spawn Weight, Lower weight means lower spawning, weight is defined by the value of this entity to spawn first before another entity?", 1);
