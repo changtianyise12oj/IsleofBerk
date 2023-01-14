@@ -29,20 +29,21 @@ public class DragonHeldItemLayer extends GeoLayerRenderer<TerribleTerror> {
         boolean baby = terror.isBaby();
         pMatrixStack.pushPose();
         Entity entity = terror.getVehicle();
+
         if (baby) {
             pMatrixStack.scale(0.60F, 0.60F, 0.60F);
         } else {
             pMatrixStack.translate(-0.1D, 0.0D, 0.1D);
         }
         if (terror.isDragonSitting()) {
-            pMatrixStack.translate(0.0D,  (baby ? 0.0D : 0.1), (baby ? 0.1D : -0.03D));
+            pMatrixStack.translate(0.0D,  (baby ? 0.0D : 0.10D), (baby ? 0.1D : -0.03D));
             pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(10.0F));
         } else if (terror.isDragonSleeping()) {
-            pMatrixStack.translate((baby ? 0.2D : 0.3D), (baby ? -0.12D : -0.3D), (baby ? 0.1D : 0.0D));
+            pMatrixStack.translate((baby ? 0.2D : 0.3D), (baby ? -0.12D : -0.28D), (baby ? 0.1D : 0.0D));
             pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(0F));
             pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(40F));
         } else if (entity != null) {
-            Entity entity1 = terror.getVehicle().getVehicle();
+            Entity entity1 = entity.getVehicle();
             if (entity1 instanceof LivingEntity livingEntity) {
                 if ((livingEntity instanceof ADragonBaseFlyingRideable dragonFly && dragonFly.isFlying()) || !livingEntity.isOnGround() ||
                         (livingEntity instanceof ADragonBase dragonBase && !dragonBase.isDragonOnGround())) {
@@ -58,8 +59,6 @@ public class DragonHeldItemLayer extends GeoLayerRenderer<TerribleTerror> {
         }
 
         pMatrixStack.translate(0.15D, entity == null ? 0.3D : 0.55D, entity == null ? -0.6D : -0.58D);
-
-
         pMatrixStack.translate(0, (baby ? -0.2D : 0.0D), (baby ? 0.2D : 0.1D));
 
         pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(65.0F));
