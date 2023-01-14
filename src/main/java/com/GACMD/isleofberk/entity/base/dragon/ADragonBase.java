@@ -605,6 +605,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
                 return InteractionResult.FAIL;
             }
         }
+
+        setSleepDisturbTicks(Util.minutesToSeconds(4));
         return super.mobInteract(pPlayer, pHand);
     }
 
