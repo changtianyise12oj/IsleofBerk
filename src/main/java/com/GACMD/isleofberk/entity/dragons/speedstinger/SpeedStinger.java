@@ -2,12 +2,14 @@ package com.GACMD.isleofberk.entity.dragons.speedstinger;
 
 
 import com.GACMD.isleofberk.config.CommonConfig;
+import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBRandomLookAroundGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
 import com.GACMD.isleofberk.entity.AI.taming.AggressionToPlayersGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
@@ -16,6 +18,7 @@ import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
 import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -26,9 +29,11 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.Difficulty;
@@ -59,10 +64,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
@@ -204,16 +206,17 @@ public class SpeedStinger extends ADragonRideableUtility {
 
     @Override
     protected boolean shouldDespawnInPeaceful() {
-        return !isTame();
+        return !isTame() && !isBaby();
     }
 
     @Override
     public boolean requiresCustomPersistence() {
-        return !isTame() || !isBaby();
+        return !isTame() && !isBaby();
     }
 
+    @Override
     public void checkDespawn() {
-        if (!isTame() && this.level.getDifficulty() == Difficulty.PEACEFUL) {
+        if (shouldDespawnInPeaceful() && this.level.getDifficulty() == Difficulty.PEACEFUL) {
             this.discard();
         } else if (!isTame() && !this.isPersistenceRequired() && !this.requiresCustomPersistence()) {
             Entity entity = this.level.getNearestPlayer(this, -1.0D);
@@ -271,6 +274,7 @@ public class SpeedStinger extends ADragonRideableUtility {
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(3, new SpeedStingerCustomMeleeAttackGoal(this, 1.4D, true));
+        this.goalSelector.addGoal(3, new DragonBreedGoal(this, 1.0D));
         this.goalSelector.addGoal(5, new FollowOwnerNoTPGoal(this, 1.1D, 3.0F, 3.0F, false));
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, getAttributeValue(Attributes.MOVEMENT_SPEED), 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
@@ -617,6 +621,55 @@ public class SpeedStinger extends ADragonRideableUtility {
     public ADragonEggBase getBreedEggResult(ServerLevel level, @NotNull AgeableMob parent) {
         SpeedStingerEgg dragon = ModEntities.SPEED_STINGER_EGG.get().create(level);
         return dragon;
+    }
+
+    @Override
+    public void spawnChildFromBreeding(ServerLevel serverLevel, Animal partner) {
+        if (partner instanceof ADragonBase dragonPartner) {
+            ADragonEggBase egg = this.getBreedEggResult(serverLevel, dragonPartner);
+            final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(this, partner, egg);
+            final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
+            if (cancelled) {
+                //Reset the "inLove" state for the dragons
+                this.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+                dragonPartner.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+//                this.setAge(Util.secondsToTicks(10));
+//                dragonPartner.setAge(Util.secondsToTicks(10));
+                this.resetLove();
+                partner.resetLove();
+                return;
+            }
+            if (egg != null) {
+                ServerPlayer serverplayer = this.getLoveCause();
+                if (serverplayer == null && partner.getLoveCause() != null) {
+                    serverplayer = partner.getLoveCause();
+                }
+
+                if (serverplayer != null) {
+                    serverplayer.awardStat(Stats.ANIMALS_BRED);
+                    CriteriaTriggers.BRED_ANIMALS.trigger(serverplayer, this, partner, egg);
+                }
+
+                this.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+                dragonPartner.setAge(Util.mcDaysToMinutes(getInLoveCoolDownInMCDays()));
+//                this.setAge(Util.secondsToTicks(10));
+//                dragonPartner.setAge(Util.secondsToTicks(10));
+                this.resetLove();
+                partner.resetLove();
+                if (dragonPartner.getDragonVariant() == getDragonVariant()) {
+                    egg.setDragonVariant(getDragonVariant());
+                } else {
+                    egg.setDragonVariant(random.nextInt(getMaxAmountOfVariants()));
+                }
+                egg.setBaby(true);
+                egg.moveTo(this.getX(), this.getY(), this.getZ(), 0.0F, 0.0F);
+                level.addFreshEntity(egg);
+                level.broadcastEntityEvent(this, (byte) 18);
+                if (level.getGameRules().getBoolean(GameRules.RULE_DOMOBLOOT)) {
+                    level.addFreshEntity(new ExperienceOrb(level, this.getX(), this.getY(), this.getZ(), this.getRandom().nextInt(7) + 1));
+                }
+            }
+        }
     }
 
     @Override

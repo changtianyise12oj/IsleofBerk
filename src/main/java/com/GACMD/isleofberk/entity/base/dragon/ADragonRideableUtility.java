@@ -124,7 +124,8 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             // phase 1 progress limits the player's phase one progress. Dragons don't eat when they are full.
             // thus preventing the quick tame of dragon's
             // dragon that is subject for taming will not fly away
-            if (!isTame()) {
+            // taming is reserved for rideable dragons. meanwhile some taming like speed stinger and terrible terror are tamed uniquely
+            if (!isTame() && canBeMounted()) {
                 if (itemstack.is(tameItem()) && getTarget() == null) {
                     if (this.getFoodTameLimiterBar() < this.getFoodTamingPhaseMaximumLevel()) {
                         // food limits how much you can feed currently fills up faster
@@ -240,6 +241,8 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         if (itemstack.is(Items.STICK)) {
             int i = getPhase1Progress();
             String s = Integer.toString(i);
+
+            if(canBeMounted())
             pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.25").append(s).append("%"), true);
 
             return InteractionResult.sidedSuccess(this.level.isClientSide);
