@@ -26,22 +26,19 @@ public class DragonHeldItemLayer extends GeoLayerRenderer<TerribleTerror> {
 
     public void render(PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight, TerribleTerror terror, float pLimbSwing, float pLimbSwingAmount, float pPartialTicks, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
         boolean flag = terror.isSleeping();
-        boolean flag1 = terror.isBaby();
+        boolean baby = terror.isBaby();
         pMatrixStack.pushPose();
         Entity entity = terror.getVehicle();
-        if (flag1) {
-            float f = 0.75F;
-            pMatrixStack.scale(0.90F, 0.90F, 0.90F);
-            pMatrixStack.translate(0.0D, 0.5D, (double) 0.209375F);
-            pMatrixStack.translate(-0.1D, -0.2D, -0.2D);
+        if (baby) {
+            pMatrixStack.scale(0.60F, 0.60F, 0.60F);
         } else {
             pMatrixStack.translate(-0.1D, 0.0D, 0.1D);
         }
-        if (terror.isDragonSitting() && !terror.isDragonSitting()) {
-            pMatrixStack.translate(0.0D, 0.10D, -0.03D);
+        if (terror.isDragonSitting()) {
+            pMatrixStack.translate(0.0D,  (baby ? 0.0D : 0.1), (baby ? 0.1D : -0.03D));
             pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(10.0F));
         } else if (terror.isDragonSleeping()) {
-            pMatrixStack.translate(0.3D, -0.3D, 0.0D);
+            pMatrixStack.translate((baby ? 0.2D : 0.3D), (baby ? -0.12D : -0.3D), (baby ? 0.1D : 0.0D));
             pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(0F));
             pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(40F));
         } else if (entity != null) {
@@ -60,10 +57,10 @@ public class DragonHeldItemLayer extends GeoLayerRenderer<TerribleTerror> {
             }
         }
 
-        pMatrixStack.translate(0.15D, entity == null ? 0.3D : 0.55D, terror.getVehicle() == null ? -0.6D : -0.58D);
+        pMatrixStack.translate(0.15D, entity == null ? 0.3D : 0.55D, entity == null ? -0.6D : -0.58D);
 
 
-        pMatrixStack.translate(0, -0.0D, 0.1D);
+        pMatrixStack.translate(0, (baby ? -0.2D : 0.0D), (baby ? 0.2D : 0.1D));
 
         pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(65.0F));
         pMatrixStack.mulPose(Vector3f.ZP.rotationDegrees(135.0F));
