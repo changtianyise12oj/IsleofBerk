@@ -905,6 +905,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             return true;
         }
 
+        if(getVehicle() != null || isVehicle()) {
+            return false;
+        }
+
         return this.isDragonOnGround() && !this.isInWater() && !this.isWaterBelow();
     }
 
