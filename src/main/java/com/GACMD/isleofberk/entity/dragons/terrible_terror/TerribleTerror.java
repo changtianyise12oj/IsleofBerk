@@ -414,6 +414,9 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         return super.startRiding(pEntity, pForce);
     }
 
+    /**
+     * Clientside
+     */
     @Override
     public void rideTick() {
         Entity entity = this.getVehicle();
