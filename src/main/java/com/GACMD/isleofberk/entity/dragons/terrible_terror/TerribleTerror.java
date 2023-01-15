@@ -45,10 +45,7 @@ import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
-import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
@@ -356,7 +353,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             return InteractionResult.SUCCESS;
             // mount the dragon to player if it is not unceremoniously dismounted
             // plan to temporary hide(despawn?) the terror then unhide(respawn?) if the player appears close by
-        } else if (item != Items.STICK && !isBaby() && isTame() && !isItemStackForTaming(itemstack) && !isBreedingFood(itemstack)) { //  && isDragonBelziumHeld(itemstack)
+        } else if (item != Items.STICK && !isBaby() && isOwnedBy(pPlayer) && !isItemStackForTaming(itemstack) && !isBreedingFood(itemstack) && isDragonFollowing()) { //  && isDragonBelziumHeld(itemstack)
             ridePlayer(pPlayer);
             return InteractionResult.SUCCESS;
         }
@@ -578,8 +575,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     public void tick() {
-        super.tick();
-
         if (getVehicle() != null && getVehicle() instanceof Player vehicle) {
             Vec3 vehicleLook = vehicle.getViewVector(1);
             if (this == vehicle.getPassengers().get(0)) {
@@ -596,6 +591,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                     firePrimary(vehicleLook, throat2);
             }
         }
+        super.tick();
     }
 
     @Override
