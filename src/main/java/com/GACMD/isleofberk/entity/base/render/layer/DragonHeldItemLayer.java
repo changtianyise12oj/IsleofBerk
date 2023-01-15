@@ -38,7 +38,7 @@ public class DragonHeldItemLayer extends GeoLayerRenderer<TerribleTerror> {
         if (terror.isDragonSitting() && !terror.isDragonSleeping()) {
             pMatrixStack.translate(0.0D,  (baby ? 0.18D : 0.10D), (baby ? 0.1D : -0.03D));
             pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(10.0F));
-        } else if (terror.isDragonSleeping()) {
+        } else if (terror.isDragonSleeping() && terror.getVehicle() == null) {
             pMatrixStack.translate((baby ? 0.1D : 0.3D), (baby ? -0.12D : -0.24D), (baby ? 0.1D : 0.0D));
             pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(0F));
             pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(40F));
