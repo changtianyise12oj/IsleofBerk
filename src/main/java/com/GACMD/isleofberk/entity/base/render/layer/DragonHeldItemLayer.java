@@ -33,13 +33,13 @@ public class DragonHeldItemLayer extends GeoLayerRenderer<TerribleTerror> {
         if (baby) {
             pMatrixStack.scale(0.60F, 0.60F, 0.60F);
         } else {
-            pMatrixStack.translate(-0.1D, 0.0D, 0.1D);
+            pMatrixStack.translate(-0.1D, -0.05D, 0.1D);
         }
         if (terror.isDragonSitting() && !terror.isDragonSleeping()) {
-            pMatrixStack.translate(0.0D,  (baby ? 0.0D : 0.10D), (baby ? 0.1D : -0.03D));
+            pMatrixStack.translate(0.0D,  (baby ? 0.18D : 0.10D), (baby ? 0.1D : -0.03D));
             pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(10.0F));
         } else if (terror.isDragonSleeping()) {
-            pMatrixStack.translate((baby ? 0.1D : 0.3D), (baby ? -0.12D : -0.28D), (baby ? 0.1D : 0.0D));
+            pMatrixStack.translate((baby ? 0.1D : 0.3D), (baby ? -0.12D : -0.24D), (baby ? 0.1D : 0.0D));
             pMatrixStack.mulPose(Vector3f.XP.rotationDegrees(0F));
             pMatrixStack.mulPose(Vector3f.YP.rotationDegrees(40F));
         } else if (entity != null) {
@@ -52,9 +52,9 @@ public class DragonHeldItemLayer extends GeoLayerRenderer<TerribleTerror> {
             }
 
             if (entity instanceof Player player && player.isFallFlying()) {
-                pMatrixStack.translate(0.0D, -0.3D, 0.0D);
+                pMatrixStack.translate(0.0D, -0.25D, 0.0D);
             } else {
-                pMatrixStack.translate(0.0D, 0.0D, 0.0D);
+                pMatrixStack.translate(0.0D, 0.05D, 0.0D);
             }
         }
 
