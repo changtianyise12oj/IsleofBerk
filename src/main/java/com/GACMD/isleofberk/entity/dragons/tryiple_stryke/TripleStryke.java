@@ -751,28 +751,59 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         return 22;
     }
 
+//    protected SoundEvent getAmbientSound() {
+//        if (this.isDragonSleeping()) {
+//            return ModSounds.TRIPLE_STRYKE_SLEEP.get();
+//        } else {
+//            return ModSounds.TRIPLE_STRYKE_GROWL.get();
+//        }
+//    }
+//
+//    protected SoundEvent getTameSound() {
+//        return ModSounds.TRIPLE_STRYKE_TAME.get();
+//    }
+//
+//    protected SoundEvent getProjectileSound() {
+//        return ModSounds.TRIPLE_STRYKE_FIRE.get();
+//    }
+//
+//    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
+//        return ModSounds.TRIPLE_STRYKE_HURT.get();
+//    }
+//
+//    protected SoundEvent getDeathSound() {
+//        return ModSounds.TRIPLE_STRYKE_DEATH.get();
+//    }
+
+
+    protected SoundEvent getProjectileSound() {
+        return ModSounds.GRONCKLE_FIRE.get();
+    }
+
     protected SoundEvent getAmbientSound() {
         if (this.isDragonSleeping()) {
-            return ModSounds.TRIPLE_STRYKE_SLEEP.get();
-        } else {
-            return ModSounds.TRIPLE_STRYKE_GROWL.get();
+            return ModSounds.STINGER_SLEEP.get();
+        }
+        else {
+            return ModSounds.STINGER_GROWL.get();
         }
     }
 
     protected SoundEvent getTameSound() {
-        return ModSounds.TRIPLE_STRYKE_TAME.get();
-    }
-
-    protected SoundEvent getProjectileSound() {
-        return ModSounds.TRIPLE_STRYKE_FIRE.get();
+        return ModSounds.STINGER_TAME.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return ModSounds.TRIPLE_STRYKE_HURT.get();
+        return ModSounds.STINGER_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return ModSounds.TRIPLE_STRYKE_DEATH.get();
+        return ModSounds.STINGER_DEATH.get();
+    }
+
+    @Override
+    protected SoundEvent get1stAttackSound() {
+        return ModSounds.STINGER_BITE.get();
     }
 
 
