@@ -907,7 +907,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             return true;
         }
 
-        if(getVehicle() != null || isVehicle()) {
+        if(getVehicle() instanceof Player) {
             return false;
         }
 

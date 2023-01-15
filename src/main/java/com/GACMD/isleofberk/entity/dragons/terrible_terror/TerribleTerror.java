@@ -430,6 +430,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         } else {
             super.rideTick();
         }
+
     }
 
     public void updateTerrorLatch(Entity vehicle) {
@@ -575,15 +576,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     @Override
     public void tick() {
         super.tick();
-        // attempt to remount to player when he/she disconnects
-        if (getLastMountedPlayerUUID() != null) {
-            Player player = level.getPlayerByUUID(this.getLastMountedPlayerUUID());
-
-            UUID lastMountedPlayerUUID = this.getLastMountedPlayerUUID();
-            if (player != null && lastMountedPlayerUUID != null && this.getLastMountedPlayerUUID() == player.getUUID()) {
-                this.ridePlayer(player);
-            }
-        }
 
         if (getVehicle() != null && getVehicle() instanceof Player vehicle) {
             Vec3 vehicleLook = vehicle.getViewVector(1);
