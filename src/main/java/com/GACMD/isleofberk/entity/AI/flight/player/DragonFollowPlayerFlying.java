@@ -81,10 +81,10 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
                     dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * xDist), movePos.y(), movePos.z() + (tailingDragons.size() * zDist), 4);
                 }
 
-                dragon.setIsDragonInvulnerable(false);
+                dragon.setIsDragonDisabled(false);
             } else {
                 dragon.getNavigation().moveTo(dragon.getX(), dragon.getY(), dragon.getZ(), 4);
-                dragon.setIsDragonInvulnerable(true);
+                dragon.setIsDragonDisabled(true);
                 dragon.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Util.secondsToTicks(1)));
             }
         }
@@ -92,7 +92,7 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
 
     @Override
     public void stop() {
-        dragon.setIsDragonInvulnerable(false);
+        dragon.setIsDragonDisabled(false);
     }
 
     @Override

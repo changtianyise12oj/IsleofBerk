@@ -85,7 +85,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected static final EntityDataAccessor<Boolean> TITAN_WING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_INCAPACITATED = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> ABILITY = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
-    protected static final EntityDataAccessor<Boolean> INVULNERABLE = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> DISABLED = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SECOND_ABILITY = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_MALE = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
@@ -114,7 +114,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     public boolean isInvulnerableTo(@NotNull DamageSource pSource) {
-        if (pSource == DamageSource.IN_FIRE || pSource == DamageSource.ON_FIRE || pSource == DamageSource.FALL || pSource == DamageSource.LAVA || pSource == DamageSource.IN_WALL || pSource == DamageSource.FLY_INTO_WALL || pSource == DamageSource.CACTUS || isDragonInvulnerable()) {
+        if (pSource == DamageSource.IN_FIRE || pSource == DamageSource.ON_FIRE || pSource == DamageSource.FALL || pSource == DamageSource.LAVA || pSource == DamageSource.IN_WALL || pSource == DamageSource.FLY_INTO_WALL || pSource == DamageSource.CACTUS || isDragonDisabled()) {
             return true;
         } else {
             return super.isInvulnerableTo(pSource);
@@ -135,7 +135,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.define(TITAN_WING, false);
         this.entityData.define(IS_INCAPACITATED, false);
         this.entityData.define(ABILITY, false);
-        this.entityData.define(INVULNERABLE, false);
+        this.entityData.define(DISABLED, false);
         this.entityData.define(SECOND_ABILITY, false);
         this.entityData.define(SLEEPING, false);
         this.entityData.define(ON_GROUND, false);
@@ -163,7 +163,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         pCompound.putInt("current_attack", this.getCurrentAttackType());
         pCompound.putBoolean("ability", this.isUsingAbility());
         pCompound.putBoolean("s_ability", this.isUsingSECONDAbility());
-        pCompound.putBoolean("dragon_invulnerable", this.isDragonInvulnerable());
+        pCompound.putBoolean("dragon_disabled", this.isDragonDisabled());
         pCompound.putBoolean("sleeping", this.isDragonSleeping());
         pCompound.putBoolean("dragonOnGround", this.isDragonOnGround());
         pCompound.putBoolean("sitting", this.isDragonSitting());
@@ -188,7 +188,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.setIsTitanWing(pCompound.getBoolean("titan_wing"));
         this.setIsUsingAbility(pCompound.getBoolean("ability"));
         this.setIsUsingSECONDAbility(pCompound.getBoolean("s_ability"));
-        this.setIsDragonInvulnerable(pCompound.getBoolean("dragon_invulnerable"));
+        this.setIsDragonDisabled(pCompound.getBoolean("dragon_disabled"));
         this.setIsDragonIncapacitated(pCompound.getBoolean("incapacitated"));
         this.setIsDragonSitting(pCompound.getBoolean("sitting"));
         this.setIsDragonRoaring(pCompound.getBoolean("roaring"));
@@ -455,12 +455,12 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.set(ABILITY, ability_pressed);
     }
 
-    public boolean isDragonInvulnerable() {
-        return this.entityData.get(INVULNERABLE);
+    public boolean isDragonDisabled() {
+        return this.entityData.get(DISABLED);
     }
 
-    public void setIsDragonInvulnerable(boolean invulnerable) {
-        this.entityData.set(INVULNERABLE, invulnerable);
+    public void setIsDragonDisabled(boolean invulnerable) {
+        this.entityData.set(DISABLED, invulnerable);
     }
 
     public boolean isUsingSECONDAbility() {
@@ -625,6 +625,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     /**
      * make nametags be placed by owner only to prevent other players changing dragon type to special
      * Many players can grief by changing dragon name and dragon name cannot be reset
+     *
      * @param pPlayer
      * @param pHand
      * @return
@@ -646,8 +647,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
             if (itemstack.getItem() instanceof SpawnEggItem) {
                 if (this.level instanceof ServerLevel) {
-                    SpawnEggItem spawneggitem = (SpawnEggItem)itemstack.getItem();
-                    Optional<Mob> optional = spawneggitem.spawnOffspringFromSpawnEgg(pPlayer, this, (EntityType<? extends Mob>)this.getType(), (ServerLevel)this.level, this.position(), itemstack);
+                    SpawnEggItem spawneggitem = (SpawnEggItem) itemstack.getItem();
+                    Optional<Mob> optional = spawneggitem.spawnOffspringFromSpawnEgg(pPlayer, this, (EntityType<? extends Mob>) this.getType(), (ServerLevel) this.level, this.position(), itemstack);
                     optional.ifPresent((p_21476_) -> {
                         this.onOffspringSpawnedFromEgg(pPlayer, p_21476_);
                     });
@@ -688,11 +689,13 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     public void setTarget(@Nullable LivingEntity pLivingEntity) {
-        if (!this.isBaby()) {
-            super.setTarget(pLivingEntity);
-        } else if (pLivingEntity instanceof Player playerTarget) {
-            if (!playerTarget.isCreative()) {
-                super.setTarget(playerTarget);
+        if (!isDragonDisabled()) {
+            if (!this.isBaby()) {
+                super.setTarget(pLivingEntity);
+            } else if (pLivingEntity instanceof Player playerTarget) {
+                if (!playerTarget.isCreative()) {
+                    super.setTarget(playerTarget);
+                }
             }
         }
     }
@@ -802,7 +805,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             this.setOrderedToSit(true);
         }
 
-        if(!isDragonSitting()) {
+        if (!isDragonSitting()) {
             this.setOrderedToSit(false);
         }
 
@@ -863,7 +866,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     public boolean isSilent() {
-        return super.isSilent() || isDragonInvulnerable();
+        return super.isSilent() || isDragonDisabled();
     }
 
     protected void sleepMechanics() {
@@ -924,15 +927,15 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             return true;
         }
 
-        if(getVehicle() instanceof Player) {
+        if (getVehicle() instanceof Player) {
             return false;
         }
 
-        if(!this.isInWater()) {
+        if (!this.isInWater()) {
             return false;
         }
 
-        if(!this.isWaterBelow()) {
+        if (!this.isWaterBelow()) {
             return false;
         }
 
