@@ -2,6 +2,9 @@ package com.GACMD.isleofberk.entity.AI.flight.player;
 
 import com.GACMD.isleofberk.entity.AI.flight.ADragonBaseBaseFlyingRideableGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.util.Util;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
@@ -77,8 +80,19 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
                     tailingDragons.put(owner.getUUID(), dragon);
                     dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * xDist), movePos.y(), movePos.z() + (tailingDragons.size() * zDist), 4);
                 }
+
+                dragon.setIsDragonInvulnerable(false);
+            } else {
+                dragon.getNavigation().moveTo(dragon.getX(), dragon.getY(), dragon.getZ(), 4);
+                dragon.setIsDragonInvulnerable(true);
+                dragon.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, Util.secondsToTicks(1)));
             }
         }
+    }
+
+    @Override
+    public void stop() {
+        dragon.setIsDragonInvulnerable(false);
     }
 
     @Override
