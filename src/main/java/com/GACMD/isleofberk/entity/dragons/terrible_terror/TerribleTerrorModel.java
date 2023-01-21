@@ -63,10 +63,9 @@ public class TerribleTerrorModel extends BaseDragonModel<TerribleTerror> {
 
     @Override
     public void setLivingAnimations(TerribleTerror terrible_terror, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(terrible_terror, uniqueID, customPredicate);
         ItemStack itemstack = terrible_terror.getItemBySlot(EquipmentSlot.MAINHAND);
 
-        if (itemstack == null) {
+        if (itemstack.isEmpty()) {
             IBone HeadTrack1 = this.getAnimationProcessor().getBone("HeadTrack1");
             IBone HeadTrack2 = this.getAnimationProcessor().getBone("HeadTrack1");
 
@@ -77,5 +76,6 @@ public class TerribleTerrorModel extends BaseDragonModel<TerribleTerror> {
             HeadTrack2.setRotationX(extraData.headPitch * ((float) Math.PI / 180F) / 2);
             HeadTrack2.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) / 2);
         }
+        super.setLivingAnimations(terrible_terror, uniqueID, customPredicate);
     }
 }
