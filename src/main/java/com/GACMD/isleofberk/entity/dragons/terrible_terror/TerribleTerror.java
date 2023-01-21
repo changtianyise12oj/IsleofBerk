@@ -763,7 +763,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             if (!dragonBase.getItemBySlot(EquipmentSlot.MAINHAND).isEmpty()) {
                 return false;
             } else if (dragonBase.getTarget() == null && dragonBase.getLastHurtByMob() == null) {
-                if (dragonBase.shouldStopMoving()) {
+                if (dragonBase.shouldStopMovingIndependently()) {
                     return false;
                 } else {
                     // set the y value to 4 blocks

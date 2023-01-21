@@ -22,7 +22,7 @@ public class IOBRandomLookAroundGoal extends Goal {
      * method as well.
      */
     public boolean canUse() {
-        return this.dragon.getRandom().nextFloat() < 0.02F && !dragon.shouldStopMoving();
+        return this.dragon.getRandom().nextFloat() < 0.02F && !dragon.shouldStopMovingIndependently();
     }
 
     /**

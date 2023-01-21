@@ -68,7 +68,7 @@ public class IOBLookAtPlayerGoal extends Goal {
                 }), this.lookAtContext, this.dragon, this.dragon.getX(), this.dragon.getEyeY(), this.dragon.getZ());
             }
 
-            return this.lookAt != null && !dragon.shouldStopMoving();
+            return this.lookAt != null && !dragon.shouldStopMovingIndependently();
         }
     }
 

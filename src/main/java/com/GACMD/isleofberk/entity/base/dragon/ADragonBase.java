@@ -662,13 +662,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         }
     }
 
-    public boolean shouldStopMoving() {
-        return this.isDragonSleeping() || this.isDragonSitting() && !isVehicle() || isDragonIncapacitated();
+    public boolean shouldStopMovingIndependently() {
+        return this.isDragonSleeping() || this.isDragonSitting() || isDragonIncapacitated() && !isVehicle();
     }
 
-    public boolean shouldStopMovingIndependently() {
-        return this.isDragonSleeping() || this.isDragonSitting() && !isVehicle() || isDragonIncapacitated();
-    }
 
     @Override
     public void swing(@NotNull InteractionHand pHand) {
@@ -809,7 +806,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             this.setOrderedToSit(false);
         }
 
-        if (shouldStopMoving()) {
+        if (shouldStopMovingIndependently()) {
             this.getNavigation().stop();
             this.getNavigation().timeoutPath();
             this.setRot(this.getYRot(), this.getXRot());
@@ -950,7 +947,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     public void setYRot(float pYRot) {
-        if (!shouldStopMoving())
+        if (!shouldStopMovingIndependently())
             super.setYRot(pYRot);
     }
 

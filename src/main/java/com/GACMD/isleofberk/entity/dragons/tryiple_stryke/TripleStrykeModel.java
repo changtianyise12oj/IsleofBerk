@@ -101,7 +101,7 @@ public class TripleStrykeModel extends BaseDragonModelFlying<TripleStryke> {
         }
 
         // head tracking when not mounted
-        if (!dragon.shouldStopMovingIndependently() && dragon.getControllingPassenger() instanceof Player) {
+        if (!dragon.shouldStopMovingIndependently()) {
             neck1.setRotationY(rotNeck1Y + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
             neck2.setRotationY(rotNeck2Y + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
             head.setRotationY(rotHeadY + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);

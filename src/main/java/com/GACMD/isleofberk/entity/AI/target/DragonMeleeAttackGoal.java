@@ -62,7 +62,7 @@ public class DragonMeleeAttackGoal extends Goal {
                 if (this.path != null) {
                     return true;
                 } else {
-                    return !dragon.shouldStopMoving() && this.getAttackReachSqr(livingentity) >= this.dragon.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
+                    return !dragon.shouldStopMovingIndependently() && this.getAttackReachSqr(livingentity) >= this.dragon.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
                 }
             }
 
@@ -85,7 +85,7 @@ public class DragonMeleeAttackGoal extends Goal {
         } else if (!this.dragon.isWithinRestriction(livingentity.blockPosition())) {
             return false;
         } else {
-            return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative() && !dragon.shouldStopMoving();
+            return !(livingentity instanceof Player) || !livingentity.isSpectator() && !((Player) livingentity).isCreative() && !dragon.shouldStopMovingIndependently();
         }
     }
 
