@@ -1808,6 +1808,11 @@
 					"rotation": {
 						"vector": [0, 0, 0]
 					}
+				},
+				"rotation": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
@@ -1827,6 +1832,31 @@
 				"HeadRot": {
 					"rotation": {
 						"vector": [0, -10, 0]
+					}
+				}
+			}
+		},
+		"Gronckle.tailrotleft1f": {
+			"loop": true,
+			"bones": {
+				"Tail1Rot": {
+					"rotation": {
+						"vector": [0, 5, -2.5]
+					}
+				},
+				"Tail2Rot": {
+					"rotation": {
+						"vector": [0, 10, 0]
+					}
+				},
+				"HeadRot": {
+					"rotation": {
+						"vector": [0, -10, -5]
+					}
+				},
+				"rotation": {
+					"rotation": {
+						"vector": [0, 0, 7.5]
 					}
 				}
 			}
@@ -1851,6 +1881,31 @@
 				}
 			}
 		},
+		"Gronckle.tailrotright1f": {
+			"loop": true,
+			"bones": {
+				"Tail1Rot": {
+					"rotation": {
+						"vector": [0, -5, 2.5]
+					}
+				},
+				"Tail2Rot": {
+					"rotation": {
+						"vector": [0, -10, 0]
+					}
+				},
+				"HeadRot": {
+					"rotation": {
+						"vector": [0, 10, 5]
+					}
+				},
+				"rotation": {
+					"rotation": {
+						"vector": [0, 0, -7.5]
+					}
+				}
+			}
+		},
 		"Gronckle.tailrotleft2": {
 			"loop": true,
 			"bones": {
@@ -1867,6 +1922,31 @@
 				"HeadRot": {
 					"rotation": {
 						"vector": [0, -20, 0]
+					}
+				}
+			}
+		},
+		"Gronckle.tailrotleft2f": {
+			"loop": true,
+			"bones": {
+				"Tail1Rot": {
+					"rotation": {
+						"vector": [0, 15, -5]
+					}
+				},
+				"Tail2Rot": {
+					"rotation": {
+						"vector": [0, 22.5, 0]
+					}
+				},
+				"HeadRot": {
+					"rotation": {
+						"vector": [0, -20, -7.5]
+					}
+				},
+				"rotation": {
+					"rotation": {
+						"vector": [0, 0, 15]
 					}
 				}
 			}
@@ -1892,6 +1972,36 @@
 				"Tail1": {
 					"rotation": {
 						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"Gronckle.tailrotright2f": {
+			"loop": true,
+			"bones": {
+				"Tail1Rot": {
+					"rotation": {
+						"vector": [0, -15, 2.5]
+					}
+				},
+				"Tail2Rot": {
+					"rotation": {
+						"vector": [0, -22.5, 0]
+					}
+				},
+				"HeadRot": {
+					"rotation": {
+						"vector": [0, 20, 7.5]
+					}
+				},
+				"Tail1": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"rotation": {
+					"rotation": {
+						"vector": [0, 0, -15]
 					}
 				}
 			}

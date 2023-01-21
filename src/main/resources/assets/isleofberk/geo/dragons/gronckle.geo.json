@@ -16,8 +16,13 @@
 					"pivot": [0, 0, 0]
 				},
 				{
-					"name": "Chest",
+					"name": "rotation",
 					"parent": "root",
+					"pivot": [0, 29, 0]
+				},
+				{
+					"name": "Chest",
+					"parent": "rotation",
 					"pivot": [0, 29, 0],
 					"rotation": [-7.5, 0, 0],
 					"cubes": [

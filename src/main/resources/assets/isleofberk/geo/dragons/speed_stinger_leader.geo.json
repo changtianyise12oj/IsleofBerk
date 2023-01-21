@@ -3,16 +3,21 @@
 	"minecraft:geometry": [
 		{
 			"description": {
-				"identifier": "geometry.speed_stinger_leader",
+				"identifier": "geometry.unknown",
 				"texture_width": 128,
-				"texture_height": 128,
+				"texture_height": 64,
 				"visible_bounds_width": 8,
 				"visible_bounds_height": 3.5,
 				"visible_bounds_offset": [0, 1.25, 0]
 			},
 			"bones": [
 				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
 					"name": "Chest",
+					"parent": "root",
 					"pivot": [0, 20.25, -7],
 					"rotation": [15, 0, 0],
 					"cubes": [
@@ -79,7 +84,7 @@
 					]
 				},
 				{
-					"name": "Head",
+					"name": "head",
 					"parent": "Neck2",
 					"pivot": [0, 14.75, -22.5],
 					"rotation": [25, 0, 0],
@@ -89,7 +94,7 @@
 				},
 				{
 					"name": "Muzzle",
-					"parent": "Head",
+					"parent": "head",
 					"pivot": [0, 17.75, -29.5],
 					"rotation": [15, 0, 0],
 					"cubes": [
@@ -123,8 +128,26 @@
 					]
 				},
 				{
+					"name": "leftEye",
+					"parent": "Muzzle",
+					"pivot": [1.75, 16.5, -32.85],
+					"rotation": [0, 15, 0],
+					"cubes": [
+						{"origin": [0.75608, 15, -34.31946], "size": [2, 3, 3], "inflate": -0.5, "uv": [109, 29]}
+					]
+				},
+				{
+					"name": "rightEye",
+					"parent": "Muzzle",
+					"pivot": [-1.75, 16.5, -32.85],
+					"rotation": [0, -15, 0],
+					"cubes": [
+						{"origin": [-2.75608, 15, -34.31946], "size": [2, 3, 3], "inflate": -0.5, "uv": [109, 29], "mirror": true}
+					]
+				},
+				{
 					"name": "Jaw1",
-					"parent": "Head",
+					"parent": "head",
 					"pivot": [0, 14.35, -23],
 					"rotation": [5, 0, 0],
 					"cubes": [
@@ -187,7 +210,7 @@
 				},
 				{
 					"name": "HeadFinspike",
-					"parent": "Head",
+					"parent": "head",
 					"pivot": [0, 17.75, -28.5],
 					"rotation": [-60, 0, 0],
 					"cubes": [

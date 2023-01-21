@@ -15,7 +15,7 @@
 				},
 				"leftWingArm": {
 					"rotation": {
-						"vector": [0, -50, 0]
+						"vector": [0, -52.5, 0]
 					}
 				},
 				"leftWingFArmM": {
@@ -25,7 +25,7 @@
 				},
 				"leftWFHalf": {
 					"rotation": {
-						"vector": [-5, -35, 0]
+						"vector": [-5, -25, 0]
 					}
 				},
 				"leftWFa": {
@@ -50,7 +50,7 @@
 				},
 				"righWingFarm2": {
 					"rotation": {
-						"vector": [0, 32.5, 0]
+						"vector": [0, 40, 0]
 					}
 				},
 				"rightWingArmM": {
@@ -63,7 +63,7 @@
 				},
 				"rightWingArm": {
 					"rotation": {
-						"vector": [0, 50, 0]
+						"vector": [0, 52.5, 0]
 					}
 				},
 				"rightWingFArmM": {
@@ -73,7 +73,7 @@
 				},
 				"rightWFHalf": {
 					"rotation": {
-						"vector": [-5, 35, 0]
+						"vector": [-5, 25, 0]
 					}
 				},
 				"rightWFa": {
@@ -98,7 +98,7 @@
 				},
 				"righWingFarm3": {
 					"rotation": {
-						"vector": [0, -32.5, 0]
+						"vector": [0, -40, 0]
 					}
 				},
 				"leftHipWingA": {
@@ -284,7 +284,7 @@
 				},
 				"leftWingArm": {
 					"rotation": {
-						"vector": [0, -50, 0]
+						"vector": [0, -52.5, 0]
 					}
 				},
 				"leftWingFArmM": {
@@ -319,7 +319,7 @@
 				},
 				"righWingFarm2": {
 					"rotation": {
-						"vector": [0, 32.5, 0]
+						"vector": [0, 40, 0]
 					}
 				},
 				"rightWingArmM": {
@@ -332,7 +332,7 @@
 				},
 				"rightWingArm": {
 					"rotation": {
-						"vector": [0, 50, 0]
+						"vector": [0, 52.5, 0]
 					}
 				},
 				"rightWingFArmM": {
@@ -367,7 +367,7 @@
 				},
 				"righWingFarm3": {
 					"rotation": {
-						"vector": [0, -32.5, 0]
+						"vector": [0, -40, 0]
 					}
 				},
 				"leftHipWingA": {
@@ -558,7 +558,7 @@
 			"bones": {
 				"leftWingArmM": {
 					"rotation": {
-						"vector": [0, -10, "50+math.sin(query.anim_time * 200 - 60) * -1.5"]
+						"vector": [2.5, -2.5, "40+math.sin(query.anim_time * 200 - 60) * -1.5"]
 					},
 					"scale": {
 						"vector": [0.8, 1, 0.8]
@@ -566,7 +566,7 @@
 				},
 				"leftWingArm": {
 					"rotation": {
-						"vector": [0, -50, 0]
+						"vector": [0, -62.5, 0]
 					}
 				},
 				"leftWingFArmM": {
@@ -606,7 +606,7 @@
 				},
 				"rightWingArmM": {
 					"rotation": {
-						"vector": [0, 10, "-50+math.sin(query.anim_time * 200 - 70) * 1.5"]
+						"vector": [2.5, 2.5, "-40+math.sin(query.anim_time * 200 - 70) * 1.5"]
 					},
 					"scale": {
 						"vector": [0.8, 1, 0.8]
@@ -614,7 +614,7 @@
 				},
 				"rightWingArm": {
 					"rotation": {
-						"vector": [0, 50, 0]
+						"vector": [0, 60, 0]
 					}
 				},
 				"rightWingFArmM": {
@@ -783,7 +783,7 @@
 						"vector": [-38.5, 0, 0]
 					},
 					"position": {
-						"vector": [0, "-1.25+math.sin(query.anim_time * 200) * 0.2", 0]
+						"vector": [0, "3.75+math.sin(query.anim_time * 200) * 0.2", 0]
 					}
 				},
 				"leftWingArmM": {
@@ -796,7 +796,7 @@
 				},
 				"leftWingArm": {
 					"rotation": {
-						"vector": [0, -47.5, 0]
+						"vector": [0, -70, 0]
 					}
 				},
 				"leftWingFArmM": {
@@ -806,7 +806,7 @@
 				},
 				"leftWFHalf": {
 					"rotation": {
-						"vector": [-2.5, -52.5, 0]
+						"vector": [-2.5, -47.5, 0]
 					}
 				},
 				"leftWFa": {
@@ -836,7 +836,7 @@
 				},
 				"righWingFarm2": {
 					"rotation": {
-						"vector": [0, 35, 0]
+						"vector": [0, 30, 0]
 					}
 				},
 				"rightWingArmM": {
@@ -849,7 +849,7 @@
 				},
 				"rightWingArm": {
 					"rotation": {
-						"vector": [0, 50, 0]
+						"vector": [0, 70, 0]
 					}
 				},
 				"rightWingFArmM": {
@@ -859,7 +859,7 @@
 				},
 				"rightWFHalf": {
 					"rotation": {
-						"vector": [-2.5, 47.5, 0]
+						"vector": [-2.5, 42.5, 0]
 					}
 				},
 				"rightWFa": {
@@ -889,7 +889,7 @@
 				},
 				"righWingFarm3": {
 					"rotation": {
-						"vector": [0, -32.5, 0]
+						"vector": [0, -30, 0]
 					}
 				},
 				"NeckBase": {
@@ -1078,7 +1078,7 @@
 				},
 				"leftWingArm": {
 					"rotation": {
-						"vector": [0, -50, 0]
+						"vector": [0, -60, 0]
 					}
 				},
 				"leftWingFArmM": {
@@ -1088,7 +1088,7 @@
 				},
 				"leftWFHalf": {
 					"rotation": {
-						"vector": [-5, -30, -2.5]
+						"vector": [-5, -17.5, -2.5]
 					}
 				},
 				"leftWFa": {
@@ -1131,7 +1131,7 @@
 				},
 				"rightWingArm": {
 					"rotation": {
-						"vector": [0, 47.5, 0]
+						"vector": [0, 57.5, 0]
 					}
 				},
 				"rightWingFArmM": {
@@ -1141,7 +1141,7 @@
 				},
 				"rightWFHalf": {
 					"rotation": {
-						"vector": [-7.5, 32.5, 7.5]
+						"vector": [-7.5, 25, 7.5]
 					}
 				},
 				"rightWFa": {
@@ -1176,7 +1176,7 @@
 				},
 				"NeckBase": {
 					"rotation": {
-						"vector": ["5+math.sin(query.anim_time * 200 + 25) * 0.5", -22.5, 0]
+						"vector": ["10+math.sin(query.anim_time * 200 + 25) * 0.5", -22.5, 0]
 					}
 				},
 				"Neck": {
@@ -1311,7 +1311,7 @@
 				},
 				"rightArm": {
 					"rotation": {
-						"vector": [-95, -7.5, 0]
+						"vector": [-95, 0, 0]
 					},
 					"position": {
 						"vector": [0, "math.sin(query.anim_time * 200) * -0.2", 0]
