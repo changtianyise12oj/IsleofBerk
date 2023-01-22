@@ -110,7 +110,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                 return PlayState.CONTINUE;
             }
             if (event.isMoving() && !shouldStopMovingIndependently()) {
-                if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14  || (isVehicle() && getControllingPassenger() != null && getControllingPassenger().isSprinting())) {
+                if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14  || isVehicle()) {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
 
