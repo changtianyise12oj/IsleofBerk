@@ -110,7 +110,7 @@ public class LightFury extends NightFury {
                     return PlayState.CONTINUE;
 
                 } else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.walk", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
                 }
             }

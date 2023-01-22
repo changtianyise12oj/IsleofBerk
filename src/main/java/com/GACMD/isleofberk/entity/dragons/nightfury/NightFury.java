@@ -115,7 +115,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                     return PlayState.CONTINUE;
 
                 } else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.walk", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
                 }
             }

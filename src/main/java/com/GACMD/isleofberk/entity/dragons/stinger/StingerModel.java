@@ -7,6 +7,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.processor.IBone;
+import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 @OnlyIn(Dist.CLIENT)
 public class StingerModel extends BaseDragonModel<Stinger> {
@@ -44,9 +45,9 @@ public class StingerModel extends BaseDragonModel<Stinger> {
         IBone collar = this.getAnimationProcessor().getBone("Collar");
         IBone spike2 = this.getAnimationProcessor().getBone("Spike2");
 
-/*        IBone headTrack1 = this.getAnimationProcessor().getBone("HeadTrack1");
+        IBone headTrack1 = this.getAnimationProcessor().getBone("HeadTrack1");
         IBone headTrack2 = this.getAnimationProcessor().getBone("HeadTrack2");
-        IBone headTrack3 = this.getAnimationProcessor().getBone("HeadTrack3"); */
+        IBone headTrack3 = this.getAnimationProcessor().getBone("HeadTrack3");
 
         // hides spikes when dragon is saddled
         if(stinger.hasSaddle()) {
@@ -58,9 +59,7 @@ public class StingerModel extends BaseDragonModel<Stinger> {
             collar.setHidden(true);
         }
 
-        // to fix when Ill find new model
-/*        if (!stinger.isRenderedOnGUI()) {
-
+        if (!stinger.isRenderedOnGUI()) {
             //headtracking
             EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
             headTrack1.setRotationX(extraData.headPitch * ((float) Math.PI / 180F) / 3);
@@ -69,7 +68,7 @@ public class StingerModel extends BaseDragonModel<Stinger> {
             headTrack2.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
             headTrack3.setRotationX(extraData.headPitch * ((float) Math.PI / 180F) / 3);
             headTrack3.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
-        } */
+        }
     }
 
     @Override
