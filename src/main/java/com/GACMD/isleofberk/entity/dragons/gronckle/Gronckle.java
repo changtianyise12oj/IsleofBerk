@@ -455,7 +455,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0D)
+                .add(Attributes.MAX_HEALTH, 120.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.37F)
                 .add(Attributes.ARMOR, 8)
                 .add(Attributes.FLYING_SPEED, 0.08F)

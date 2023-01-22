@@ -236,7 +236,7 @@ public class LightFury extends NightFury {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 60.0D)
+                .add(Attributes.MAX_HEALTH, 170.0D)
                 .add(Attributes.ARMOR, 0.5)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.18F)
