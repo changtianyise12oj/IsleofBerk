@@ -34,7 +34,7 @@ public class LightFuryModel extends BaseDragonModelFlying<LightFury> {
 
     @Override
     public ResourceLocation getAnimationFileLocation(LightFury entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/nightfury.animation.json");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/light_fury.animation.json");
     }
 
 /*    @Override

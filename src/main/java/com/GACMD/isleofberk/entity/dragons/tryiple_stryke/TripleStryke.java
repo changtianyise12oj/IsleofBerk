@@ -185,12 +185,60 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     }
 
-    private <E extends IAnimatable> PlayState rotUpController(AnimationEvent<E> event) {
-        if (isGoingUp()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("rot0", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+    private <E extends IAnimatable> PlayState turnController(AnimationEvent<E> event) {
+        int turnState = this.getRotationState();
+        if (turnState != 0 && getControllingPassenger() instanceof Player) {
+            if (isFlying()) {
+                boolean diving = getXRot() >= 32 && event.isMoving();
+                if (isGoingUp() || diving) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else {
+                    if (turnState == 1) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotleft1f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == 2) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotleft2f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == -1) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotright1f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == -2) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotright2f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    }
+                }
+            } else {
+                if (turnState == 1) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotleft1", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == 2) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotleft2", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == -1) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotright1", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == -2) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotright2", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                }
+            }
+        } else {
+            event.getController().setAnimationSpeed(4);
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
+
     }
 
     // Animation
@@ -199,6 +247,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         data.addAnimationController(new AnimationController<TripleStryke>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<TripleStryke>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<TripleStryke>(this, "stingAttackController", 0, this::stingAttackController));
+        data.addAnimationController(new AnimationController<TripleStryke>(this, "turn_Controller", 0, this::turnController));
     }
 
     public TripleStryke(EntityType<? extends TripleStryke> entityType, Level level) {

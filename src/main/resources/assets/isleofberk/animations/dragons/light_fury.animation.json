@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"nightfury.walk": {
+		"lightfury.walk": {
 			"loop": true,
 			"animation_length": 3.52,
 			"bones": {
@@ -270,7 +270,7 @@
 				}
 			}
 		},
-		"nightfury.run": {
+		"lightfury.run": {
 			"loop": true,
 			"animation_length": 3.6,
 			"bones": {
@@ -552,7 +552,7 @@
 				}
 			}
 		},
-		"nightfury.idle": {
+		"lightfury.idle": {
 			"loop": true,
 			"animation_length": 3.52,
 			"bones": {
@@ -774,7 +774,7 @@
 				}
 			}
 		},
-		"nightfury.sit": {
+		"lightfury.sit": {
 			"loop": true,
 			"animation_length": 1.76,
 			"bones": {
@@ -1056,7 +1056,7 @@
 				}
 			}
 		},
-		"nightfury.sleep": {
+		"lightfury.sleep": {
 			"loop": true,
 			"animation_length": 3.52,
 			"bones": {
@@ -1365,7 +1365,7 @@
 				}
 			}
 		},
-		"nightfury.flap": {
+		"lightfury.flap": {
 			"loop": true,
 			"animation_length": 2.4,
 			"bones": {
@@ -1584,7 +1584,7 @@
 				}
 			}
 		},
-		"nightfury.flyup": {
+		"lightfury.flyup": {
 			"loop": true,
 			"animation_length": 2.4,
 			"bones": {
@@ -1803,7 +1803,7 @@
 				}
 			}
 		},
-		"nightfury.hover": {
+		"lightfury.hover": {
 			"loop": true,
 			"animation_length": 2.4,
 			"bones": {
@@ -2022,7 +2022,7 @@
 				}
 			}
 		},
-		"nightfury.glide": {
+		"lightfury.glide": {
 			"loop": true,
 			"animation_length": 3.6,
 			"bones": {
@@ -2158,7 +2158,7 @@
 				}
 			}
 		},
-		"nightfury.dive": {
+		"lightfury.dive": {
 			"loop": true,
 			"animation_length": 3.6,
 			"bones": {
@@ -2394,7 +2394,7 @@
 				}
 			}
 		},
-		"nightfury.roar": {
+		"lightfury.roar": {
 			"loop": true,
 			"animation_length": 1.95833,
 			"bones": {
@@ -2476,7 +2476,7 @@
 				}
 			}
 		},
-		"nightfury.bite": {
+		"lightfury.bite": {
 			"loop": true,
 			"animation_length": 0.66667,
 			"bones": {
@@ -2583,7 +2583,7 @@
 				}
 			}
 		},
-		"nightfury.breath": {
+		"lightfury.breath": {
 			"loop": true,
 			"animation_length": 0.58333,
 			"bones": {
@@ -2713,7 +2713,7 @@
 				}
 			}
 		},
-		"nightfury.tailrot0": {
+		"lightfury.tailrot0": {
 			"loop": true,
 			"bones": {
 				"rotation": {
@@ -2758,7 +2758,7 @@
 				}
 			}
 		},
-		"nightfury.tailrotleft1": {
+		"lightfury.tailrotleft1": {
 			"loop": true,
 			"bones": {
 				"rotation": {
@@ -2803,7 +2803,7 @@
 				}
 			}
 		},
-		"nightfury.tailrotleft1f": {
+		"lightfury.tailrotleft1f": {
 			"loop": true,
 			"bones": {
 				"rotation": {
@@ -2848,7 +2848,7 @@
 				}
 			}
 		},
-		"nightfury.tailrotright1": {
+		"lightfury.tailrotright1": {
 			"loop": true,
 			"bones": {
 				"rotation": {
@@ -2893,7 +2893,7 @@
 				}
 			}
 		},
-		"nightfury.tailrotright1f": {
+		"lightfury.tailrotright1f": {
 			"loop": true,
 			"bones": {
 				"rotation": {
@@ -2938,7 +2938,7 @@
 				}
 			}
 		},
-		"nightfury.tailrotleft2": {
+		"lightfury.tailrotleft2": {
 			"loop": true,
 			"bones": {
 				"rotation": {
@@ -2983,7 +2983,7 @@
 				}
 			}
 		},
-		"nightfury.tailrotleft2f": {
+		"lightfury.tailrotleft2f": {
 			"loop": true,
 			"bones": {
 				"rotation": {
@@ -3028,7 +3028,7 @@
 				}
 			}
 		},
-		"nightfury.tailrotright2": {
+		"lightfury.tailrotright2": {
 			"loop": true,
 			"bones": {
 				"rotation": {
@@ -3073,7 +3073,7 @@
 				}
 			}
 		},
-		"nightfury.tailrotright2f": {
+		"lightfury.tailrotright2f": {
 			"loop": true,
 			"bones": {
 				"rotation": {

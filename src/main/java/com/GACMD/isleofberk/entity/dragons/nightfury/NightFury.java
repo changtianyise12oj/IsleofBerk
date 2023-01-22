@@ -111,11 +111,11 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
             }
             if (event.isMoving() && !shouldStopMovingIndependently()) {
                 if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.walk", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
 
                 } else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.walk", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
                 }
             }
@@ -465,7 +465,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     @Override
     public int getMaxPlayerBoltBlast() {
-        return 100;
+        return 60;
     }
 
     @Override

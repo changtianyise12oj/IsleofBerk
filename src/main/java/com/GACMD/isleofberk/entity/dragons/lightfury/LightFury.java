@@ -21,17 +21,188 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.builder.ILoopType;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
 
 public class LightFury extends NightFury {
 
     private int ticksUsingSecondAbility;
     private int ticksSecondAbilityRecharge;
+
+    /**
+     * 0 is default - value is up and positive value is down
+     *
+     * @param event
+     * @param <E>
+     * @return
+     */
+    private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
+        if ((isFlying() && !event.isMoving())) {
+            // the head looks down during hover which looks awful and distorted so temporary disabled
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); // hover
+            setShouldPlayFlapping(true);
+            return PlayState.CONTINUE;
+        }
+        if (isFlying()) {
+            if (event.isMoving()) {
+                if (getControllingPassenger() instanceof Player) {
+//                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
+                    if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(true);
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() >= 11 && this.getXRot() < 26 && !isGoingUp()) { // < 20
+                        setShouldPlayFlapping(false);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
+                        setShouldPlayFlapping(false);
+                        return PlayState.CONTINUE;
+                    }
+                    // different values for pitch and roll when following elytra flying player
+                } else if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
+                    float dist = distanceTo(player);
+                    double ydist = this.getY() - player.getY();
+                    if (dist > 8.3F && ydist < 4 || ydist < -1.8F) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(true);
+                        return PlayState.CONTINUE;
+                    }
+                    if (dist < 8.3F || ydist > 4) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(false);
+                        return PlayState.CONTINUE;
+                    } else {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(true);
+                        return PlayState.CONTINUE;
+                    }
+                } else {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                    setShouldPlayFlapping(true);
+                    return PlayState.CONTINUE;
+                }
+
+            }
+        } else {
+            if (this.isDragonSitting() && !isDragonSleeping()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.sit", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+            if (event.isMoving() && !shouldStopMovingIndependently()) {
+                if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+
+                } else {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                }
+            }
+            if (this.isDragonSleeping()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.sleep", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+
+
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.idle", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.CONTINUE;
+    }
+
+    private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
+        if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
+            if (getCurrentAttackType() == 0) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.bite", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+        }
+        if (isMarkFired()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.breath", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
+    }
+
+    private <E extends IAnimatable> PlayState turnController(AnimationEvent<E> event) {
+        int turnState = this.getRotationState();
+        if (turnState != 0 && getControllingPassenger() instanceof Player) {
+            if (isFlying()) {
+                boolean diving = getXRot() >= 32 && event.isMoving();
+                if (isGoingUp() || diving) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else {
+                    if (turnState == 1) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.tailrotleft1f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == 2) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.tailrotleft2f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == -1) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.tailrotright1f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == -2) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.tailrotright2f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    }
+                }
+            } else {
+                if (turnState == 1) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.tailrotleft1", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == 2) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.tailrotleft2", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == -1) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.tailrotright1", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == -2) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.tailrotright2", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                }
+            }
+        } else {
+            event.getController().setAnimationSpeed(4);
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
+
+    }
+
+    // Animation
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController<LightFury>(this, "basic_MovementController", 4, this::basicMovementController));
+        data.addAnimationController(new AnimationController<LightFury>(this, "attack_Controller", 0, this::attackController));
+        data.addAnimationController(new AnimationController<LightFury>(this, "turnController", 35, this::turnController));
+    }
 
     public LightFury(EntityType<? extends LightFury> entityType, Level level) {
         super(entityType, level);

@@ -46,7 +46,7 @@ public class MonstrousNightmareModel extends BaseDragonModelFlying<MonstrousNigh
 
     @Override
     public ResourceLocation getAnimationFileLocation(MonstrousNightmare entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/nightfury.animation.json");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/nightmare.animation.json");
     }
 
 

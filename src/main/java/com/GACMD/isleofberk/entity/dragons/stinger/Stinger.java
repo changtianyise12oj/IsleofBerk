@@ -45,54 +45,72 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     DragonPart[] subParts;
     DragonPart stingerRamOffset;
 
-    private <E extends IAnimatable> PlayState predicate1(AnimationEvent<E> event) {
-
-        if (isUsingAbility()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("Ram", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-        }
-        return PlayState.STOP;
-    }
 
     @Override
     protected float getStandingEyeHeight(@NotNull Pose pPose, @NotNull EntityDimensions pSize) {
         return pPose == Pose.SLEEPING ? 0.2F : pSize.height * 1.65F;
     }
 
+    private <E extends IAnimatable> PlayState predicate1(AnimationEvent<E> event) {
+
+        if (isUsingAbility()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.ram", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
+    }
+
     private <E extends IAnimatable> PlayState predicate2(AnimationEvent<E> event) {
         if (isDragonOnGround()) {
             if (this.isDragonSitting() && !isDragonSleeping()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("Sit", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.sit", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
             if (this.isDragonSleeping()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("Sleep", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.sleep", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
             if (isVehicle()) {
                 if (event.isMoving() && !shouldStopMovingIndependently()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Run", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.run", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
                 } else if (isUsingAbility() || (event.isMoving() && isUsingAbility())) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Ram", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("stuiinger.ram", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
                 }
             }
             if (event.isMoving() && !shouldStopMovingIndependently()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("Walk", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.walk", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
             if (isUsingAbility()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("Ram", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.ram", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
         } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("Jump", ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.jump", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
 
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("Idle", ILoopType.EDefaultLoopTypes.LOOP));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.idle", ILoopType.EDefaultLoopTypes.LOOP));
         return PlayState.CONTINUE;
+    }
+
+    private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
+        if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
+            if (getCurrentAttackType() == 0) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.bite", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+        }
+        return PlayState.STOP;
+    }
+
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController<Stinger>(this, "stinger_controller1", 5, this::predicate1));
+        data.addAnimationController(new AnimationController<Stinger>(this, "stinger_controller3", 0, this::attackController));
+        data.addAnimationController(new AnimationController<Stinger>(this, "stinger_controller2", 5, this::predicate2));
     }
 
     public Stinger(EntityType<? extends Stinger> entityType, Level level) {
@@ -221,12 +239,6 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     protected void registerGoals() {
         super.registerGoals();
         this.targetSelector.addGoal(1, new T2DragonFeedTamingGoal(this, 1));
-    }
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<Stinger>(this, "stinger_controller1", 5, this::predicate1));
-        data.addAnimationController(new AnimationController<Stinger>(this, "stinger_controller2", 5, this::predicate2));
     }
 
     //  Attributes
