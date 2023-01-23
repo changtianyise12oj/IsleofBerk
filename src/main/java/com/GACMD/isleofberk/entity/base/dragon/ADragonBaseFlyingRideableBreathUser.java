@@ -10,9 +10,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.AbstractFish;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -165,13 +162,14 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         if (!level.isClientSide()) {
             if (getTarget() != null && getTarget().getMaxHealth() > 18 && !(getTarget() instanceof AbstractFish)) {
                 if (!(getControllingPassenger() instanceof Player) || (!(getVehicle() instanceof Player) && this instanceof TerribleTerror)) {
-                    if (getRandom().nextInt(4) == 1 && getFRemainingTicks() <= 0) {
+                    if (getRandom().nextInt(8) == 1 && getFRemainingTicks() <= 0 && getRemainingFuel() > 0) {
                         setFRemainingTicks(Util.secondsToTicks(3));
                     }
 
                     if (getFRemainingTicks() > 0) {
                         firePrimary(getViewVector(1F), getThroatPos(this));
                         setIsUsingAbility(true);
+                        modifyFuel(-1);
                     }
                 }
             }
@@ -187,11 +185,13 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
     }
 
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
-        FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
-        fireProj.shoot(riderLook, 1F, 5D);
-        fireProj.setProjectileSize(1);
-        playProjectileSound();
-        level.addFreshEntity(fireProj);
+        if (random.nextInt(2) == 1) {
+            FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
+            fireProj.shoot(riderLook, 1F, 5D);
+            fireProj.setProjectileSize(1);
+            playProjectileSound();
+            level.addFreshEntity(fireProj);
+        }
 
     }
 

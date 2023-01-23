@@ -45,7 +45,7 @@ public class DragonOwnerHurtTargetGoal extends TargetGoal {
 
                 // do not attack pets that you own
                 if(ownerLastHurt instanceof TamableAnimal tamableAnimal) {
-                    if(tamableAnimal.getOwner() == tamableAnimal.getOwner() && tamableAnimal.isTame()) {
+                    if(tamableAnimal.getOwner() == dragon.getOwner() && tamableAnimal.isTame()) {
                         return false;
                     }
 

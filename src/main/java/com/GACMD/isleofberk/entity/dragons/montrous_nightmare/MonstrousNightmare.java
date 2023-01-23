@@ -344,7 +344,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
-        if (pSource.getDirectEntity() instanceof LivingEntity attacker && attacker.distanceTo(this) < 3 && !(attacker instanceof ADragonBase)) {
+        if (pSource.getDirectEntity() instanceof LivingEntity attacker && attacker.distanceTo(this) < 3 && getLastHurtByMobTimestamp() < 12 && attacker.getLastHurtByMobTimestamp() < 12) {
             attacker.setSecondsOnFire(5);
             attacker.hurt(DamageSource.thorns(this), 4.0F);
         }
@@ -407,8 +407,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
                 .add(Attributes.ARMOR, 6)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
-                .add(Attributes.ATTACK_DAMAGE, 20F)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F);
+                .add(Attributes.ATTACK_DAMAGE, 20F);
     }
 
     @Override

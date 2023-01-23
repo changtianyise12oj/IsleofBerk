@@ -903,6 +903,15 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             return false;
         }
 
+        if(getOwner() instanceof Mob mob) {
+            if(mob.getTarget() != null) {
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+
         if (this.isVehicle()) {
             return false;
         }

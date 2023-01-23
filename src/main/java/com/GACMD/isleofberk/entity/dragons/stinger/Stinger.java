@@ -250,8 +250,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
                 .add(Attributes.MOVEMENT_SPEED, 0.55F)
                 .add(Attributes.ATTACK_DAMAGE, 10F)
                 .add(Attributes.JUMP_STRENGTH, 4)
-                .add(Attributes.FOLLOW_RANGE, 16F)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
+                .add(Attributes.FOLLOW_RANGE, 32F)
                 .add(ForgeMod.SWIM_SPEED.get(), 10);
     }
 

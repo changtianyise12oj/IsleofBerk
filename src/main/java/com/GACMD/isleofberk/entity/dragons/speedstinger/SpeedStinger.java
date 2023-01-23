@@ -385,7 +385,6 @@ public class SpeedStinger extends ADragonRideableUtility {
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.ATTACK_DAMAGE, 6F)
                 .add(Attributes.FOLLOW_RANGE, 5F)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
                 .add(ForgeMod.SWIM_SPEED.get(), 10);
 
     }

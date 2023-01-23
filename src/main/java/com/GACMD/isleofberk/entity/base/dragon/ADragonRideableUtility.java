@@ -195,6 +195,8 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         Item item = itemstack.getItem();
         boolean ownedByPlayer = this.isOwnedBy(pPlayer);
 
+        setSleepDisturbTicks(Util.secondsToTicks(38));
+
         if (pPlayer.isCrouching() && ownedByPlayer && !guiLocked() && item != Items.STICK) {
             this.openGUI(pPlayer);
             return InteractionResult.SUCCESS;

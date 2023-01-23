@@ -242,7 +242,6 @@ public class LightFury extends NightFury {
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
                 .add(Attributes.ATTACK_DAMAGE, 12F)
-                .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
     }
 
