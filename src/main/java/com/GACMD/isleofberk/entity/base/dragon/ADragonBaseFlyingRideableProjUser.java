@@ -163,16 +163,16 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     @Override
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
         if (projectile.getDamageTier() == 1) {
-            return 21 + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.05F) : 0F);
+            return 20 + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.05F) : 0F);
         } else if (projectile.getDamageTier() == 2) {
-            return 27 + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+            return 21 + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.08F) : 0F);
         } else if (projectile.getDamageTier() == 3) {
-            return 30F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.20F) : 0F);
+            return 22F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
         } else if (projectile.getDamageTier() == 4) {
-            return 37F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.30F) : 0F);
+            return 22F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.11F) : 0F);
         }
 
-        return 24;
+        return 22;
     }
 
     public boolean canFireProj() {
