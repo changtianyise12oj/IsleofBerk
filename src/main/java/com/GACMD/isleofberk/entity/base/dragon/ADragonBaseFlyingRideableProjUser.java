@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
@@ -121,8 +122,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
 
         // probably scale the hitbox too
         // use in melee AI
-        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal) && !(getTarget() instanceof Player player && player.isCreative())) {
-//        if (getOwner() instanceof Player player) {
+        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof AbstractFish)) {
             if (!(getControllingPassenger() instanceof Player)) {
                 if (getRandom().nextInt(getChanceToFire()) == 1) {
                     setPlayerBoltBlastPendingScale((int) (getMaxPlayerBoltBlast() * getAIProjPowerPercentage()));

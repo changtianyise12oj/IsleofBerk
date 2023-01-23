@@ -9,7 +9,9 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Salmon;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -19,6 +21,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
 
     private static final EntityDataAccessor<Integer> FRST_FUEL = SynchedEntityData.defineId(ADragonBaseFlyingRideableBreathUser.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> SEC_FUEL = SynchedEntityData.defineId(ADragonBaseFlyingRideableBreathUser.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> F_BREATHING_TICKS = SynchedEntityData.defineId(ADragonBaseFlyingRideableBreathUser.class, EntityDataSerializers.INT);
 
     public int fBreathingTickst = 0;
 
@@ -32,6 +35,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         // fuel here spawns on world by default but does not define maximum amounts of fuel
         this.entityData.define(FRST_FUEL, getMaxFuel());
         this.entityData.define(SEC_FUEL, getMaxSecondFuel());
+        this.entityData.define(F_BREATHING_TICKS, 0);
     }
 
     public int getRemainingFuel() {
@@ -54,6 +58,14 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         this.entityData.set(SEC_FUEL, fuel);
     }
 
+    public int getFRemainingTicks() {
+        return this.entityData.get(F_BREATHING_TICKS);
+    }
+
+    public void setFRemainingTicks(int fuel) {
+        this.entityData.set(F_BREATHING_TICKS, fuel);
+    }
+
     public int getMaxSecondFuel() {
         return 25;
     }
@@ -63,6 +75,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         super.readAdditionalSaveData(pCompound);
         this.setRemainingFuel(pCompound.getInt("remaining_fuel"));
         this.setRemainingSecondFuel(pCompound.getInt("remaining_fuel2"));
+        this.setFRemainingTicks(pCompound.getInt("fBreathingTickst"));
     }
 
     @Override
@@ -70,6 +83,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         super.addAdditionalSaveData(pCompound);
         pCompound.putInt("remaining_fuel", getRemainingFuel());
         pCompound.putInt("remaining_fuel2", getRemainingSecondFuel());
+        pCompound.putInt("fBreathingTickst", getFRemainingTicks());
     }
 
     /**
@@ -146,35 +160,34 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
         }
 
 
-        if (fBreathingTickst > 0) {
-            fBreathingTickst--;
+        if (getFRemainingTicks() > 0) {
+            setFRemainingTicks(getFRemainingTicks() - 1);
         }
 
-        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal) && !(getTarget() instanceof Player player && player.isCreative())) {
+        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof AbstractFish)) {
             if (!(getControllingPassenger() instanceof Player) || (!(getVehicle() instanceof Player) && this instanceof TerribleTerror)) {
-                if (getRandom().nextInt(2) == 1 && fBreathingTickst <= 0 && getRemainingFuel() > 0) {
-                    fBreathingTickst = Util.secondsToTicks(1);
+                if (getRandom().nextInt(2) == 1 && getFRemainingTicks() <= 0) {
+                    if (getRemainingFuel() > 0) {
+                        setFRemainingTicks(Util.secondsToTicks(3));
+                    }
                 }
 
-                if (fBreathingTickst > 0) {
+                if (getFRemainingTicks() > 0) {
                     firePrimary(getViewVector(1F), getThroatPos(this));
                     setIsUsingAbility(true);
-                    modifyFuel(-1);
+                } else {
+                    setIsUsingAbility(false);
                 }
             }
 
         }
-//        if (getTarget() != null) {
-//            firePrimary(getViewVector(1F), getThroatPos(this));
-//            setIsUsingAbility(true);
-//            modifyFuel(-1);
-//        }
+
 
         if (this instanceof TerribleTerror terribleTerror) {
-            if (fBreathingTickst <= 0 && !(getVehicle() instanceof Player)) {
+            if (getFRemainingTicks() <= 0 && !(getVehicle() instanceof Player)) {
                 setIsUsingAbility(false);
             }
-        } else if (fBreathingTickst <= 0 && (getControllingPassenger() == null)) {
+        } else if (getFRemainingTicks() <= 0 && (getControllingPassenger() == null)) {
             setIsUsingAbility(false);
         }
     }

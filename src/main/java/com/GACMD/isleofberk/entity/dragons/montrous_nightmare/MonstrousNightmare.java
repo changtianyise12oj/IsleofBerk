@@ -344,7 +344,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
-        if (pSource.getDirectEntity() instanceof LivingEntity attacker && attacker.distanceTo(this) < 3) {
+        if (pSource.getDirectEntity() instanceof LivingEntity attacker && attacker.distanceTo(this) < 3 && !(attacker instanceof MonstrousNightmare)) {
             attacker.setSecondsOnFire(5);
             attacker.hurt(DamageSource.thorns(this), 4.0F);
         }
