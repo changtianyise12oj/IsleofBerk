@@ -197,38 +197,38 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
                 } else {
                     if (turnState == 1) {
                         event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotleft1f", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.lefttailrot1f", ILoopType.EDefaultLoopTypes.LOOP));
                         return PlayState.CONTINUE;
                     } else if (turnState == 2) {
                         event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotleft2f", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.lefttailrot2f", ILoopType.EDefaultLoopTypes.LOOP));
                         return PlayState.CONTINUE;
                     } else if (turnState == -1) {
                         event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotright1f", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.righttailrot1f", ILoopType.EDefaultLoopTypes.LOOP));
                         return PlayState.CONTINUE;
                     } else if (turnState == -2) {
                         event.getController().setAnimationSpeed(4);
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotright2f", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.righttailrot2f", ILoopType.EDefaultLoopTypes.LOOP));
                         return PlayState.CONTINUE;
                     }
                 }
             } else {
                 if (turnState == 1) {
                     event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotleft1", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.lefttailrot1", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
                 } else if (turnState == 2) {
                     event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotleft2", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.lefttailrot2", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
                 } else if (turnState == -1) {
                     event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotright1", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.righttailrot1", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
                 } else if (turnState == -2) {
                     event.getController().setAnimationSpeed(4);
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrotright2", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.righttailrot2", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
                 }
             }
