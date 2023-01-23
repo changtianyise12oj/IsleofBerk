@@ -284,7 +284,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                 .add(Attributes.ARMOR, 2)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
-                .add(Attributes.ATTACK_DAMAGE, 16F)
+                .add(Attributes.ATTACK_DAMAGE, 22F)
                 .add(Attributes.FOLLOW_RANGE, 16F)
                 .add(ForgeMod.STEP_HEIGHT_ADDITION.get(), 1F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
