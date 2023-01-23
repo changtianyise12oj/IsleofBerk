@@ -191,7 +191,7 @@ public class BaseLinearBoltProjectile extends BaseLinearFlightProjectile {
 
             for (int k2 = 0; k2 < list.size(); ++k2) {
                 Entity entity = list.get(k2);
-                if (!entity.ignoreExplosion() && entity != getExploder()) {
+                if (!entity.ignoreExplosion() && entity != getExploder() && !entity.isInvulnerableTo(DamageSource.IN_FIRE) && !entity.isInvulnerableTo(DamageSource.ON_FIRE)) {
                     double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
                     if (d12 <= 1.0D) {
                         double d5 = entity.getX() - this.x;

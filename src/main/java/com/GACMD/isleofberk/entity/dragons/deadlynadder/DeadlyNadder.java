@@ -353,7 +353,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         // use in melee AI
         if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal) && (getTarget() instanceof Player player && !player.isCreative())) {
             if (!(getControllingPassenger() instanceof Player)) {
-                if (getRandom().nextInt(25) == 1) {
+                if (getRandom().nextInt(4) == 1) {
                     performRangedAttackAI(getViewVector(1F), 1);
                     ticksSinceLastStingShootAI = Util.secondsToTicks(1);
                 }
@@ -426,16 +426,6 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     @Override
     public void swing(InteractionHand pHand) {
         super.swing(pHand);
-    }
-
-    /**
-     * Check if the ground 2 blocks below is a solid. Replacement for Vanilla onGround
-     *
-     * @return solidBlockState
-     */
-    public boolean isOnGround() {
-        BlockPos solidPos = new BlockPos(this.position().x, this.position().y - 1, this.position().z);
-        return !level.getBlockState(solidPos).isAir();
     }
 
     @Override
