@@ -75,6 +75,24 @@ public class BaseLinearBoltProjectile extends BaseLinearFlightProjectile {
     }
 
     /**
+     * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
+     */
+    public void shoot(Vec3 end, float partialTicks, double velocity) {
+        if (partialTicks == 1) {
+            if (dragon.tier1()) {
+                this.setDamageTier(1);
+            } else if (dragon.tier2()) {
+                this.setDamageTier(2);
+            } else if (dragon.tier3()) {
+                this.setDamageTier(3);
+            } else if (dragon.tier4()) {
+                this.setDamageTier(4);
+            }
+            super.shoot(end, partialTicks, velocity);
+        }
+    }
+
+    /**
      * Custom Explosion method used for making explosions with DragonSoulFire.
      *
      * @return The Explosion Object
@@ -173,7 +191,7 @@ public class BaseLinearBoltProjectile extends BaseLinearFlightProjectile {
 
             for (int k2 = 0; k2 < list.size(); ++k2) {
                 Entity entity = list.get(k2);
-                if (!entity.ignoreExplosion()) {
+                if (!entity.ignoreExplosion() && entity != getExploder()) {
                     double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
                     if (d12 <= 1.0D) {
                         double d5 = entity.getX() - this.x;

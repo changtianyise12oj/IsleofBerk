@@ -145,7 +145,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
     }
 
     protected int getChanceToFire() {
-        return 120;
+        return 40;
     }
 
     protected float getAIProjPowerPercentage() {
@@ -203,7 +203,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
             FireBolt bolt = new FireBolt(this, throat, dragonLook, level, getExplosionStrength());
             setTicksSinceLastFire(ticksSinceLastProjShootSet());
-            bolt.shoot(dragonLook, 1F);
+            bolt.shoot(dragonLook, 1F, 1F);
             bolt.setProjectileSize(getProjsSize());
             if (tier4() || tier3()) {
                 playProjectileSound();

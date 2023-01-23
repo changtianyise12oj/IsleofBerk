@@ -284,7 +284,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
                 .add(Attributes.ARMOR, 2)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
-                .add(Attributes.ATTACK_DAMAGE, 22F)
+                .add(Attributes.ATTACK_DAMAGE, 50F)
                 .add(Attributes.FOLLOW_RANGE, 32F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
 
@@ -367,7 +367,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
             setTicksSinceLastFire(ticksSinceLastProjShootSet());
             FuryBolt bolt = new FuryBolt(this, throat, dragonLook, level, getExplosionStrength());
-            bolt.shoot(dragonLook, 1F);
+            bolt.shoot(dragonLook, 1F, 5);
             bolt.setProjectileSize(getProjsSize());
             if (tier4() || tier3()) {
                 playProjectileSound();
@@ -403,7 +403,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     protected int getChanceToFire() {
-        return 80;
+        return 40;
     }
 
     @org.jetbrains.annotations.Nullable

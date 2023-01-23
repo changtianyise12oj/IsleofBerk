@@ -241,7 +241,7 @@ public class LightFury extends NightFury {
                 .add(Attributes.ATTACK_DAMAGE, 20F)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
-                .add(Attributes.ATTACK_DAMAGE, 12F)
+                .add(Attributes.ATTACK_DAMAGE, 50F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
     }
 
@@ -312,7 +312,7 @@ public class LightFury extends NightFury {
         if ((tier1() || tier2() || tier3() || tier4()) && !isUsingAbility()) {
             setTicksSinceLastFire(ticksSinceLastProjShootSet());
             FuryBolt bolt = new FuryBolt(this, throat, dragonLook, level, getExplosionStrength());
-            bolt.shoot(dragonLook, 1F);
+            bolt.shoot(dragonLook, 1F, 5);
             bolt.setProjectileSize(getProjsSize());
             if (tier4() || tier3()) {
                 playProjectileSound();
