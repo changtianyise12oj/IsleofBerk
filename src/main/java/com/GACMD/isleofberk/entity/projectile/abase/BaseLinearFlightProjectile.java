@@ -283,8 +283,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
     /**
      * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
      */
-    public void shoot(Vec3 end, float partialTicks, float pInaccuracy) {
-        double pVelocity = 5;
+    public void shoot(Vec3 end, float partialTicks, float pInaccuracy, double pVelocity) {
         Vec3 endVec = (new Vec3(end.x() * pVelocity, end.y() * pVelocity, end.z() * pVelocity));
 
         // plays particles
@@ -321,7 +320,11 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
     }
 
     public void shoot(Vec3 end, float partialTicks) {
-        shoot(end, partialTicks, 1);
+        shoot(end, partialTicks, 1, 5);
+    }
+
+    public void shoot(Vec3 end, float partialTicks, double velocity) {
+        shoot(end, partialTicks, 1,  velocity);
     }
 
     /**
