@@ -36,7 +36,7 @@ public class DragonSleepGoal extends ADragonBaseGoal {
             return false;
         }
 
-        return dragon.isOnGround() && !dragon.isInWater() && !dragon.isWaterBelow();
+        return dragon.isDragonOnGround() && !dragon.isInWater() && !dragon.isWaterBelow();
     }
 
     @Override

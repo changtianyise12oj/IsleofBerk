@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.base.path;
 
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
@@ -11,8 +12,11 @@ import net.minecraft.world.phys.Vec3;
 
 public class FlyingPathNavigation extends PathNavigation {
 
+    ADragonBaseFlyingRideable dragon;
+
     public FlyingPathNavigation(Mob p_26515_, Level p_26516_) {
         super(p_26515_, p_26516_);
+        this.dragon = (ADragonBaseFlyingRideable) p_26515_;
     }
 
     @Override
