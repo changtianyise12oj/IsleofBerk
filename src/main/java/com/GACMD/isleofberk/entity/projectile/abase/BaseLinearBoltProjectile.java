@@ -59,7 +59,7 @@ public class BaseLinearBoltProjectile extends BaseLinearFlightProjectile {
     /**
      * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
      */
-    public void shoot(Vec3 end, float partialTicks, int inaccuracy) {
+    public void shoot(Vec3 end, float partialTicks) {
         if (partialTicks == 1) {
 
             if (dragon.tier1()) {
