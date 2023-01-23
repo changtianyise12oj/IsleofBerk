@@ -210,7 +210,6 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     public NightFury(EntityType<? extends NightFury> entityType, Level level) {
         super(entityType, level);
-        createAttributes();
 
     }
 
@@ -405,7 +404,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     }
 
     protected int getChanceToFire() {
-        return 120;
+        return 80;
     }
 
     @org.jetbrains.annotations.Nullable
@@ -521,7 +520,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     @Override
     protected float getAIProjPowerPercentage() {
-        return 0.35F;
+        return 0.85F;
     }
 
     protected SoundEvent getAmbientSound() {
