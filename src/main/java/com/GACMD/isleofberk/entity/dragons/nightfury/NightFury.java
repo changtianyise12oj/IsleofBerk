@@ -281,7 +281,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 130.0D)
-                .add(Attributes.ARMOR, 2)
+                .add(Attributes.ARMOR, 3)
                 .add(Attributes.ARMOR_TOUGHNESS, 2)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
@@ -413,6 +413,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
         return dragon;
     }
 
+    // when hit player is target
     @Override
     public void tick() {
         super.tick();
