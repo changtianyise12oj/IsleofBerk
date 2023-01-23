@@ -45,6 +45,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
@@ -557,9 +558,9 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, 0.7D, 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new IOBRandomLookAroundGoal(this));
-        this.targetSelector.addGoal(0, new DragonHurtByTargetGoal(this));
-        this.targetSelector.addGoal(0, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(0, new DragonOwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(2, new DragonHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(2, new DragonOwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(2, new AggressionToPlayersGoal<>(this, Player.class, true, getAggressionType(), null));
     }
 
