@@ -4,7 +4,6 @@ import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
-import com.GACMD.isleofberk.entity.dragons.tryiple_stryke.TripleStryke;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.MonstrousNightmareEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
@@ -348,7 +347,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         LivingEntity attacker = getLastHurtByMob();
         if (attacker != null && attacker.distanceTo(this) < 3) {
             attacker.setSecondsOnFire(5);
-            attacker.hurt(DamageSource.indirectMobAttack(this, attacker), 6);
+            attacker.hurt(DamageSource.mobAttack(this), 6);
         }
         if (random.nextInt(24) == 1 && !isInWater()) {
             if (getControllingPassenger() == null) {
