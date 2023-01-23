@@ -11,8 +11,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Salmon;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.Pig;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -130,8 +130,6 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
             if (getControllingPassenger() != null && getControllingPassenger() instanceof Player player) {
 //                if (!player.isCreative())
                 modifyFuel(-1);
-            } else {
-                modifyFuel(-1);
             }
         }
 
@@ -164,24 +162,20 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
             setFRemainingTicks(getFRemainingTicks() - 1);
         }
 
-        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof AbstractFish)) {
-            if (!(getControllingPassenger() instanceof Player) || (!(getVehicle() instanceof Player) && this instanceof TerribleTerror)) {
-                if (getRandom().nextInt(2) == 1 && getFRemainingTicks() <= 0) {
-                    if (getRemainingFuel() > 0) {
+        if (!level.isClientSide()) {
+            if (getTarget() != null && getTarget().getMaxHealth() > 18 && !(getTarget() instanceof AbstractFish)) {
+                if (!(getControllingPassenger() instanceof Player) || (!(getVehicle() instanceof Player) && this instanceof TerribleTerror)) {
+                    if (getRandom().nextInt(4) == 1 && getFRemainingTicks() <= 0) {
                         setFRemainingTicks(Util.secondsToTicks(3));
                     }
-                }
 
-                if (getFRemainingTicks() > 0) {
-                    firePrimary(getViewVector(1F), getThroatPos(this));
-                    setIsUsingAbility(true);
-                } else {
-                    setIsUsingAbility(false);
+                    if (getFRemainingTicks() > 0) {
+                        firePrimary(getViewVector(1F), getThroatPos(this));
+                        setIsUsingAbility(true);
+                    }
                 }
             }
-
         }
-
 
         if (this instanceof TerribleTerror terribleTerror) {
             if (getFRemainingTicks() <= 0 && !(getVehicle() instanceof Player)) {

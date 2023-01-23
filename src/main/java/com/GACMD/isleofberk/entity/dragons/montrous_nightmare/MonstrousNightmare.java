@@ -272,7 +272,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         Vec3 bodyOrigin = position();
 
         double x = -Math.sin(this.getYRot() * Math.PI / 180) * 2.8;
-        double y = -1.8;
+        double y = getControllingPassenger() != null ? -1.8D : 1D;
         double z = Math.cos(this.getYRot() * Math.PI / 180) * 2.8;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
@@ -344,7 +344,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
-        if (pSource.getDirectEntity() instanceof LivingEntity attacker && attacker.distanceTo(this) < 3 && !(attacker instanceof MonstrousNightmare)) {
+        if (pSource.getDirectEntity() instanceof LivingEntity attacker && attacker.distanceTo(this) < 3 && !(attacker instanceof ADragonBase)) {
             attacker.setSecondsOnFire(5);
             attacker.hurt(DamageSource.thorns(this), 4.0F);
         }

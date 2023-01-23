@@ -37,19 +37,19 @@ public class ModEntities {
      * Dragons
      */
     public static final RegistryObject<EntityType<NightFury>> NIGHT_FURY = ENTITIES.register("night_fury",
-            () -> EntityType.Builder.of(NightFury::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
+            () -> EntityType.Builder.of(NightFury::new, MobCategory.CREATURE).sized(1.6f, 1.6f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "night_fury").toString()));
 
     public static final RegistryObject<EntityType<LightFury>> LIGHT_FURY = ENTITIES.register("light_fury",
-            () -> EntityType.Builder.of(LightFury::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
+            () -> EntityType.Builder.of(LightFury::new, MobCategory.CREATURE).sized(1.6f, 1.6f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "light_fury").toString()));
 
     public static final RegistryObject<EntityType<TripleStryke>> TRIPLE_STRYKE = ENTITIES.register("triple_stryke",
-            () -> EntityType.Builder.of(TripleStryke::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
+            () -> EntityType.Builder.of(TripleStryke::new, MobCategory.CREATURE).sized(1.6f, 1.6f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "triple_stryke").toString()));
 
     public static final RegistryObject<EntityType<DeadlyNadder>> DEADLY_NADDER = ENTITIES.register("deadly_nadder",
-            () -> EntityType.Builder.of(DeadlyNadder::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
+            () -> EntityType.Builder.of(DeadlyNadder::new, MobCategory.CREATURE).sized(1.6f, 1.6f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "deadly_nadder").toString()));
 
     public static final RegistryObject<EntityType<Gronckle>> GRONCKLE = ENTITIES.register("gronckle",
@@ -57,11 +57,11 @@ public class ModEntities {
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "gronckle").toString()));
 
     public static final RegistryObject<EntityType<MonstrousNightmare>> MONSTROUS_NIGHTMARE = ENTITIES.register("monstrous_nightmare",
-            () -> EntityType.Builder.of(MonstrousNightmare::new, MobCategory.CREATURE).sized(2.4f, 2.4f)
+            () -> EntityType.Builder.of(MonstrousNightmare::new, MobCategory.CREATURE).sized(2.0f, 2.0f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "monstrous_nightmare").toString()));
 
     public static final RegistryObject<EntityType<ZippleBack>> ZIPPLEBACK = ENTITIES.register("zippleback",
-            () -> EntityType.Builder.of(ZippleBack::new, MobCategory.CREATURE).sized(2.4f, 2.4f)
+            () -> EntityType.Builder.of(ZippleBack::new, MobCategory.CREATURE).sized(2.0f, 2.0f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "zippleback").toString()));
 
     public static final RegistryObject<EntityType<SpeedStingerLeader>> SPEED_STINGER_LEADER = ENTITIES.register("speed_stinger_leader",

@@ -2,7 +2,6 @@ package com.GACMD.isleofberk.entity.base.dragon;
 
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt.FireBolt;
-import com.GACMD.isleofberk.registery.ModSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.AbstractFish;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -122,11 +120,13 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
 
         // probably scale the hitbox too
         // use in melee AI
-        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof AbstractFish)) {
-            if (!(getControllingPassenger() instanceof Player)) {
-                if (getRandom().nextInt(getChanceToFire()) == 1) {
-                    setPlayerBoltBlastPendingScale((int) (getMaxPlayerBoltBlast() * getAIProjPowerPercentage()));
-                    dragonShootProjectile(getViewVector(1.0F), getThroatPos(this));
+        if (!level.isClientSide()) {
+            if (getTarget() != null && getTarget().getMaxHealth() > 18  && !(getTarget() instanceof AbstractFish)) {
+                if (!(getControllingPassenger() instanceof Player)) {
+                    if (getRandom().nextInt(getChanceToFire()) == 1) {
+                        setPlayerBoltBlastPendingScale((int) (getMaxPlayerBoltBlast() * getAIProjPowerPercentage()));
+                        dragonShootProjectile(getViewVector(1.0F), getThroatPos(this));
+                    }
                 }
             }
         }
