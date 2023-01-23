@@ -503,7 +503,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
      * @return
      */
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
-        return 9;
+        return 7;
     }
 
     @Override
