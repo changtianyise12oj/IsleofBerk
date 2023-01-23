@@ -397,7 +397,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 250.0D)
+                .add(Attributes.MAX_HEALTH, 180.0D)
                 .add(Attributes.FOLLOW_RANGE, 16F)
                 .add(Attributes.ARMOR, 4)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
