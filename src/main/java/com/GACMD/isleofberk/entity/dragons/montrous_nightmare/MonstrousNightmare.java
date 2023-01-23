@@ -271,9 +271,9 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
-        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 3.2;
-        double y = 1.5;
-        double z = Math.cos(this.getYRot() * Math.PI / 180) * 3.2;
+        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 2.8;
+        double y = -1.8;
+        double z = Math.cos(this.getYRot() * Math.PI / 180) * 2.8;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
         return throatPos;
