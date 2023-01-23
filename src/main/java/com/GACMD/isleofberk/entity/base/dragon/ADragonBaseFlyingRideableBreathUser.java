@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
@@ -151,9 +150,9 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
             fBreathingTickst--;
         }
 
-        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal) && (getTarget() instanceof Player player && !player.isCreative())) {
+        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal) && !(getTarget() instanceof Player player && player.isCreative())) {
             if (!(getControllingPassenger() instanceof Player) || (!(getVehicle() instanceof Player) && this instanceof TerribleTerror)) {
-                if (getRandom().nextInt(25) == 1 && fBreathingTickst <= 0 && getRemainingFuel() > 0) {
+                if (getRandom().nextInt(2) == 1 && fBreathingTickst <= 0 && getRemainingFuel() > 0) {
                     fBreathingTickst = Util.secondsToTicks(1);
                 }
 
@@ -163,7 +162,13 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
                     modifyFuel(-1);
                 }
             }
+
         }
+//        if (getTarget() != null) {
+//            firePrimary(getViewVector(1F), getThroatPos(this));
+//            setIsUsingAbility(true);
+//            modifyFuel(-1);
+//        }
 
         if (this instanceof TerribleTerror terribleTerror) {
             if (fBreathingTickst <= 0 && !(getVehicle() instanceof Player)) {

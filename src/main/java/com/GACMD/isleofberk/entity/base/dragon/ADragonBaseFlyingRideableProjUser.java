@@ -121,7 +121,7 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
 
         // probably scale the hitbox too
         // use in melee AI
-        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal) && (getTarget() instanceof Player player && !player.isCreative())) {
+        if (getTarget() != null && !(getTarget() instanceof Animal) && !(getTarget() instanceof WaterAnimal) && !(getTarget() instanceof Player player && player.isCreative())) {
 //        if (getOwner() instanceof Player player) {
             if (!(getControllingPassenger() instanceof Player)) {
                 if (getRandom().nextInt(getChanceToFire()) == 1) {
