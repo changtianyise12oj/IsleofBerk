@@ -1,6 +1,8 @@
 package com.GACMD.isleofberk.entity.projectile.abase;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseGroundRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -211,7 +213,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                         boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
                         float damage = dragon.getProjectileDamage(dragon, entity, this);
                         // nerf damage to players
-                        float damage1 = entity instanceof Player ? damage / 3 : damage;
+                        float damage1 = entity instanceof Player || entity instanceof ADragonBaseFlyingRideable || entity instanceof ADragonBaseGroundRideable ? damage / 3 : damage;
                         if (mobGriefing) {
                             entity.hurt(DamageSource.mobAttack(dragon), damage1);
                             entity.setSecondsOnFire(7);
