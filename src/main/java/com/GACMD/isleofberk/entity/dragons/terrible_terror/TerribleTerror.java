@@ -45,7 +45,10 @@ import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
@@ -607,11 +610,13 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
-        FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
-        fireProj.setProjectileSize(0);
-        fireProj.shootNoScaling(riderLook, 1F, 7F);        // make the breath sound play less
-        playProjectileSound();
-        level.addFreshEntity(fireProj);
+        if (random.nextInt(2) == 1) {
+            FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
+            fireProj.setProjectileSize(0);
+            fireProj.shootNoScaling(riderLook, 1F, 7F);        // make the breath sound play less
+            playProjectileSound();
+            level.addFreshEntity(fireProj);
+        }
     }
 
     @org.jetbrains.annotations.Nullable

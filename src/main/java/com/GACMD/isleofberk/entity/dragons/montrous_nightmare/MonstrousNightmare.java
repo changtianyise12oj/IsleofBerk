@@ -31,7 +31,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -418,11 +417,13 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
-        FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
-        fireProj.setProjectileSize(2);
-        fireProj.shoot(riderLook, 1F, 7F);
-        playProjectileSound();
-        level.addFreshEntity(fireProj);
+        if (random.nextInt(2) == 1) {
+            FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
+            fireProj.setProjectileSize(2);
+            fireProj.shoot(riderLook, 1F, 7F);
+            playProjectileSound();
+            level.addFreshEntity(fireProj);
+        }
     }
 
     @Override

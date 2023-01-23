@@ -197,9 +197,11 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
-        ZipBreathProjectile fireProj = new ZipBreathProjectile(this, throat, riderLook, level);
-        fireProj.shoot(riderLook, 1F, 7F);
-        level.addFreshEntity(fireProj);
+        if (random.nextInt(2) == 1) {
+            ZipBreathProjectile fireProj = new ZipBreathProjectile(this, throat, riderLook, level);
+            fireProj.shoot(riderLook, 1F, 7F);
+            level.addFreshEntity(fireProj);
+        }
     }
 
     @Nullable
