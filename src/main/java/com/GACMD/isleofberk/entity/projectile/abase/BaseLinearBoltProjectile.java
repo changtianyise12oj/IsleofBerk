@@ -61,21 +61,16 @@ public class BaseLinearBoltProjectile extends BaseLinearFlightProjectile {
      */
     public void shoot(Vec3 end, float partialTicks) {
         if (partialTicks == 1) {
-
             if (dragon.tier1()) {
                 this.setDamageTier(1);
-                super.shoot(end, partialTicks, 1);
             } else if (dragon.tier2()) {
                 this.setDamageTier(2);
-                super.shoot(end, partialTicks, 1);
             } else if (dragon.tier3()) {
                 this.setDamageTier(3);
-                super.shoot(end, partialTicks, 5);
             } else if (dragon.tier4()) {
                 this.setDamageTier(4);
-                super.shoot(end, partialTicks, 5);
             }
-            super.shoot(end, partialTicks, 1);
+            super.shoot(end, partialTicks, 5);
         }
     }
 
