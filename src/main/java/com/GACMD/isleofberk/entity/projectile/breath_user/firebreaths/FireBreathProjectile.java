@@ -132,6 +132,11 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
     }
 
     @Override
+    public boolean ignoreExplosion() {
+        return true;
+    }
+
+    @Override
     public boolean isNoGravity() {
         return true;
     }

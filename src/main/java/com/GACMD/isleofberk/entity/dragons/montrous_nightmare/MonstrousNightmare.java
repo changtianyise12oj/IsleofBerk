@@ -428,7 +428,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public int getExplosionStrength() {
-        return 4;
+        return 2;
     }
 
     @Override

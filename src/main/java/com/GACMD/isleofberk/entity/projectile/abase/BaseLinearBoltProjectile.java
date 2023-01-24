@@ -188,38 +188,37 @@ public class BaseLinearBoltProjectile extends BaseLinearFlightProjectile {
             for (int k2 = 0; k2 < list.size(); ++k2) {
                 Entity entity = list.get(k2);
                 if (!entity.ignoreExplosion() && entity != getExploder() && !entity.isInvulnerableTo(DamageSource.IN_FIRE) && !entity.isInvulnerableTo(DamageSource.ON_FIRE)) {
-                    if (!(entity instanceof BaseLinearBoltProjectile)) {
-                        double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
-                        if (d12 <= 1.0D) {
-                            double d5 = entity.getX() - this.x;
-                            double d7 = (entity instanceof PrimedTnt ? entity.getY() : entity.getEyeY()) - this.y;
-                            double d9 = entity.getZ() - this.z;
-                            double d13 = Math.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
-                            if (d13 != 0.0D) {
-                                d5 /= d13;
-                                d7 /= d13;
-                                d9 /= d13;
-                                double d14 = (double) getSeenPercent(vec3, entity);
-                                double d10 = (1.0D - d12) * d14;
-                                if (entity != this.source)
-                                    entity.hurt(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
-                                double d11 = d10;
-                                if (entity instanceof LivingEntity) {
-                                    d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
-                                }
+                    double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
+                    if (d12 <= 1.0D) {
+                        double d5 = entity.getX() - this.x;
+                        double d7 = (entity instanceof PrimedTnt ? entity.getY() : entity.getEyeY()) - this.y;
+                        double d9 = entity.getZ() - this.z;
+                        double d13 = Math.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
+                        if (d13 != 0.0D) {
+                            d5 /= d13;
+                            d7 /= d13;
+                            d9 /= d13;
+                            double d14 = (double) getSeenPercent(vec3, entity);
+                            double d10 = (1.0D - d12) * d14;
+                            if (entity != this.source)
+                                entity.hurt(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
+                            double d11 = d10;
+                            if (entity instanceof LivingEntity) {
+                                d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
+                            }
 
-                                entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
-                                if (entity instanceof Player) {
-                                    Player player = (Player) entity;
-                                    if (!player.isSpectator() && (!player.isCreative() || !player.getAbilities().flying)) {
-                                        this.hitPlayers.put(player, new Vec3(d5 * d10, d7 * d10, d9 * d10));
-                                    }
+                            entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
+                            if (entity instanceof Player) {
+                                Player player = (Player) entity;
+                                if (!player.isSpectator() && (!player.isCreative() || !player.getAbilities().flying)) {
+                                    this.hitPlayers.put(player, new Vec3(d5 * d10, d7 * d10, d9 * d10));
                                 }
                             }
                         }
                     }
                 }
             }
+
         }
 
         /**
