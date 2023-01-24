@@ -449,7 +449,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public int getMaxFuel() {
-        return 275;
+        return 350;
     }
 
     @Override
