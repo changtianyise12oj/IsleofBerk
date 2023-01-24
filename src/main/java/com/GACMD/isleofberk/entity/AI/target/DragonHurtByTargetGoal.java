@@ -39,7 +39,7 @@ public class DragonHurtByTargetGoal extends TargetGoal {
         int $$0 = this.dragonBase.getLastHurtByMobTimestamp();
         LivingEntity $$1 = this.dragonBase.getLastHurtByMob();
 
-        // adults won't kill babies of same type, babies don't attack
+        // babies don't attack
         if(this.dragonBase.isBaby()) {
             return false;
         }
