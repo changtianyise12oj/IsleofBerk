@@ -279,7 +279,6 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
 
     @Override
     public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
-        System.out.println(getDamageAfterArmorAbsorb(pSource, pAmount));
         return super.hurt(pSource, pAmount);
     }
 
