@@ -322,7 +322,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
             if (this.fire) {
                 for (BlockPos blockpos2 : this.toBlow) {
-                    if (this.random.nextInt(75) == 0 && this.level.getBlockState(blockpos2).isAir() && this.level.getBlockState(blockpos2.below()).isSolidRender(this.level, blockpos2.below())) {
+                    if (this.random.nextInt(20) == 0 && this.level.getBlockState(blockpos2).isAir() && this.level.getBlockState(blockpos2.below()).isSolidRender(this.level, blockpos2.below())) {
                         this.level.setBlockAndUpdate(blockpos2, BaseFireBlock.getState(this.level, blockpos2));
                     }
                 }
