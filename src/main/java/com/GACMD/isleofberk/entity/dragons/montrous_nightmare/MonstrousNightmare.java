@@ -417,7 +417,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
-        if (random.nextInt(7) == 1) {
+        if (random.nextInt(3) == 1) {
             FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
             fireProj.setProjectileSize(2);
             fireProj.shoot(riderLook, 1F, 4F);
