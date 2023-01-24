@@ -23,6 +23,7 @@ public class DragonHurtByTargetGoal extends TargetGoal {
     private static final int ALERT_RANGE_Y = 10;
     private boolean alertSameType;
     private int timestamp;
+    ADragonBase dragonBase;
     private final Class<?>[] toIgnoreDamage;
     @Nullable
     private Class<?>[] toIgnoreAlert;
@@ -30,15 +31,16 @@ public class DragonHurtByTargetGoal extends TargetGoal {
     public DragonHurtByTargetGoal(ADragonBase pMob, Class<?>... pToIgnoreDamage) {
         super(pMob, true);
         this.toIgnoreDamage = pToIgnoreDamage;
+        this.dragonBase = pMob;
         this.setFlags(EnumSet.of(Flag.TARGET));
     }
 
     public boolean canUse() {
-        int $$0 = this.mob.getLastHurtByMobTimestamp();
-        LivingEntity $$1 = this.mob.getLastHurtByMob();
+        int $$0 = this.dragonBase.getLastHurtByMobTimestamp();
+        LivingEntity $$1 = this.dragonBase.getLastHurtByMob();
 
         // adults won't kill babies of same type, babies don't attack
-        if(this.mob.isBaby()) {
+        if(this.dragonBase.isBaby()) {
             return false;
         }
 
@@ -48,9 +50,13 @@ public class DragonHurtByTargetGoal extends TargetGoal {
             }
         }
 
+        if($$1 instanceof TamableAnimal tame && tame.getOwner() == dragonBase.getOwner()) {
+            return false;
+        }
+
         if ($$0 != this.timestamp && $$1 != null) {
 
-            if ($$1.getType() == EntityType.PLAYER && this.mob.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
+            if ($$1.getType() == EntityType.PLAYER && this.dragonBase.level.getGameRules().getBoolean(GameRules.RULE_UNIVERSAL_ANGER)) {
                 return false;
             } else {
                 Class[] var3 = this.toIgnoreDamage;
@@ -77,9 +83,9 @@ public class DragonHurtByTargetGoal extends TargetGoal {
     }
 
     public void start() {
-        this.mob.setTarget(this.mob.getLastHurtByMob());
-        this.targetMob = this.mob.getTarget();
-        this.timestamp = this.mob.getLastHurtByMobTimestamp();
+        this.dragonBase.setTarget(this.dragonBase.getLastHurtByMob());
+        this.targetMob = this.dragonBase.getTarget();
+        this.timestamp = this.dragonBase.getLastHurtByMobTimestamp();
         this.unseenMemoryTicks = 300;
         if (this.alertSameType) {
             this.alertOthers();
@@ -90,8 +96,8 @@ public class DragonHurtByTargetGoal extends TargetGoal {
 
     protected void alertOthers() {
         double $$0 = this.getFollowDistance();
-        AABB $$1 = AABB.unitCubeFromLowerCorner(this.mob.position()).inflate($$0, 10.0D, $$0);
-        List<? extends Mob> $$2 = this.mob.level.getEntitiesOfClass(this.mob.getClass(), $$1, EntitySelector.NO_SPECTATORS);
+        AABB $$1 = AABB.unitCubeFromLowerCorner(this.dragonBase.position()).inflate($$0, 10.0D, $$0);
+        List<? extends Mob> $$2 = this.dragonBase.level.getEntitiesOfClass(this.dragonBase.getClass(), $$1, EntitySelector.NO_SPECTATORS);
         Iterator var5 = $$2.iterator();
 
         while(true) {
@@ -107,10 +113,10 @@ public class DragonHurtByTargetGoal extends TargetGoal {
                                 }
 
                                 $$3 = (Mob)var5.next();
-                            } while(this.mob == $$3);
+                            } while(this.dragonBase == $$3);
                         } while($$3.getTarget() != null);
-                    } while(this.mob instanceof TamableAnimal && ((TamableAnimal)this.mob).getOwner() != ((TamableAnimal)$$3).getOwner());
-                } while($$3.isAlliedTo(this.mob.getLastHurtByMob()));
+                    } while(this.dragonBase instanceof TamableAnimal && ((TamableAnimal)this.dragonBase).getOwner() != ((TamableAnimal)$$3).getOwner());
+                } while($$3.isAlliedTo(this.dragonBase.getLastHurtByMob()));
 
                 if (this.toIgnoreAlert == null) {
                     break;
@@ -129,7 +135,7 @@ public class DragonHurtByTargetGoal extends TargetGoal {
                 }
             } while($$4);
 
-            this.alertOther($$3, this.mob.getLastHurtByMob());
+            this.alertOther($$3, this.dragonBase.getLastHurtByMob());
         }
     }
 
