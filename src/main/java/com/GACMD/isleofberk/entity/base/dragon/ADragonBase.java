@@ -844,13 +844,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             }
         }
 
-        if(level.isClientSide()) {
-            System.out.println(getTarget()+ " clientisde");
-        } else {
-            System.out.println(getTarget()+ " serverside");
-
-        }
-
         sleepMechanics();
         onGroundMechanics();
     }

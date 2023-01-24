@@ -277,15 +277,21 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
         this.targetSelector.addGoal(1, new T4DragonPotionRequirement(this, 1));
     }
 
+    @Override
+    public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
+        System.out.println(getDamageAfterArmorAbsorb(pSource, pAmount));
+        return super.hurt(pSource, pAmount);
+    }
+
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 130.0D)
-                .add(Attributes.ARMOR, 3)
-                .add(Attributes.ARMOR_TOUGHNESS, 2)
+                .add(Attributes.ARMOR, 22)
+                .add(Attributes.ARMOR_TOUGHNESS, 16)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
-                .add(Attributes.ATTACK_DAMAGE, 50F)
+                .add(Attributes.ATTACK_DAMAGE, 65F)
                 .add(Attributes.FOLLOW_RANGE, 32F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
 

@@ -36,15 +36,15 @@ public class T4DragonPotionRequirement extends ADragonTamingGoalBase {
 
     @Override
     public void tick() {
-        Player player = dragon.getLevel().getNearestPlayer(dragon, 8);
-        if (player != null && dragon.distanceTo(dragon) < 8 && !player.isCreative() && !dragon.isPhaseTwo() && !dragon.isDragonIncapacitated()) {
+        Player player = dragon.getLevel().getNearestPlayer(dragon, 32);
+        if (player != null && dragon.distanceTo(dragon) < 8 && !player.isCreative()) {
             boolean weapon = player.getMainHandItem().getItem() instanceof TieredItem;
             boolean armor = player.getArmorValue() > 0;
-            if (aggroUnlessHasPotionEffect(player, dragon)) {
+            if (aggroUnlessHasPotionEffect(player, dragon) && !dragon.isPhaseTwo() && !dragon.isDragonIncapacitated()) {
                 dragon.setTarget(player);
+            } else {
+                dragon.setTarget(null);
             }
-        } else {
-            dragon.setTarget(null);
         }
     }
 

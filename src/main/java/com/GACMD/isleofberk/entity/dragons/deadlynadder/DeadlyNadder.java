@@ -273,6 +273,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 100.0D)
                 .add(Attributes.ARMOR, 16)
+                .add(Attributes.ARMOR_TOUGHNESS, 10)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
                 .add(Attributes.ATTACK_DAMAGE, 12F)

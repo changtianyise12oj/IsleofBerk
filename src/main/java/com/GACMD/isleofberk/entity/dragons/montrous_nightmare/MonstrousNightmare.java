@@ -403,6 +403,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 200.0D)
                 .add(Attributes.ARMOR, 15)
+                .add(Attributes.ARMOR_TOUGHNESS, 10)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
                 .add(Attributes.ATTACK_DAMAGE, 20F);
@@ -416,7 +417,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
-        if (random.nextInt(2) == 1) {
+        if (random.nextInt(7) == 1) {
             FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
             fireProj.setProjectileSize(2);
             fireProj.shoot(riderLook, 1F, 4F);
