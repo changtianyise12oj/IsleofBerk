@@ -187,7 +187,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
         if (random.nextInt(2) == 1) {
             FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
-            fireProj.shoot(riderLook, 1F, 5D);
+            fireProj.shoot(riderLook, 1F, 3D);
             fireProj.setProjectileSize(1);
             playProjectileSound();
             level.addFreshEntity(fireProj);

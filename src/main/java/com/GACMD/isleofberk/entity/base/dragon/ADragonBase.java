@@ -558,8 +558,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, 0.7D, 1.0000001E-5F));
         this.goalSelector.addGoal(7, new IOBLookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(7, new IOBRandomLookAroundGoal(this));
-        this.targetSelector.addGoal(2, new DragonHurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
+        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new DragonOwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(2, new AggressionToPlayersGoal<>(this, Player.class, true, getAggressionType(), null));
     }
@@ -688,13 +687,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     @Override
     public void setTarget(@Nullable LivingEntity pLivingEntity) {
         if (!isDragonDisabled()) {
-            if (!this.isBaby()) {
-                super.setTarget(pLivingEntity);
-            } else if (pLivingEntity instanceof Player playerTarget) {
-                if (!playerTarget.isCreative()) {
-                    super.setTarget(playerTarget);
-                }
-            }
+            super.setTarget(pLivingEntity);
         }
     }
 
@@ -843,6 +836,19 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         }
         if (!isDragonIncapacitated() && random.nextInt(150) == 1 && getHealth() < getMaxHealth()) {
             this.heal(5);
+        }
+
+        if(getTarget() instanceof Player player) {
+            if(player.isCreative()) {
+                setTarget(null);
+            }
+        }
+
+        if(level.isClientSide()) {
+            System.out.println(getTarget()+ " clientisde");
+        } else {
+            System.out.println(getTarget()+ " serverside");
+
         }
 
         sleepMechanics();

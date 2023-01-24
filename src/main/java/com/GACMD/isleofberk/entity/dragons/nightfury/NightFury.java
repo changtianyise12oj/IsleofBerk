@@ -41,7 +41,7 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAnimatable {
+public class NightFury extends ADragonBaseFlyingRideableProjUser {
 
     AnimationFactory factory = new AnimationFactory(this);
     private static final EntityDataAccessor<Integer> GLOW_VARIANT = SynchedEntityData.defineId(NightFury.class, EntityDataSerializers.INT);
@@ -298,7 +298,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser implements IAni
 
     @Nullable
     @Override
-    public AgeableMob getBreedOffspring(ServerLevel level, @NotNull AgeableMob parent) {
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob parent) {
         NightFury dragon = ModEntities.NIGHT_FURY.get().create(level);
         return dragon;
     }

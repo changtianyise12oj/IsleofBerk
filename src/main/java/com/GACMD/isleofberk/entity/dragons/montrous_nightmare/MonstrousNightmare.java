@@ -271,7 +271,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         Vec3 bodyOrigin = position();
 
         double x = -Math.sin(this.getYRot() * Math.PI / 180) * 2.8;
-        double y = isFlying() ? -1.8D : 1D;
+        double y = isFlying() ? -1D : 1D;
         double z = Math.cos(this.getYRot() * Math.PI / 180) * 2.8;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
@@ -338,7 +338,6 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
                 this.setDragonVariant(0);
             }
         }
-
     }
 
     @Override
@@ -420,7 +419,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         if (random.nextInt(2) == 1) {
             FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
             fireProj.setProjectileSize(2);
-            fireProj.shoot(riderLook, 1F, 7F);
+            fireProj.shoot(riderLook, 1F, 4F);
             playProjectileSound();
             level.addFreshEntity(fireProj);
         }

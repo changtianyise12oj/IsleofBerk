@@ -249,7 +249,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-        this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new DragonOwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
         this.goalSelector.addGoal(11, new TerrorFeedOnGroundGoal(this));
