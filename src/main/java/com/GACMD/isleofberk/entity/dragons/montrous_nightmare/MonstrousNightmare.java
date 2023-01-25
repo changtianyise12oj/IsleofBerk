@@ -496,4 +496,8 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     protected boolean canCarryCargo() {
         return true;
     }
+
+    protected int getMaxPassengerCapacity() {
+        return 3;
+    }
 }

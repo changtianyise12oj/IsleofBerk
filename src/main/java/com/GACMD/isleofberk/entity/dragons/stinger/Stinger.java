@@ -379,4 +379,8 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         return 2.2D;
     }
 
+    protected int getMaxPassengerCapacity() {
+        return 3;
+    }
+
 }

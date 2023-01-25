@@ -856,5 +856,9 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         return ModSounds.STINGER_BITE.get();
     }
 
+    protected int getMaxPassengerCapacity() {
+        return 3;
+    }
+
 
 }

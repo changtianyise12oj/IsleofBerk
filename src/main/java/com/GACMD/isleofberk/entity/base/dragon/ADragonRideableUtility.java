@@ -363,7 +363,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     }
 
     protected int getMaxPassengerCapacity() {
-        return 3;
+        return 2;
     }
 
     @Override

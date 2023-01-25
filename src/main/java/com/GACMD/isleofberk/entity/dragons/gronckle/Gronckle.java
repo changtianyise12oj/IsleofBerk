@@ -653,4 +653,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         return ModSounds.DEADLY_NADDER_BITE.get();
     }
 
+    protected int getMaxPassengerCapacity() {
+        return 3;
+    }
 }

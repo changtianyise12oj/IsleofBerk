@@ -299,4 +299,8 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     protected double extraRidersYOffset() {
         return 1D;
     }
+
+    protected int getMaxPassengerCapacity() {
+        return 3;
+    }
 }
