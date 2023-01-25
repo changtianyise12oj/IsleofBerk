@@ -297,6 +297,6 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     protected double rider2YOffSet() {
-        return 1.6D;
+        return 1D;
     }
 }
