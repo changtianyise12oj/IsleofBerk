@@ -244,8 +244,8 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             int i = getPhase1Progress();
             String s = Integer.toString(i);
 
-            if(canBeMounted())
-            pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.25").append(s).append("%"), true);
+            if (canBeMounted())
+                pPlayer.displayClientMessage(new TranslatableComponent("taming.phase1.25").append(s).append("%"), true);
 
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
@@ -358,8 +358,12 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         if (this.isBaby()) {
             return false;
         } else {
-            return this.getPassengers().size() < 2;
+            return this.getPassengers().size() < getMaxPassengerCapacity();
         }
+    }
+
+    protected int getMaxPassengerCapacity() {
+        return 3;
     }
 
     @Override
@@ -716,7 +720,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
                     for (Entity entity : list) {
                         if (!entity.hasPassenger(this)) {
-                            if (flag && this.getPassengers().size() < 2 && !entity.isPassenger() && entity.getBbWidth() < this.getBbWidth()) {
+                            if (flag && canAddPassenger(entity) && !entity.isPassenger() && entity.getBbWidth() < this.getBbWidth()) {
                                 if (!(entity instanceof ADragonBase) && entity instanceof LivingEntity && !(entity instanceof WaterAnimal) && !(entity instanceof Player) && !(entity instanceof Enemy) && !isSeatLocked()) {
                                     entity.startRiding(this);
                                 }
@@ -768,15 +772,34 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         super.positionRider(pPassenger);
         if (pPassenger == this.getPassengers().get(0)) {
             pPassenger.setPos(this.getX() + rider1XOffSet(), this.getY() + rider1YOffSet(), this.getZ() + rider1ZOffSet());
-        } else if (pPassenger == this.getPassengers().get(1)) {
-            double x = Math.cos(Math.toRadians(getYRot() - 90)) * 0.8F;
-            double y = rider2YOffSet();
-            double z = Math.sin(Math.toRadians(getYRot() - 90)) * 0.8F;
-            Vec3 bodyOrigin = position();
-            Vec3 pos = bodyOrigin.add(new Vec3(x, y, z));
-            pPassenger.setPos(pos.x(), pos.y() + 0.4D, pos.z());
+        }
 
-            setAnimalRotations(pPassenger);
+        if (getPassengers().size() == 2) {
+            if (pPassenger == this.getPassengers().get(1)) {
+                Vec3 pos = new Vec3(0, extraRidersYOffset(), -extraRidersZOffset());
+                pos = pos.yRot((float) Math.toRadians(-getYRot()));
+                Vec3 pos1 = pos.add(getX(), getY(), getZ());
+                pPassenger.setPos(pos1.x, pos1.y, pos1.z);
+                setAnimalRotations(pPassenger);
+            }
+
+        } else if (getPassengers().size() == 3) {
+            if (pPassenger == this.getPassengers().get(1)) {
+                Vec3 pos = new Vec3(extraRidersXOffset(), extraRidersYOffset(), -extraRidersZOffset());
+                pos = pos.yRot((float) Math.toRadians(-getYRot()));
+                Vec3 pos1 = pos.add(getX(), getY(), getZ());
+                pPassenger.setPos(pos1.x, pos1.y, pos1.z);
+                setAnimalRotations(pPassenger);
+            }
+
+
+            if (pPassenger == this.getPassengers().get(2)) {
+                Vec3 pos = new Vec3(-extraRidersXOffset(), extraRidersYOffset(), -extraRidersZOffset());
+                pos = pos.yRot((float) Math.toRadians(-getYRot()));
+                Vec3 pos1 = pos.add(getX(), getY(), getZ());
+                pPassenger.setPos(pos1.x, pos1.y, pos1.z);
+                setAnimalRotations(pPassenger);
+            }
         }
     }
 
@@ -804,15 +827,15 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         return 0;
     }
 
-    protected double rider2XOffSet() {
-        return 1;
+    protected double extraRidersXOffset() {
+        return 0.4D;
     }
 
-    protected double rider2YOffSet() {
+    protected double extraRidersYOffset() {
         return 1.8D;
     }
 
-    protected double rider2ZOffSet() {
+    protected double extraRidersZOffset() {
         return 0.8F;
     }
 

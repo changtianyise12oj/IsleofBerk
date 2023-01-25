@@ -59,7 +59,7 @@ public class LightFury extends NightFury {
             if (event.isMoving()) {
                 if (getControllingPassenger() instanceof Player) {
 //                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
-                    if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2) {
+                    if (this.getXRot() < 11 || isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
                         setShouldPlayFlapping(true);
                         return PlayState.CONTINUE;

@@ -759,15 +759,15 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         return 0;
     }
 
-    protected double rider2XOffSet() {
-        return 1;
+    protected double extraRidersXOffset() {
+        return 0.4D;
     }
 
-    protected double rider2YOffSet() {
+    protected double extraRidersYOffset() {
         return CommonConfig.USE_LARGER_SCALING.get() ? 1.6D : 1.2D;
     }
 
-    protected double rider2ZOffSet() {
+    protected double extraRidersZOffset() {
         return 1;
     }
 

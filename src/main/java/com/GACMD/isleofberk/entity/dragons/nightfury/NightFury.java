@@ -64,7 +64,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
             if (event.isMoving()) {
                 if (getControllingPassenger() instanceof Player) {
 //                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
-                    if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2) {
+                    if (this.getXRot() < 11 || isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
                         setShouldPlayFlapping(true);
                         return PlayState.CONTINUE;
@@ -491,15 +491,15 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
         return 0;
     }
 
-    protected double rider2XOffSet() {
-        return 1;
+    protected double extraRidersXOffset() {
+        return 0.4D;
     }
 
-    protected double rider2YOffSet() {
+    protected double extraRidersYOffset() {
         return 1D;
     }
 
-    protected double rider2ZOffSet() {
+    protected double extraRidersZOffset() {
         return 1;
     }
 
@@ -556,5 +556,9 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
     @Override
     protected SoundEvent get1stAttackSound() {
         return ModSounds.NIGHT_FURY_BITE.get();
+    }
+
+    protected int getMaxPassengerCapacity() {
+        return 2;
     }
 }

@@ -466,15 +466,15 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         return 0;
     }
 
-    protected double rider2XOffSet() {
-        return 1;
+    protected double extraRidersXOffset() {
+        return 0.4D;
     }
 
-    protected double rider2YOffSet() {
+    protected double extraRidersYOffset() {
         return 1.5D;
     }
 
-    protected double rider2ZOffSet() {
+    protected double extraRidersZOffset() {
         return 1;
     }
 
@@ -529,6 +529,10 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     @Override
     protected SoundEvent get1stAttackSound() {
         return ModSounds.DEADLY_NADDER_BITE.get();
+    }
+
+    protected int getMaxPassengerCapacity() {
+        return 2;
     }
 }
 
