@@ -853,12 +853,23 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         BlockPos pos2 = new BlockPos(position().add(0, -2, 0));
         BlockPos pos3 = new BlockPos(position().add(0, -3, 0));
         if (level.getBlockState(pos1).getMaterial().isSolid() || level.getBlockState(pos2).getMaterial().isSolid() || level.getBlockState(pos3).getMaterial().isSolid()
-                || (level.getBlockState(pos1).getMaterial().isSolid() && !level.getBlockState(pos3).getMaterial().isSolid())) {
+                || (level.getBlockState(pos1).getMaterial().isSolid() && !level.getBlockState(pos3).getMaterial().isSolid()) ||
+
+                (level.getBlockState(pos1).getMaterial().isLiquid() || level.getBlockState(pos2).getMaterial().isLiquid() || level.getBlockState(pos3).getMaterial().isLiquid()
+                || (level.getBlockState(pos1).getMaterial().isLiquid() && !level.getBlockState(pos3).getMaterial().isLiquid()) && groundDragon())) {
 
             setIsDragonOnGround(true);
         } else {
             setIsDragonOnGround(false);
         }
+    }
+
+    /**
+     * Will the dragon flap if there is water below
+     * @return
+     */
+    protected boolean groundDragon() {
+        return true;
     }
 
     @Override

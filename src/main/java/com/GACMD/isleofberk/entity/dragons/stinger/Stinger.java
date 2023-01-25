@@ -378,4 +378,5 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     protected double rider1YOffSet() {
         return 2.2D;
     }
+
 }

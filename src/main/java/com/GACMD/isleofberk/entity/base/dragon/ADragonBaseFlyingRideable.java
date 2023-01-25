@@ -453,4 +453,13 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     public boolean canBeRiddenInWater(Entity rider) {
         return true;
     }
+
+    /**
+     * Will the dragon flap if there is water below
+     * @return
+     */
+    protected boolean groundDragon() {
+        return false;
+    }
+
 }
