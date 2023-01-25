@@ -590,7 +590,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         return 0.4D;
     }
 
-
     protected double extraRidersYOffset() {
         return 1.2D;
     }

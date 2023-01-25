@@ -36,7 +36,6 @@ public class ADragonBaseGroundRideable extends ADragonRideableUtility implements
     @Override
     public void positionRider(Entity pPassenger) {
         super.positionRider(pPassenger);
-        pPassenger.setPos(this.getX(), this.getY() + 1.5, this.getZ());
     }
 
 

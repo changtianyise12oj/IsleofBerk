@@ -307,18 +307,6 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     @Override
     public void positionRider(@NotNull Entity pPassenger) {
         super.positionRider(pPassenger);
-        if (pPassenger == this.getPassengers().get(0)) {
-            pPassenger.setPos(this.getX() + rider1XOffSet(), this.getY() + rider1YOffSet(), this.getZ() + rider1ZOffSet());
-        } else if (pPassenger == this.getPassengers().get(1)) {
-            double x = Math.cos(Math.toRadians(getYRot() - 90)) * 0.8F;
-            double y = extraRidersYOffset();
-            double z = Math.sin(Math.toRadians(getYRot() - 90)) * 0.8F;
-            Vec3 bodyOrigin = position();
-            Vec3 pos = bodyOrigin.add(new Vec3(x, y, z));
-            pPassenger.setPos(pos.x(), pos.y() + 0.4D, pos.z());
-
-            setAnimalRotations(pPassenger);
-        }
     }
 
     /**
@@ -365,13 +353,18 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     }
 
     @Override
+    protected double extraRidersXOffset() {
+        return 0.4D;
+    }
+
+    @Override
     protected double extraRidersYOffset() {
-        return 1.6D;
+        return 2.2D;
     }
 
     @Override
     protected double extraRidersZOffset() {
-        return 8;
+        return 0.8D;
     }
 
     @Override
@@ -379,6 +372,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         return 2.2D;
     }
 
+    @Override
     protected int getMaxPassengerCapacity() {
         return 3;
     }
