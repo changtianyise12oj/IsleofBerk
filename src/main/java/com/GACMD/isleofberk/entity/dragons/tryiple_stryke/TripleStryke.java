@@ -752,7 +752,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     protected double rider1YOffSet() {
-        return CommonConfig.USE_LARGER_SCALING.get() ? 1.6D : 1.2D;
+        return CommonConfig.USE_LARGER_SCALING.get() ? 1.8D : 1.2D;
     }
 
     protected double rider1ZOffSet() {
@@ -764,7 +764,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     protected double extraRidersYOffset() {
-        return CommonConfig.USE_LARGER_SCALING.get() ? 1.6D : 1.2D;
+        return CommonConfig.USE_LARGER_SCALING.get() ? 1.8D : 1.2D;
     }
 
     protected double extraRidersZOffset() {

@@ -727,12 +727,12 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
                             }
                             if ((entity instanceof ADragonBase dragonBase)) {
-                                if (dragonBase.isBaby() || dragonBase instanceof TerribleTerror || (dragonBase instanceof SpeedStinger)) {
+                                if (dragonBase.isBaby() || dragonBase instanceof TerribleTerror || (dragonBase instanceof SpeedStinger) && dragonBase.getOwner() == this.getOwner() && dragonBase.isTame()) {
                                     dragonBase.startRiding(this);
                                 }
                             }
                             if ((entity instanceof TamableAnimal tame)) {
-                                if (tame.getOwner() == this.getOwner()) {
+                                if (tame.getOwner() == this.getOwner() && isTame()) {
                                     tame.startRiding(this);
                                 }
                             } else {
@@ -837,7 +837,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     }
 
     protected double extraRidersYOffset() {
-        return 1.8D;
+        return 2.2D;
     }
 
     protected double extraRidersZOffset() {

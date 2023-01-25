@@ -45,6 +45,20 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @Override
+    protected boolean canCarryCargo() {
+        return true;
+    }
+
+    @Override
+    protected double extraRidersYOffset() {
+        return 1.3D;
+    }
+
+    protected int getMaxPassengerCapacity() {
+        return 3;
+    }
+
+    @Override
     protected double rider1YOffSet() {
         return 1.3D;
     }
@@ -290,17 +304,4 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         return ModSounds.HIDEOUS_ZIPPLEBACK_BITE.get();
     }
 
-    @Override
-    protected boolean canCarryCargo() {
-        return true;
-    }
-
-    @Override
-    protected double extraRidersYOffset() {
-        return 1D;
-    }
-
-    protected int getMaxPassengerCapacity() {
-        return 3;
-    }
 }
