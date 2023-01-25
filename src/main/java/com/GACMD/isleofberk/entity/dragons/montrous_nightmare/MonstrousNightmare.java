@@ -325,7 +325,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
             this.setOnFireAbility(false);
         }
 
-        if (isInWater() || ticksUsingActiveSecondAbility > 40) {
+        if (isInWater() || isInWaterRainOrBubble() || ticksUsingActiveSecondAbility > 40) {
             if (hasDamageResist) {
                 this.removeEffect(MobEffects.DAMAGE_RESISTANCE);
                 ticksUsingSecondAbility = 0;
