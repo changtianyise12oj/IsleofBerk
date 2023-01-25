@@ -297,8 +297,8 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
     }
 
     @Override
-    protected Item tameItem() {
-        return Items.SALMON;
+    protected boolean isItemStackForTaming(ItemStack stack) {
+        return stack.is(Items.SALMON) || stack.is(Items.TROPICAL_FISH) || stack.is(Items.COD);
     }
 
     @Nullable

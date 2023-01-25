@@ -567,13 +567,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return new DragonMeleeAttackGoal(this, 1, false);
     }
 
-
-    protected Item tameItem() {
-        return Items.BEEF;
-    }
-
     protected boolean isItemStackForTaming(ItemStack stack) {
-        return stack.is(tameItem());
+        return stack.is(Items.BEEF);
     }
 
     /**

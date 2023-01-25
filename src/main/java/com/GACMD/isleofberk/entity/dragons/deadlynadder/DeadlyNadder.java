@@ -430,8 +430,8 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @Override
-    protected Item tameItem() {
-        return Items.CHICKEN;
+    protected boolean isItemStackForTaming(ItemStack stack) {
+        return stack.is(Items.CHICKEN);
     }
 
     @Override

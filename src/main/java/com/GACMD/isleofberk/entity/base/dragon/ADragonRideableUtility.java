@@ -126,7 +126,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             // dragon that is subject for taming will not fly away
             // taming is reserved for rideable dragons. meanwhile some taming like speed stinger and terrible terror are tamed uniquely
             if (!isTame() && canBeMounted()) {
-                if (itemstack.is(tameItem()) && getTarget() == null) {
+                if (isItemStackForTaming(itemstack) && getTarget() == null) {
                     if (this.getFoodTameLimiterBar() < this.getFoodTamingPhaseMaximumLevel()) {
                         // food limits how much you can feed currently fills up faster
                         this.modifyFoodTamingLimiterBar(nutrition * 3);
