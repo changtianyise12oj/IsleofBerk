@@ -725,10 +725,10 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                                     entity.startRiding(this);
                                 }
 
-                                if ((entity instanceof ADragonBase dragonBase)) {
-                                    if (dragonBase.isBaby() || dragonBase instanceof TerribleTerror || (dragonBase instanceof SpeedStinger speedStinger && speedStinger.isTame())) {
-                                        dragonBase.startRiding(this);
-                                    }
+
+                            } else if ((entity instanceof ADragonBase dragonBase)) {
+                                if (dragonBase.isBaby() || dragonBase instanceof TerribleTerror || (dragonBase instanceof SpeedStinger speedStinger && speedStinger.isTame())) {
+                                    dragonBase.startRiding(this);
                                 }
                             } else {
                                 this.push(entity);
