@@ -927,6 +927,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             return false;
         }
 
+        if (this.getVehicle() != null)  {
+            return false;
+        }
+
         if (this.getSleepDisturbTicks() > 3) {
             return false;
         }
