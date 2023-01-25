@@ -304,9 +304,21 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         return 1;
     }
 
-    public void positionRider(Entity pPassenger) {
+    @Override
+    public void positionRider(@NotNull Entity pPassenger) {
         super.positionRider(pPassenger);
-        pPassenger.setPos(this.getX(), this.getY() + 2.2, this.getZ());
+        if (pPassenger == this.getPassengers().get(0)) {
+            pPassenger.setPos(this.getX() + rider1XOffSet(), this.getY() + rider1YOffSet(), this.getZ() + rider1ZOffSet());
+        } else if (pPassenger == this.getPassengers().get(1)) {
+            double x = Math.cos(Math.toRadians(getYRot() - 90)) * 0.8F;
+            double y = rider2YOffSet();
+            double z = Math.sin(Math.toRadians(getYRot() - 90)) * 0.8F;
+            Vec3 bodyOrigin = position();
+            Vec3 pos = bodyOrigin.add(new Vec3(x, y, z));
+            pPassenger.setPos(pos.x(), pos.y() + 0.4D, pos.z());
+
+            setAnimalRotations(pPassenger);
+        }
     }
 
     /**
@@ -345,5 +357,25 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     @Override
     protected SoundEvent get1stAttackSound() {
         return ModSounds.STINGER_BITE.get();
+    }
+
+    @Override
+    protected boolean canCarryCargo() {
+        return true;
+    }
+
+    @Override
+    protected double rider2YOffSet() {
+        return 1.6D;
+    }
+
+    @Override
+    protected double rider2ZOffSet() {
+        return 8;
+    }
+
+    @Override
+    protected double rider1YOffSet() {
+        return 2.2D;
     }
 }

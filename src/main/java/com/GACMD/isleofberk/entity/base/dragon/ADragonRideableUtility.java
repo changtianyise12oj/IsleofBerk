@@ -764,7 +764,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
     }
 
     @Override
-    public void positionRider(Entity pPassenger) {
+    public void positionRider(@NotNull Entity pPassenger) {
         super.positionRider(pPassenger);
         if (pPassenger == this.getPassengers().get(0)) {
             pPassenger.setPos(this.getX() + rider1XOffSet(), this.getY() + rider1YOffSet(), this.getZ() + rider1ZOffSet());
