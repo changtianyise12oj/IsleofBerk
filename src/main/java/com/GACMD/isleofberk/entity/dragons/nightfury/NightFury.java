@@ -343,7 +343,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
             if (tier4() || tier3()) {
                 playProjectileSound();
 
-                if (level.isRaining()) {
+                if (level.isRaining() && getControllingPassenger() instanceof Player) {
                     LightningBolt lightningBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
                     lightningBolt.setPos(getX() - 6, getY() + 4, getZ() + 6);
                     level.addFreshEntity(lightningBolt);
