@@ -789,7 +789,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             animal.yHeadRot = animal.yBodyRot;
             pPassenger.setYBodyRot(((Animal) pPassenger).yBodyRot + 270);
             pPassenger.setYHeadRot(pPassenger.getYHeadRot() + 270);
-            ;
         }
     }
 

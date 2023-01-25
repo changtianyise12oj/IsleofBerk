@@ -289,4 +289,14 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     protected SoundEvent get1stAttackSound() {
         return ModSounds.HIDEOUS_ZIPPLEBACK_BITE.get();
     }
+
+    @Override
+    protected boolean canCarryCargo() {
+        return true;
+    }
+
+    @Override
+    protected double rider2YOffSet() {
+        return 1.6D;
+    }
 }

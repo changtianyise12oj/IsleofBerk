@@ -491,4 +491,9 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     protected SoundEvent get1stAttackSound() {
         return ModSounds.MONSTROUS_NIGHTMARE_BITE.get();
     }
+
+    @Override
+    protected boolean canCarryCargo() {
+        return true;
+    }
 }
