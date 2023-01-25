@@ -89,6 +89,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected static final EntityDataAccessor<Boolean> ABILITY = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> DISABLED = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SECOND_ABILITY = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> MARK_ROAR = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_MALE = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> ON_GROUND = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
@@ -96,6 +97,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected static final EntityDataAccessor<Boolean> IS_ROARING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> COMMANDS = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> CURRENT_ATTACK = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> TICKS_SINCE_LAST_ATTACK = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> TICKS_SINCE_LAST_ROAR = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
 
     public static final Predicate<LivingEntity> PREY_SELECTOR = (p_30437_) -> {
         EntityType<?> entitytype = p_30437_.getType();
@@ -103,7 +106,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     };
 
     public boolean renderedOnGUI;
-    protected int ticksSinceLastAttack;
     public float changeInYaw;
     BlockPos homePos;
     boolean hasHomePosition;
@@ -145,6 +147,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.define(IS_ROARING, false);
         this.entityData.define(IS_MALE, random.nextBoolean());
         this.entityData.define(CURRENT_ATTACK, 0);
+        this.entityData.define(TICKS_SINCE_LAST_ATTACK, 0);
+        this.entityData.define(MARK_ROAR, false);
     }
 
     @Override
@@ -163,6 +167,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         pCompound.putInt("overlay", this.getDragonOverlay());
         pCompound.putInt("commands", this.getCommand());
         pCompound.putInt("current_attack", this.getCurrentAttackType());
+        pCompound.putInt("ticks_since_last_attack", this.getTicksSinceLastAttack());
+        pCompound.putInt("ticks_since_last_roar", this.getTicksSinceLastRoar());
         pCompound.putBoolean("ability", this.isUsingAbility());
         pCompound.putBoolean("s_ability", this.isUsingSECONDAbility());
         pCompound.putBoolean("dragon_disabled", this.isDragonDisabled());
@@ -174,6 +180,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         pCompound.putBoolean("wandering", this.isDragonWandering());
         pCompound.putBoolean("is_male", this.isDragonMale());
         pCompound.putBoolean("following", this.isDragonFollowing());
+        pCompound.putBoolean("mark_roar", this.markRoar());
         pCompound.putFloat("change_in_yaw", this.getChangeInYaw());
     }
 
@@ -192,6 +199,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.setIsUsingSECONDAbility(pCompound.getBoolean("s_ability"));
         this.setIsDragonDisabled(pCompound.getBoolean("dragon_disabled"));
         this.setIsDragonIncapacitated(pCompound.getBoolean("incapacitated"));
+        this.setTicksSinceLastRoar(pCompound.getInt("ticks_since_last_attack"));
+        this.setTicksSinceLastAttack(pCompound.getInt("ticks_since_last_roar"));
         this.setIsDragonSitting(pCompound.getBoolean("sitting"));
         this.setIsDragonRoaring(pCompound.getBoolean("roaring"));
         this.setIsDragonSleeping(pCompound.getBoolean("sleeping"));
@@ -200,6 +209,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.setIsDragonFollowing(pCompound.getBoolean("following"));
         this.setCurrentAttackType(pCompound.getInt("current_attack"));
         this.setIsDragonMale(pCompound.getBoolean("is_male"));
+        this.setMarkRoar(pCompound.getBoolean("mark_roar"));
         this.setChangeInYaw(pCompound.getFloat("change_in_yaw"));
     }
 
@@ -428,8 +438,33 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.set(DISTURB_TICKS, disturbTicks);
     }
 
+    public int getTicksSinceLastAttack() {
+        return this.entityData.get(TICKS_SINCE_LAST_ATTACK);
+    }
+
+    public void setTicksSinceLastAttack(int ticks) {
+        this.entityData.set(TICKS_SINCE_LAST_ATTACK, ticks);
+    }
+
+    public int getTicksSinceLastRoar() {
+        return this.entityData.get(TICKS_SINCE_LAST_ROAR);
+    }
+
+    public void setTicksSinceLastRoar(int ticks) {
+        this.entityData.set(TICKS_SINCE_LAST_ROAR, ticks);
+    }
+
+    public boolean markRoar() {
+        return this.entityData.get(MARK_ROAR);
+    }
+
+    public void setMarkRoar(boolean mark_roar) {
+        this.entityData.set(MARK_ROAR, mark_roar);
+    }
+
+
     /**
-     * give ticks to enable special abilities. i.e. sting ready anims for triple_stryke or monstrous night mare on fire ticks
+     * give ticks to enable special abilities. i.e. sting ready anims for triple_stryke or monstrous nightmare on fire ticks
      *
      * @return
      */
@@ -505,9 +540,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return this.getAttributeValue(Attributes.FOLLOW_RANGE);
     }
 
-    public int getTicksSinceLastAttack() {
-        return ticksSinceLastAttack;
-    }
+
 
 
     /**
@@ -667,7 +700,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public void swing(@NotNull InteractionHand pHand) {
         this.swing(pHand, true);
 
-        ticksSinceLastAttack = 0;
+        setTicksSinceLastAttack(0);
     }
 
     @Override
@@ -808,10 +841,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         if (getAbilityDisturbTicks() > 0)
             setAbilityDisturbTicksAbility(getAbilityDisturbTicks() - 1);
 
-        if (ticksSinceLastAttack >= 0) { // used for jaw animation
-            ++ticksSinceLastAttack;
-            if (ticksSinceLastAttack > 1000) {
-                ticksSinceLastAttack = -1; // reset at arbitrary large value
+        if (getTicksSinceLastAttack() >= 0) { // used for jaw animation
+            setTicksSinceLastAttack(getTicksSinceLastAttack() + 1);
+            if (getTicksSinceLastAttack() > 1000) {
+                setTicksSinceLastAttack(-1); // reset at arbitrary large value
             }
         }
 
@@ -1250,7 +1283,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected SoundEvent get2ndAttackSound() {
         return null;
     }
-
 
     protected SoundEvent getProjectileSound() {
         return null;
