@@ -62,6 +62,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.extensions.IForgeEntity;
+import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -1085,7 +1086,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public boolean isFoodEdibleToDragon(ItemStack pStack) {
         Item item = pStack.getItem();
         return pStack.is(Items.SALMON) || pStack.is(Items.COD) || pStack.is(Items.ROTTEN_FLESH) ||
-                pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH) || (item.isEdible() && item.getFoodProperties().isMeat() && item.getFoodProperties() != null) && !pStack.isEmpty();
+                pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH) || isItemStackForTaming (pStack) || (item.isEdible() && item.getFoodProperties().isMeat() && item.getFoodProperties() != null) && !pStack.isEmpty();
     }
 
     public int getMaxTemper() {
