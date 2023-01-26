@@ -148,6 +148,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.define(IS_MALE, random.nextBoolean());
         this.entityData.define(CURRENT_ATTACK, 0);
         this.entityData.define(TICKS_SINCE_LAST_ATTACK, 0);
+        this.entityData.define(TICKS_SINCE_LAST_ROAR, 0);
         this.entityData.define(MARK_ROAR, false);
     }
 
