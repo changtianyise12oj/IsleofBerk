@@ -250,7 +250,6 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
-
         if (level.isClientSide()) {
             ControlNetwork.INSTANCE.sendToServer(new MessageStingerMovingForRam(IsRammingDamageTrue(), this.getId()));
         }
