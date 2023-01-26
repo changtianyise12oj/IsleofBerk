@@ -143,7 +143,7 @@ public class SpeedStinger extends ADragonRideableUtility {
     }
 
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
-        if (ticksSinceLastAttack >= 0 && ticksSinceLastAttack < 12) {
+        if (getTicksSinceLastAttack()  >= 0 && getTicksSinceLastAttack()  < 12) {
             if (getCurrentAttackType() == 0) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerBite", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
