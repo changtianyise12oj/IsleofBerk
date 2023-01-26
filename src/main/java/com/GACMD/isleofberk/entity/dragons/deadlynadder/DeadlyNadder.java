@@ -385,8 +385,6 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         modifySecondaryFuel(-2);
         this.playSound(SoundEvents.SKELETON_SHOOT, 5.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(spike);
-
-        System.out.println(getRemainingSecondFuel());
     }
 
     /**

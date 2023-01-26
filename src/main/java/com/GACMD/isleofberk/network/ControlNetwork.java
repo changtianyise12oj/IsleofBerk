@@ -25,6 +25,8 @@ public class ControlNetwork {
         INSTANCE.registerMessage(7, ControlMessageServer.class, ControlMessageServer::encode, ControlMessageServer::decode, ControlMessageServer::handle);
         INSTANCE.registerMessage(8, ClientMessageGuiDragonSit.class, ClientMessageGuiDragonSit::encode, ClientMessageGuiDragonSit::decode, ClientMessageGuiDragonSit::handle);
         INSTANCE.registerMessage(9, DragonRideMessage.class, DragonRideMessage::encode, DragonRideMessage::decode, DragonRideMessage::handle);
+        INSTANCE.registerMessage(10, MessageDragonFlapSounds.class, MessageDragonFlapSounds::encode, MessageDragonFlapSounds::decode, MessageDragonFlapSounds::handle);
+        INSTANCE.registerMessage(11, MessageStingerMovingForRam.class, MessageStingerMovingForRam::encode, MessageStingerMovingForRam::decode, MessageStingerMovingForRam::handle);
     }
 
     public static <MSG> void sendMSGToAll(MSG message) {

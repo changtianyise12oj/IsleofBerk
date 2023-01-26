@@ -40,16 +40,13 @@ public class DragonRideMessage {
                 player = Minecraft.getInstance().player;
             }
             if (player != null) {
-                if (player.level != null) {
-                    Entity entity = player.level.getEntity(message.dragonId);
-                    if (entity != null && entity instanceof ADragonBase) {
-                        ADragonBase dragonBase = (ADragonBase) entity;
-                        if (dragonBase.position().distanceTo(player.position()) < 14) {
-                            if (message.ride) {
-                                dragonBase.startRiding(player, true);
-                            } else {
-                                dragonBase.stopRiding();
-                            }
+                Entity entity = player.level.getEntity(message.dragonId);
+                if (entity instanceof ADragonBase dragonBase) {
+                    if (dragonBase.position().distanceTo(player.position()) < 14) {
+                        if (message.ride) {
+                            dragonBase.startRiding(player, true);
+                        } else {
+                            dragonBase.stopRiding();
                         }
                     }
                 }

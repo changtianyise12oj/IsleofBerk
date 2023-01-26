@@ -3,6 +3,8 @@ package com.GACMD.isleofberk.entity.dragons.stinger;
 import com.GACMD.isleofberk.entity.AI.taming.T2DragonFeedTamingGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseGroundRideable;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.network.ControlNetwork;
+import com.GACMD.isleofberk.network.message.MessageStingerMovingForRam;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.math.MathX;
@@ -11,6 +13,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientboundAddMobPacket;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BiomeTags;
@@ -21,13 +26,13 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
@@ -45,6 +50,9 @@ import java.util.List;
 public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     DragonPart[] subParts;
     DragonPart stingerRamOffset;
+
+
+    private static final EntityDataAccessor<Boolean> RAMMING_DAMAGE = SynchedEntityData.defineId(Stinger.class, EntityDataSerializers.BOOLEAN);
 
 
     @Override
@@ -73,10 +81,8 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
             }
             if (isVehicle()) {
                 if (event.isMoving() && !shouldStopMovingIndependently()) {
+                    setIsRammingDamageTrue(true);
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.run", ILoopType.EDefaultLoopTypes.LOOP));
-                    return PlayState.CONTINUE;
-                } else if (isUsingAbility() || (event.isMoving() && isUsingAbility())) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("stuiinger.ram", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
                 }
             }
@@ -84,15 +90,12 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.walk", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (isUsingAbility()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.ram", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
-            }
         } else {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.jump", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
 
+        setIsRammingDamageTrue(false);
         event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.idle", ILoopType.EDefaultLoopTypes.LOOP));
         return PlayState.CONTINUE;
     }
@@ -116,8 +119,34 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
 
     public Stinger(EntityType<? extends Stinger> entityType, Level level) {
         super(entityType, level);
-        this.stingerRamOffset = new DragonPart(this, "stingerRamOffset", 2F, 2F);
+        this.stingerRamOffset = new DragonPart(this, "stingerRamOffset", 1.5F, 1.5F);
         this.subParts = new DragonPart[]{this.stingerRamOffset};
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(RAMMING_DAMAGE, false);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag pCompound) {
+        super.readAdditionalSaveData(pCompound);
+        this.setIsRammingDamageTrue(pCompound.getBoolean("ramming_damage"));
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag pCompound) {
+        super.addAdditionalSaveData(pCompound);
+        pCompound.putBoolean("ramming_damage", this.IsRammingDamageTrue());
+    }
+
+    public boolean IsRammingDamageTrue() {
+        return this.entityData.get(RAMMING_DAMAGE);
+    }
+
+    public void setIsRammingDamageTrue(boolean ram) {
+        this.entityData.set(RAMMING_DAMAGE, ram);
     }
 
     @Override
@@ -175,7 +204,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         Vec3 vec3 = this.getDeltaMovement();
         boolean isMoving = vec3.x > 0 || vec3.y > 0 || vec3.z > 0;
         if (getControllingPassenger() instanceof Player player) {
-            if (isUsingAbility()) {
+            if (isUsingAbility() && IsRammingDamageTrue()) {
                 this.knockBack(this.level.getEntities(this, this.stingerRamOffset.getBoundingBox().inflate(0.3D, 0.3D, 0.3D).move(0.0D, -0.3D, 0.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
 
                 if (!level.isClientSide()) {
@@ -221,8 +250,69 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
+        
+        if (level.isClientSide()) {
+            ControlNetwork.INSTANCE.sendToServer(new MessageStingerMovingForRam(IsRammingDamageTrue(), this.getId()));
+        }
+
         if (isUsingAbility()) {
             this.setXRot(0);
+        }
+    }
+
+    @Override
+    public void travel(@NotNull Vec3 pTravelVector) {
+        if (this.isAlive()) {
+            if (this.isVehicle() && this.canBeControlledByRider()) {
+                LivingEntity pilot = (LivingEntity) this.getControllingPassenger();
+                assert pilot != null;
+                pilot.setYBodyRot(pilot.getYHeadRot());
+                this.setYRot(pilot.getYRot());
+                this.yRotO = this.getYRot();
+                this.setXRot(pilot.getXRot() * 0.5F);
+                this.setRot(this.getYRot(), this.getXRot());
+                this.yBodyRot = this.getYRot();
+                this.yHeadRot = this.yBodyRot;
+                float f = pilot.xxa * 0.5F;
+                float f1 = pilot.zza;
+                if (f1 <= 0.0F) {
+                    f1 *= 0.25F;
+                }
+
+                if (this.playerJumpPendingScale > 0.0F && !this.isJumping() && this.isDragonOnGround()) {
+                    double d0 = this.getCustomJump() * (double) this.playerJumpPendingScale * (double) this.getBlockJumpFactor();
+                    double d1 = d0 + this.getJumpBoostPower();
+                    Vec3 vec3 = this.getDeltaMovement();
+                    this.setDeltaMovement(vec3.x, d1, vec3.z);
+                    this.setIsJumping(true);
+                    this.hasImpulse = true;
+                    ForgeHooks.onLivingJump(this);
+                    if (f1 > 0.0F) {
+                        float f2 = Mth.sin(this.getYRot() * 0.017453292F);
+                        float f3 = Mth.cos(this.getYRot() * 0.017453292F);
+                        this.setDeltaMovement(this.getDeltaMovement().add((-1.5F * f2 * this.playerJumpPendingScale), 0.0D, (1.5F * f3 * this.playerJumpPendingScale)));
+                    }
+                    this.playerJumpPendingScale = 0.0F;
+                }
+
+                this.flyingSpeed = this.getSpeed() * 0.1F;
+                if (this.isControlledByLocalInstance()) {
+                    this.setSpeed((float) this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+                    super.travel(new Vec3(f, pTravelVector.y, f1));
+                } else if (pilot instanceof Player) {
+                    this.setDeltaMovement(Vec3.ZERO);
+                }
+
+                if (this.isDragonOnGround()) {
+                    this.playerJumpPendingScale = 0.0F;
+                    this.setIsJumping(false);
+                }
+
+                this.tryCheckInsideBlocks();
+            } else {
+                this.flyingSpeed = 0.02F;
+                super.travel(pTravelVector);
+            }
         }
     }
 
@@ -325,8 +415,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     protected SoundEvent getAmbientSound() {
         if (this.isDragonSleeping()) {
             return ModSounds.STINGER_SLEEP.get();
-        }
-        else {
+        } else {
             return ModSounds.STINGER_GROWL.get();
         }
     }

@@ -15,6 +15,8 @@ import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.entity.dragons.tryiple_stryke.TripleStryke;
+import com.GACMD.isleofberk.network.ControlNetwork;
+import com.GACMD.isleofberk.network.message.MessageDragonFlapSounds;
 import com.GACMD.isleofberk.registery.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -413,6 +415,10 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
             this.setNoGravity(true);
         } else {
             this.setNoGravity(false);
+        }
+
+        if(level.isClientSide()) {
+            ControlNetwork.INSTANCE.sendToServer(new MessageDragonFlapSounds(shouldPlayFlapping(), getId()));
         }
 
         // decrement per tick

@@ -14,11 +14,10 @@ import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
 public class ClientMessageGuiDragon {
-    private int entityId;
+    int entityId;
 
     public ClientMessageGuiDragon(int entityId) {
         this.entityId = entityId;
@@ -37,30 +36,33 @@ public class ClientMessageGuiDragon {
         //The server Player
         ServerPlayer player = context.getSender();
         //The Dragon entity
-        ADragonBase dragon = (ADragonBase) player.level.getEntity(message.entityId);
 
-        if (context.getDirection().getReceptionSide() == LogicalSide.SERVER) {
-            context.enqueueWork(() ->
-            {
-                if (dragon != null) {
-                    if (!player.level.isClientSide() && player.isPassenger() && player.getVehicle() instanceof ADragonBase) {
-                        Component dragonName = dragon.getName();
-                        int id = dragon.getId();
-                        NetworkHooks.openGui(player, new MenuProvider() {
-                            @Override
-                            public @NotNull Component getDisplayName() {
-                                return dragonName;
-                            }
+        if (player != null) {
+            ADragonBase dragon = (ADragonBase) player.level.getEntity(message.entityId);
 
-                            @Override
-                            public @NotNull AbstractContainerMenu createMenu(int i, @NotNull Inventory playerInventory, @NotNull Player playerEntity) {
-                                return new DragonContainerMenu(i, playerInventory, id);
-                            }
-                        }, buf -> buf.writeInt(id));
+            if (context.getDirection().getReceptionSide() == LogicalSide.SERVER) {
+                context.enqueueWork(() ->
+                {
+                    if (dragon != null) {
+                        if (!player.level.isClientSide() && player.isPassenger() && player.getVehicle() instanceof ADragonBase) {
+                            Component dragonName = dragon.getName();
+                            int id = dragon.getId();
+                            NetworkHooks.openGui(player, new MenuProvider() {
+                                @Override
+                                public @NotNull Component getDisplayName() {
+                                    return dragonName;
+                                }
+
+                                @Override
+                                public @NotNull AbstractContainerMenu createMenu(int i, @NotNull Inventory playerInventory, @NotNull Player playerEntity) {
+                                    return new DragonContainerMenu(i, playerInventory, id);
+                                }
+                            }, buf -> buf.writeInt(id));
+                        }
                     }
-                }
-            });
-            context.setPacketHandled(true);
+                });
+                context.setPacketHandled(true);
+            }
         }
     }
 }

@@ -31,8 +31,10 @@ public class ControlMessageAbility {
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            if (player.getVehicle() instanceof ADragonBase dragon && dragon.getOwner() == player) {
-                dragon.setIsUsingAbility(message.abilityHeld);
+            if (player != null) {
+                if (player.getVehicle() instanceof ADragonBase dragon && dragon.getOwner() == player) {
+                    dragon.setIsUsingAbility(message.abilityHeld);
+                }
             }
         });
         context.setPacketHandled(true);

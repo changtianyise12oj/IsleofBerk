@@ -16,7 +16,7 @@ public class ClientMessageTameParticlesDragon {
 
     public ClientMessageTameParticlesDragon(int entityId, boolean check) {
         this.entityId = entityId;
-        this.check=check;
+        this.check = check;
     }
 
     public static void encode(ClientMessageTameParticlesDragon message, FriendlyByteBuf buffer) {
@@ -24,24 +24,25 @@ public class ClientMessageTameParticlesDragon {
     }
 
     public static ClientMessageTameParticlesDragon decode(FriendlyByteBuf buffer) {
-        return new ClientMessageTameParticlesDragon(buffer.readInt(),buffer.readBoolean());
+        return new ClientMessageTameParticlesDragon(buffer.readInt(), buffer.readBoolean());
     }
 
     public static void handle(ClientMessageTameParticlesDragon message, Supplier<NetworkEvent.Context> ctx) {
         NetworkEvent.Context context = ctx.get();
-        //The server Player
         Player player = context.getSender();
-        //The Bufflon entity
-        ADragonBase dragon = (ADragonBase) player.level.getEntity(message.entityId);
 
-        if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-            context.enqueueWork(() ->
-            {
-                if (dragon != null) {
-                    spawnTamingParticles(message.check,dragon);
-                }
-            });
-            context.setPacketHandled(true);
+        if (player != null) {
+            ADragonBase dragon = (ADragonBase) player.level.getEntity(message.entityId);
+
+            if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
+                context.enqueueWork(() ->
+                {
+                    if (dragon != null) {
+                        spawnTamingParticles(message.check, dragon);
+                    }
+                });
+                context.setPacketHandled(true);
+            }
         }
     }
 

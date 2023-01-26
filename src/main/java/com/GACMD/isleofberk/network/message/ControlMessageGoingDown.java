@@ -31,9 +31,10 @@ public class ControlMessageGoingDown {
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            if (player.getVehicle() instanceof ADragonBaseFlyingRideable) {
-                ADragonBaseFlyingRideable dragon = (ADragonBaseFlyingRideable) player.getVehicle();
-                dragon.setIsGoingDown(message.isGoingDown);
+            if (player != null) {
+                if (player.getVehicle() instanceof ADragonBaseFlyingRideable dragon) {
+                    dragon.setIsGoingDown(message.isGoingDown);
+                }
             }
         });
         context.setPacketHandled(true);
