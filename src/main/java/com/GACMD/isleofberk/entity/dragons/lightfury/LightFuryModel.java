@@ -1,6 +1,7 @@
 package com.GACMD.isleofberk.entity.dragons.lightfury;
 
 import com.GACMD.isleofberk.IsleofBerk;
+import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
 import net.minecraft.resources.ResourceLocation;
@@ -12,6 +13,10 @@ public class LightFuryModel extends BaseDragonModelFlying<LightFury> {
         return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/light_fury.geo.json");
 
     }
+
+
+    @Override
+    protected float getAdultSize() { return CommonConfig.USE_LARGER_SCALING.get() ? 1.04f: 1; }
 
     @Override
     public ResourceLocation getTextureLocation(LightFury entity) {
