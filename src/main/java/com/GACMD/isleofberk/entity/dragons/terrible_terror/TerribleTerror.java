@@ -367,24 +367,24 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public void updateClientControls() {
         Minecraft mc = Minecraft.getInstance();
         if (mc.options.keyJump.isDown()) {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(true));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(true, getId()));
         } else {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(false));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(false, getId()));
         }
         if (ModKeyBinds.keyAbilty.isDown()) {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageTerribleTerrorAbility(true));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageTerribleTerrorAbility(true, getId()));
         } else {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageTerribleTerrorAbility(false));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageTerribleTerrorAbility(false, getId()));
         }
         if (ModKeyBinds.keySecondAbilty.isDown()) {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(true));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(true, getId()));
         } else {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(false));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(false, getId()));
         }
         if (ModKeyBinds.keyDown.isDown()) {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(true));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(true, getId()));
         } else {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(false));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(false, getId()));
         }
 
     }

@@ -24,7 +24,7 @@ public class DragonRideMessage {
     }
 
     public static void encode(DragonRideMessage message, FriendlyByteBuf buffer) {
-        buffer.writeDouble(message.dragonId);
+        buffer.writeInt(message.dragonId);
         buffer.writeBoolean(message.ride);
     }
 

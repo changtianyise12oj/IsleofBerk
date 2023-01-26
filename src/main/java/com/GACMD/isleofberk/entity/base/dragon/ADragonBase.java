@@ -1084,24 +1084,24 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public void updateClientControls() {
         Minecraft mc = Minecraft.getInstance();
         if (mc.options.keyJump.isDown()) {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(true));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(true, getId()));
         } else {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(false));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageJumping(false, getId()));
         }
         if (ModKeyBinds.keyAbilty.isDown()) {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageAbility(true));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageAbility(true, getId()));
         } else {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageAbility(false));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageAbility(false, getId()));
         }
         if (ModKeyBinds.keySecondAbilty.isDown()) {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(true));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(true, getId()));
         } else {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(false));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(false, getId()));
         }
         if (ModKeyBinds.keyDown.isDown()) {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(true));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(true, getId()));
         } else {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(false));
+            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(false, getId()));
         }
 
     }

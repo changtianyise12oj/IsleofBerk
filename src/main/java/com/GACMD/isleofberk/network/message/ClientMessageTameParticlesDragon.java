@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.network.NetworkEvent;
@@ -11,8 +12,8 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class ClientMessageTameParticlesDragon {
-    private int entityId;
-    private boolean check;
+    int entityId;
+    boolean check;
 
     public ClientMessageTameParticlesDragon(int entityId, boolean check) {
         this.entityId = entityId;
@@ -21,6 +22,7 @@ public class ClientMessageTameParticlesDragon {
 
     public static void encode(ClientMessageTameParticlesDragon message, FriendlyByteBuf buffer) {
         buffer.writeInt(message.entityId);
+        buffer.writeBoolean(message.check);
     }
 
     public static ClientMessageTameParticlesDragon decode(FriendlyByteBuf buffer) {
@@ -31,17 +33,18 @@ public class ClientMessageTameParticlesDragon {
         NetworkEvent.Context context = ctx.get();
         Player player = context.getSender();
 
-        if (player != null) {
-            ADragonBase dragon = (ADragonBase) player.level.getEntity(message.entityId);
 
-            if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                context.enqueueWork(() ->
-                {
-                    if (dragon != null) {
+        if (player != null) {
+            Entity entity = player.level.getEntity(message.entityId);
+
+            if (entity instanceof ADragonBase dragon) {
+                if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
+                    context.enqueueWork(() ->
+                    {
                         spawnTamingParticles(message.check, dragon);
-                    }
-                });
-                context.setPacketHandled(true);
+                    });
+                    context.setPacketHandled(true);
+                }
             }
         }
     }
