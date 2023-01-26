@@ -178,7 +178,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeStingReady", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         } else if (getCurrentAttackType() == 2 && getTarget() != null && distanceTo(getTarget()) < 10 || ticksSinceLastStingAttackPlayer > 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSting", ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeBite", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;

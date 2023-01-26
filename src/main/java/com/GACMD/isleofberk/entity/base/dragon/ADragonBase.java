@@ -595,6 +595,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.goalSelector.addGoal(7, new IOBRandomLookAroundGoal(this));
         this.targetSelector.addGoal(1, new DragonHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new DragonOwnerHurtTargetGoal(this));
+        this.targetSelector.addGoal(2, new OwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new AggressionToPlayersGoal<>(this, Player.class, true, getAggressionType(), null));
     }
 
