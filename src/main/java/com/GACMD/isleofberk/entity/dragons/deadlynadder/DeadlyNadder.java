@@ -12,7 +12,6 @@ import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -32,12 +31,10 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
@@ -337,9 +334,11 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         }
 
         if (getControllingPassenger() instanceof Player player) {
-            if (ticksSinceLastStingAttack > threshold && !isUsingSECONDAbility()) {
-                Vec3 riderLook = player.getLookAngle();
-                performRangedAttack(riderLook, 1);
+            if (getRemainingSecondFuel() > 0) {
+                if (ticksSinceLastStingAttack > threshold && !isUsingSECONDAbility()) {
+                    Vec3 riderLook = player.getLookAngle();
+                    performRangedAttack(riderLook, 1);
+                }
             }
         }
 
@@ -383,9 +382,11 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         double d2 = riderLook.z();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
         spike.shoot(d0, d1 + d3 * (double) 0.2F, d2, 5F, 1F);
-        modifySecondaryFuel(-3);
+        modifySecondaryFuel(-2);
         this.playSound(SoundEvents.SKELETON_SHOOT, 5.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(spike);
+
+        System.out.println(getRemainingSecondFuel());
     }
 
     /**
@@ -400,7 +401,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
         double d2 = dragonLook.z();
         double d3 = Math.sqrt(d0 * d0 + d2 * d2);
         spike.shoot(d0, d1 + d3 * (double) 0.2F, d2, 4F, 1.2F);
-        modifySecondaryFuel(-3);
+        modifySecondaryFuel(-2);
         this.playSound(SoundEvents.SKELETON_SHOOT, 5.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(spike);
     }
@@ -504,8 +505,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     protected SoundEvent getAmbientSound() {
         if (this.isDragonSleeping()) {
             return ModSounds.DEADLY_NADDER_SLEEP.get();
-        }
-        else {
+        } else {
             return ModSounds.DEADLY_NADDER_GROWL.get();
         }
     }

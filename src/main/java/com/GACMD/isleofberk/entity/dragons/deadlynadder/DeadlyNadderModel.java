@@ -114,10 +114,10 @@ public class DeadlyNadderModel extends BaseDragonModelFlying<DeadlyNadder> {
         }
 
         // hides tail spikes depending on amount of remaining shots
-        tailSpike5.setHidden(dragon.getRemainingSecondFuel() <= dragon.getMaxSecondFuel() * 0.80);
-        tailSpike4.setHidden(dragon.getRemainingSecondFuel() <= dragon.getMaxSecondFuel() * 0.60);
-        tailSpike3.setHidden(dragon.getRemainingSecondFuel() <= dragon.getMaxSecondFuel() * 0.40);
-        tailSpike2.setHidden(dragon.getRemainingSecondFuel() <= dragon.getMaxSecondFuel() * 0.20);
+        tailSpike5.setHidden(dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.80);
+        tailSpike4.setHidden(dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.60);
+        tailSpike3.setHidden(dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.40);
+        tailSpike2.setHidden(dragon.getRemainingSecondFuel() < dragon.getMaxSecondFuel() * 0.20);
         tailSpike1.setHidden(dragon.getRemainingSecondFuel() == 0);
 
     }
