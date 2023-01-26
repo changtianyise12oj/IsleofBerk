@@ -853,7 +853,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     @Override
     protected SoundEvent get1stAttackSound() {
-        return ModSounds.STINGER_BITE.get();
+        return ModSounds.DEADLY_NADDER_BITE.get();
     }
 
     protected int getMaxPassengerCapacity() {

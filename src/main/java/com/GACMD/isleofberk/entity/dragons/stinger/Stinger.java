@@ -433,7 +433,7 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
 
     @Override
     protected SoundEvent get1stAttackSound() {
-        return ModSounds.STINGER_BITE.get();
+        return ModSounds.DEADLY_NADDER_BITE.get();
     }
 
     @Override

@@ -43,18 +43,14 @@
       "isleofberk:entity/deadly_nadder/bite"
     ]
   },
-
   "entity.gronckle.growl": {
     "sounds": [
       "isleofberk:entity/gronckle/growl"
     ]
-  }, 
-  "entity.gronckle.flap": {
+  },
+  "entity.gronckle.tame": {
     "sounds": [
-      "isleofberk:entity/gronckle/flap_1",
-      "isleofberk:entity/gronckle/flap_2",
-      "isleofberk:entity/gronckle/flap_3",
-      "isleofberk:entity/gronckle/flap_4"
+      "isleofberk:entity/gronckle/growl"
     ]
   },
   "entity.gronckle.hurt": {
@@ -82,11 +78,15 @@
       "isleofberk:entity/gronckle/spit"
     ]
   },
-
   "entity.zippleback.growl": {
     "sounds": [
       "isleofberk:entity/hideous_zippleback/growl",
       "isleofberk:entity/hideous_zippleback/growl_alt"
+    ]
+  },
+  "entity.zippleback.bite": {
+    "sounds": [
+      "isleofberk:entity/hideous_zippleback/bite"
     ]
   },
   "entity.zippleback.hurt": {
@@ -117,7 +117,6 @@
       "isleofberk:entity/hideous_zippleback/tame"
     ]
   },
-
   "entity.light_fury.growl": {
     "sounds": [
       "isleofberk:entity/light_fury/growl"
@@ -148,7 +147,6 @@
       "isleofberk:entity/light_fury/tame"
     ]
   },
-
   "entity.night_fury.growl": {
     "sounds": [
       "isleofberk:entity/night_fury/growl"
@@ -179,7 +177,6 @@
       "isleofberk:entity/night_fury/tame"
     ]
   },
-
   "entity.monstrous_nightmare.growl": {
     "sounds": [
       "isleofberk:entity/monstrous_nightmare/growl",
@@ -218,7 +215,6 @@
       "isleofberk:entity/monstrous_nightmare/tame"
     ]
   },
-
   "entity.terrible_terror.growl": {
     "sounds": [
       "isleofberk:entity/terrible_terror/growl",
@@ -259,7 +255,6 @@
       "isleofberk:entity/terrible_terror/tame"
     ]
   },
-
   "entity.speed_stinger.growl": {
     "sounds": [
       "isleofberk:entity/speed_stinger/growl",
@@ -276,6 +271,11 @@
     "sounds": [
       "isleofberk:entity/speed_stinger/hurt",
       "isleofberk:entity/speed_stinger/hurt_alt"
+    ]
+  },
+  "entity.speed_stinger.tame": {
+    "sounds": [
+      "isleofberk:entity/speed_stinger/tame"
     ]
   },
   "entity.speed_stinger.death": {
@@ -296,7 +296,6 @@
       "isleofberk:entity/speed_stinger/sting_alt"
     ]
   },
-
   "entity.stinger.growl": {
     "sounds": [
       "isleofberk:entity/stinger/growl",
