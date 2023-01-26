@@ -43,7 +43,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
     protected Vec3 end;
     protected int damageTier;
 
-    private static final EntityDataAccessor<Integer> PROJECTILE_SIZE = SynchedEntityData.defineId(BaseLinearFlightProjectile.class, EntityDataSerializers.INT);
+    protected static final EntityDataAccessor<Integer> PROJECTILE_SIZE = SynchedEntityData.defineId(BaseLinearFlightProjectile.class, EntityDataSerializers.INT);
 
     /**
      * registry constructor

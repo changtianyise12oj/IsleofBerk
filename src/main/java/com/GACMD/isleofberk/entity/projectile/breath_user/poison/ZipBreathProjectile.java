@@ -51,7 +51,6 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
 
     ADragonBase dragon;
     public double ticksExisted;
-    Vec3 throat;
     Vec3 end;
 
     public ZipBreathProjectile(EntityType<? extends ZipBreathProjectile> projectile, Level level) {
