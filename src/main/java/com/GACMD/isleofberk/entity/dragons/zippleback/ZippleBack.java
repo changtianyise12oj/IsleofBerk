@@ -235,7 +235,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public int getMaxFuel() {
-        return 150;
+        return 250;
     }
 
     @Override
