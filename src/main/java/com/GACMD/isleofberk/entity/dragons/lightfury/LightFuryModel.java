@@ -37,6 +37,16 @@ public class LightFuryModel extends BaseDragonModelFlying<LightFury> {
         return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/light_fury.animation.json");
     }
 
+    @Override
+    public int getMaxRise() {
+        return 42;
+    }
+
+    @Override
+    public int getMinRise() {
+        return -42;
+    }
+
 /*    @Override
     public void setLivingAnimations(NightFury entity, Integer uniqueID, AnimationEvent customPredicate) {
         super.setLivingAnimations(entity, uniqueID, customPredicate);

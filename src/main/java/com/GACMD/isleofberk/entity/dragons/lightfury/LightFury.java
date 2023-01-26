@@ -251,6 +251,11 @@ public class LightFury extends NightFury {
     }
 
     @Override
+    protected double extraRidersYOffset() {
+        return 1.1D;
+    }
+
+    @Override
     public float getRideCameraDistanceBack() {
         if (!isFlying()) {
             return 4;
