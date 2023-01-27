@@ -138,14 +138,14 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     public boolean test(@javax.annotation.Nullable LivingEntity pAttacker, ZippleBackAOECloud pTarget, double yRange, double xRange, double zRange) {
         if (pAttacker != null) {
             if (yRange > 0.0D || xRange > 0.0D || zRange > 0.0D) {
-                double d1 = Math.max(yRange, 2.0D);
+                double d1 = Math.max(yRange, 1.0D);
                 double d2 = Math.max(xRange, 1.5D);
                 double d3 = Math.max(zRange, 1.5D);
                 double x = getX() - pTarget.getX();
                 double y = getY() - pTarget.getY();
                 double z = getZ() - pTarget.getZ();
 
-                if (y > d1 * d1 || y < 0) {
+                if (y > d1 * d1 || y < -2) {
                     return false;
                 }
                 if (x > d2 * d2) {
