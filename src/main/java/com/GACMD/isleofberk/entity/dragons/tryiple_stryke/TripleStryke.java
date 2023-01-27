@@ -154,7 +154,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
-        if (getTicksSinceLastAttack()  >= 0 && getTicksSinceLastAttack()  < 12) {
+        if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
             if (getCurrentAttackType() == 0) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeClaw", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
@@ -177,8 +177,11 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         if (getAbilityDisturbTicks() > 1 && isDragonOnGround() && getCurrentAttackType() != 2 && ticksSinceLastStingAttackPlayer == 0) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeStingReady", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
-        } else if (getCurrentAttackType() == 2 && getTarget() != null && distanceTo(getTarget()) < 10 || ticksSinceLastStingAttackPlayer > 0) {
+        } else if (getCurrentAttackType() == 2 && getTarget() != null && distanceTo(getTarget()) < 10) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeBite", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        } else if (ticksSinceLastStingAttackPlayer > 0) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSting", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
@@ -533,7 +536,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             ticksSinceLastClawAttack = 0;
         }
 
-        if (random1 > 120){
+        if (random1 > 120) {
             ticksSinceLastStingAttackAI = Util.secondsToTicks(3);
             ticksSinceLastClawAttack = 0;
             ticksSinceLastBiteAttack = 0;
@@ -833,8 +836,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     protected SoundEvent getAmbientSound() {
         if (this.isDragonSleeping()) {
             return ModSounds.STINGER_SLEEP.get();
-        }
-        else {
+        } else {
             return ModSounds.STINGER_GROWL.get();
         }
     }
