@@ -36,9 +36,6 @@ public class DragonRideMessage {
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> {
             Player player = context.getSender();
-            if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-                player = Minecraft.getInstance().player;
-            }
             
             if (player != null) {
                 Entity entity = player.level.getEntity(message.dragonId);
