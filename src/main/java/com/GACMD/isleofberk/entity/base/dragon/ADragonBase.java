@@ -135,6 +135,11 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     @Override
+    public void onInsideBubbleColumn(boolean pDownwards) {
+
+    }
+
+    @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DRAGON_VARIANT, 0);
@@ -549,8 +554,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected double getFollowDistance() {
         return this.getAttributeValue(Attributes.FOLLOW_RANGE);
     }
-
-
 
 
     /**
