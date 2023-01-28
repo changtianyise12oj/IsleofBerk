@@ -262,7 +262,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         float sinY = Mth.sin(yRotRadians);
         float cosY = Mth.cos(yRotRadians);
 
-        this.tickPart(this.GronckleRamArea, 2 * -sinY * 1, 0.4D, 2 * cosY * 1);
+        this.tickPart(this.GronckleRamArea, 2.2 * -sinY * 1, 0.4D, 2.2 * cosY * 1);
 
         if (isUsingSECONDAbility() && getTicksSincePlayerLastRamAttack() == 0) {
             ticksSinceLastRamAttackPlayer = 20;
