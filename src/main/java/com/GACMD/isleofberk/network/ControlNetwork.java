@@ -28,10 +28,4 @@ public class ControlNetwork {
         INSTANCE.registerMessage(10, MessageDragonFlapSounds.class, MessageDragonFlapSounds::encode, MessageDragonFlapSounds::decode, MessageDragonFlapSounds::handle);
         INSTANCE.registerMessage(11, MessageStingerMovingForRam.class, MessageStingerMovingForRam::encode, MessageStingerMovingForRam::decode, MessageStingerMovingForRam::handle);
     }
-
-    public static <MSG> void sendMSGToAll(MSG message) {
-        for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
-            INSTANCE.sendTo(message, player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
-        }
-    }
 }
