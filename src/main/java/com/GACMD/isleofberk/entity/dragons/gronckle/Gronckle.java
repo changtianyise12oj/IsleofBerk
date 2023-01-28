@@ -69,7 +69,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
     public Gronckle(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
-        this.GronckleRamArea = new DragonPart(this, "GronckleRamArea", 1.7F, 1.7F);
+        this.GronckleRamArea = new DragonPart(this, "GronckleRamArea", 1.6F, 1.6F);
         this.subParts = new DragonPart[]{this.GronckleRamArea};
     }
 
