@@ -389,6 +389,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 if (isTame()) {
                     if (!isDragonSleeping() || isDragonSitting()) {
                         if (!stack.isEmpty()) {
+                            setSleepDisturbTicks(Util.secondsToTicks(30));
                             stack.shrink(1);
                             setTicksSincelastStoneFed(Util.secondsToTicks(3));
                             this.playSound(SoundEvents.DONKEY_EAT, 1, 1);
