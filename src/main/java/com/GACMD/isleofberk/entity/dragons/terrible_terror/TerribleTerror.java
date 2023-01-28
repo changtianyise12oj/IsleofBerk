@@ -570,7 +570,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
-        return 5;
+        return 3;
     }
 
     @Override
