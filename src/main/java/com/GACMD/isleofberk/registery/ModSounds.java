@@ -44,6 +44,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> DEADLY_NADDER_SLEEP              = registerSoundEvent("entity.deadly_nadder.sleep");
     public static final RegistryObject<SoundEvent> DEADLY_NADDER_FIRE               = registerSoundEvent("entity.deadly_nadder.fire");
     public static final RegistryObject<SoundEvent> DEADLY_NADDER_BITE               = registerSoundEvent("entity.deadly_nadder.bite");
+    public static final RegistryObject<SoundEvent> DEADLY_NADDER_STING               = registerSoundEvent("entity.deadly_nadder.sting");
 
     public static final RegistryObject<SoundEvent> GRONCKLE_GROWL                   = registerSoundEvent("entity.gronckle.growl");
     public static final RegistryObject<SoundEvent> GRONCKLE_HURT                    = registerSoundEvent("entity.gronckle.hurt");
