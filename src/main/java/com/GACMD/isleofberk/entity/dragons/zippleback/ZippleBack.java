@@ -251,7 +251,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     protected int breathBarRegenAmount() {
-        return 1;
+        return 32;
     }
 
 

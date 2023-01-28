@@ -5,6 +5,7 @@ import com.GACMD.isleofberk.entity.AI.flight.own.DragonFlyAndAttackAirbourneTarg
 import com.GACMD.isleofberk.entity.AI.flight.player.DragonFollowPlayerFlying;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
 import com.GACMD.isleofberk.entity.AI.ground.DragonWaterAvoidingRandomStrollGoal;
+import com.GACMD.isleofberk.entity.AI.target.DragonHurtByTargetGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonOwnerHurtTargetGoal;
 import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
@@ -247,7 +248,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
         this.targetSelector.addGoal(2, new NonTameRandomTargetGoal<>(this, LivingEntity.class, false, PREY_SELECTOR));
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
+        this.targetSelector.addGoal(1, (new DragonHurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.targetSelector.addGoal(2, new DragonOwnerHurtTargetGoal(this));
         this.targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(this, true));
