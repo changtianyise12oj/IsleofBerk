@@ -728,7 +728,7 @@ public class SpeedStinger extends ADragonRideableUtility {
     private void floatStinger() {
         if (this.isInWater()) {
             CollisionContext collisioncontext = CollisionContext.of(this);
-            if (collisioncontext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level.getFluidState(this.blockPosition().above()).is(FluidTags.LAVA)) {
+            if (collisioncontext.isAbove(LiquidBlock.STABLE_SHAPE, this.blockPosition(), true) && !this.level.getFluidState(this.blockPosition().above()).is(FluidTags.WATER)) {
                 this.onGround = true;
             } else {
                 this.setDeltaMovement(this.getDeltaMovement().scale(0.5D).add(0.0D, 0.05D, 0.0D));
