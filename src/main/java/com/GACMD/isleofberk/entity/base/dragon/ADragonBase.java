@@ -634,7 +634,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     protected boolean isCommandItems(ItemStack stack) {
-        return stack.is(Items.STICK) || stack.getItem() instanceof PickaxeItem;
+        return stack.is(Items.STICK);
     }
 
     @Override
