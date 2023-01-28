@@ -1,7 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.gronckle;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -31,28 +30,39 @@ public class GronckleModel extends BaseDragonModelFlying<Gronckle> {
 
     @Override
     public ResourceLocation getTextureLocation(Gronckle entity) {
-        switch (entity.getDragonVariant()) {
-            default:
-            case 0:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/meatlug.png");
-            case 1:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/hjarta.png");
-            case 2:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/junior_tuffnut_junior.png");
-            case 3:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/gronckle.png");
-            case 4:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/cheesemonger.png");
-            case 5:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/exiled.png");
-            case 6:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/rubblegrubber.png");
-            case 7:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/barn.png");
-            case 8:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/crubble.png");
-            case 9:
-                return new ResourceLocation("isleofberk:textures/dragons/gronckle/yawnckle.png");
+        int i = entity.getDragonVariant();
+        if (i == 0) {
+            return new ResourceLocation("isleofberk:textures/dragons/gronckle/meatlug.png");
+        } else if (i == 1) {
+
+            return new ResourceLocation("isleofberk:textures/dragons/gronckle/hjarta.png");
+        } else if (i == 2) {
+
+            return new ResourceLocation("isleofberk:textures/dragons/gronckle/junior_tuffnut_junior.png");
+        } else if (i == 3) {
+
+            return new ResourceLocation("isleofberk:textures/dragons/gronckle/gronckle.png");
+        } else if (i == 4) {
+
+            return new ResourceLocation("isleofberk:textures/dragons/gronckle/cheesemonger.png");
+        } else if (i == 5) {
+
+            return new ResourceLocation("isleofberk:textures/dragons/gronckle/exiled.png");
+        } else if (i == 6) {
+
+            return new ResourceLocation("isleofberk:textures/dragons/gronckle/rubblegrubber.png");
+        } else if (i == 7) {
+
+            return new ResourceLocation("isleofberk:textures/dragons/gronckle/barn.png");
+        } else if (i == 8) {
+
+            return new ResourceLocation("isleofberk:textures/dragons/gronckle/crubble.png");
+        } else if (i == 9) {
+
+            return new ResourceLocation("isleofberk:textures/dragons/gronckle/yawnckle.png");
+        } else {
+
+            return new ResourceLocation("isleofberk:textures/dragons/gronckle/meatlug.png");
         }
     }
 
