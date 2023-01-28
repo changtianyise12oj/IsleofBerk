@@ -28,16 +28,6 @@ public class MonstrousNightMareFireArmor<T extends MonstrousNightmare & IAnimata
         this.baseRenderer = (BaseRenderer<T>) entityRendererIn;
     }
 
-//    private static final Function<ResourceLocation, RenderType> EYES = Util.memoize((p_173255_) -> {
-//        RenderStateShard.TextureStateShard renderstateshard$texturestateshard = new RenderStateShard.TextureStateShard(p_173255_, false, false);
-//        return create("eyes", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().setShaderState(RENDERTYPE_EYES_SHADER).setTextureState(renderstateshard$texturestateshard).setTransparencyState(ADDITIVE_TRANSPARENCY).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
-//    });
-//
-//    public static RenderType energySwirl(ResourceLocation pLocation, float pU, float pV) {
-//        return create("energy_swirl", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder().
-//                setShaderState(RENDERTYPE_ENERGY_SWIRL_SHADER).setTextureState(new RenderStateShard.TextureStateShard(pLocation, false, false)).
-//                setTexturingState(new RenderStateShard.OffsetTexturingStateShard(pU, pV)).setWriteMaskState(RenderType.COLOR_WRITE).setTransparencyState(ADDITIVE_TRANSPARENCY).setCullState(NO_CULL).setLightmapState(LIGHTMAP).setOverlayState(OVERLAY).createCompositeState(false));
-//    }
 
     @Override
     public void render(PoseStack matrixStackIn, MultiBufferSource buffer, int packedLightIn, T dragon, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
