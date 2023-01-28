@@ -49,10 +49,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.MagmaBlock;
@@ -636,11 +633,15 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         super.setInLove(pPlayer);
     }
 
+    protected boolean isCommandItems(ItemStack stack) {
+        return stack.is(Items.STICK) || stack.getItem() instanceof PickaxeItem;
+    }
+
     @Override
-    public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
+    public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
-        if (item == Items.STICK && isOwnedBy(pPlayer)) {
+        if (isCommandItems(itemstack) && isOwnedBy(pPlayer)) {
             modifyCommand(2, pPlayer);
             return InteractionResult.SUCCESS;
         }

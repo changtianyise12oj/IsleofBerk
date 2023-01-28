@@ -462,7 +462,7 @@ public class SpeedStinger extends ADragonRideableUtility {
         Item item = itemstack.getItem();
         boolean ownedByPlayer = this.isOwnedBy(pPlayer);
 
-        if (pPlayer.isCrouching() && ownedByPlayer && !guiLocked() && item != Items.STICK) {
+        if (pPlayer.isCrouching() && ownedByPlayer && !guiLocked() && !isCommandItems(itemstack)) {
             this.openGUI(pPlayer);
             return InteractionResult.SUCCESS;
         }

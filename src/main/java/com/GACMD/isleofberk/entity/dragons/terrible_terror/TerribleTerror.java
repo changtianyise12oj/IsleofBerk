@@ -357,7 +357,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             return InteractionResult.SUCCESS;
             // mount the dragon to player if it is not unceremoniously dismounted
             // plan to temporary hide(despawn?) the terror then unhide(respawn?) if the player appears close by
-        } else if (item != Items.STICK && !isBaby() && isOwnedBy(pPlayer) && !isItemStackForTaming(itemstack) && !isBreedingFood(itemstack) && isDragonFollowing()) { //  && isDragonBelziumHeld(itemstack)
+        } else if (!isCommandItems(itemstack) && !isBaby() && isOwnedBy(pPlayer) && !isItemStackForTaming(itemstack) && !isBreedingFood(itemstack) && isDragonFollowing()) { //  && isDragonBelziumHeld(itemstack)
             ridePlayer(pPlayer);
             return InteractionResult.SUCCESS;
         }

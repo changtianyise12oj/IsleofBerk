@@ -197,7 +197,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
         setSleepDisturbTicks(Util.secondsToTicks(38));
 
-        if (pPlayer.isCrouching() && ownedByPlayer && !guiLocked() && item != Items.STICK) {
+        if (pPlayer.isCrouching() && ownedByPlayer && !guiLocked() && !isCommandItems(itemstack)) {
             this.openGUI(pPlayer);
             return InteractionResult.SUCCESS;
         }
@@ -221,7 +221,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         }
 
 
-        if (item == Items.STICK) {
+        if (isCommandItems(itemstack)) {
             if (isOwnedBy(pPlayer)) {
                 if (pPlayer.isShiftKeyDown()) {
                     String seatLockOn = "iob.command.seatLock.on";
@@ -240,7 +240,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             }
         }
 
-        if (itemstack.is(Items.STICK)) {
+        if (isCommandItems(itemstack)) {
             int i = getPhase1Progress();
             String s = Integer.toString(i);
 
