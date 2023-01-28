@@ -404,7 +404,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     protected void ridePlayer(Player player) {
         if (player.getPassengers().size() < 3) {
             this.startRiding(player, true);
-            ControlNetwork.sendMSGToAll(new DragonRideMessage(this.getId(), true));
+            ControlNetwork.INSTANCE.sendToServer(new DragonRideMessage(this.getId(), true));
         }
     }
 
@@ -419,6 +419,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
      */
     @Override
     public void rideTick() {
+
         Entity entity = this.getVehicle();
         if (entity instanceof Player player) {
             if (this.isPassenger() && !player.isAlive()) {

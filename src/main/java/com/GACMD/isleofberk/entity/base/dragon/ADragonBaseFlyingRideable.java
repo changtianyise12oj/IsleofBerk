@@ -418,7 +418,9 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         }
 
         if(level.isClientSide()) {
-            ControlNetwork.INSTANCE.sendToServer(new MessageDragonFlapSounds(shouldPlayFlapping(), getId()));
+            boolean playFlap = shouldPlayFlapping();
+            int id = getId();
+            ControlNetwork.INSTANCE.sendToServer(new MessageDragonFlapSounds(playFlap, id));
         }
 
         // decrement per tick
