@@ -61,7 +61,7 @@ public class BaseDragonModelFlying<T extends ADragonBaseFlyingRideable & IAnimat
                             && (dragon instanceof NightFury || dragon instanceof MonstrousNightmare || dragon instanceof ZippleBack || dragon instanceof DeadlyNadder
                             || dragon instanceof TripleStryke || dragon instanceof Gronckle)) {
                         double ydist = dragon.getY() - player.getY();
-                        if (ydist > 8.3F) {
+                        if (ydist > 8.3F && !player.isUnderWater()) {
                             pitch -= 4;
                             pitch -= 4;
                             body.setRotationX(toRadians(Mth.clamp(pitch, -90, 0)));

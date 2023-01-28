@@ -3,6 +3,7 @@ package com.GACMD.isleofberk.entity.AI.flight.player;
 import com.GACMD.isleofberk.entity.AI.flight.ADragonBaseBaseFlyingRideableGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.util.Util;
+import com.GACMD.isleofberk.util.math.MathX;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,9 +18,9 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
 
     public DragonFollowPlayerFlying(ADragonBaseFlyingRideable dragonBaseFlyingRideable, int xDist, int yDist, int zDist) {
         super(dragonBaseFlyingRideable);
-        this.xDist=xDist;
-        this.yDist=yDist;
-        this.zDist=zDist;
+        this.xDist = xDist;
+        this.yDist = yDist;
+        this.zDist = zDist;
     }
 
     @Override
@@ -79,6 +80,10 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
                     // now count the index and make them spread, only happens when the entire class AI kicks in
                     tailingDragons.put(owner.getUUID(), dragon);
                     dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * xDist), movePos.y(), movePos.z() + (tailingDragons.size() * zDist), 4);
+                }
+
+                if (dragon.isDragonFollowing() && owner.isUnderWater()) {
+                    dragon.getNavigation().moveTo(owner.getX() + (tailingDragons.size() * xDist), dragon.level.getSeaLevel() + 3, owner.getZ() + (tailingDragons.size() * zDist), 4);
                 }
 
                 dragon.setIsDragonDisabled(false);

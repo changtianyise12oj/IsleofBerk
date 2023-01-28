@@ -55,6 +55,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.world.level.block.MagmaBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -77,6 +78,7 @@ import java.util.function.Predicate;
 
 public abstract class ADragonBase extends TamableAnimal implements IAnimatable, IForgeEntity { //  /kill @e[type=! player]
     // 4071188624692119146
+    // effect give @p minecraft:strength 120000 250
     protected static final EntityDataAccessor<Integer> DRAGON_VARIANT = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Float> CHANGE_IN_YAW = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.FLOAT);
     protected static final EntityDataAccessor<Integer> DISTURB_TICKS = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
@@ -118,11 +120,18 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     public boolean isInvulnerableTo(@NotNull DamageSource pSource) {
-        if (pSource == DamageSource.IN_FIRE || pSource == DamageSource.ON_FIRE || pSource == DamageSource.FALL || pSource == DamageSource.LAVA || pSource == DamageSource.IN_WALL || pSource == DamageSource.FLY_INTO_WALL || pSource == DamageSource.CACTUS || isDragonDisabled()) {
+        if (pSource == DamageSource.IN_FIRE || pSource == DamageSource.ON_FIRE || pSource == DamageSource.FALL || pSource == DamageSource.LAVA || pSource == DamageSource.IN_WALL
+                || pSource == DamageSource.FLY_INTO_WALL || pSource == DamageSource.CACTUS  || pSource == DamageSource.HOT_FLOOR || isDragonDisabled()) {
             return true;
         } else {
             return super.isInvulnerableTo(pSource);
         }
+    }
+
+    // no magma block pulling down or up
+    @Override
+    public void onAboveBubbleCol(boolean pDownwards) {
+
     }
 
     @Override

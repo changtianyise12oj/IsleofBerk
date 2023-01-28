@@ -69,7 +69,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
     public Gronckle(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
-        this.GronckleRamArea = new DragonPart(this, "GronckleRamArea", 2F, 2F);
+        this.GronckleRamArea = new DragonPart(this, "GronckleRamArea", 1.7F, 1.7F);
         this.subParts = new DragonPart[]{this.GronckleRamArea};
     }
 
@@ -142,7 +142,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     }
 
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
-        if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack()  < 12) {
+        if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
             if (getCurrentAttackType() == 0) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Bite", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
@@ -380,25 +380,29 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         ItemStack stack = pPlayer.getItemInHand(pHand);
         Item item = stack.getItem();
 
-        if (isTame()) {
-            if (!isDragonSleeping() || isDragonSitting()) {
-                if (!stack.isEmpty()) {
-                    if (getStoneDigestionTicks() <= 0) {
-                        if (item == Blocks.BASALT.asItem() ||
-                                item == Blocks.DEEPSLATE.asItem() ||
-                                item == Blocks.GRANITE.asItem() ||
-                                item == Blocks.STONE.asItem() ||
-                                item == Blocks.DIORITE.asItem()
-                        ) {
+        if (item == Blocks.BASALT.asItem() ||
+                item == Blocks.DEEPSLATE.asItem() ||
+                item == Blocks.GRANITE.asItem() ||
+                item == Blocks.STONE.asItem() ||
+                item == Blocks.DIORITE.asItem()) {
+            if (getStoneDigestionTicks() <= 0) {
+                if (isTame()) {
+                    if (!isDragonSleeping() || isDragonSitting()) {
+                        if (!stack.isEmpty()) {
                             stack.shrink(1);
                             setTicksSincelastStoneFed(Util.secondsToTicks(3));
                             this.playSound(SoundEvents.DONKEY_EAT, 1, 1);
+                            return InteractionResult.SUCCESS;
                         }
                     }
                 }
             }
+            return InteractionResult.SUCCESS;
+        } else {
+
+            return super.mobInteract(pPlayer, pHand);
         }
-        return super.mobInteract(pPlayer, pHand);
+
     }
 
     public ItemEntity shootGronckIron(ItemStack pStack) {
@@ -486,7 +490,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         ItemStack itemStack = new ItemStack(ModItems.RAW_GRONCKLE_IRON.get(), 1);
 
         if (getStoneDigestionTicks() == 10) {
-            if (random.nextInt(45) == 1) {
+            if (random.nextInt(35) == 1) {
                 this.playSound(ModSounds.GRONCKLE_SPIT_IRON.get(), 4, 1);
                 this.playSound(SoundEvents.GENERIC_BURN, 4, 1);
                 this.shootGronckIron(itemStack);

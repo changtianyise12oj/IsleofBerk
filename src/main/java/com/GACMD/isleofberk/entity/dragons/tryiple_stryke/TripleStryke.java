@@ -255,7 +255,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     public TripleStryke(EntityType<? extends TripleStryke> entityType, Level level) {
         super(entityType, level);
-        this.TSStingArea = new DragonPart(this, "TSStingArea", 2F, 2F);
+        this.TSStingArea = new DragonPart(this, "TSStingArea", 1.8F, 1.8F);
         this.subParts = new DragonPart[]{this.TSStingArea};
     }
 
