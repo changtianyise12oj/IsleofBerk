@@ -115,7 +115,7 @@ public class DragonHurtByTargetGoal extends TargetGoal {
                                 $$3 = (Mob)var5.next();
                             } while(this.dragonBase == $$3);
                         } while($$3.getTarget() != null);
-                    } while(this.dragonBase instanceof TamableAnimal && ((TamableAnimal)this.dragonBase).getOwner() != ((TamableAnimal)$$3).getOwner());
+                    } while(this.dragonBase != null && ((TamableAnimal)this.dragonBase).getOwner() != ((TamableAnimal)$$3).getOwner());
                 } while($$3.isAlliedTo(this.dragonBase.getLastHurtByMob()));
 
                 if (this.toIgnoreAlert == null) {

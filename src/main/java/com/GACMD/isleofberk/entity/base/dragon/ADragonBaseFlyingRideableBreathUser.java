@@ -98,7 +98,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
      * @return
      */
     protected int breathBarRegenSpeed() {
-        return 25;
+        return 30;
     }
 
     /**
@@ -116,7 +116,7 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
      * @return
      */
     protected int breathBarRegenAmount() {
-        return 28;
+        return 2;
     }
 
     @Override

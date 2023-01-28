@@ -445,7 +445,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     protected int breathBarRegenAmount() {
-        return 32;
+        return 4;
     }
 
 
