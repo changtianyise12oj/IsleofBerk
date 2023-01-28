@@ -39,6 +39,7 @@ public class DragonRideMessage {
             if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
                 player = Minecraft.getInstance().player;
             }
+            
             if (player != null) {
                 Entity entity = player.level.getEntity(message.dragonId);
                 if (entity instanceof ADragonBase dragonBase) {
