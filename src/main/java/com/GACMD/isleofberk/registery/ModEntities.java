@@ -57,7 +57,7 @@ public class ModEntities {
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "gronckle").toString()));
 
     public static final RegistryObject<EntityType<MonstrousNightmare>> MONSTROUS_NIGHTMARE = ENTITIES.register("monstrous_nightmare",
-            () -> EntityType.Builder.of(MonstrousNightmare::new, MobCategory.CREATURE).sized(2.0f, 2.0f)
+            () -> EntityType.Builder.of(MonstrousNightmare::new, MobCategory.CREATURE).sized(2.6f, 2.6f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "monstrous_nightmare").toString()));
 
     public static final RegistryObject<EntityType<ZippleBack>> ZIPPLEBACK = ENTITIES.register("zippleback",

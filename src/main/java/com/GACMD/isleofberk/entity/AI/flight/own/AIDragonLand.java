@@ -96,7 +96,7 @@ public class AIDragonLand extends ADragonBaseBaseFlyingRideableGoal {
     @Override
     public void tick() {
         if (landingPos != null) {
-            BlockPos landingPos = level.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, this.landingPos);
+            BlockPos landingPos = new BlockPos(dragon.position().x(), dragon.position().y - 4, dragon.position().z());
             if (!dragon.isDragonOnGround()) {
                 LivingEntity dragonOwner = dragon.getOwner();
 
@@ -110,7 +110,7 @@ public class AIDragonLand extends ADragonBaseBaseFlyingRideableGoal {
                         tryMoveToBlockPos(new BlockPos(dragon.position().subtract(landingPos.getX(), landingPos.getY() - 4, landingPos.getZ())), speed);
                     }
                 }
-            } else if (dragon.isDragonOnGround() || dragon.isInWater() || dragon.isWaterBelow()) {
+            } else if (dragon.isDragonOnGround() || dragon.isInWater() || dragon.isWaterBelow() || dragon.getTicksFlyWandering() < 0) {
                 dragon.setIsFlying(false);
             }
         }

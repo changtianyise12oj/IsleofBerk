@@ -6,7 +6,6 @@ import com.GACMD.isleofberk.entity.AI.flight.own.DragonFlyAndAttackAirbourneTarg
 import com.GACMD.isleofberk.entity.AI.flight.own.UntamedDragonCircleFlightGoal;
 import com.GACMD.isleofberk.entity.AI.flight.player.AIDragonRide;
 import com.GACMD.isleofberk.entity.AI.flight.player.DragonFollowPlayerFlying;
-import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.path.air.DragonFlyingPathNavigation;
 import com.GACMD.isleofberk.entity.AI.path.air.FlyingDragonMoveControl;
 import com.GACMD.isleofberk.entity.AI.target.DragonNonTameRandomTargetGoal;
@@ -24,7 +23,6 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -204,7 +202,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 
     @Override
     public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
-//        setTicksFlyWandering(200);
+        setTicksFlyWandering(200);
         return super.hurt(pSource, pAmount);
     }
 
@@ -417,14 +415,14 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
             this.setNoGravity(false);
         }
 
-        if(level.isClientSide()) {
+        if (level.isClientSide()) {
             boolean playFlap = shouldPlayFlapping();
             int id = getId();
             ControlNetwork.INSTANCE.sendToServer(new MessageDragonFlapSounds(playFlap, id));
         }
 
         // decrement per tick
-        if (getTicksFlyWandering() > 0) {
+        if (getTicksFlyWandering() > -10) {
             setTicksFlyWandering(getTicksFlyWandering() - 1);
         }
 
@@ -434,14 +432,22 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     }
 
     protected void onGroundMechanics() {
-        BlockPos pos1 = new BlockPos(position().add(0, -1, 0));
-        BlockPos pos2 = new BlockPos(position().add(0, -2, 0));
-        BlockPos pos3 = new BlockPos(position().add(0, -3, 0));
-        if (level.getBlockState(pos1).getMaterial().isSolid() || level.getBlockState(pos2).getMaterial().isSolid() || level.getBlockState(pos3).getMaterial().isSolid()
-                || (level.getBlockState(pos1).getMaterial().isSolid() && !level.getBlockState(pos3).getMaterial().isSolid())) {
-            setIsDragonOnGround(true);
-        } else {
-            setIsDragonOnGround(false);
+        int start = 4;
+        Vec3 pos = position();
+        for (int xz1 = -start + 1; xz1 < start; xz1++) {
+            for (int xz4 = -start + 1; xz4 < start; xz4++) {
+                BlockPos pos1 = new BlockPos(pos.add(xz1, -1, xz1));
+                BlockPos pos2 = new BlockPos(pos.add(-xz4, -1, xz4));
+                BlockPos pos3 = new BlockPos(pos.add(xz1, -2, xz1));
+                BlockPos pos4 = new BlockPos(pos.add(-xz4, -2, xz4));
+                if (level.getBlockState(pos1).getMaterial().blocksMotion() || level.getBlockState(pos2).getMaterial().blocksMotion()
+                        || level.getBlockState(pos3).getMaterial().blocksMotion() || level.getBlockState(pos4).getMaterial().blocksMotion()
+                ) {
+                    setIsDragonOnGround(true);
+                } else {
+                    setIsDragonOnGround(false);
+                }
+            }
         }
     }
 
@@ -450,7 +456,8 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         return true;
     }
 
-    public void circleEntity(Vec3 target, float radius, float speed, boolean direction, int circleFrame, float offset, float moveSpeedMultiplier) {
+    public void circleEntity(Vec3 target, float radius, float speed, boolean direction, int circleFrame,
+                             float offset, float moveSpeedMultiplier) {
         int directionInt = direction ? 1 : -1;
         double t = directionInt * circleFrame * 0.5 * speed / radius + offset;
         Vec3 movePos = target.add(radius * Math.cos(t), 0, radius * Math.sin(t));
@@ -464,6 +471,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
 
     /**
      * Will the dragon flap if there is water below
+     *
      * @return
      */
     protected boolean groundDragon() {

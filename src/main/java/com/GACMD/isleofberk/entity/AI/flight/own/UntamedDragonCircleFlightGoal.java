@@ -28,30 +28,30 @@ public class UntamedDragonCircleFlightGoal extends ADragonBaseBaseFlyingRideable
             return false;
         }
 
-        if(dragon.isDragonIncapacitated()) {
+        if (dragon.isDragonIncapacitated()) {
             return false;
         }
 
-        if(dragon.isDragonSleeping()) {
+        if (dragon.isDragonSleeping()) {
             return false;
         }
 
         // figure a fly on their own flight attack
-        if(dragon.getTarget() != null) {
+        if (dragon.getTarget() != null) {
             return false;
         }
 
-        if(dragon.shouldStopMovingIndependently()) {
-            return false;
-        }
-
-        // make taming easier
-        if(dragon.getFoodTameLimiterBar() > 0) {
+        if (dragon.shouldStopMovingIndependently()) {
             return false;
         }
 
         // make taming easier
-        if(dragon.getPhase1Progress() > 0) {
+        if (dragon.getFoodTameLimiterBar() > 0) {
+            return false;
+        }
+
+        // make taming easier
+        if (dragon.getPhase1Progress() > 0) {
             return false;
         }
 
@@ -76,7 +76,6 @@ public class UntamedDragonCircleFlightGoal extends ADragonBaseBaseFlyingRideable
         if (!dragon.isFlying() && dragon.getRandom().nextInt(3000) == 1) {
             dragon.setTicksFlyWandering(500);
         }
-
         Vec3 targetPos = getPosToCircle();
         if (dragon.isDragonOnGround())
             setPosToCircle(DefaultRandomPos.getPos(dragon, 7, 2));
@@ -84,8 +83,22 @@ public class UntamedDragonCircleFlightGoal extends ADragonBaseBaseFlyingRideable
         if (!dragon.isFlying() && dragon.getTicksFlyWandering() > 1) {
             dragon.setIsFlying(true);
         }
+
+        if (dragon.isDragonOnGround() && dragon.getTicksFlyWandering() < 1) {
+            dragon.setIsFlying(false);
+        }
+
+        if(dragon.isDragonOnGround()) {
+            if(level.isClientSide) {
+                System.out.println("true");
+            } else {
+                System.out.println("true");
+            }
+        }
+
+
         if (dragon.getTicksFlyWandering() > 3 && targetPos != null) {
-            if(dragon.canBeMounted()) {
+            if (dragon.canBeMounted()) {
                 dragon.circleEntity(new Vec3(targetPos.x(), targetPos.y() + 40, targetPos.z()), 30, 1, random.nextInt(50) == 1, dragon.tickCount, 1, 1);
             } else {
                 dragon.circleEntity(new Vec3(targetPos.x(), targetPos.y() + 5, targetPos.z()), 4, 1, random.nextInt(50) == 1, dragon.tickCount, 1, 1);
@@ -93,3 +106,12 @@ public class UntamedDragonCircleFlightGoal extends ADragonBaseBaseFlyingRideable
         }
     }
 }
+
+//            if(isDragonOnGround()) {
+//        if(level.isClientSide) {
+//            System.out.println("true");
+//        } else {
+//            System.out.println("true");
+//        }
+//    }
+//        System.out.println(dragon.getTicksFlyWandering());
