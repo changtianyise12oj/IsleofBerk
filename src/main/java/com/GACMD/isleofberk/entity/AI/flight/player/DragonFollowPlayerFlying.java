@@ -4,10 +4,12 @@ import com.GACMD.isleofberk.entity.AI.flight.ADragonBaseBaseFlyingRideableGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.util.math.MathX;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 
 public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal {
@@ -64,6 +66,7 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
             if (owner != null) {
                 // don't catch if owner is too far away
                 double followRange = 35;
+                Vec3 movePos = new Vec3(owner.getX(), owner.getY() + yDist, owner.getZ());
 
                 if (owner.fallDistance > 4 && !owner.isFallFlying() && dragon.canBeMounted()) {
                     if (dragon.distanceTo(owner) < followRange) {
@@ -76,14 +79,13 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
                         }
                     }
                 } else {
-                    Vec3 movePos = new Vec3(owner.getX(), owner.getY() + yDist, owner.getZ());
                     // now count the index and make them spread, only happens when the entire class AI kicks in
                     tailingDragons.put(owner.getUUID(), dragon);
                     dragon.getNavigation().moveTo(movePos.x() + (tailingDragons.size() * xDist), movePos.y(), movePos.z() + (tailingDragons.size() * zDist), 4);
                 }
 
                 if (dragon.isDragonFollowing() && owner.isUnderWater()) {
-                    dragon.getNavigation().moveTo(owner.getX() + (tailingDragons.size() * xDist), dragon.level.getHeight(), owner.getZ() + (tailingDragons.size() * zDist), 4);
+                    dragon.getNavigation().moveTo(owner.getX() + (tailingDragons.size() * xDist), dragon.level.getHeightmapPos(Heightmap.Types.WORLD_SURFACE, new BlockPos(movePos)).getY() + 7, owner.getZ() + (tailingDragons.size() * zDist), 4);
                 }
 
                 dragon.setIsDragonDisabled(false);
