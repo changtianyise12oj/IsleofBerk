@@ -92,6 +92,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected static final EntityDataAccessor<Boolean> IS_MALE = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SLEEPING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> ON_GROUND = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
+    protected static final EntityDataAccessor<Boolean> AIR_SPACE = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Boolean> IS_ROARING = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.BOOLEAN);
     protected static final EntityDataAccessor<Integer> COMMANDS = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
@@ -154,6 +155,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.entityData.define(SECOND_ABILITY, false);
         this.entityData.define(SLEEPING, false);
         this.entityData.define(ON_GROUND, false);
+        this.entityData.define(AIR_SPACE, false);
         this.entityData.define(SITTING, false);
         this.entityData.define(IS_ROARING, false);
         this.entityData.define(IS_MALE, random.nextBoolean());
@@ -186,6 +188,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         pCompound.putBoolean("dragon_disabled", this.isDragonDisabled());
         pCompound.putBoolean("sleeping", this.isDragonSleeping());
         pCompound.putBoolean("dragonOnGround", this.isDragonOnGround());
+        pCompound.putBoolean("dragonAirSpaceClear", this.isDragonOnAirspaceClear());
         pCompound.putBoolean("sitting", this.isDragonSitting());
         pCompound.putBoolean("roaring", this.isDragonRoaring());
         pCompound.putBoolean("incapacitated", this.isDragonIncapacitated());
@@ -217,6 +220,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         this.setIsDragonRoaring(pCompound.getBoolean("roaring"));
         this.setIsDragonSleeping(pCompound.getBoolean("sleeping"));
         this.setIsDragonOnGround(pCompound.getBoolean("dragonOnGround"));
+        this.setIsDragonOnAirspaceClear(pCompound.getBoolean("dragonAirSpaceClear"));
         this.setIsDragonWandering(pCompound.getBoolean("wandering"));
         this.setIsDragonFollowing(pCompound.getBoolean("following"));
         this.setCurrentAttackType(pCompound.getInt("current_attack"));
@@ -357,6 +361,14 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     public void setIsDragonOnGround(boolean sleeping) {
         this.entityData.set(ON_GROUND, sleeping);
+    }
+
+    public boolean isDragonOnAirspaceClear() {
+        return this.entityData.get(AIR_SPACE);
+    }
+
+    public void setIsDragonOnAirspaceClear(boolean air) {
+        this.entityData.set(AIR_SPACE, air);
     }
 
     public boolean isDragonIncapacitated() {
@@ -890,6 +902,27 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
         sleepMechanics();
         onGroundMechanics();
+        airSpaceMechanics();
+    }
+
+    protected void airSpaceMechanics() {
+        int start = 4;
+        Vec3 pos = position();
+        for (int xz1 = -start + 1; xz1 < start; xz1++) {
+            for (int xz4 = -start + 1; xz4 < start; xz4++) {
+                BlockPos pos1 = new BlockPos(pos.add(xz1, 1, xz1));
+                BlockPos pos2 = new BlockPos(pos.add(-xz4, 1, xz4));
+                BlockPos pos3 = new BlockPos(pos.add(xz1, 2, xz1));
+                BlockPos pos4 = new BlockPos(pos.add(-xz4, 2, xz4));
+                if (level.getBlockState(pos1).getMaterial().blocksMotion() || level.getBlockState(pos2).getMaterial().blocksMotion()
+                        || level.getBlockState(pos3).getMaterial().blocksMotion() || level.getBlockState(pos4).getMaterial().blocksMotion()
+                ) {
+                    setIsDragonOnAirspaceClear(false);
+                } else {
+                    setIsDragonOnAirspaceClear(true);
+                }
+            }
+        }
     }
 
     protected void onGroundMechanics() {
@@ -901,7 +934,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
                 (level.getBlockState(pos1).getMaterial().isLiquid() || level.getBlockState(pos2).getMaterial().isLiquid() || level.getBlockState(pos3).getMaterial().isLiquid()
                 || (level.getBlockState(pos1).getMaterial().isLiquid() && !level.getBlockState(pos3).getMaterial().isLiquid()) && groundDragon())) {
-
             setIsDragonOnGround(true);
         } else {
             setIsDragonOnGround(false);

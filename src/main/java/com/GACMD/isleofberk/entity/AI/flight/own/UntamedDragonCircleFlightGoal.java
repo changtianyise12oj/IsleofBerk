@@ -55,6 +55,10 @@ public class UntamedDragonCircleFlightGoal extends ADragonBaseBaseFlyingRideable
             return false;
         }
 
+        if(!dragon.isDragonOnAirspaceClear()) {
+            return false;
+        }
+
         return true;
     }
 
