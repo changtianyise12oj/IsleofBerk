@@ -906,7 +906,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     protected void airSpaceMechanics() {
-        int start = 3;
+        int start = 2;
         Vec3 pos = position();
         for (int xz1 = -start + 1; xz1 < start; xz1++) {
             for (int xz4 = -start + 1; xz4 < start; xz4++) {
