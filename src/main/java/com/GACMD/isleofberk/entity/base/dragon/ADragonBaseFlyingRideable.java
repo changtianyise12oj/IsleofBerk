@@ -434,7 +434,7 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     protected void onGroundMechanics() {
         int start = 4;
         Vec3 pos = position();
-        for (int xz1 = -start + 1; xz1 < start; xz1++) { 
+        for (int xz1 = -start + 1; xz1 < start; xz1++) {
             for (int xz4 = -start + 1; xz4 < start; xz4++) {
                 BlockPos pos1 = new BlockPos(pos.add(xz1, -1, xz1));
                 BlockPos pos2 = new BlockPos(pos.add(-xz4, -1, xz4));
