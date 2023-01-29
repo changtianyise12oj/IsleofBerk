@@ -83,7 +83,7 @@ public class DragonFollowPlayerFlying extends ADragonBaseBaseFlyingRideableGoal 
                 }
 
                 if (dragon.isDragonFollowing() && owner.isUnderWater()) {
-                    dragon.getNavigation().moveTo(owner.getX() + (tailingDragons.size() * xDist), dragon.level.getSeaLevel() + 3, owner.getZ() + (tailingDragons.size() * zDist), 4);
+                    dragon.getNavigation().moveTo(owner.getX() + (tailingDragons.size() * xDist), dragon.level.getHeight(), owner.getZ() + (tailingDragons.size() * zDist), 4);
                 }
 
                 dragon.setIsDragonDisabled(false);

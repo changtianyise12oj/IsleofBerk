@@ -24,21 +24,6 @@ public class DragonFlyingPathNavigation extends FlyingPathNavigation {
 
     }
 
-//    @Override
-//    public void tick() {
-//        if (!isDone() && canUpdatePath()) {
-//            BlockPos target = getTargetPos();
-//            if (target != null) {
-//                dragon.getMoveControl().setWantedPosition(target.getX(), target.getY(), target.getZ(), speedModifier);
-//                maxDistanceToWaypoint = dragon.getBbWidth() * dragon.getBbWidth() * 75 * 75;
-//                Vec3 entityPos = getTempMobPos();
-//                if (target.distSqr(entityPos.x, entityPos.y, entityPos.z, true) <= maxDistanceToWaypoint)
-//                    path = null;
-//            }
-//        }
-//    }
-
-
     @Override
     public void tick() {
         ++tick;
