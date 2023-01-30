@@ -16,7 +16,10 @@ import com.GACMD.isleofberk.entity.eggs.entity.eggs.TerribleTerrorEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathProjectile;
 import com.GACMD.isleofberk.network.ControlNetwork;
-import com.GACMD.isleofberk.network.message.*;
+import com.GACMD.isleofberk.network.message.ControlMessageJumping;
+import com.GACMD.isleofberk.network.message.ControlMessageSECONDAbility;
+import com.GACMD.isleofberk.network.message.ControlMessageTerribleTerrorAbility;
+import com.GACMD.isleofberk.network.message.DragonRideMessage;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModKeyBinds;
 import com.GACMD.isleofberk.registery.ModSounds;
@@ -46,7 +49,6 @@ import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NonTameRandomTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
@@ -111,7 +113,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
         if (isFlying() && !event.isMoving() && !isPassenger()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP)); // hover
-            setShouldPlayFlapping(true);
             return PlayState.CONTINUE;
         }
         if (event.isMoving() && !shouldStopMovingIndependently()) {
@@ -137,7 +138,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             } else if (player.isFallFlying()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
-            } else {
+            } else if (!player.isOnGround()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("PlayerHeadFlying", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
@@ -148,10 +149,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         }
         if (this.isDragonSleeping()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Sleep", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-        }
-        if (this.getLookControl().isLookingAtTarget()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("HeadCurious", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
 
@@ -291,7 +288,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
      * @param pEntity
      * @return
      */
-    public boolean doHurtTarget(Entity pEntity) {
+    public boolean doHurtTarget(@NotNull Entity pEntity) {
         float f = (float) this.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float f1 = (float) this.getAttributeValue(Attributes.ATTACK_KNOCKBACK);
         if (pEntity instanceof LivingEntity) {
@@ -341,7 +338,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         Item item = itemstack.getItem();
 
         if (item.isEdible()) {
-
             ItemStack stack = this.getItemBySlot(EquipmentSlot.MAINHAND);
             if (stack.isEmpty()) {
                 this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(item));
@@ -357,9 +353,9 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             return InteractionResult.SUCCESS;
             // mount the dragon to player if it is not unceremoniously dismounted
             // plan to temporary hide(despawn?) the terror then unhide(respawn?) if the player appears close by
-        } else if (!isCommandItems(itemstack) && !isBaby() && isOwnedBy(pPlayer) && !isItemStackForTaming(itemstack) && !isBreedingFood(itemstack) && isDragonFollowing()) { //  && isDragonBelziumHeld(itemstack)
+        } else if (!isCommandItems(itemstack) && !isBaby() && isOwnedBy(pPlayer) && !isItemStackForTaming(itemstack) && !isBreedingFood(itemstack) && isDragonFollowing()) {
             ridePlayer(pPlayer);
-            return InteractionResult.SUCCESS;
+            return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return super.mobInteract(pPlayer, pHand);
     }
@@ -382,12 +378,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         } else {
             ControlNetwork.INSTANCE.sendToServer(new ControlMessageSECONDAbility(false, getId()));
         }
-        if (ModKeyBinds.keyDown.isDown()) {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(true, getId()));
-        } else {
-            ControlNetwork.INSTANCE.sendToServer(new ControlMessageGoingDown(false, getId()));
-        }
-
     }
 
     @Override
@@ -405,12 +395,14 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     protected void ridePlayer(Player player) {
         if (player.getPassengers().size() < 3) {
             this.startRiding(player, true);
-            ControlNetwork.INSTANCE.sendToServer(new DragonRideMessage(this.getId(), true));
+            if (!level.isClientSide()) {
+                ControlNetwork.INSTANCE.sendToServer(new DragonRideMessage(this.getId(), true));
+            }
         }
     }
 
     @Override
-    public boolean startRiding(Entity pEntity, boolean pForce) {
+    public boolean startRiding(@NotNull Entity pEntity, boolean pForce) {
         this.setSleepDisturbTicks(Util.secondsToTicks(20));
         return super.startRiding(pEntity, pForce);
     }
@@ -420,17 +412,17 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
      */
     @Override
     public void rideTick() {
-
         Entity entity = this.getVehicle();
         if (entity instanceof Player player) {
             if (this.isPassenger() && !player.isAlive()) {
                 this.stopRiding();
+                if (level.isClientSide()) {
+                    ControlNetwork.INSTANCE.sendToServer(new DragonRideMessage(getId(), false));
+                }
             } else {
                 this.setDeltaMovement(0, 0, 0);
                 this.tick();
-                if (this.isPassenger()) {
-                    this.updateTerrorLatch(player);
-                }
+                this.updateTerrorLatch(player);
             }
         } else {
             super.rideTick();
@@ -475,16 +467,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             this.setYRot(player.getYRot());
             this.yBodyRot = ((Player) player).yBodyRot;
             this.yHeadRot = this.yBodyRot;
-
-            // try to dismount
-            if (player.isShiftKeyDown() && player.getPassengers().iterator().next() == this && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved() || player.isUnderWater() || player.isVisuallySwimming() || player.isVisuallyCrawling()) {
-                this.setLastMountedPlayerUUID(null);
-                player.ejectPassengers();
-                player.removeEffect(MobEffects.SLOW_FALLING);
-                player.removeEffect(MobEffects.JUMP);
-                player.removeEffect(MobEffects.MOVEMENT_SPEED);
-                ControlNetwork.INSTANCE.sendToServer(new DragonRideMessage(this.getId(), false));
-            }
 
             // if elytra flying remove potion effects
             if (player.isFallFlying()) {
@@ -580,6 +562,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     public void tick() {
+        super.tick();
         if (getVehicle() != null && getVehicle() instanceof Player vehicle) {
             Vec3 vehicleLook = vehicle.getViewVector(1);
             if (this == vehicle.getPassengers().get(0)) {
@@ -595,8 +578,27 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 if (isUsingAbility() && canUseBreath())
                     firePrimary(vehicleLook, throat2);
             }
+
+            // try to dismount
+            if (vehicle.isShiftKeyDown() && vehicle.getPassengers().iterator().next() == this && vehicle.isOnGround() && vehicle.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || vehicle.isDeadOrDying() || vehicle.isRemoved() || vehicle.isUnderWater() || vehicle.isVisuallySwimming() || vehicle.isVisuallyCrawling()) {
+                this.setLastMountedPlayerUUID(null);
+                this.stopRiding();
+                vehicle.removeEffect(MobEffects.SLOW_FALLING);
+                vehicle.removeEffect(MobEffects.JUMP);
+                vehicle.removeEffect(MobEffects.MOVEMENT_SPEED);
+                if (level.isClientSide()) {
+                    ControlNetwork.INSTANCE.sendToServer(new DragonRideMessage(getId(), false));
+                }
+            }
         }
-        super.tick();
+
+        if (getVehicle() != null) {
+            if (level.isClientSide) {
+                System.out.println("true client " + getVehicle());
+            } else {
+                System.out.println("true server " + getVehicle());
+            }
+        }
     }
 
     @Override
@@ -724,11 +726,19 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     protected void onGroundMechanics() {
-        BlockPos pos1 = new BlockPos(position().add(0, -1, 0));
-        if (level.getBlockState(pos1).getMaterial().isSolid()) {
-            setIsDragonOnGround(true);
-        } else {
-            setIsDragonOnGround(false);
+        int start = 2;
+        Vec3 pos = position();
+        for (int xz1 = -start + 1; xz1 < start; xz1++) {
+            for (int xz4 = -start + 1; xz4 < start; xz4++) {
+                BlockPos pos1 = new BlockPos(pos.add(xz1, -1, xz1));
+                BlockPos pos2 = new BlockPos(pos.add(-xz4, -1, xz4));
+                if (level.getBlockState(pos1).getMaterial().blocksMotion() || level.getBlockState(pos2).getMaterial().blocksMotion()
+                ) {
+                    setIsDragonOnGround(true);
+                } else {
+                    setIsDragonOnGround(false);
+                }
+            }
         }
     }
 
