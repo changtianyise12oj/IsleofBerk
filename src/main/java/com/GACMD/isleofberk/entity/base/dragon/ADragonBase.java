@@ -45,14 +45,15 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.OwnerHurtByTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.world.level.block.MagmaBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -60,7 +61,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.extensions.IForgeEntity;
-import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -119,8 +119,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     @Override
     public boolean isInvulnerableTo(@NotNull DamageSource pSource) {
         if (pSource == DamageSource.IN_FIRE || pSource == DamageSource.ON_FIRE || pSource == DamageSource.FALL || pSource == DamageSource.LAVA || pSource == DamageSource.IN_WALL
-                || pSource == DamageSource.FLY_INTO_WALL || pSource == DamageSource.CACTUS  || pSource == DamageSource.HOT_FLOOR || isDragonDisabled()) {
+                || pSource == DamageSource.FLY_INTO_WALL || pSource == DamageSource.CACTUS || pSource == DamageSource.HOT_FLOOR) {
             return true;
+        } else if (isDragonDisabled() && !(pSource.getEntity() instanceof Player)) {
+            return false;
         } else {
             return super.isInvulnerableTo(pSource);
         }
@@ -894,8 +896,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             this.heal(5);
         }
 
-        if(getTarget() instanceof Player player) {
-            if(player.isCreative()) {
+        if (getTarget() instanceof Player player) {
+            if (player.isCreative()) {
                 setTarget(null);
             }
         }
@@ -933,7 +935,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
                 || (level.getBlockState(pos1).getMaterial().isSolid() && !level.getBlockState(pos3).getMaterial().isSolid()) ||
 
                 (level.getBlockState(pos1).getMaterial().isLiquid() || level.getBlockState(pos2).getMaterial().isLiquid() || level.getBlockState(pos3).getMaterial().isLiquid()
-                || (level.getBlockState(pos1).getMaterial().isLiquid() && !level.getBlockState(pos3).getMaterial().isLiquid()) && groundDragon())) {
+                        || (level.getBlockState(pos1).getMaterial().isLiquid() && !level.getBlockState(pos3).getMaterial().isLiquid()) && groundDragon())) {
             setIsDragonOnGround(true);
         } else {
             setIsDragonOnGround(false);
@@ -942,6 +944,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     /**
      * Will the dragon flap if there is water below
+     *
      * @return
      */
     protected boolean groundDragon() {
@@ -990,8 +993,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             return false;
         }
 
-        if(getOwner() instanceof Mob mob) {
-            if(mob.getTarget() != null) {
+        if (getOwner() instanceof Mob mob) {
+            if (mob.getTarget() != null) {
                 return false;
             } else {
                 return true;
@@ -1003,7 +1006,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             return false;
         }
 
-        if (this.getVehicle() != null)  {
+        if (this.getVehicle() != null) {
             return false;
         }
 
@@ -1166,7 +1169,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public boolean isFoodEdibleToDragon(ItemStack pStack) {
         Item item = pStack.getItem();
         return pStack.is(Items.SALMON) || pStack.is(Items.COD) || pStack.is(Items.ROTTEN_FLESH) ||
-                pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH) || isItemStackForTaming (pStack) || (item.isEdible() && item.getFoodProperties().isMeat() && item.getFoodProperties() != null) && !pStack.isEmpty();
+                pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH) || isItemStackForTaming(pStack) || (item.isEdible() && item.getFoodProperties().isMeat() && item.getFoodProperties() != null) && !pStack.isEmpty();
     }
 
     public int getMaxTemper() {
