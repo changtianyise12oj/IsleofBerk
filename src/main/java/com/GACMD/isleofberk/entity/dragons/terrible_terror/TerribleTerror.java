@@ -468,6 +468,17 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             this.yBodyRot = ((Player) player).yBodyRot;
             this.yHeadRot = this.yBodyRot;
 
+            // try to dismount
+            if (player.isShiftKeyDown() && player.getPassengers().iterator().next() == this && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved() || player.isUnderWater() || player.isVisuallySwimming() || player.isVisuallyCrawling()) {
+                this.setLastMountedPlayerUUID(null);
+                player.removeEffect(MobEffects.SLOW_FALLING);
+                player.removeEffect(MobEffects.JUMP);
+                player.removeEffect(MobEffects.MOVEMENT_SPEED);
+                if (level.isClientSide()) {
+                    ControlNetwork.INSTANCE.sendToServer(new DragonRideMessage(getId(), false));
+                }
+            }
+
             // if elytra flying remove potion effects
             if (player.isFallFlying()) {
                 player.removeEffect(MobEffects.SLOW_FALLING);
@@ -583,9 +594,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             if (vehicle.isShiftKeyDown() && vehicle.getPassengers().iterator().next() == this && vehicle.isOnGround() && vehicle.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || vehicle.isDeadOrDying() || vehicle.isRemoved() || vehicle.isUnderWater() || vehicle.isVisuallySwimming() || vehicle.isVisuallyCrawling()) {
                 this.setLastMountedPlayerUUID(null);
                 this.stopRiding();
-                vehicle.removeEffect(MobEffects.SLOW_FALLING);
-                vehicle.removeEffect(MobEffects.JUMP);
-                vehicle.removeEffect(MobEffects.MOVEMENT_SPEED);
                 if (level.isClientSide()) {
                     ControlNetwork.INSTANCE.sendToServer(new DragonRideMessage(getId(), false));
                 }
