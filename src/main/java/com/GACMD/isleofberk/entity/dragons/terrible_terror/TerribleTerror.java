@@ -590,14 +590,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 if (isUsingAbility() && canUseBreath())
                     firePrimary(vehicleLook, throat2);
             }
-
-            // try to dismount
-            if (vehicle.isShiftKeyDown() && vehicle.getPassengers().iterator().next() == this && vehicle.isOnGround() && vehicle.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || vehicle.isDeadOrDying() || vehicle.isRemoved() || vehicle.isUnderWater() || vehicle.isVisuallySwimming() || vehicle.isVisuallyCrawling()) {
-                this.stopRiding();
-                if (level.isClientSide()) {
-                    ControlNetwork.INSTANCE.sendToServer(new DragonRideMessage(getId(), false));
-                }
-            }
         }
     }
 
