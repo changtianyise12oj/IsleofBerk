@@ -469,7 +469,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             this.yHeadRot = this.yBodyRot;
 
             // try to dismount
-            if (player.isShiftKeyDown() && player.getPassengers().iterator().next() == this && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved() || player.isUnderWater() || player.isVisuallySwimming() || player.isVisuallyCrawling()) {
+            if (player.isShiftKeyDown() && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved() || player.isUnderWater() || player.isVisuallySwimming() || player.isVisuallyCrawling()) {
                 this.setLastMountedPlayerUUID(null);
                 this.stopRiding();
                 player.removeEffect(MobEffects.SLOW_FALLING);
@@ -575,20 +575,31 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     @Override
     public void tick() {
         super.tick();
-        if (getVehicle() != null && getVehicle() instanceof Player vehicle) {
-            Vec3 vehicleLook = vehicle.getViewVector(1);
-            if (this == vehicle.getPassengers().get(0)) {
-                Vec3 throat0 = getTerror0ThroatPosViaPlayer(vehicle);
+        if (getVehicle() != null && getVehicle() instanceof Player player) {
+            Vec3 vehicleLook = player.getViewVector(1);
+            if (this == player.getPassengers().get(0)) {
+                Vec3 throat0 = getTerror0ThroatPosViaPlayer(player);
                 if (isUsingAbility() && canUseBreath())
                     firePrimary(vehicleLook, throat0);
-            } else if (this == vehicle.getPassengers().get(1)) {
-                Vec3 throat1 = getTerror1ThroatPosViaPlayer(vehicle);
+            } else if (this == player.getPassengers().get(1)) {
+                Vec3 throat1 = getTerror1ThroatPosViaPlayer(player);
                 if (isUsingAbility() && canUseBreath())
                     firePrimary(vehicleLook, throat1);
-            } else if (this == vehicle.getPassengers().get(2)) {
-                Vec3 throat2 = getTerror2ThroatPosViaPlayer(vehicle);
+            } else if (this == player.getPassengers().get(2)) {
+                Vec3 throat2 = getTerror2ThroatPosViaPlayer(player);
                 if (isUsingAbility() && canUseBreath())
                     firePrimary(vehicleLook, throat2);
+            }
+
+            if (player.isShiftKeyDown() && player.isOnGround() && player.getVehicle() == null || this.isDeadOrDying() || this.isRemoved() || player.isDeadOrDying() || player.isRemoved() || player.isUnderWater() || player.isVisuallySwimming() || player.isVisuallyCrawling()) {
+                this.setLastMountedPlayerUUID(null);
+                this.stopRiding();
+                player.removeEffect(MobEffects.SLOW_FALLING);
+                player.removeEffect(MobEffects.JUMP);
+                player.removeEffect(MobEffects.MOVEMENT_SPEED);
+                if (level.isClientSide()) {
+                    ControlNetwork.INSTANCE.sendToServer(new DragonRideMessage(getId(), false));
+                }
             }
         }
     }
