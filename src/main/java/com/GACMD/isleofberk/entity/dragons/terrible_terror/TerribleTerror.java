@@ -433,10 +433,10 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public void updateTerrorLatch(Entity vehicle) {
         if (vehicle instanceof Player player) {
             int passengerIndex = vehicle.getPassengers().indexOf(this);
-            player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, Util.secondsToTicks(60), passengerIndex, false, false));
-            player.addEffect(new MobEffectInstance(MobEffects.JUMP, Util.secondsToTicks(60), passengerIndex, false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, Util.secondsToTicks(30), passengerIndex, false, false));
+            player.addEffect(new MobEffectInstance(MobEffects.JUMP, Util.secondsToTicks(30), passengerIndex, false, false));
             if (passengerIndex > 0)
-                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Util.secondsToTicks(60), Mth.clamp(passengerIndex, 0, 1), false, false));
+                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, Util.secondsToTicks(30), Mth.clamp(passengerIndex, 0, 1), false, false));
             Vec3 vehiclePosition = player.position();
             double offsetX, offsetY, offsetZ;
             if (passengerIndex == 0) {
