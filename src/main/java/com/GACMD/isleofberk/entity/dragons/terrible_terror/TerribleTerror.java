@@ -599,14 +599,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 }
             }
         }
-
-        if (getVehicle() != null) {
-            if (level.isClientSide) {
-                System.out.println("true client " + getVehicle());
-            } else {
-                System.out.println("true server " + getVehicle());
-            }
-        }
     }
 
     @Override
