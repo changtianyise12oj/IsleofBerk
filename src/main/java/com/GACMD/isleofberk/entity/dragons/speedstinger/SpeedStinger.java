@@ -164,9 +164,17 @@ public class SpeedStinger extends ADragonRideableUtility {
         return PlayState.STOP;
     }
 
-//    public boolean canStandOnFluid(Fluid fluid) {
-//        return fluid.isSame(FluidTags.WATER);
-//    }
+    @Override
+    public boolean isInvulnerableTo(@NotNull DamageSource pSource) {
+        if (pSource == DamageSource.IN_FIRE || pSource == DamageSource.ON_FIRE || pSource == DamageSource.FALL || pSource == DamageSource.IN_WALL
+                || pSource == DamageSource.FLY_INTO_WALL || pSource == DamageSource.CACTUS || pSource == DamageSource.HOT_FLOOR) {
+            return true;
+        } else if (isDragonDisabled() && !(pSource.getEntity() instanceof Player)) {
+            return false;
+        } else {
+            return super.isInvulnerableTo(pSource);
+        }
+    }
 
     @Override
     public void registerControllers(AnimationData data) {
