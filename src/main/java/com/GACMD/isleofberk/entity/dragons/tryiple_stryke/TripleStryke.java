@@ -438,8 +438,25 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             this.doEnchantDamageEffects(this, pEntity);
             this.setLastHurtMob(pEntity);
         }
+        playAttackSound();
 
         return flag;
+    }
+
+    @Override
+    protected void playAttackSound() {
+        if (getCurrentAttackType() == 0) {
+            playSound(get1stAttackSound(), 3, 1);
+        }
+
+        if (getCurrentAttackType() == 1) {
+            playSound(get2ndAttackSound(), 3, 1);
+
+        }
+
+        if (getCurrentAttackType() == 2) {
+            playSound(SoundEvents.SHEEP_SHEAR, 3, 1);
+        }
     }
 
     private void maybeDisableShield(Player pPlayer, ItemStack pMobItemStack, ItemStack pPlayerItemStack) {
@@ -476,8 +493,13 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
-        return pSpawnData;
+        if (random.nextInt(20) == 1) {
+            this.setDragonVariant(6);
+        } else if (random.nextInt(20) == 1) {
+            this.setDragonVariant(3);
+        } else {
+            this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+        }        return pSpawnData;
     }
 
     @Override
