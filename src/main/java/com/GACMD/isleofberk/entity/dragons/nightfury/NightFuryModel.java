@@ -4,9 +4,14 @@ import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
+import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
+import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.processor.IBone;
+import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 @OnlyIn(Dist.CLIENT)
 public class NightFuryModel extends BaseDragonModelFlying<NightFury> {
@@ -56,8 +61,27 @@ public class NightFuryModel extends BaseDragonModelFlying<NightFury> {
         return -47;
     }
 
-/*    @Override
-    public void setLivingAnimations(NightFury entity, Integer uniqueID, AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
-    }*/
+    @Override
+    public void setLivingAnimations(NightFury dragon, Integer uniqueID, AnimationEvent customPredicate) {
+        super.setLivingAnimations(dragon, uniqueID, customPredicate);
+
+        // list of bones
+        IBone neck = this.getAnimationProcessor().getBone("Neck");
+        IBone head = this.getAnimationProcessor().getBone("head");
+
+        // head tracking
+        EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
+
+        if (!dragon.shouldStopMovingIndependently() && !Minecraft.getInstance().isPaused()) {
+            neck.setRotationY(neck.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 2);
+            head.setRotationY(head.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 2);
+            neck.setRotationX(neck.getRotationX() + extraData.headPitch * ((float) Math.PI / 180F) / 2);
+            head.setRotationX(head.getRotationX() + extraData.headPitch * ((float) Math.PI / 180F) / 2);
+        }
+    }
+
+    @Override
+    public String getMainBodyBone() {
+        return "main";
+    }
 }

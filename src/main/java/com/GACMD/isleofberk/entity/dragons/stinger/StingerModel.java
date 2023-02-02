@@ -41,6 +41,7 @@ public class StingerModel extends BaseDragonModel<Stinger> {
     public void setLivingAnimations(Stinger stinger, Integer uniqueID, AnimationEvent customPredicate) {
         super.setLivingAnimations(stinger, uniqueID, customPredicate);
 
+        // list of bones
         IBone saddle = this.getAnimationProcessor().getBone("Saddle");
         IBone collar = this.getAnimationProcessor().getBone("Collar");
         IBone spike2 = this.getAnimationProcessor().getBone("Spike2");

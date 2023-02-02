@@ -50,39 +50,14 @@ public class SpeedStingerModel extends BaseDragonModel<SpeedStinger> {
 		IBone neck2 = this.getAnimationProcessor().getBone("Neck2");
 		IBone head = this.getAnimationProcessor().getBone("head");
 
-		// whatever tf is that, used for head tracking
-		// will probably stop working at some point
 		EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 
-		// floats to fix paused game mess
-		float rotNeck1Y;
-		float rotNeck2Y;
-		float rotHeadY;
-		float rotNeck1X;
-		float rotHeadX;
-
-		// checks if game is paused - head spinning/heaven ascension on pause fix
-		if (Minecraft.getInstance().isPaused()) {
-			rotHeadY = 0;
-			rotNeck1Y = 0;
-			rotNeck2Y = 0;
-			rotHeadX = 0;
-			rotNeck1X = 0;
-		} else {
-			rotHeadY = head.getRotationY();
-			rotNeck1Y = neck1.getRotationY();
-			rotNeck2Y = neck2.getRotationY();
-			rotHeadX = head.getRotationX();
-			rotNeck1X = neck1.getRotationX();
-		}
-
-		// head tracking when not mounted
-		if (!dragon.shouldStopMovingIndependently()) {
-			neck1.setRotationY(rotNeck1Y + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
-			neck2.setRotationY(rotNeck2Y + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
-			head.setRotationY(rotHeadY + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
-			neck1.setRotationX(rotNeck1X + extraData.headPitch * ((float) Math.PI / 180F) / 4);
-			head.setRotationX(rotHeadX + extraData.headPitch * ((float) Math.PI / 180F) / 4);
+		if (!dragon.shouldStopMovingIndependently() && !Minecraft.getInstance().isPaused()) {
+			neck1.setRotationY(neck1.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
+			neck2.setRotationY(neck2.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
+			head.setRotationY(head.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
+			neck1.setRotationX(neck1.getRotationX() + extraData.headPitch * ((float) Math.PI / 180F) / 4);
+			head.setRotationX(head.getRotationX() + extraData.headPitch * ((float) Math.PI / 180F) / 4);
 		}
 	}
 }
