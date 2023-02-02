@@ -404,11 +404,11 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 200.0D)
-                .add(Attributes.ARMOR, 15)
+                .add(Attributes.ARMOR, 6)
                 .add(Attributes.ARMOR_TOUGHNESS, 10)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
-                .add(Attributes.ATTACK_DAMAGE, 20F);
+                .add(Attributes.ATTACK_DAMAGE, 10F);
     }
 
     @Override

@@ -285,12 +285,12 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 130.0D)
-                .add(Attributes.ARMOR, 22)
+                .add(Attributes.MAX_HEALTH, 100.0D)
+                .add(Attributes.ARMOR, 1)
                 .add(Attributes.ARMOR_TOUGHNESS, 16)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
-                .add(Attributes.ATTACK_DAMAGE, 65F)
+                .add(Attributes.ATTACK_DAMAGE, 8F)
                 .add(Attributes.FOLLOW_RANGE, 32F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
 

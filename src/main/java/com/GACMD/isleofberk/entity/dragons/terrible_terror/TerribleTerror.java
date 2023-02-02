@@ -270,7 +270,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
                 .add(Attributes.FOLLOW_RANGE, 12F)
                 .add(ForgeMod.SWIM_SPEED.get(), 4F)
                 .add(Attributes.FLYING_SPEED, 0.04F)
-                .add(Attributes.ATTACK_DAMAGE, 5F);
+                .add(Attributes.ATTACK_DAMAGE, 2F);
     }
 
     @Override

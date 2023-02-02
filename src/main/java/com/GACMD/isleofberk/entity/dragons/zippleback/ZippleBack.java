@@ -84,11 +84,11 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 160.0D)
                 .add(Attributes.ARMOR, 14)
-                .add(Attributes.ARMOR_TOUGHNESS, 11)
+                .add(Attributes.ARMOR_TOUGHNESS, 6)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
                 .add(Attributes.FOLLOW_RANGE, 32F)
-                .add(Attributes.ATTACK_DAMAGE, 18F)
+                .add(Attributes.ATTACK_DAMAGE, 8F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
     }
 

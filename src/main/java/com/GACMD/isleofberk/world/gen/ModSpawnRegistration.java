@@ -29,17 +29,6 @@ public class ModSpawnRegistration {
                 MobCategory.CREATURE, ModEntities.STINGER.get(), 1, 6, 10, CommonConfig.STINGER_SPAWN_PROBABILITY.get());
 
         /**
-         * SPEED STINGER
-         */
-        addMobSpawn(event, List.of(Biome.BiomeCategory.UNDERGROUND, Biome.BiomeCategory.JUNGLE, Biome.BiomeCategory.TAIGA),
-                MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                CommonConfig.SPEED_STINGER_SPAWN_WEIGHT.get(), 6, 9, CommonConfig.SPEED_STINGER_SPAWN_PROBABILITY.get());
-
-        addMobSpawnOnSpecificBiomes(event, MobCategory.MONSTER, ModEntities.SPEED_STINGER.get(),
-                CommonConfig.SPEED_STINGER_SPAWN_WEIGHT.get(), 6, 9, CommonConfig.SPEED_STINGER_SPAWN_PROBABILITY.get(), Biomes.FROZEN_OCEAN, Biomes.FROZEN_PEAKS,
-                Biomes.FROZEN_RIVER, Biomes.DEEP_FROZEN_OCEAN, Biomes.ICE_SPIKES);
-
-        /**
          * TERRIBLE TERROR
          */
         addMobSpawn(event, List.of(Biome.BiomeCategory.BEACH),
