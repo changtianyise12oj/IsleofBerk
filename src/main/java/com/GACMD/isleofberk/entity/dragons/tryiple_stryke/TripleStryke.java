@@ -325,10 +325,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
                 this.hurt(this.level.getEntities(this, this.TSStingArea.getBoundingBox().inflate(1.0D), EntitySelector.NO_CREATIVE_OR_SPECTATOR));
             }
         }
-
-        if (ticksSinceLastStingAttackPlayer == 44) {
-            playSound(ModSounds.TRIPLE_STRYKE_STING.get(), 5, 1);
-        }
     }
 
     /**
@@ -337,7 +333,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     private void knockBack(List<Entity> pEntities) {
         double d0 = (this.TSStingArea.getBoundingBox().minX + this.TSStingArea.getBoundingBox().maxX) / 2.0D;
         double d1 = (this.TSStingArea.getBoundingBox().minZ + this.TSStingArea.getBoundingBox().maxZ) / 2.0D;
-
 
         for (Entity entity : pEntities) {
             if (entity instanceof LivingEntity && entity != this.getPassengers() && (entity.xOld == entity.getX() || entity.zOld == entity.getZ())) {
@@ -357,7 +352,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     private void hurt(List<Entity> pEntities) {
         for (Entity entity : pEntities) {
             if (entity instanceof LivingEntity livingEntity) {
-                playSound(SoundEvents.GENERIC_BIG_FALL, 3, 1);
                 livingEntity.hurt(DamageSource.mobAttack(this), 36.0F);
                 this.doEnchantDamageEffects(this, livingEntity);
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, Util.secondsToTicks(20)));
@@ -445,25 +439,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             this.setLastHurtMob(pEntity);
         }
 
-        playAttackSound();
-
         return flag;
-    }
-
-    @Override
-    protected void playAttackSound() {
-        if (getCurrentAttackType() == 0) {
-            playSound(get1stAttackSound(), 3, 1);
-        }
-
-        if (getCurrentAttackType() == 1) {
-            playSound(get2ndAttackSound(), 3, 1);
-
-        }
-
-        if (getCurrentAttackType() == 2) {
-            playSound(SoundEvents.SHEEP_SHEAR, 3, 1);
-        }
     }
 
     private void maybeDisableShield(Player pPlayer, ItemStack pMobItemStack, ItemStack pPlayerItemStack) {
@@ -500,20 +476,13 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     @Nullable
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor pLevel, DifficultyInstance pDifficulty, MobSpawnType pReason, @javax.annotation.Nullable SpawnGroupData pSpawnData, @javax.annotation.Nullable CompoundTag pDataTag) {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
-        if (random.nextInt(20) == 1) {
-            this.setDragonVariant(6);
-        } else if (random.nextInt(20) == 1) {
-            this.setDragonVariant(3);
-        } else {
-            this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
-        }
-
+        this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
         return pSpawnData;
     }
 
     @Override
     public int getMaxAmountOfVariants() {
-        return 6;
+        return 8;
     }
 
     @Override
@@ -536,13 +505,13 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             ticksSinceLastClawAttack = 0;
         }
 
-        if (random1 > 120) {
+        if (random1 > 200) {
             ticksSinceLastStingAttackAI = Util.secondsToTicks(3);
             ticksSinceLastClawAttack = 0;
             ticksSinceLastBiteAttack = 0;
         }
 
-        if (random1 > 210) {
+        if (random1 > 250) {
             ticksSinceLastClawAttack = Util.secondsToTicks(3);
             ticksSinceLastStingAttackAI = 0;
             ticksSinceLastBiteAttack = 0;
@@ -628,32 +597,32 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
      */
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
         if (projectile.getDamageTier() == 1) {
-            return 20F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+            return 20F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.05F) : 0F);
         } else if (projectile.getDamageTier() == 2) {
-            return 22F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
-        } else if (projectile.getDamageTier() == 3) {
             return 24F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+        } else if (projectile.getDamageTier() == 3) {
+            return 28F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.20F) : 0F);
         } else if (projectile.getDamageTier() == 4) {
-            return 25F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+            return 35F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.30F) : 0F);
         }
 
         return 20;
     }
 
     public boolean tier1() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.20 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.50;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.20 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.55;
     }
 
     public boolean tier2() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.50 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.75;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.55 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.85;
     }
 
     public boolean tier3() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.75 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast() * 0.92;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.85 && getPlayerBoltBlastPendingScale() < getMaxPlayerBoltBlast();
     }
 
     public boolean tier4() {
-        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast() * 0.92;
+        return getPlayerBoltBlastPendingScale() >= getMaxPlayerBoltBlast();
     }
 
     @Override
@@ -755,22 +724,22 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     }
 
     protected double rider1YOffSet() {
-        return CommonConfig.USE_LARGER_SCALING.get() ? 1.8D : 1.2D;
+        return CommonConfig.USE_LARGER_SCALING.get() ? 1.6D : 1.2D;
     }
 
     protected double rider1ZOffSet() {
         return 0;
     }
 
-    protected double extraRidersXOffset() {
-        return 0.4D;
+    protected double rider2XOffSet() {
+        return 1;
     }
 
-    protected double extraRidersYOffset() {
-        return CommonConfig.USE_LARGER_SCALING.get() ? 1.8D : 1.2D;
+    protected double rider2YOffSet() {
+        return CommonConfig.USE_LARGER_SCALING.get() ? 1.6D : 1.2D;
     }
 
-    protected double extraRidersZOffset() {
+    protected double rider2ZOffSet() {
         return 1;
     }
 
@@ -798,37 +767,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     public int getMaxPlayerBoltBlast() {
         return 82;
     }
-
-    @Override
-    protected int getInLoveCoolDownInMCDays() {
-        return 22;
-    }
-
-//    protected SoundEvent getAmbientSound() {
-//        if (this.isDragonSleeping()) {
-//            return ModSounds.TRIPLE_STRYKE_SLEEP.get();
-//        } else {
-//            return ModSounds.TRIPLE_STRYKE_GROWL.get();
-//        }
-//    }
-//
-//    protected SoundEvent getTameSound() {
-//        return ModSounds.TRIPLE_STRYKE_TAME.get();
-//    }
-//
-//    protected SoundEvent getProjectileSound() {
-//        return ModSounds.TRIPLE_STRYKE_FIRE.get();
-//    }
-//
-//    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-//        return ModSounds.TRIPLE_STRYKE_HURT.get();
-//    }
-//
-//    protected SoundEvent getDeathSound() {
-//        return ModSounds.TRIPLE_STRYKE_DEATH.get();
-//    }
-
-
     protected SoundEvent getProjectileSound() {
         return ModSounds.GRONCKLE_FIRE.get();
     }
@@ -861,6 +799,5 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     protected int getMaxPassengerCapacity() {
         return 3;
     }
-
 
 }
