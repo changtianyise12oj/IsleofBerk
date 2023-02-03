@@ -7,9 +7,9 @@ modId="isleofberk"
 version="1.0.0"
 displayName="Isle of Berk"
 logoFile="logo.png"
-authors="Ghanou, Apprentice Necromancer, DevKnight, Toothlezz, Crafty"
+authors="Ghanou Craft, Apprentice Necromancer, TooTHleZZ, Arsian"
 description='''
-Isle of Berk is a Minecraft Mod aiming to implement many things seen in the How to Train your Dragon series.'''
+Isle of Berk is a Minecraft Mod based on the How to Train Your Dragon franchise. Explore dragons all over your world now and enjoy the best experience ever !'''
 
 [[dependencies.isleofberk]]
 modId="geckolib3"

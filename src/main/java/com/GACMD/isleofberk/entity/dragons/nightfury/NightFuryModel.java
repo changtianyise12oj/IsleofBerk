@@ -21,7 +21,7 @@ public class NightFuryModel extends BaseDragonModelFlying<NightFury> {
 
     @Override
     public ResourceLocation getModelLocation(NightFury entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/nightfury.geo.json");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/night_fury.geo.json");
 
     }
 
@@ -48,7 +48,7 @@ public class NightFuryModel extends BaseDragonModelFlying<NightFury> {
 
     @Override
     public ResourceLocation getAnimationFileLocation(NightFury entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/nightfury.animation.json");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/night_fury.animation.json");
     }
 
     @Override
