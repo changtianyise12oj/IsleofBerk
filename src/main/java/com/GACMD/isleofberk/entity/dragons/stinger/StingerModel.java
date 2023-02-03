@@ -74,6 +74,6 @@ public class StingerModel extends BaseDragonModel<Stinger> {
 
     @Override
     protected String getMainBodyBone() {
-        return "Root";
+        return "root";
     }
 }

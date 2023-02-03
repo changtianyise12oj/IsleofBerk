@@ -83,6 +83,6 @@ public class MonstrousNightmareModel extends BaseDragonModelFlying<MonstrousNigh
 
     @Override
     public String getMainBodyBone() {
-        return "main";
+        return "rotation";
     }
 }

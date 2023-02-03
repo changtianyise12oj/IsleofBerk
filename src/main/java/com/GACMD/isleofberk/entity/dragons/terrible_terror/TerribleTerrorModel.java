@@ -78,4 +78,9 @@ public class TerribleTerrorModel extends BaseDragonModel<TerribleTerror> {
             HeadTrack2.setRotationY(extraData.netHeadYaw * ((float) Math.PI / 180F) / 2);
         }
     }
+
+    @Override
+    protected String getMainBodyBone() {
+        return "root";
+    }
 }

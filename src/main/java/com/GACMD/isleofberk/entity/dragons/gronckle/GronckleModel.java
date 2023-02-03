@@ -74,33 +74,20 @@ public class GronckleModel extends BaseDragonModelFlying<Gronckle> {
     @Override
     public void setLivingAnimations(Gronckle dragon, Integer uniqueID, AnimationEvent customPredicate) {
         super.setLivingAnimations(dragon, uniqueID, customPredicate);
-        // do not use headtracking when elytra flying
         if (dragon.getOwner() instanceof Player player && !dragon.isDragonFollowing() && !player.isFallFlying()) {
-            // call for model bones, all called bones must exist in the model
             IBone head = this.getAnimationProcessor().getBone("head");
 
-            // whatever tf is that, used for head tracking
-            // will probably stop working at some point
             EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 
-            // floats to fix paused game mess
-            float rotHeadY;
-            float rotHeadX;
-
-            // checks if game is paused - head spinning/heaven ascension on pause fix
-            if (Minecraft.getInstance().isPaused()) {
-                rotHeadY = 0;
-                rotHeadX = 0;
-            } else {
-                rotHeadY = head.getRotationY();
-                rotHeadX = head.getRotationX();
-            }
-
-            // head tracking when not mounted
-            if (!dragon.shouldStopMovingIndependently()) {
-                head.setRotationY(rotHeadY + extraData.netHeadYaw * ((float) Math.PI / 180F));
-                head.setRotationX(rotHeadX + extraData.headPitch * ((float) Math.PI / 180F) / 2);
+            if (!dragon.shouldStopMovingIndependently() && !Minecraft.getInstance().isPaused()) {
+                head.setRotationY(head.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 2);
+                head.setRotationX(head.getRotationX() + extraData.headPitch * ((float) Math.PI / 180F) / 2);
             }
         }
+    }
+
+    @Override
+    public String getMainBodyBone() {
+        return "rotation";
     }
 }

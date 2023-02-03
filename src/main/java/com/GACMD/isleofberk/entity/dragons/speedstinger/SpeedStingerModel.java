@@ -60,4 +60,9 @@ public class SpeedStingerModel extends BaseDragonModel<SpeedStinger> {
 			head.setRotationX(head.getRotationX() + extraData.headPitch * ((float) Math.PI / 180F) / 4);
 		}
 	}
+
+	@Override
+	public String getMainBodyBone() {
+		return "root";
+	}
 }

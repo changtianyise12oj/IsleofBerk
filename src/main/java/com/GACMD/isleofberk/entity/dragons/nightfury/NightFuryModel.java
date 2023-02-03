@@ -82,6 +82,6 @@ public class NightFuryModel extends BaseDragonModelFlying<NightFury> {
 
     @Override
     public String getMainBodyBone() {
-        return "main";
+        return "rotation";
     }
 }

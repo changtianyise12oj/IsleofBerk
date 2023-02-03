@@ -90,6 +90,6 @@ public class TripleStrykeModel extends BaseDragonModelFlying<TripleStryke> {
 
     @Override
     public String getMainBodyBone() {
-        return "main";
+        return "rotation";
     }
 }
