@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
+import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.ZippleBackEgg;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZipBreathProjectile;
@@ -13,6 +14,9 @@ import com.GACMD.isleofberk.registery.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -22,6 +26,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -30,12 +35,163 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.builder.ILoopType;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
 
 import java.util.List;
 
 public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     private int ticksUsingSecondAbility;
+    protected static final EntityDataAccessor<Boolean> MARK_FIRED = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.BOOLEAN);
+
+    private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
+        if ((isFlying() && !event.isMoving())) {
+            // the head looks down during hover which looks awful and distorted so temporary disabled
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.fly", ILoopType.EDefaultLoopTypes.LOOP)); // hover
+            setShouldPlayFlapping(true);
+            return PlayState.CONTINUE;
+        }
+        if (isFlying()) {
+            if (event.isMoving()) {
+                if (getControllingPassenger() instanceof Player) {
+//                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
+                    if (this.getXRot() < 11 || isGoingUp()) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(true);
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() >= 11 && this.getXRot() < 26 && !isGoingUp()) { // < 20
+                        setShouldPlayFlapping(false);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
+                        return PlayState.CONTINUE;
+                    }
+                    if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
+                        setShouldPlayFlapping(false);
+                        return PlayState.CONTINUE;
+                    }
+                    // different values for pitch and roll when following elytra flying player
+                } else if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
+                    float dist = distanceTo(player);
+                    double ydist = this.getY() - player.getY();
+                    if (dist > 8.3F && ydist < 4 || ydist < -1.8F) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(true);
+                        return PlayState.CONTINUE;
+                    }
+                    if (dist < 8.3F || ydist > 4) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.dive", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(false);
+                        return PlayState.CONTINUE;
+                    } else {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                        setShouldPlayFlapping(true);
+                        return PlayState.CONTINUE;
+                    }
+                } else {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup DeadlyNadderFlyup
+                    setShouldPlayFlapping(true);
+                    return PlayState.CONTINUE;
+                }
+
+            }
+        } else {
+            if (this.isDragonSitting() && !isDragonSleeping()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.sit", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+            if (event.isMoving() && !shouldStopMovingIndependently()) {
+                if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14  || isVehicle()) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.run", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+
+                } else {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.walk", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                }
+            }
+            if (this.isDragonSleeping()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.sleep", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+
+
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.idle", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.CONTINUE;
+    }
+
+    private <E extends IAnimatable> PlayState turnController(AnimationEvent<E> event) {
+        int turnState = this.getRotationState();
+        if (turnState != 0 && getControllingPassenger() instanceof Player) {
+            if (isFlying()) {
+                boolean diving = getXRot() >= 32 && event.isMoving();
+                if (isGoingUp() || diving) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else {
+                    if (turnState == 1) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.lefttailrot1f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == 2) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.lefttailrot2f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == -1) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.righttailrot1f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    } else if (turnState == -2) {
+                        event.getController().setAnimationSpeed(4);
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.righttailrot2f", ILoopType.EDefaultLoopTypes.LOOP));
+                        return PlayState.CONTINUE;
+                    }
+                }
+            } else {
+                if (turnState == 1) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.lefttailrot1", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == 2) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.lefttailrot2", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == -1) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.righttailrot1", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (turnState == -2) {
+                    event.getController().setAnimationSpeed(4);
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.righttailrot2", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                }
+            }
+        } else {
+            event.getController().setAnimationSpeed(4);
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
+
+    }
+
+
+    // Animation
+    @Override
+    public void registerControllers(AnimationData data) {
+        data.addAnimationController(new AnimationController<ZippleBack>(this, "basic_MovementController", 4, this::basicMovementController));
+//        data.addAnimationController(new AnimationController<ZippleBack>(this, "attack_Controller", 0, this::attackController));
+        data.addAnimationController(new AnimationController<ZippleBack>(this, "turnController", 35, this::turnController));
+    }
 
     public ZippleBack(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
