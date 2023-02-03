@@ -5,6 +5,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.ZippleBackEgg;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZipBreathProjectile;
@@ -48,11 +49,9 @@ import java.util.List;
 public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     private int ticksUsingSecondAbility;
-    protected static final EntityDataAccessor<Boolean> MARK_FIRED = SynchedEntityData.defineId(ADragonBaseFlyingRideableProjUser.class, EntityDataSerializers.BOOLEAN);
 
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if ((isFlying() && !event.isMoving())) {
-            // the head looks down during hover which looks awful and distorted so temporary disabled
             event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.fly", ILoopType.EDefaultLoopTypes.LOOP)); // hover
             setShouldPlayFlapping(true);
             return PlayState.CONTINUE;
@@ -60,7 +59,6 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         if (isFlying()) {
             if (event.isMoving()) {
                 if (getControllingPassenger() instanceof Player) {
-//                if (this.getXRot() < 11 || isGoingUp() || getPassengers().size() > 2 || getFirstPassenger() == null) {
                     if (this.getXRot() < 11 || isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.fly", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
                         setShouldPlayFlapping(true);
@@ -71,12 +69,11 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.glide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
                         return PlayState.CONTINUE;
                     }
-                    if (this.getXRot() >= 26 && !isGoingUp()) { // > 30
+                    if (this.getXRot() >= 26 && !isGoingUp()) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.dive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
                         setShouldPlayFlapping(false);
                         return PlayState.CONTINUE;
                     }
-                    // different values for pitch and roll when following elytra flying player
                 } else if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
                     float dist = distanceTo(player);
                     double ydist = this.getY() - player.getY();
@@ -126,6 +123,24 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
             return PlayState.CONTINUE;
         }
         return PlayState.CONTINUE;
+    }
+
+    private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
+        if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
+            if (getCurrentAttackType() == 0) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.bite", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+        }
+        if (isUsingAbility()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.poison", ILoopType.EDefaultLoopTypes.LOOP));
+            return PlayState.CONTINUE;
+        }
+        if (isUsingSECONDAbility()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.light"));
+            return PlayState.CONTINUE;
+        }
+        return PlayState.STOP;
     }
 
     private <E extends IAnimatable> PlayState turnController(AnimationEvent<E> event) {
@@ -184,12 +199,11 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     }
 
-
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<ZippleBack>(this, "basic_MovementController", 4, this::basicMovementController));
-//        data.addAnimationController(new AnimationController<ZippleBack>(this, "attack_Controller", 0, this::attackController));
+        data.addAnimationController(new AnimationController<ZippleBack>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<ZippleBack>(this, "turnController", 35, this::turnController));
     }
 
