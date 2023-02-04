@@ -374,6 +374,7 @@ public class SpeedStinger extends ADragonRideableUtility {
             } else if (biome.is(Biomes.DEEP_COLD_OCEAN) || biome.is(Biomes.COLD_OCEAN) || biome.is(Biomes.ICE_SPIKES) || biome.is(Biomes.DEEP_FROZEN_OCEAN)
                     || biome.is(Biomes.FROZEN_PEAKS)
                     || biome.is(Biomes.FROZEN_RIVER)
+                    || biome.is(Biomes.FROZEN_OCEAN)
                     || biome.is(Biomes.SNOWY_BEACH) || biome.is(Biomes.SNOWY_PLAINS) || biome.is(Biomes.SNOWY_TAIGA) || biome.is(Biomes.SNOWY_SLOPES)) {
                 return 2;
             } else if (biome.is(Biomes.STONY_PEAKS) || biome.is(Biomes.JAGGED_PEAKS) || biome.is(Biomes.MEADOW)) {
