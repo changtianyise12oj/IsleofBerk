@@ -138,7 +138,7 @@ public class SpeedStingerLeader extends SpeedStinger {
         pSpawnData = super.finalizeSpawn(pLevel, pDifficulty, pReason, pSpawnData, pDataTag);
 
         if (pReason == MobSpawnType.SPAWN_EGG) {
-            this.setDragonVariant(this.random.nextInt(getMaxAmountOfVariants()));
+            this.setDragonVariant(getTypeForBiome(pLevel));
         } else {
             this.setDragonVariant(getTypeForBiome(pLevel));
         }
