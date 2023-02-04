@@ -79,7 +79,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
 
         // flying animations
-        if (isFlying()) {
+        if (isFlying() && !isDragonIncapacitated()) {
             if (event.isMoving()){
 
                 // mounted flying
@@ -121,15 +121,15 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
             //ground animations
         } else {
-            if (this.isDragonSitting() && !this.isDragonSleeping()) {
+            if (this.isDragonSitting() && !this.isDragonSleeping() && !isDragonIncapacitated()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.sit", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (this.isDragonSleeping()) {
+            if (this.isDragonSleeping() && !isDragonIncapacitated()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.sleep", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (event.isMoving() && !shouldStopMovingIndependently()) {
+            if (event.isMoving() && !shouldStopMovingIndependently() && !isDragonIncapacitated()) {
                 if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.run", ILoopType.EDefaultLoopTypes.LOOP));
                 } else {
@@ -137,10 +137,9 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
                 }
                 return PlayState.CONTINUE;
             }
-            if (!isVehicle() && isDragonIncapacitated()) {
+            if (isDragonIncapacitated()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.surrender", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
-
             }
             else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.idle", ILoopType.EDefaultLoopTypes.LOOP));
