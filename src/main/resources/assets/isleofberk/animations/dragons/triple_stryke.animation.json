@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"TripleStrykeGlide": {
+		"triple_stryke.glide": {
 			"loop": true,
 			"animation_length": 3.6,
 			"bones": {
@@ -192,7 +192,7 @@
 				}
 			}
 		},
-		"TripleStrykeClaw": {
+		"triple_stryke.claw": {
 			"loop": true,
 			"animation_length": 0.5,
 			"bones": {
@@ -227,7 +227,7 @@
 				}
 			}
 		},
-		"TripleStrykeDive": {
+		"triple_stryke.dive": {
 			"loop": true,
 			"animation_length": 3.6,
 			"bones": {
@@ -448,7 +448,7 @@
 				}
 			}
 		},
-		"TripleStrykeFlap": {
+		"triple_stryke.flap": {
 			"loop": true,
 			"animation_length": 3.6,
 			"bones": {
@@ -674,7 +674,7 @@
 				}
 			}
 		},
-		"TripleStrykeHover": {
+		"triple_stryke.hover": {
 			"loop": true,
 			"animation_length": 3.6,
 			"bones": {
@@ -920,7 +920,7 @@
 				}
 			}
 		},
-		"TripleStrykeIdle": {
+		"triple_stryke.idle": {
 			"loop": true,
 			"animation_length": 3.6,
 			"bones": {
@@ -1126,7 +1126,7 @@
 				}
 			}
 		},
-		"TripleStrykeSurrender": {
+		"triple_stryke.surrender": {
 			"loop": true,
 			"animation_length": 3.6,
 			"bones": {
@@ -1382,7 +1382,7 @@
 				}
 			}
 		},
-		"TripleStrykeSit": {
+		"triple_stryke.sit": {
 			"loop": true,
 			"animation_length": 1.79167,
 			"bones": {
@@ -1641,7 +1641,7 @@
 				}
 			}
 		},
-		"TripleStrykeWalk": {
+		"triple_stryke.walk": {
 			"loop": true,
 			"animation_length": 3.6,
 			"bones": {
@@ -1873,7 +1873,7 @@
 				}
 			}
 		},
-		"TripleStrykeSleep": {
+		"triple_stryke.sleep": {
 			"loop": true,
 			"animation_length": 1.79167,
 			"bones": {
@@ -2139,7 +2139,7 @@
 				}
 			}
 		},
-		"TripleStrykeRun": {
+		"triple_stryke.run": {
 			"loop": true,
 			"animation_length": 3.6,
 			"bones": {
@@ -2399,7 +2399,7 @@
 				}
 			}
 		},
-		"TripleStrykeBite": {
+		"triple_stryke.bite": {
 			"loop": true,
 			"animation_length": 0.68,
 			"bones": {
@@ -2563,7 +2563,7 @@
 				}
 			}
 		},
-		"TripleStrykeBreath": {
+		"triple_stryke.breath": {
 			"loop": true,
 			"animation_length": 0.76,
 			"bones": {
@@ -2662,7 +2662,7 @@
 				}
 			}
 		},
-		"TripleStrykeRoar": {
+		"triple_stryke.roar": {
 			"loop": true,
 			"animation_length": 3.6,
 			"override_previous_animation": true,
@@ -2705,7 +2705,7 @@
 				}
 			}
 		},
-		"TripleStrykeSting": {
+		"triple_stryke.sting": {
 			"loop": true,
 			"animation_length": 1.8,
 			"bones": {
@@ -3074,7 +3074,7 @@
 				}
 			}
 		},
-		"TripleStrykeClawLeft": {
+		"triple_stryke.claw_left": {
 			"loop": true,
 			"animation_length": 1.2,
 			"bones": {
@@ -3137,7 +3137,7 @@
 				}
 			}
 		},
-		"TripleStrykeClawRight": {
+		"triple_stryke.claw_right": {
 			"loop": true,
 			"animation_length": 1.2,
 			"bones": {
@@ -3200,7 +3200,7 @@
 				}
 			}
 		},
-		"TripleStrykeStingReady": {
+		"triple_stryke.sting_ready": {
 			"loop": true,
 			"animation_length": 1.79167,
 			"bones": {

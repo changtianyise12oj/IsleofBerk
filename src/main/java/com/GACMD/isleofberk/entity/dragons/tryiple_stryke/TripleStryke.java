@@ -77,96 +77,92 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     boolean stingAttack;
 
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
-        if ((isFlying() && !event.isMoving())) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); // flyup
-            setShouldPlayFlapping(true);
-            return PlayState.CONTINUE;
-        }
-        if (event.isMoving()) {
-            if (isFlying()) {
+
+        // flying animations
+        if (isFlying()) {
+            if (event.isMoving()){
+
+                // mounted flying
                 if (getControllingPassenger() instanceof Player) {
-                    if (this.getXRot() < 4 || isGoingUp()) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
+                    if (this.getXRot() < 8 || isGoingUp() || getPassengers().size() > 2) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.flap", ILoopType.EDefaultLoopTypes.LOOP));
                         setShouldPlayFlapping(true);
-                        return PlayState.CONTINUE;
                     }
-                    if (this.getXRot() >= 4 && this.getXRot() < 15 && !isGoingUp()) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeGlide", ILoopType.EDefaultLoopTypes.LOOP)); // glide
+                    if (this.getXRot() >= 8 && this.getXRot() < 33 && !isGoingUp()) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.glide", ILoopType.EDefaultLoopTypes.LOOP));
                         setShouldPlayFlapping(false);
-                        return PlayState.CONTINUE;
                     }
-                    if (this.getXRot() >= 15 && !isGoingUp()) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeDive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
+                    if (this.getXRot() >= 33 && !isGoingUp()) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.dive", ILoopType.EDefaultLoopTypes.LOOP));
                         setShouldPlayFlapping(false);
-                        return PlayState.CONTINUE;
                     }
-                } else if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
-                    float dist = distanceTo(player);
-                    double ydist = this.getY() - player.getY();
-                    if (dist > 4.3F && ydist < 5F) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-                        setShouldPlayFlapping(true);
-                        return PlayState.CONTINUE;
-                    }
-                    if (dist < 4.3F && ydist < 5F) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeGlide", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-                        setShouldPlayFlapping(false);
-                        return PlayState.CONTINUE;
-                    }
-                    if (ydist > 5F && dist > 7.8F) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeDive", ILoopType.EDefaultLoopTypes.LOOP)); // dive
-                        setShouldPlayFlapping(false);
-                        return PlayState.CONTINUE;
-                    }
-                } else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeFlap", ILoopType.EDefaultLoopTypes.LOOP)); //flyup
-                    setShouldPlayFlapping(true);
                     return PlayState.CONTINUE;
                 }
-            } else {
-                if (!shouldStopMovingIndependently()) {
-                    if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeRun", ILoopType.EDefaultLoopTypes.LOOP));
-                        return PlayState.CONTINUE;
+                // follow player on elytra
+                if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
+                    float dist = distanceTo(player);
+                    double ydist = this.getY() - player.getY();
+
+                    if (ydist < 10 || dist > 15) {
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.flap", ILoopType.EDefaultLoopTypes.LOOP));
                     } else {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeWalk", ILoopType.EDefaultLoopTypes.LOOP));
-                        return PlayState.CONTINUE;
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.dive", ILoopType.EDefaultLoopTypes.LOOP));
                     }
                 }
+                // free flying
+                else {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.flap", ILoopType.EDefaultLoopTypes.LOOP));
+                    setShouldPlayFlapping(true);
+                }
+            } else {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.hover", ILoopType.EDefaultLoopTypes.LOOP));
+                setShouldPlayFlapping(true);
+            }
+
+            //ground animations
+        } else {
+            if (this.isDragonSitting() && !this.isDragonSleeping()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.sit", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+            if (this.isDragonSleeping()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.sleep", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+            if (event.isMoving() && !shouldStopMovingIndependently()) {
+                if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.run", ILoopType.EDefaultLoopTypes.LOOP));
+                } else {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.walk", ILoopType.EDefaultLoopTypes.LOOP));
+                }
+                return PlayState.CONTINUE;
+            }
+            if (!isVehicle() && isDragonIncapacitated()) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.surrender", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+
+            }
+            else {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.idle", ILoopType.EDefaultLoopTypes.LOOP));
             }
         }
-
-        if (this.isDragonSitting() && !isDragonSleeping()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSit", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-        }
-        if (this.isDragonSleeping()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSleep", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-        }
-        if (!isVehicle() && isDragonIncapacitated()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSurrender", ILoopType.EDefaultLoopTypes.LOOP));
-            return PlayState.CONTINUE;
-
-        }
-
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeIdle", ILoopType.EDefaultLoopTypes.LOOP));
         return PlayState.CONTINUE;
     }
 
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
         if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
             if (getCurrentAttackType() == 0) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeClaw", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.claw_right", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.claw_left", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             } else if (getCurrentAttackType() == 1) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeBite", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.bite", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
         }
 
         if (isMarkFired()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeBreath"));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.breath"));
             return PlayState.CONTINUE;
         }
 
@@ -176,13 +172,13 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     private <E extends IAnimatable> PlayState stingAttackController(AnimationEvent<E> event) {
         if (getAbilityDisturbTicks() > 1 && isDragonOnGround() && getCurrentAttackType() != 2 && ticksSinceLastStingAttackPlayer == 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeStingReady", ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.sting_ready", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         } else if (getCurrentAttackType() == 2 && getTarget() != null && distanceTo(getTarget()) < 10) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeBite", ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.bite", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         } else if (ticksSinceLastStingAttackPlayer > 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("TripleStrykeSting", ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.sting", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
