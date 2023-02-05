@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"gronckle.idle": {
+		"Gronckle.Idle": {
 			"loop": true,
 			"animation_length": 1.8,
 			"bones": {
@@ -97,7 +97,7 @@
 				}
 			}
 		},
-		"gronckle.walk": {
+		"Gronckle.Walk": {
 			"loop": true,
 			"animation_length": 1.2,
 			"bones": {
@@ -236,7 +236,7 @@
 				}
 			}
 		},
-		"gronckle.run": {
+		"Gronckle.Run": {
 			"loop": true,
 			"animation_length": 2.16667,
 			"bones": {
@@ -379,7 +379,7 @@
 				}
 			}
 		},
-		"gronckle.sit": {
+		"Gronckle.Sit": {
 			"loop": true,
 			"animation_length": 1.8,
 			"bones": {
@@ -523,7 +523,7 @@
 				}
 			}
 		},
-		"gronckle.sleep": {
+		"Gronckle.Sleep": {
 			"loop": true,
 			"animation_length": 1.8,
 			"bones": {
@@ -674,7 +674,7 @@
 				}
 			}
 		},
-		"gronckle.fly": {
+		"Gronckle.Fly": {
 			"loop": true,
 			"animation_length": 0.72,
 			"bones": {
@@ -793,7 +793,7 @@
 				}
 			}
 		},
-		"gronckle.hover": {
+		"Gronckle.Hover": {
 			"loop": true,
 			"animation_length": 0.72,
 			"bones": {
@@ -917,7 +917,7 @@
 				}
 			}
 		},
-		"gronckle.glide": {
+		"Gronckle.Glide": {
 			"loop": true,
 			"animation_length": 2.88,
 			"bones": {
@@ -1256,7 +1256,7 @@
 				}
 			}
 		},
-		"gronckle.flyup": {
+		"Gronckle.FlyUP": {
 			"loop": true,
 			"animation_length": 0.72,
 			"bones": {
@@ -1375,7 +1375,7 @@
 				}
 			}
 		},
-		"gronckle.dive": {
+		"Gronckle.Dive": {
 			"loop": true,
 			"animation_length": 0.6,
 			"bones": {
@@ -1516,7 +1516,7 @@
 				}
 			}
 		},
-		"gronckle.roar": {
+		"Gronckle.Roar": {
 			"loop": true,
 			"animation_length": 2,
 			"bones": {
@@ -1588,7 +1588,7 @@
 				}
 			}
 		},
-		"gronckle.breath": {
+		"Gronckle.Breath": {
 			"loop": true,
 			"animation_length": 0.75,
 			"bones": {
@@ -1640,7 +1640,7 @@
 				}
 			}
 		},
-		"gronckle.bite": {
+		"Gronckle.Bite": {
 			"loop": true,
 			"animation_length": 0.70833,
 			"bones": {
@@ -1714,7 +1714,7 @@
 				}
 			}
 		},
-		"gronckle.ram": {
+		"Gronckle.Ram": {
 			"loop": true,
 			"animation_length": 0.54167,
 			"bones": {
@@ -1791,7 +1791,7 @@
 				}
 			}
 		},
-		"gronckle.tailrot0": {
+		"Gronckle.TailRot0": {
 			"loop": true,
 			"bones": {
 				"Tail1Rot": {
@@ -1816,7 +1816,7 @@
 				}
 			}
 		},
-		"gronckle.tailrotleft1": {
+		"Gronckle.tailrotleft1": {
 			"loop": true,
 			"bones": {
 				"Tail1Rot": {
@@ -1836,7 +1836,7 @@
 				}
 			}
 		},
-		"gronckle.tailrotleft1f": {
+		"Gronckle.tailrotleft1f": {
 			"loop": true,
 			"bones": {
 				"Tail1Rot": {
@@ -1861,7 +1861,7 @@
 				}
 			}
 		},
-		"gronckle.tailrotright1": {
+		"Gronckle.tailrotright1": {
 			"loop": true,
 			"bones": {
 				"Tail1Rot": {
@@ -1881,7 +1881,7 @@
 				}
 			}
 		},
-		"gronckle.tailrotright1f": {
+		"Gronckle.tailrotright1f": {
 			"loop": true,
 			"bones": {
 				"Tail1Rot": {
@@ -1906,7 +1906,7 @@
 				}
 			}
 		},
-		"gronckle.tailrotleft2": {
+		"Gronckle.tailrotleft2": {
 			"loop": true,
 			"bones": {
 				"Tail1Rot": {
@@ -1926,7 +1926,7 @@
 				}
 			}
 		},
-		"gronckle.tailrotleft2f": {
+		"Gronckle.tailrotleft2f": {
 			"loop": true,
 			"bones": {
 				"Tail1Rot": {
@@ -1951,7 +1951,7 @@
 				}
 			}
 		},
-		"gronckle.tailrotright2": {
+		"Gronckle.tailrotright2": {
 			"loop": true,
 			"bones": {
 				"Tail1Rot": {
@@ -1968,16 +1968,12 @@
 					"rotation": {
 						"vector": [0, 20, 0]
 					}
-				},
-				"Tail1": {
-					"rotation": {
-						"vector": [0, 0, 0]
-					}
 				}
 			}
 		},
-		"gronckle.tailrotright2f": {
+		"Gronckle.tailrotright2f": {
 			"loop": true,
+			"animation_length": 0.08333,
 			"bones": {
 				"Tail1Rot": {
 					"rotation": {
@@ -1992,11 +1988,6 @@
 				"HeadRot": {
 					"rotation": {
 						"vector": [0, 20, 7.5]
-					}
-				},
-				"Tail1": {
-					"rotation": {
-						"vector": [0, 0, 0]
 					}
 				},
 				"rotation": {
