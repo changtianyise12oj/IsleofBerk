@@ -159,14 +159,13 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
         if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
-            if (getCurrentAttackType() == 1) {
+            if (getCurrentAttackType() == 0) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Bite", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
         }
-
         if (isUsingAbility()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("Breath"));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("HeadBreath"));
             return PlayState.CONTINUE;
         }
 
