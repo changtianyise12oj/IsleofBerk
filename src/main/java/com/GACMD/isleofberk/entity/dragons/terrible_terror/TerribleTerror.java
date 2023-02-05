@@ -11,6 +11,7 @@ import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
+import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.TerribleTerrorEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
@@ -156,6 +157,21 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
         return PlayState.CONTINUE;
     }
 
+    private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
+        if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
+            if (getCurrentAttackType() == 1) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Bite", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+        }
+
+        if (isUsingAbility()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("Breath"));
+            return PlayState.CONTINUE;
+        }
+
+        return PlayState.STOP;
+    }
     public TerribleTerror(EntityType<? extends TerribleTerror> animal, Level world) {
         super(animal, world);
         this.setCanPickUpLoot(true);
@@ -194,6 +210,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     @Override
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<TerribleTerror>(this, "terrible_terror_controller", 5, this::predicate));
+        data.addAnimationController(new AnimationController<TerribleTerror>(this, "attack_Controller", 0, this::attackController));
     }
 
     @Nullable

@@ -126,8 +126,8 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.bite", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
-        if (isUsingAbility()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.breath", ILoopType.EDefaultLoopTypes.LOOP));
+        if (isMarkFired()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.breath"));
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;

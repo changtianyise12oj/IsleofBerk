@@ -121,8 +121,8 @@ public class LightFury extends NightFury {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.bite", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
-        if (isUsingAbility()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.breath", ILoopType.EDefaultLoopTypes.LOOP));
+        if (isMarkFired()) {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.breath"));
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;

@@ -151,8 +151,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
         if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
             if (getCurrentAttackType() == 0) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.claw_right", ILoopType.EDefaultLoopTypes.LOOP));
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.claw_left", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.claw_left"));
                 return PlayState.CONTINUE;
             } else if (getCurrentAttackType() == 1) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.bite", ILoopType.EDefaultLoopTypes.LOOP));
