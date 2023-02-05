@@ -44,7 +44,7 @@ public class ModSpawnRegistration {
                 ModEntities.TRIPLE_STRYKE.get(),
                 CommonConfig.STRYKE_SPAWN_WEIGHT.get(), 1, 1, CommonConfig.STRYKE_SPAWN_PROBABILITY.get()); // 0.08F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TRIPLE_STRYKE.get(),
-                CommonConfig.STRYKE_SPAWN_WEIGHT.get(), 1, 1, CommonConfig.STRYKE_SPAWN_PROBABILITY.get(), Biomes.SNOWY_TAIGA);
+                CommonConfig.STRYKE_SPAWN_WEIGHT.get(), 1, 1, CommonConfig.STRYKE_SPAWN_PROBABILITY.get(), Biomes.SNOWY_TAIGA, Biomes.TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
 
         /**
          * DEADLY NADDER
