@@ -35,7 +35,7 @@ public class ModSpawnRegistration {
                 MobCategory.CREATURE, ModEntities.TERRIBLE_TERROR.get(),
                 CommonConfig.TERROR_SPAWN_WEIGHT.get(), 6, 10, CommonConfig.TERROR_SPAWN_PROBABILITY.get()); // 0.1F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TERRIBLE_TERROR.get(),
-                CommonConfig.TERROR_SPAWN_WEIGHT.get(), 20, 20, CommonConfig.TERROR_SPAWN_PROBABILITY.get(), Biomes.STONY_SHORE);
+                CommonConfig.TERROR_SPAWN_WEIGHT.get(), 20, 20, CommonConfig.TERROR_SPAWN_PROBABILITY.get(), Biomes.STONY_SHORE, Biomes.DARK_FOREST, Biomes.FLOWER_FOREST, Biomes.SUNFLOWER_PLAINS, Biomes.STONY_SHORE, Biomes.MEADOW, Biomes.SWAMP, Biomes.BAMBOO_JUNGLE);
 
         /**
          * TRIPLE STRYKE
