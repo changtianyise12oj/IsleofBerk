@@ -60,16 +60,22 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         return pPose == Pose.SLEEPING ? 0.2F : pSize.height * 1.65F;
     }
 
-    private <E extends IAnimatable> PlayState predicate1(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
 
         if (isUsingAbility()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.ram", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
+        if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
+            if (getCurrentAttackType() == 0) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.bite", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+        }
         return PlayState.STOP;
     }
 
-    private <E extends IAnimatable> PlayState predicate2(AnimationEvent<E> event) {
+    private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
         if (isDragonOnGround()) {
             if (this.isDragonSitting() && !isDragonSleeping()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.sit", ILoopType.EDefaultLoopTypes.LOOP));
@@ -99,22 +105,31 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.idle", ILoopType.EDefaultLoopTypes.LOOP));
         return PlayState.CONTINUE;
     }
-
-    private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
-        if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
-            if (getCurrentAttackType() == 0) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.bite", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
-            }
+/*    private <E extends IAnimatable> PlayState turnController(AnimationEvent<E> event) {
+        int turnState = this.getRotationState();
+        event.getController().setAnimationSpeed(4);
+        if (turnState != 0) {
+                if (turnState == 1) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.tailrotleft1", ILoopType.EDefaultLoopTypes.LOOP));
+                } else if (turnState == 2) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.tailrotleft2", ILoopType.EDefaultLoopTypes.LOOP));
+                } else if (turnState == -1) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.tailrotright1", ILoopType.EDefaultLoopTypes.LOOP));
+                } else if (turnState == -2) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.tailrotright2", ILoopType.EDefaultLoopTypes.LOOP));
+                }
+        } else {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
         }
-        return PlayState.STOP;
-    }
+        return PlayState.CONTINUE;
+    } */
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<Stinger>(this, "stinger_controller1", 5, this::predicate1));
-        data.addAnimationController(new AnimationController<Stinger>(this, "stinger_controller3", 0, this::attackController));
-        data.addAnimationController(new AnimationController<Stinger>(this, "stinger_controller2", 5, this::predicate2));
+        data.addAnimationController(new AnimationController<Stinger>(this, "attack_Controller", 0, this::attackController));
+        data.addAnimationController(new AnimationController<Stinger>(this, "basic_MovementController", 6, this::basicMovementController));
+//        data.addAnimationController(new AnimationController<Stinger>(this, "turnController", 35, this::turnController));
+
     }
 
     public Stinger(EntityType<? extends Stinger> entityType, Level level) {

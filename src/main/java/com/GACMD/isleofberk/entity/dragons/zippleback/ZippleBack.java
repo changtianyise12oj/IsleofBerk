@@ -104,11 +104,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
                 return PlayState.CONTINUE;
             }
             if (event.isMoving() && !shouldStopMovingIndependently()) {
-                if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.run", ILoopType.EDefaultLoopTypes.LOOP));
-                } else {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.walk", ILoopType.EDefaultLoopTypes.LOOP));
-                }
                 return PlayState.CONTINUE;
             } else {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.idle", ILoopType.EDefaultLoopTypes.LOOP));
@@ -120,16 +116,26 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
         if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
             if (getCurrentAttackType() == 0) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.bite", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.bite_right", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
         }
         if (isUsingAbility()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.poison", ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.breath", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
+        return PlayState.STOP;
+    }
+
+    private <E extends IAnimatable> PlayState attackControllerLeft(AnimationEvent<E> event) {
+        if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
+            if (getCurrentAttackType() == 0) {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.bite_left", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+        }
         if (isUsingSECONDAbility()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.light"));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.breath_ignite"));
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
@@ -196,6 +202,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     public void registerControllers(AnimationData data) {
         data.addAnimationController(new AnimationController<ZippleBack>(this, "basic_MovementController", 4, this::basicMovementController));
         data.addAnimationController(new AnimationController<ZippleBack>(this, "attack_Controller", 0, this::attackController));
+        data.addAnimationController(new AnimationController<ZippleBack>(this, "attack_Controller_Left", 0, this::attackControllerLeft));
         data.addAnimationController(new AnimationController<ZippleBack>(this, "turnController", 35, this::turnController));
     }
 

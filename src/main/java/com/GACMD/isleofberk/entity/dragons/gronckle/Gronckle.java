@@ -199,7 +199,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<Gronckle>(this, "basic_MovementController", 4, this::basicMovementController));
+        data.addAnimationController(new AnimationController<Gronckle>(this, "basic_MovementController", 6, this::basicMovementController));
         data.addAnimationController(new AnimationController<Gronckle>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<Gronckle>(this, "turnController", 35, this::turnController));
     }
@@ -538,9 +538,9 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
         // 0 ram attack
         // 1 bite attack
-        if (ticksSinceLastRamAttack >= 0) {
+        if (ticksSinceLastRamAttack >= 54) {
             setCurrentAttackType(0);
-        } else if (ticksSinceLastBiteAttack >= 0) {
+        } else if (ticksSinceLastBiteAttack >= 70) {
             setCurrentAttackType(1);
         }
 
