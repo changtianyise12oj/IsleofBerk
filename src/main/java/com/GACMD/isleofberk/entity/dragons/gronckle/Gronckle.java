@@ -80,61 +80,62 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             if (event.isMoving()){
 
                 // mounted flying
-                if (getControllingPassenger() instanceof Player) {
+                if (this.isVehicle()) {
                     if (this.getXRot() < 8 || isGoingUp() || getPassengers().size() > 2) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.fly", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP));
                         setShouldPlayFlapping(true);
                     }
                     if (this.getXRot() >= 8 && this.getXRot() < 33 && !isGoingUp()) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.glide", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Glide", ILoopType.EDefaultLoopTypes.LOOP));
                         setShouldPlayFlapping(false);
                     }
                     if (this.getXRot() >= 33 && !isGoingUp()) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.dive", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Dive", ILoopType.EDefaultLoopTypes.LOOP));
                         setShouldPlayFlapping(false);
                     }
                     return PlayState.CONTINUE;
                 }
                 // follow player on elytra
-                if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
-                    float dist = distanceTo(player);
-                    double ydist = this.getY() - player.getY();
+                if (isDragonFollowing() && getOwner() != null && getOwner().isFallFlying()) {
+                    LivingEntity owner = getOwner();
+                    float dist = distanceTo(owner);
+                    double ydist = this.getY() - owner.getY();
 
                     if (ydist < 10 || dist > 15) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.fly", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP));
                     } else {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.dive", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Dive", ILoopType.EDefaultLoopTypes.LOOP));
                     }
                 }
                 // free flying
                 else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.fly", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Fly", ILoopType.EDefaultLoopTypes.LOOP));
                     setShouldPlayFlapping(true);
                 }
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.hover", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Hover", ILoopType.EDefaultLoopTypes.LOOP));
                 setShouldPlayFlapping(true);
             }
 
             //ground animations
         } else {
             if (this.isDragonSitting() && !this.isDragonSleeping()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.sit", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Sit", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
             if (this.isDragonSleeping()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.sleep", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Sleep", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
             if (event.isMoving() && !shouldStopMovingIndependently()) {
                 if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.run", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Run", ILoopType.EDefaultLoopTypes.LOOP));
                 } else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.walk", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Walk", ILoopType.EDefaultLoopTypes.LOOP));
                 }
                 return PlayState.CONTINUE;
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.idle", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Idle", ILoopType.EDefaultLoopTypes.LOOP));
             }
         }
         return PlayState.CONTINUE;
@@ -143,21 +144,21 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
         if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
             if (getCurrentAttackType() == 0) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.bite", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Bite", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             } else if (getCurrentAttackType() == 1) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.ram", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Ram", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
         }
 
         if (ticksSinceLastRamAttackPlayer > 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.ram", ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Ram", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
 
         if (isMarkFired()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.breath"));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Breath"));
             return PlayState.CONTINUE;
         }
 
@@ -171,27 +172,27 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         if (turnState != 0) {
             if (isFlying()) {
                 if (turnState == 1) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.tailrotleft1f", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.tailrotleft1f", ILoopType.EDefaultLoopTypes.LOOP));
                 } else if (turnState == 2) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.tailrotleft2f", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.tailrotleft2f", ILoopType.EDefaultLoopTypes.LOOP));
                 } else if (turnState == -1) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.tailrotright1f", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.tailrotright1f", ILoopType.EDefaultLoopTypes.LOOP));
                 } else if (turnState == -2) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.tailrotright2f", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.tailrotright2f", ILoopType.EDefaultLoopTypes.LOOP));
                 }
             } else {
                 if (turnState == 1) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.tailrotleft1", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.tailrotleft1", ILoopType.EDefaultLoopTypes.LOOP));
                 } else if (turnState == 2) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.tailrotleft2", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.tailrotleft2", ILoopType.EDefaultLoopTypes.LOOP));
                 } else if (turnState == -1) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.tailrotright1", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.tailrotright1", ILoopType.EDefaultLoopTypes.LOOP));
                 } else if (turnState == -2) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.tailrotright2", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.tailrotright2", ILoopType.EDefaultLoopTypes.LOOP));
                 }
             }
         } else {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("gronckle.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.TailRot0", ILoopType.EDefaultLoopTypes.LOOP));
         }
         return PlayState.CONTINUE;
     }

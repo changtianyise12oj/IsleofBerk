@@ -83,7 +83,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
             if (event.isMoving()){
 
                 // mounted flying
-                if (getControllingPassenger() instanceof Player) {
+                if (this.isVehicle()) {
                     if (this.getXRot() < 8 || isGoingUp() || getPassengers().size() > 2) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.flap", ILoopType.EDefaultLoopTypes.LOOP));
                         setShouldPlayFlapping(true);
@@ -99,9 +99,10 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
                     return PlayState.CONTINUE;
                 }
                 // follow player on elytra
-                if (getOwner() instanceof Player player && isDragonFollowing() && player.isFallFlying()) {
-                    float dist = distanceTo(player);
-                    double ydist = this.getY() - player.getY();
+                if (isDragonFollowing() && getOwner() != null && getOwner().isFallFlying()) {
+                    LivingEntity owner = getOwner();
+                    float dist = distanceTo(owner);
+                    double ydist = this.getY() - owner.getY();
 
                     if (ydist < 10 || dist > 15) {
                         event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.flap", ILoopType.EDefaultLoopTypes.LOOP));
