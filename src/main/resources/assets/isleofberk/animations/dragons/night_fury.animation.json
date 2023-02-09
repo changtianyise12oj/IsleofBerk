@@ -783,7 +783,7 @@
 						"vector": [-38.5, 0, 0]
 					},
 					"position": {
-						"vector": [0, "-1.25+math.sin(query.anim_time * 200) * 0.2", 0]
+						"vector": [0, "-2.25+math.sin(query.anim_time * 200) * 0.2", 0]
 					}
 				},
 				"leftWingArmM": {
