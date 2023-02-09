@@ -66,7 +66,7 @@ public class TerribleTerrorModel extends BaseDragonModel<TerribleTerror> {
         super.setLivingAnimations(terrible_terror, uniqueID, customPredicate);
         ItemStack itemstack = terrible_terror.getItemBySlot(EquipmentSlot.MAINHAND);
 
-        if (itemstack.isEmpty()) {
+        if (itemstack.isEmpty() && !terrible_terror.isRenderedOnGUI()) {
             IBone HeadTrack1 = this.getAnimationProcessor().getBone("HeadTrack1");
             IBone HeadTrack2 = this.getAnimationProcessor().getBone("HeadTrack1");
 

@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -76,12 +77,13 @@ public class DeadlyNadderModel extends BaseDragonModelFlying<DeadlyNadder> {
 
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 
-        if (!dragon.shouldStopMovingIndependently() && !Minecraft.getInstance().isPaused()) {
-            neck1.setRotationY(neck1.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
-            neck2.setRotationY(neck2.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
-            head.setRotationY(head.getRotationY() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 3);
-            neck1.setRotationX(neck1.getRotationX() + extraData.headPitch * ((float) Math.PI / 180F) / 3);
-            head.setRotationX(head.getRotationX() + extraData.headPitch * ((float) Math.PI / 180F) / 3);
+        if (!dragon.shouldStopMovingIndependently() && !Minecraft.getInstance().isPaused() && !dragon.isRenderedOnGUI()) {
+            neck1.setRotationY(neck1.getRotationY() + (extraData.netHeadYaw * ((float) Math.PI / 180F) / 3));
+            neck2.setRotationY(neck2.getRotationY() + (extraData.netHeadYaw * ((float) Math.PI / 180F) / 3));
+            head.setRotationY(head.getRotationY() + (extraData.netHeadYaw * ((float) Math.PI / 180F) / 3));
+            neck1.setRotationX(neck1.getRotationX() + (extraData.headPitch * ((float) Math.PI / 180F) / 3));
+            head.setRotationX(head.getRotationX() + (extraData.headPitch * ((float) Math.PI / 180F) / 3));
+
         }
 
         // hides tail spikes depending on amount of remaining shots

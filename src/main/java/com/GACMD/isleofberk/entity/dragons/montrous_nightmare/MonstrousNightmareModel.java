@@ -67,7 +67,7 @@ public class MonstrousNightmareModel extends BaseDragonModelFlying<MonstrousNigh
         // head tracking
         EntityModelData extraData = (EntityModelData) customPredicate.getExtraDataOfType(EntityModelData.class).get(0);
 
-        if (!dragon.shouldStopMovingIndependently() && !Minecraft.getInstance().isPaused()) {
+        if (!dragon.shouldStopMovingIndependently() && !Minecraft.getInstance().isPaused() && !dragon.isRenderedOnGUI()) {
             neck1.setRotationZ(neck1.getRotationZ() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 5);
             neck2.setRotationZ(neck2.getRotationZ() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 5);
             neck3.setRotationZ(neck3.getRotationZ() + extraData.netHeadYaw * ((float) Math.PI / 180F) / 5);
