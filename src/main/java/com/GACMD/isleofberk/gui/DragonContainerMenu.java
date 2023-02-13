@@ -77,6 +77,19 @@ public class DragonContainerMenu extends AbstractContainerMenu {
 
                 return dragon.isChestable();
             }
+
+            @Override
+            public boolean mayPickup(Player player) {
+                int items = 0;
+                for(int i = 2; i < dragonContainer.getContainerSize(); i++) {
+                    ItemStack itemstack = dragonContainer.getItem(i);
+                    if (!itemstack.isEmpty()) items++;
+                }
+                System.out.println("Found Items: " + items);
+
+                return items == 0;
+            }
+
         });
         if (dragon.hasChest()) {
             for (int k = 0; k < 3; ++k) {
