@@ -233,7 +233,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
-        System.out.println("Dragon spawned here: " + this.position() + "" + this.getClass());
+//        System.out.println("Dragon spawned here: " + this.position() + "" + this.getClass());
         return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
     }
 
@@ -987,8 +987,8 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public boolean canSleep() {
         LivingEntity lastHurt = this.getLastHurtByMob();
         LivingEntity target = this.getTarget();
-        int i = this.getLastHurtByMobTimestamp();
-        boolean canSleep = lastHurt == null && i < 2500 && target == null;
+        boolean canSleep = lastHurt == null && target == null;
+
         if (!canSleep) {
             return false;
         }
@@ -1002,15 +1002,12 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
         }
 
+        // mounted check
         if (this.isVehicle()) {
             return false;
         }
-
+        // is mounted check
         if (this.getVehicle() != null) {
-            return false;
-        }
-
-        if (this.getSleepDisturbTicks() > 3) {
             return false;
         }
 
@@ -1019,11 +1016,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             return false;
         }
 
-        if (isDragonSitting()) {
-            return true;
-        }
-
-        if (isDragonWandering()) {
+        if (isDragonSitting() || isDragonWandering()) {
             return true;
         }
 
@@ -1031,21 +1024,13 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             return false;
         }
 
-        if (!this.isInWater()) {
-            return false;
-        }
-
-        if (!this.isWaterBelow()) {
-            return false;
-        }
-
         return this.isDragonOnGround();
     }
 
-
-    public static boolean isDarkEnoughToSleep(Level pLevel, BlockPos pPos, Random pRandom) {
-        return pLevel.getBrightness(LightLayer.BLOCK, pPos) > 0 || pLevel.getBrightness(LightLayer.SKY, pPos) > pRandom.nextInt(32);
-    }
+//      unused
+//    public static boolean isDarkEnoughToSleep(Level pLevel, BlockPos pPos, Random pRandom) {
+//        return pLevel.getBrightness(LightLayer.BLOCK, pPos) > 0 || pLevel.getBrightness(LightLayer.SKY, pPos) > pRandom.nextInt(32);
+//    }
 
 
     @Override
@@ -1054,12 +1039,13 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             super.setYRot(pYRot);
     }
 
-    public void ItemOnMouth(ItemStack newItemOnMouth) {
-        ItemStack stack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-        if (stack.isEmpty()) {
-            this.setItemSlot(EquipmentSlot.MAINHAND, newItemOnMouth);
-        }
-    }
+//      unused
+//    public void ItemOnMouth(ItemStack newItemOnMouth) {
+//        ItemStack stack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+//        if (stack.isEmpty()) {
+//            this.setItemSlot(EquipmentSlot.MAINHAND, newItemOnMouth);
+//        }
+//    }
 
     public boolean canWearArmor() {
         return true;
@@ -1077,7 +1063,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     }
 
-    public Vec3 getTailPos(ADragonBase entity) {
+/*    public Vec3 getTailPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
         double x = -Math.sin(this.getYRot() * Math.PI / 180) * 2.4;
@@ -1086,7 +1072,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         Vec3 throatPos = bodyOrigin.add(new Vec3(x, y, z));
         return throatPos;
 
-    }
+    } */
 
     private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
 

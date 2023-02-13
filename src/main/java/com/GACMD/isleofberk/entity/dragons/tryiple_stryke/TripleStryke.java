@@ -358,11 +358,13 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     private void hurt(List<Entity> pEntities) {
         for (Entity entity : pEntities) {
             if (entity instanceof LivingEntity livingEntity) {
-                playSound(SoundEvents.GENERIC_BIG_FALL, 3, 1);
-                livingEntity.hurt(DamageSource.mobAttack(this), 36.0F);
-                this.doEnchantDamageEffects(this, livingEntity);
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, Util.secondsToTicks(20)));
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, Util.secondsToTicks(4)));
+                if(!this.getPassengers().contains(livingEntity)) {
+                    playSound(SoundEvents.GENERIC_BIG_FALL, 3, 1);
+                    livingEntity.hurt(DamageSource.mobAttack(this), 36.0F);
+                    this.doEnchantDamageEffects(this, livingEntity);
+                    livingEntity.addEffect(new MobEffectInstance(MobEffects.POISON, Util.secondsToTicks(20)));
+                    livingEntity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, Util.secondsToTicks(4)));
+                }
             }
         }
     }

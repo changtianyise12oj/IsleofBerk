@@ -134,7 +134,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                         this.modifyPhase1Progress(getDragonProgressSpeed());
                         this.level.playLocalSound(getX(), getY(), getZ(), SoundEvents.DONKEY_EAT, SoundSource.NEUTRAL, 1, getSoundPitch(), true);
                         addParticlesAroundSelf(new ItemParticleOption(ParticleTypes.ITEM, itemstack));
-                        if (!pPlayer.getAbilities().instabuild) {
+                        if (!pPlayer.getAbilities().instabuild && !pPlayer.getLevel().isClientSide()) {
                             itemstack.shrink(1);
                         }
 
@@ -145,7 +145,7 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                 // only tamed units can heal when fed, they might accidentally heal to full strength an incapacitated triple stryke
                 if (getHealth() < getMaxHealth()) {
                     this.heal(nutrition);
-                    if (!pPlayer.getAbilities().instabuild) {
+                    if (!pPlayer.getAbilities().instabuild && !pPlayer.getLevel().isClientSide()) {
                         itemstack.shrink(1);
                     }
                 }
@@ -162,12 +162,12 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                             this.navigation.stop();
                             this.setTarget((LivingEntity) null);
                             this.level.broadcastEntityEvent(this, (byte) 7);
-                            if (!pPlayer.getAbilities().instabuild) {
+                            if (!pPlayer.getAbilities().instabuild && !pPlayer.getLevel().isClientSide()) {
                                 itemstack.shrink(1);
                             }
                         } else {
                             this.level.broadcastEntityEvent(this, (byte) 6);
-                            if (!pPlayer.getAbilities().instabuild) {
+                            if (!pPlayer.getAbilities().instabuild && !pPlayer.getLevel().isClientSide()) {
                                 itemstack.shrink(1);
                             }
                         }
@@ -305,13 +305,13 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
         return 4;
     }
 
-    @Override
+/*    @Override
     public boolean tameWithName(Player pPlayer) {
         if (canBeMounted()) {
             pPlayer.displayClientMessage(new TranslatableComponent(DRAGON_NEEDS_SADDLE), false);
         }
         return super.tameWithName(pPlayer);
-    }
+    } */
 
     /**
      * can dragon be ridden for taming attempt purposes
@@ -332,6 +332,9 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
                 if (isTame()) {
                     pPlayer.setYRot(this.getYRot());
                     pPlayer.setXRot(this.getXRot());
+                }
+                if (!isSaddled() && !pPlayer.isCreative() && isTame()) {
+                    pPlayer.displayClientMessage(new TranslatableComponent("iob.dragonAir.needSaddle"), false);
                 }
                 pPlayer.startRiding(this);
             }
@@ -691,24 +694,21 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
     @Override
     public void tick() {
-        // dismount players who are not using a saddle
-        if (getControllingPassenger() instanceof Player && getControllingPassenger() != null) {
-            Player player = (Player) this.getControllingPassenger();
-            if (!hasSaddle() && isVehicle() && isTame() && !player.isCreative()) {
+        if(!this.level.isClientSide()) {
 
+            // dismount players who are not using a saddle
+            if (!this.hasSaddle() && this.isVehicle() && this.isTame()) {
                 noSaddleRideTicks++;
-                boolean airRideNoSaddle = noSaddleRideTicks > 400;
-                boolean groundRideNoSaddle = noSaddleRideTicks > 300;
-                if (this instanceof ADragonBaseGroundRideable && groundRideNoSaddle) {
-                    this.ejectPassengers();
-                    player.displayClientMessage(new TranslatableComponent("iob.dragonAir.needSaddle"), false);
-                } else if (this instanceof ADragonBaseFlyingRideable && airRideNoSaddle) {
-                    this.ejectPassengers();
-                    player.displayClientMessage(new TranslatableComponent("iob.dragonAir.needSaddle"), false);
+                if (noSaddleRideTicks > 350) {
+                    if(this.getControllingPassenger() instanceof Player player && !player.isCreative())
+                        this.ejectPassengers();
+                    noSaddleRideTicks = 0;
                 }
             }
-        } else {
-            noSaddleRideTicks = 0;
+            // reset ticks when the dragon isnt being ridden
+            if(noSaddleRideTicks != 0 && this.getControllingPassenger() == null) {
+                noSaddleRideTicks = 0;
+            }
         }
 
         if (canCarryCargo()) {

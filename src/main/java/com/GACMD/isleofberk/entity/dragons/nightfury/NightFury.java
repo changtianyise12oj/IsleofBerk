@@ -450,7 +450,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
     }
 
     protected double rider1YOffSet() {
-        return 1D;
+        return 1.1D;
     }
 
     protected double rider1ZOffSet() {

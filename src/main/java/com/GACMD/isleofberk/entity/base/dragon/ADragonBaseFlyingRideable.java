@@ -403,6 +403,9 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
     public void tick() {
         super.tick();
 
+        if (isDragonIncapacitated()) {
+            this.setIsFlying(false);
+        }
         if (isFlying() && isLandNavigator) {
             switchNavigator(false);
         }

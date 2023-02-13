@@ -122,17 +122,17 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
     @Override
     public void tick() {
         super.tick();
-        // consume fuel
-        if (isUsingAbility()) {
-            if (getControllingPassenger() != null && getControllingPassenger() instanceof Player player) {
-//                if (!player.isCreative())
-                modifyFuel(-1);
+        if (!this.level.isClientSide) {
+            // consume fuel
+            if (isUsingAbility()) {
+                if (getControllingPassenger() != null) {
+                    modifyFuel(-1);
+                }
             }
-        }
-
-        // regen fuel regardless of hunger bar
-        if (getRandom().nextInt(breathBarRegenSpeed()) == 1) {
-            modifyFuel(breathBarRegenAmount());
+            // regen fuel regardless of hunger bar
+            else if (getRandom().nextInt(breathBarRegenSpeed()) == 1) {
+                modifyFuel(breathBarRegenAmount());
+            }
         }
 
 

@@ -31,7 +31,7 @@ public class DeadlyNadderWingLayer<T extends DeadlyNadder & IAnimatable> extends
 
     protected ResourceLocation getNadderEntityTexture(DeadlyNadder entity) {
         return switch (entity.getDragonVariant()) {
-            case 0 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/stormfly_membranes.png");
+            default -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/stormfly_membranes.png");
             case 1 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/deadly_nadder_membranes.png");
             case 2 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/kingstail_membranes.png");
             case 3 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/scardian_membranes.png");
@@ -42,7 +42,6 @@ public class DeadlyNadderWingLayer<T extends DeadlyNadder & IAnimatable> extends
             case 8 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/hjaldr_membranes.png");
             case 9 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/barklethorn_membranes.png");
             case 10 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/deadly_nadder/lethal_lancebeak_membranes.png");
-            default -> throw new IllegalStateException("Unexpected value: " + entity.getDragonVariant());
         };
     }
 

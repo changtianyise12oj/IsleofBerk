@@ -262,7 +262,6 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     }
 
-    @Override
     public Vec3 getTailPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 

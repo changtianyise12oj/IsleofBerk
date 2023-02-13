@@ -58,7 +58,7 @@ public class T4DragonPotionRequirement extends ADragonTamingGoalBase {
         if (dragon instanceof LightFury && player.hasEffect(MobEffects.INVISIBILITY)) {
             return false;
         }
-        if (dragon instanceof ZippleBack && player.hasEffect(MobEffects.REGENERATION)) {
+        if (dragon instanceof ZippleBack && player.hasEffect(MobEffects.DAMAGE_BOOST)) {
             return false;
         }
 
