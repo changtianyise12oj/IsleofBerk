@@ -36,6 +36,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
@@ -55,6 +56,9 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.List;
 import java.util.Objects;
+
+import static com.GACMD.isleofberk.registery.ModTags.Items.GRONCKLE_BREED_FOOD;
+import static com.GACMD.isleofberk.registery.ModTags.Items.GRONCKLE_TAME_FOOD;
 
 public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnimatable {
 
@@ -665,5 +669,15 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
     protected int getMaxPassengerCapacity() {
         return 3;
+    }
+
+    @Override
+    protected boolean isItemStackForTaming(ItemStack stack) {
+        return Ingredient.of(GRONCKLE_TAME_FOOD).test(stack);
+    }
+
+    @Override
+    public boolean isBreedingFood(ItemStack pStack) {
+        return Ingredient.of(GRONCKLE_BREED_FOOD).test(pStack);
     }
 }

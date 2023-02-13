@@ -30,6 +30,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -42,6 +43,9 @@ import software.bernie.geckolib3.core.builder.ILoopType;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
+
+import static com.GACMD.isleofberk.registery.ModTags.Items.NIGHTMARE_BREED_FOOD;
+import static com.GACMD.isleofberk.registery.ModTags.Items.NIGHTMARE_TAME_FOOD;
 
 public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     private static final EntityDataAccessor<Boolean> IS_ON_FIRE_ABILITY = SynchedEntityData.defineId(MonstrousNightmare.class, EntityDataSerializers.BOOLEAN);
@@ -475,7 +479,11 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
-        return stack.is(Items.MUTTON) || stack.is(Items.PORKCHOP);
+        return Ingredient.of(NIGHTMARE_TAME_FOOD).test(stack);    }
+
+    @Override
+    public boolean isBreedingFood(ItemStack pStack) {
+        return Ingredient.of(NIGHTMARE_BREED_FOOD).test(pStack);
     }
 
 }

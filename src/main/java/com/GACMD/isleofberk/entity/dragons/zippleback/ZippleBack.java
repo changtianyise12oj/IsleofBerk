@@ -4,8 +4,6 @@ import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
-import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.ZippleBackEgg;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZipBreathProjectile;
@@ -15,9 +13,6 @@ import com.GACMD.isleofberk.registery.ModSounds;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -29,7 +24,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -45,6 +40,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import java.util.List;
+
+import static com.GACMD.isleofberk.registery.ModTags.Items.ZIPPLEBACK_BREED_FOOD;
+import static com.GACMD.isleofberk.registery.ModTags.Items.ZIPPLEBACK_TAME_FOOD;
 
 public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
@@ -478,6 +476,10 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
-        return stack.is(Items.SALMON) || stack.is(Items.TROPICAL_FISH) || stack.is(Items.COD);
+        return Ingredient.of(ZIPPLEBACK_TAME_FOOD).test(stack);
+    }
+    @Override
+    public boolean isBreedingFood(ItemStack pStack) {
+        return Ingredient.of(ZIPPLEBACK_BREED_FOOD).test(pStack);
     }
 }

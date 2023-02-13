@@ -41,6 +41,7 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -61,6 +62,9 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+
+import static com.GACMD.isleofberk.registery.ModTags.Items.TRIPLE_STRYKE_BREED_FOOD;
+import static com.GACMD.isleofberk.registery.ModTags.Items.TRIPLE_STRYKE_TAME_FOOD;
 
 public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
@@ -661,7 +665,12 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
-        return super.isItemStackForTaming(stack);
+        return Ingredient.of(TRIPLE_STRYKE_TAME_FOOD).test(stack);
+    }
+
+    @Override
+    public boolean isBreedingFood(ItemStack pStack) {
+        return Ingredient.of(TRIPLE_STRYKE_BREED_FOOD).test(pStack);
     }
 
     public static class TripleStrykeCustomMeleeAttackGoal extends DragonMeleeAttackGoal {

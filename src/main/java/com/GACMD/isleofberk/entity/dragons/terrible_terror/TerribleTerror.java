@@ -88,6 +88,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Predicate;
 
+import static com.GACMD.isleofberk.registery.ModTags.Items.TERRIBLE_TERROR_BREED_FOOD;
+import static com.GACMD.isleofberk.registery.ModTags.Items.TERRIBLE_TERROR_TAME_FOOD;
+
 public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implements IAnimatable, NeutralMob {
 
     private int ticksSinceEaten;
@@ -160,7 +163,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
         if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12) {
             if (getCurrentAttackType() == 0) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("Bite", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("HeadBite", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
         }
@@ -269,8 +272,8 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     }
 
     @Override
-    public boolean isItemStackForTaming(ItemStack pStack) {
-        return pStack.is(Items.SALMON) || pStack.is(Items.TROPICAL_FISH) || pStack.is(Items.PUFFERFISH);
+    protected boolean isItemStackForTaming(ItemStack stack) {
+        return Ingredient.of(TERRIBLE_TERROR_TAME_FOOD).test(stack);
     }
 
     @Override
@@ -291,7 +294,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     public boolean isBreedingFood(ItemStack pStack) {
-        return pStack.is(Items.COD);
+        return Ingredient.of(TERRIBLE_TERROR_BREED_FOOD).test(pStack);
     }
 
     protected int getInLoveCoolDownInMCDays() {

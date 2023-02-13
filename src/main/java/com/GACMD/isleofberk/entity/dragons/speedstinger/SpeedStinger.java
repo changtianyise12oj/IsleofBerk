@@ -64,6 +64,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -92,6 +93,9 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
+
+import static com.GACMD.isleofberk.registery.ModTags.Items.SPEED_STINGER_BREED_FOOD;
+import static com.GACMD.isleofberk.registery.ModTags.Items.SPEED_STINGER_TAME_FOOD;
 
 public class SpeedStinger extends ADragonRideableUtility {
 
@@ -270,8 +274,13 @@ public class SpeedStinger extends ADragonRideableUtility {
 
     @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
-        return stack.is(Items.RABBIT);
+        return Ingredient.of(SPEED_STINGER_TAME_FOOD).test(stack);
     }
+    @Override
+    public boolean isBreedingFood(ItemStack pStack) {
+        return Ingredient.of(SPEED_STINGER_BREED_FOOD).test(pStack);
+    }
+
 
     @Override
     protected int getAggressionType() {

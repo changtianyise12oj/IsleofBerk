@@ -23,9 +23,8 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -40,6 +39,9 @@ import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+
+import static com.GACMD.isleofberk.registery.ModTags.Items.FURY_TAME_FOOD;
+import static com.GACMD.isleofberk.registery.ModTags.Items.FURY_BREED_FOOD;
 
 public class NightFury extends ADragonBaseFlyingRideableProjUser {
 
@@ -264,7 +266,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
 
     @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
-        return stack.is(Items.SALMON) || stack.is(Items.TROPICAL_FISH) || stack.is(Items.COD);
+        return Ingredient.of(FURY_TAME_FOOD).test(stack);
     }
 
     @Nullable
@@ -281,7 +283,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
 
     @Override
     public boolean isBreedingFood(ItemStack pStack) {
-        return pStack.is(Items.HONEYCOMB);
+        return Ingredient.of(FURY_BREED_FOOD).test(pStack);
     }
 
     protected int getInLoveCoolDownInMCDays() {

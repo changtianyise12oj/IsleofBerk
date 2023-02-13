@@ -368,4 +368,6 @@ public class LightFury extends NightFury {
     protected SoundEvent get1stAttackSound() {
         return ModSounds.LIGHT_FURY_BITE.get();
     }
+
+
 }

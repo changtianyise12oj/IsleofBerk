@@ -28,6 +28,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
@@ -46,6 +47,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import java.util.List;
+
+import static com.GACMD.isleofberk.registery.ModTags.Items.STINGER_BREED_FOOD;
+import static com.GACMD.isleofberk.registery.ModTags.Items.STINGER_TAME_FOOD;
 
 public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     DragonPart[] subParts;
@@ -166,7 +170,12 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
 
     @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
-        return stack.is(Items.MUTTON);
+        return Ingredient.of(STINGER_TAME_FOOD).test(stack);
+    }
+
+    @Override
+    public boolean isBreedingFood(ItemStack pStack) {
+        return Ingredient.of(STINGER_BREED_FOOD).test(pStack);
     }
 
     @Override

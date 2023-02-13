@@ -18,7 +18,6 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -32,7 +31,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -47,6 +46,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 
 import javax.annotation.Nullable;
+
+import static com.GACMD.isleofberk.registery.ModTags.Items.NADDER_BREED_FOOD;
+import static com.GACMD.isleofberk.registery.ModTags.Items.NADDER_TAME_FOOD;
 
 public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
@@ -395,7 +397,12 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
-        return stack.is(Items.CHICKEN);
+        return Ingredient.of(NADDER_TAME_FOOD).test(stack);
+    }
+
+    @Override
+    public boolean isBreedingFood(ItemStack pStack) {
+        return Ingredient.of(NADDER_BREED_FOOD).test(pStack);
     }
 
     @Override
