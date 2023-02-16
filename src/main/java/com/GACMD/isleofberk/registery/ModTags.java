@@ -55,7 +55,7 @@ public class ModTags {
 
     public static class Items {
 
-        // taming food list
+        // Taming Food
         public static final TagKey<Item> NADDER_TAME_FOOD           = tag("nadder_tame_food");
         public static final TagKey<Item> GRONCKLE_TAME_FOOD         = tag("gronckle_tame_food");
         public static final TagKey<Item> NIGHTMARE_TAME_FOOD        = tag("nightmare_tame_food");
@@ -67,7 +67,7 @@ public class ModTags {
         public static final TagKey<Item> ZIPPLEBACK_TAME_FOOD       = tag("zippleback_tame_food");
         public static final TagKey<Item> SKRILL_TAME_FOOD           = tag("skrill_tame_food");
 
-        // breeding food list
+        // Breeding Food
         public static final TagKey<Item> NADDER_BREED_FOOD = tag("nadder_breed_food");
         public static final TagKey<Item> GRONCKLE_BREED_FOOD = tag("gronckle_breed_food");
         public static final TagKey<Item> NIGHTMARE_BREED_FOOD = tag("nightmare_breed_food");
@@ -78,6 +78,9 @@ public class ModTags {
         public static final TagKey<Item> TRIPLE_STRYKE_BREED_FOOD = tag("triple_stryke_breed_food");
         public static final TagKey<Item> ZIPPLEBACK_BREED_FOOD = tag("zippleback_breed_food");
         public static final TagKey<Item> SKRILL_BREED_FOOD = tag("skrill_breed_food");
+
+        // Gronckle's Iron
+        public static final TagKey<Item> GRONCKLE_IRON_INGREDIENTS = tag("gronckle_iron_ingredients");
 
         private static TagKey<Item> tag(String name) {
             return ItemTags.create(new ResourceLocation(IsleofBerk.MOD_ID, name));

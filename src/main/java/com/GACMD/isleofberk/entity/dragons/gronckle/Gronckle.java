@@ -57,8 +57,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import java.util.List;
 import java.util.Objects;
 
-import static com.GACMD.isleofberk.registery.ModTags.Items.GRONCKLE_BREED_FOOD;
-import static com.GACMD.isleofberk.registery.ModTags.Items.GRONCKLE_TAME_FOOD;
+import static com.GACMD.isleofberk.registery.ModTags.Items.*;
 
 public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnimatable {
 
@@ -70,6 +69,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     protected static final EntityDataAccessor<Integer> TICKS_SINCE_STONE_FED = SynchedEntityData.defineId(Gronckle.class, EntityDataSerializers.INT);
     DragonPart[] subParts;
     DragonPart GronckleRamArea;
+    private ItemStack pStack;
 
     public Gronckle(EntityType<? extends ADragonBaseFlyingRideable> entityType, Level level) {
         super(entityType, level);
@@ -390,11 +390,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
         ItemStack stack = pPlayer.getItemInHand(pHand);
         Item item = stack.getItem();
 
-        if (item == Blocks.BASALT.asItem() ||
-                item == Blocks.DEEPSLATE.asItem() ||
-                item == Blocks.GRANITE.asItem() ||
-                item == Blocks.STONE.asItem() ||
-                item == Blocks.DIORITE.asItem()) {
+        if (Ingredient.of(GRONCKLE_IRON_INGREDIENTS).test(stack)) {
             if (getStoneDigestionTicks() <= 0) {
                 if (isTame()) {
                     if (!isDragonSleeping() || isDragonSitting()) {

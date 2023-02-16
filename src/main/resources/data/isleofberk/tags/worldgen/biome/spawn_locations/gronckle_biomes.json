@@ -1,0 +1,15 @@
+{
+  "values": [
+    "minecraft:plains",
+    "minecraft:sunflower_plains",
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:savanna",
+    "minecraft:savanna_plateau",
+    "minecraft:windswept_savanna",
+
+    "biomesoplenty:cherry_blossom_grove",
+    "biomesoplenty:bamboo_grove"
+  ]
+}

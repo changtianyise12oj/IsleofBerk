@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:deepslate",
+    "minecraft:diorite",
+    "minecraft:stone",
+    "minecraft:granite",
+
+    "byg:ametrine_ore",
+    "byg:pendorite_ore",
+    "byg:dacite",
+    "byg:dacite_cobblestone",
+    "byg:mossy_stone",
+    "byg:red_rock",
+    "byg:rocky_stone",
+    "byg:travertine",
+    "byg:polished_travertine",
+    "byg:scoria_stone",
+    "byg:scoria_cobblestone",
+    "byg:polished_soapstone",
+    "byg:soapstone",
+    "byg:white_sandstone",
+    "byg:blue_sandstone",
+    "byg:purple_sandstone",
+    "byg:windswept_sandstone"
+  ]
+}

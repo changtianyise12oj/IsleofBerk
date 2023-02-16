@@ -18,59 +18,15 @@ public class ModSpawnRegistration {
 
     public static void onEntitySpawn(final BiomeLoadingEvent event) {
 
-        /**
-        * STINGER
-         */
-        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.STINGER.get(),
-                1, 6, 10, 0.05F, ModTags.Biomes.STINGER_BIOMES);
-
-        /**
-         * TERRIBLE TERROR
-         */
-        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TERRIBLE_TERROR.get(),
-                5, 20, 20, 0.08F, ModTags.Biomes.TERRIBLE_TERROR_BIOMES);
-
-        /**
-         * TRIPLE STRYKE
-         */
-        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TRIPLE_STRYKE.get(),
-                1, 1, 1, 0.03F, ModTags.Biomes.TRIPLE_STRYKE_BIOMES);
-
-        /**
-         * DEADLY NADDER
-         */
-        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.DEADLY_NADDER.get(),
-                3, 4, 6, 0.05F, ModTags.Biomes.DEADLY_NADDER_BIOMES);
-
-        /**
-         * GRONCKLE
-         */
-        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.GRONCKLE.get(),
-                3, 4, 6, 0.05F, ModTags.Biomes.GRONCKLE_BIOMES);
-
-        /**
-         * NIGHT FURY
-         */
-        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.NIGHT_FURY.get(),
-                1, 1, 1, 0.00005F, ModTags.Biomes.NIGHTFURY_BIOMES);
-
-        /**
-         * LIGHT FURY
-         */
-        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.LIGHT_FURY.get(),
-                1, 1, 1, 0.00005F, ModTags.Biomes.LIGHTFURY_BIOMES);
-
-        /**
-         * MONSTROUS NIGHTMARE
-         */
-        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.MONSTROUS_NIGHTMARE.get(),
-                1, 2, 3, 0.04F, ModTags.Biomes.MONSTROUS_NIGHTMARE_BIOMES);
-
-        /**
-         * HIDEOUS ZIPPLEBACK
-         */
-        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.ZIPPLEBACK.get(),
-                1, 2, 3, 0.04F, ModTags.Biomes.HIDEOUS_ZIPPLEBACK_BIOMES);
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.STINGER.get(), 1, 6, 10, 0.05F, ModTags.Biomes.STINGER_BIOMES);
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TERRIBLE_TERROR.get(), 5, 20, 20, 0.08F, ModTags.Biomes.TERRIBLE_TERROR_BIOMES);
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TRIPLE_STRYKE.get(), 1, 1, 1, 0.03F, ModTags.Biomes.TRIPLE_STRYKE_BIOMES);
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.DEADLY_NADDER.get(), 3, 4, 6, 0.05F, ModTags.Biomes.DEADLY_NADDER_BIOMES);
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.GRONCKLE.get(), 3, 4, 6, 0.05F, ModTags.Biomes.GRONCKLE_BIOMES);
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.NIGHT_FURY.get(), 1, 1, 1, 0.00005F, ModTags.Biomes.NIGHTFURY_BIOMES);
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.LIGHT_FURY.get(), 1, 1, 1, 0.00005F, ModTags.Biomes.LIGHTFURY_BIOMES);
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.MONSTROUS_NIGHTMARE.get(), 1, 2, 3, 0.04F, ModTags.Biomes.MONSTROUS_NIGHTMARE_BIOMES);
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.ZIPPLEBACK.get(), 1, 2, 3, 0.04F, ModTags.Biomes.HIDEOUS_ZIPPLEBACK_BIOMES);
 
     }
 
@@ -123,8 +79,8 @@ public class ModSpawnRegistration {
 
     @SafeVarargs
     private static void addMobSpawnOnSpecificBiomes(BiomeLoadingEvent event, MobCategory mobCategory, EntityType<?> entityType,
-                                                    int weight, int minGroupSize, int maxGroupSize, float probability, TagKey<Biome> gronckleBiomes, ResourceKey<Biome>... biomes) {
-        boolean isBiomeSelected = Arrays.stream(biomes).map(ResourceKey::location).map(Object::toString).anyMatch(s -> s.equals(Objects.requireNonNull(event.getName()).toString()));
+                                                    int weight, int minGroupSize, int maxGroupSize, float probability, TagKey<Biome>... biomes) {
+        boolean isBiomeSelected = Arrays.stream(biomes).map(TagKey::location).map(Object::toString).anyMatch(s -> s.equals(Objects.requireNonNull(event.getName()).toString()));
         if (isBiomeSelected) {
             MobSpawnSettings.SpawnerData spawnerData1 = new MobSpawnSettings.SpawnerData(entityType, weight, minGroupSize, maxGroupSize);
 
