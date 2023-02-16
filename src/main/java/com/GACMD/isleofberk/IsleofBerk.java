@@ -1,6 +1,5 @@
 package com.GACMD.isleofberk;
 
-import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.registery.ModParticles;
@@ -26,16 +25,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(IsleofBerk.MOD_ID)
-public class IsleofBerk // /kill @e[type=!isleofberk:stinger,type=! player]
+public class IsleofBerk
 {
-    // Directly reference a log4j logger.
     public static final String MOD_ID = "isleofberk";
     private static final Logger LOGGER = LogManager.getLogger();
 
     public IsleofBerk() {
-        // Register the setup method for modloading
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus(),
                 forgeBus = MinecraftForge.EVENT_BUS;
         eventBus.addListener(this::setup);
@@ -47,12 +43,10 @@ public class IsleofBerk // /kill @e[type=!isleofberk:stinger,type=! player]
         ModSounds.SOUND_EVENTS.register(eventBus);
         ModContainerTypes.CONTAINER_TYPES.register(eventBus);
 
-        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         GeckoLib.initialize();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> new ClientModEvent(eventBus,forgeBus));
 
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CommonConfig.SPEC, "isleofberk.toml");
     }
 
     private void setup(final FMLCommonSetupEvent event) {

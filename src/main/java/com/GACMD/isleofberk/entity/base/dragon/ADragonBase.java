@@ -639,7 +639,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     protected int getInLoveCoolDownInMCDays() {
-        return 16;
+        return 4;
     }
 
     @Override

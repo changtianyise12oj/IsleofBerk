@@ -1,7 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.nightfury;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
 import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
@@ -15,9 +14,6 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 
 @OnlyIn(Dist.CLIENT)
 public class NightFuryModel extends BaseDragonModelFlying<NightFury> {
-
-    @Override
-    protected float getAdultSize() { return CommonConfig.USE_LARGER_SCALING.get() ? 1.1f: 1; }
 
     @Override
     public ResourceLocation getModelLocation(NightFury entity) {

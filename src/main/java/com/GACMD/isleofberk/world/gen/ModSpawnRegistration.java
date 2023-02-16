@@ -1,12 +1,12 @@
 package com.GACMD.isleofberk.world.gen;
 
-import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModTags;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
@@ -16,85 +16,61 @@ import java.util.Objects;
 
 public class ModSpawnRegistration {
 
-
-    // default probability is 0.007F
-    // mesa seed 172070159003879
-    // plains seed 4009
     public static void onEntitySpawn(final BiomeLoadingEvent event) {
 
         /**
         * STINGER
          */
-        addMobSpawnWithBlackList(event, List.of(Biome.BiomeCategory.SAVANNA, Biome.BiomeCategory.MESA, Biome.BiomeCategory.PLAINS), List.of(Biome.BiomeCategory.MOUNTAIN),
-                MobCategory.CREATURE, ModEntities.STINGER.get(), 1, 6, 10, CommonConfig.STINGER_SPAWN_PROBABILITY.get());
+        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.STINGER.get(),
+                1, 6, 10, 0.05F, ModTags.Biomes.STINGER_BIOMES);
 
         /**
          * TERRIBLE TERROR
          */
-        addMobSpawn(event, List.of(Biome.BiomeCategory.BEACH),
-                MobCategory.CREATURE, ModEntities.TERRIBLE_TERROR.get(),
-                CommonConfig.TERROR_SPAWN_WEIGHT.get(), 6, 10, CommonConfig.TERROR_SPAWN_PROBABILITY.get()); // 0.1F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TERRIBLE_TERROR.get(),
-                CommonConfig.TERROR_SPAWN_WEIGHT.get(), 20, 20, CommonConfig.TERROR_SPAWN_PROBABILITY.get(), Biomes.STONY_SHORE, Biomes.DARK_FOREST, Biomes.FLOWER_FOREST, Biomes.SUNFLOWER_PLAINS, Biomes.STONY_SHORE, Biomes.MEADOW, Biomes.SWAMP, Biomes.BAMBOO_JUNGLE);
+                5, 20, 20, 0.08F, ModTags.Biomes.TERRIBLE_TERROR_BIOMES);
 
         /**
          * TRIPLE STRYKE
          */
-        addMobSpawn(event, List.of(Biome.BiomeCategory.MESA), MobCategory.CREATURE,
-                ModEntities.TRIPLE_STRYKE.get(),
-                CommonConfig.STRYKE_SPAWN_WEIGHT.get(), 1, 1, CommonConfig.STRYKE_SPAWN_PROBABILITY.get()); // 0.08F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TRIPLE_STRYKE.get(),
-                CommonConfig.STRYKE_SPAWN_WEIGHT.get(), 1, 1, CommonConfig.STRYKE_SPAWN_PROBABILITY.get(), Biomes.SNOWY_TAIGA, Biomes.TAIGA, Biomes.OLD_GROWTH_PINE_TAIGA, Biomes.OLD_GROWTH_SPRUCE_TAIGA);
+                1, 1, 1, 0.03F, ModTags.Biomes.TRIPLE_STRYKE_BIOMES);
 
         /**
          * DEADLY NADDER
          */
-        addMobSpawn(event, List.of(Biome.BiomeCategory.SAVANNA), MobCategory.CREATURE,
-                ModEntities.DEADLY_NADDER.get(),
-                1, 1, 1, CommonConfig.NADDER_SPAWN_PROBABILITY.get()); // 0.08F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.DEADLY_NADDER.get(),
-                CommonConfig.NADDER_SPAWN_WEIGHT.get(), 4, 6, CommonConfig.NADDER_SPAWN_PROBABILITY.get(), Biomes.FOREST, Biomes.FLOWER_FOREST, Biomes.BIRCH_FOREST, Biomes.GROVE, Biomes.SNOWY_PLAINS, Biomes.SPARSE_JUNGLE, Biomes.MEADOW);
+                3, 4, 6, 0.05F, ModTags.Biomes.DEADLY_NADDER_BIOMES);
 
         /**
          * GRONCKLE
          */
-        addMobSpawn(event, List.of(Biome.BiomeCategory.SAVANNA), MobCategory.CREATURE,
-                ModEntities.GRONCKLE.get(),
-                1, 1, 1, CommonConfig.GROCNKLE__SPAWN_PROBABILITY.get()); // 0.08F
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.GRONCKLE.get(),
-                CommonConfig.GROCNKLE__SPAWN_WEIGHT.get(), 4, 6, CommonConfig.GROCNKLE__SPAWN_PROBABILITY.get(), Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.SWAMP);
+                3, 4, 6, 0.05F, ModTags.Biomes.GRONCKLE_BIOMES);
 
         /**
          * NIGHT FURY
          */
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.NIGHT_FURY.get(),
-                1, 1, 1, CommonConfig.N_FURY_SPAWN_PROBABILITY.get(), Biomes.FROZEN_PEAKS, Biomes.JAGGED_PEAKS, Biomes.STONY_PEAKS,
-                Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS);
-        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.NIGHT_FURY.get(),
-                CommonConfig.N_FURY_SPAWN_WEIGHT.get(), 1, 1, 0.00005F, Biomes.STONY_SHORE, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.BIRCH_FOREST);
+                1, 1, 1, 0.00005F, ModTags.Biomes.NIGHTFURY_BIOMES);
 
         /**
          * LIGHT FURY
          */
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.LIGHT_FURY.get(),
-                CommonConfig.L_FURY_SPAWN_WEIGHT.get(), 1, 1, CommonConfig.L_FURY_SPAWN_PROBABILITY.get(), Biomes.FROZEN_PEAKS, Biomes.STONY_PEAKS,
-                Biomes.WINDSWEPT_FOREST);
-
-        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.LIGHT_FURY.get(),
-                CommonConfig.L_FURY_SPAWN_WEIGHT.get(), 1, 1, 0.00005F, Biomes.STONY_SHORE, Biomes.OLD_GROWTH_BIRCH_FOREST, Biomes.BIRCH_FOREST);
+                1, 1, 1, 0.00005F, ModTags.Biomes.LIGHTFURY_BIOMES);
 
         /**
          * MONSTROUS NIGHTMARE
          */
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.MONSTROUS_NIGHTMARE.get(),
-                CommonConfig.NIGHTMARE_SPAWN_WEIGHT.get(), 2, 3, CommonConfig.NIGHTMARE_SPAWN_PROBABILITY.get(), Biomes.STONY_SHORE, Biomes.WINDSWEPT_HILLS, Biomes.WINDSWEPT_GRAVELLY_HILLS, Biomes.WINDSWEPT_FOREST,
-                Biomes.BADLANDS, Biomes.WOODED_BADLANDS, Biomes.ERODED_BADLANDS);
+                1, 2, 3, 0.04F, ModTags.Biomes.MONSTROUS_NIGHTMARE_BIOMES);
 
         /**
          * HIDEOUS ZIPPLEBACK
          */
         addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.ZIPPLEBACK.get(),
-                CommonConfig.ZIPP_SPAWN_WEIGHT.get(), 2, 3, CommonConfig.ZIPP_SPAWN_PROBABILITY.get(), Biomes.SWAMP, Biomes.SPARSE_JUNGLE, Biomes.SNOWY_PLAINS, Biomes.ICE_SPIKES);
+                1, 2, 3, 0.04F, ModTags.Biomes.HIDEOUS_ZIPPLEBACK_BIOMES);
 
     }
 
@@ -147,7 +123,7 @@ public class ModSpawnRegistration {
 
     @SafeVarargs
     private static void addMobSpawnOnSpecificBiomes(BiomeLoadingEvent event, MobCategory mobCategory, EntityType<?> entityType,
-                                                    int weight, int minGroupSize, int maxGroupSize, float probability, ResourceKey<Biome>... biomes) {
+                                                    int weight, int minGroupSize, int maxGroupSize, float probability, TagKey<Biome> gronckleBiomes, ResourceKey<Biome>... biomes) {
         boolean isBiomeSelected = Arrays.stream(biomes).map(ResourceKey::location).map(Object::toString).anyMatch(s -> s.equals(Objects.requireNonNull(event.getName()).toString()));
         if (isBiomeSelected) {
             MobSpawnSettings.SpawnerData spawnerData1 = new MobSpawnSettings.SpawnerData(entityType, weight, minGroupSize, maxGroupSize);

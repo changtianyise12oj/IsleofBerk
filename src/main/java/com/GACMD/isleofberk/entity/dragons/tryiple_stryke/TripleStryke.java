@@ -1,6 +1,5 @@
 package com.GACMD.isleofberk.entity.dragons.tryiple_stryke;
 
-import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.AI.taming.T3DragonWeakenAndFeedTamingGoal;
 import com.GACMD.isleofberk.entity.AI.target.DragonMeleeAttackGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
@@ -488,10 +487,6 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         return new TripleStrykeCustomMeleeAttackGoal(this, 1, false);
     }
 
-    @Override
-    public float getRideCameraDistanceBack() {
-        return CommonConfig.USE_LARGER_SCALING.get() ? 11 : 9;
-    }
 
     @Override
     public float getRideCameraDistanceFront() {
@@ -766,20 +761,12 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         return 0;
     }
 
-    protected double rider1YOffSet() {
-        return CommonConfig.USE_LARGER_SCALING.get() ? 1.8D : 1.2D;
-    }
-
     protected double rider1ZOffSet() {
         return 0;
     }
 
     protected double extraRidersXOffset() {
         return 0.4D;
-    }
-
-    protected double extraRidersYOffset() {
-        return CommonConfig.USE_LARGER_SCALING.get() ? 1.8D : 1.2D;
     }
 
     protected double extraRidersZOffset() {

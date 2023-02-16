@@ -1,7 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.speedstinger;
 
 
-import com.GACMD.isleofberk.config.CommonConfig;
 import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
@@ -17,6 +16,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.eggs.SpeedStingerEgg;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
 import com.GACMD.isleofberk.registery.ModSounds;
+import com.GACMD.isleofberk.registery.ModTags;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -378,17 +378,13 @@ public class SpeedStinger extends ADragonRideableUtility {
         if (this.getY() < 0) {
             return 1;
         } else {
-            if (biome.is(Biomes.TAIGA) || biome.is(Biomes.SNOWY_TAIGA) || biome.is(Biomes.OLD_GROWTH_PINE_TAIGA) || biome.is(Biomes.OLD_GROWTH_SPRUCE_TAIGA) || biome.is(Biomes.STONY_SHORE)) {
+            if (biome.is(ModTags.Biomes.SPEED_STINGER_BIOMES)) {
                 return 0;
-            } else if (biome.is(Biomes.DEEP_COLD_OCEAN) || biome.is(Biomes.COLD_OCEAN) || biome.is(Biomes.ICE_SPIKES) || biome.is(Biomes.DEEP_FROZEN_OCEAN)
-                    || biome.is(Biomes.FROZEN_PEAKS)
-                    || biome.is(Biomes.FROZEN_RIVER)
-                    || biome.is(Biomes.FROZEN_OCEAN)
-                    || biome.is(Biomes.SNOWY_BEACH) || biome.is(Biomes.SNOWY_PLAINS) || biome.is(Biomes.SNOWY_TAIGA) || biome.is(Biomes.SNOWY_SLOPES)) {
+            } else if (biome.is(ModTags.Biomes.ICE_BREAKER_BIOMES)) {
                 return 2;
-            } else if (biome.is(Biomes.STONY_PEAKS) || biome.is(Biomes.JAGGED_PEAKS) || biome.is(Biomes.MEADOW)) {
+            } else if (biome.is(ModTags.Biomes.FLOUTSCOUT_BIOMES)) {
                 return 1;
-            } else if (biome.is(BiomeTags.IS_JUNGLE)) {
+            } else if (biome.is(ModTags.Biomes.SWEET_STING_BIOMES)) {
                 return 3;
             }
         }
@@ -592,7 +588,7 @@ public class SpeedStinger extends ADragonRideableUtility {
         ItemStack itemstack2 = new ItemStack(ModItems.SPEED_STINGER_EGG_ICE_BREAKER.get(), 1);
         ItemStack itemstack3 = new ItemStack(ModItems.SPEED_STINGER_EGG_SWEET_STING.get(), 1);
 
-        if (random.nextInt(CommonConfig.SS_STINGER_EGG_DROP_CHANCE.get()) == 1) {
+        if (random.nextInt(8) == 1) {
             if (getDragonVariant() == 0) {
                 if (!itemstack0.isEmpty()) { //  && random.nextInt(10) == 1
                     this.spawnAtLocation(itemstack0);

@@ -1,13 +1,10 @@
 package com.GACMD.isleofberk.entity.dragons.tryiple_stryke;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.config.CommonConfig;
-import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
@@ -20,9 +17,6 @@ public class TripleStrykeModel extends BaseDragonModelFlying<TripleStryke> {
     public TripleStrykeModel(EntityRendererProvider.Context renderManager) {
         super();
     }
-
-    @Override
-    protected float getAdultSize() { return CommonConfig.USE_LARGER_SCALING.get() ? 1.40f: 1.15f; }
 
     @Override
     public ResourceLocation getModelLocation(TripleStryke object) {

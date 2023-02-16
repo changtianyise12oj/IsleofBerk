@@ -287,7 +287,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
     }
 
     protected int getInLoveCoolDownInMCDays() {
-        return 24;
+        return 10;
     }
 
     @Override

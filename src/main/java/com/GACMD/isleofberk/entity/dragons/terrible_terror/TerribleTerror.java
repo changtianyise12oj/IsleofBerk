@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.terrible_terror;
 
+import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
 import com.GACMD.isleofberk.entity.AI.flight.own.AIDragonLand;
 import com.GACMD.isleofberk.entity.AI.flight.own.DragonFlyAndAttackAirbourneTargetGoal;
 import com.GACMD.isleofberk.entity.AI.flight.player.DragonFollowPlayerFlying;
@@ -11,7 +12,6 @@ import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
-import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.TerribleTerrorEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
@@ -28,6 +28,7 @@ import com.GACMD.isleofberk.util.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -46,7 +47,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.BreedGoal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -65,6 +65,7 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -255,8 +256,8 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new DragonFollowPlayerFlying(this, 2, 2, 2));
         this.goalSelector.addGoal(0, new DragonFlyAndAttackAirbourneTargetGoal(this, 1, true));
+        this.goalSelector.addGoal(0, new DragonBreedGoal(this, 1));
         this.goalSelector.addGoal(1, new DragonFloatGoal(this));
-        this.goalSelector.addGoal(1, new BreedGoal(this, 1));
         this.goalSelector.addGoal(1, new AIDragonLand(this, 1));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new DragonWaterAvoidingRandomStrollGoal(this, 0.7D, 1.0000001E-5F));
@@ -295,10 +296,6 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     @Override
     public boolean isBreedingFood(ItemStack pStack) {
         return Ingredient.of(TERRIBLE_TERROR_BREED_FOOD).test(pStack);
-    }
-
-    protected int getInLoveCoolDownInMCDays() {
-        return 4;
     }
 
     /**
@@ -355,8 +352,22 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
-
-        if (item.isEdible()) {
+        if (this.isBreedingFood(itemstack) && !shouldStopMovingIndependently()) {
+            if (isOwnedBy(pPlayer)) {
+                int i = this.getAge();
+                if (!this.level.isClientSide && i == 0 && this.canFallInLove()) {
+                    this.usePlayerItem(pPlayer, pHand, itemstack);
+                    this.setInLove(pPlayer);
+                    this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+                    return InteractionResult.SUCCESS;
+                }
+            } else {
+                String string = "iob.only.owner.breed";
+                pPlayer.displayClientMessage(new TranslatableComponent(string), false);
+                return InteractionResult.FAIL;
+            }
+        }
+        if (item.isEdible() && !isBreedingFood(itemstack)) {
             ItemStack stack = this.getItemBySlot(EquipmentSlot.MAINHAND);
             if (stack.isEmpty()) {
                 this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(item));
@@ -377,6 +388,17 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             return InteractionResult.sidedSuccess(this.level.isClientSide);
         }
         return super.mobInteract(pPlayer, pHand);
+    }
+
+    @Nullable
+    @Override
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel level, @NotNull AgeableMob parent) {
+        TerribleTerror dragon = ModEntities.TERRIBLE_TERROR.get().create(level);
+        return dragon;
+    }
+
+    protected int getInLoveCoolDownInMCDays() {
+        return 3;
     }
 
     @OnlyIn(Dist.CLIENT)
