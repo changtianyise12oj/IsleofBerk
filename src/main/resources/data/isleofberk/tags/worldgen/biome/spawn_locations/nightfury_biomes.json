@@ -3,9 +3,6 @@
     "minecraft:frozen_peaks",
     "minecraft:stony_peaks",
     "minecraft:windswept_hills",
-    "minecraft:windswept_gravelly_hills",
-
-    "minecraft:deep_dark",
-    "minecraft:deep_dark"
+    "minecraft:windswept_gravelly_hills"
   ]
 }

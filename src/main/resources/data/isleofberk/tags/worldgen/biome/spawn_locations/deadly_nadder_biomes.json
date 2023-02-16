@@ -6,11 +6,6 @@
     "minecraft:grove",
     "minecraft:snowy_plains",
     "minecraft:meadow",
-    "minecraft:sparse_jungle",
-
-    "biomesoplenty:coniferous_forest",
-    "biomesoplenty:fir_clearing",
-    "biomesoplenty:snowy_coniferous_forest",
-    "biomesoplenty:snowy_fir_clearin"
+    "minecraft:sparse_jungle"
   ]
 }

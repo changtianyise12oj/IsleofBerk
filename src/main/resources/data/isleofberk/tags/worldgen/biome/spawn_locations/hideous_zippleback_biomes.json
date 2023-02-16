@@ -3,9 +3,6 @@
     "minecraft:swamp",
     "minecraft:sparse_jungle",
     "minecraft:snowy_plains",
-    "minecraft:ice_spikes",
-
-    "biomesoplenty:highland",
-    "biomesoplenty:crag"
+    "minecraft:ice_spikes"
   ]
 }

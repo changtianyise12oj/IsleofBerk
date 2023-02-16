@@ -1,11 +1,7 @@
 {
   "values": [
     "minecraft:frozen_peaks",
-    "minecraft:snowy_peaks",
     "minecraft:windswept_forest",
-    "minecraft:jagged_peaks",
-
-    "minecraft:deep_dark",
-    "minecraft:deep_dark"
+    "minecraft:jagged_peaks"
   ]
 }

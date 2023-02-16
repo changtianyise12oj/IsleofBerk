@@ -7,9 +7,6 @@
     "minecraft:old_growth_birch_forest",
     "minecraft:savanna",
     "minecraft:savanna_plateau",
-    "minecraft:windswept_savanna",
-
-    "biomesoplenty:cherry_blossom_grove",
-    "biomesoplenty:bamboo_grove"
+    "minecraft:windswept_savanna"
   ]
 }
