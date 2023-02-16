@@ -388,9 +388,8 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     @Override
     public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack stack = pPlayer.getItemInHand(pHand);
-        Item item = stack.getItem();
 
-        if (Ingredient.of(GRONCKLE_IRON_INGREDIENTS).test(stack)) {
+        if (isGronckleIngredient(stack)) {
             if (getStoneDigestionTicks() <= 0) {
                 if (isTame()) {
                     if (!isDragonSleeping() || isDragonSitting()) {
@@ -446,11 +445,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     @Override
     protected void rideInteract(Player pPlayer, InteractionHand pHand, ItemStack itemstack) {
         Item item = itemstack.getItem();
-        if (item != Blocks.BASALT.asItem() &&
-                item != Blocks.STONE.asItem() &&
-                item != Blocks.DIORITE.asItem() &&
-                item != Blocks.GRANITE.asItem() &&
-                item != Blocks.DEEPSLATE.asItem()) {
+        if (!isGronckleIngredient(itemstack)) {
             super.rideInteract(pPlayer, pHand, itemstack);
         }
     }
@@ -676,4 +671,9 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     public boolean isBreedingFood(ItemStack pStack) {
         return Ingredient.of(GRONCKLE_BREED_FOOD).test(pStack);
     }
+
+    protected boolean isGronckleIngredient(ItemStack stack) {
+        return Ingredient.of(GRONCKLE_IRON_INGREDIENTS).test(stack);
+    }
+
 }
