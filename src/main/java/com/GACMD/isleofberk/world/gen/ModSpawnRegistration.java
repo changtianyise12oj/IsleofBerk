@@ -1,8 +1,8 @@
 package com.GACMD.isleofberk.world.gen;
 
 import com.GACMD.isleofberk.config.ModConfigs;
+import com.GACMD.isleofberk.config.util.SpawnDataStorage;
 import com.GACMD.isleofberk.registery.ModEntities;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -14,19 +14,17 @@ import java.util.List;
 
 public class ModSpawnRegistration {
 
-    private static final List<Pair<EntityType<?>, String>> dragonEntries = new ArrayList<>();
+    private static final List<SpawnDataStorage> dragonEntries = new ArrayList<>();
 
     public static void onEntitySpawn(final BiomeLoadingEvent event) {
         if (dragonEntries.isEmpty()) {
             // Stinger
             for (String stingerEntry : ModConfigs.spawnConfig.stingerData.get()) {
-                if (!ModSpawnRegistration.isValidEntry("Stinger", stingerEntry)) continue;
-                dragonEntries.add(new Pair<>(ModEntities.STINGER.get(), stingerEntry));
+                ModSpawnRegistration.addToCacheOrSkip(ModEntities.STINGER.get(), stingerEntry);
             }
             // Terrible Terror
             for (String terribleTerrorEntry : ModConfigs.spawnConfig.terribleTerrorData.get()) {
-                if (!ModSpawnRegistration.isValidEntry("Terrible Terror", terribleTerrorEntry)) continue;
-                dragonEntries.add(new Pair<>(ModEntities.TERRIBLE_TERROR.get(), terribleTerrorEntry));
+                ModSpawnRegistration.addToCacheOrSkip(ModEntities.TERRIBLE_TERROR.get(), terribleTerrorEntry);
             }
 
             // TODO ##################################
@@ -49,66 +47,67 @@ public class ModSpawnRegistration {
 
     private static void addDragonSpawns(BiomeLoadingEvent event)
     {
-        ModSpawnRegistration.dragonEntries.forEach(pair -> {
-            String[] array = pair.getSecond().replaceAll(" ", "").split("\\|");
-            List<String> biomes = Arrays.asList(array[3].split(","));
+        ModSpawnRegistration.dragonEntries.forEach(storage -> {
             // If the Biomes contain the currently loading Biome we add the Dragon
-            if (event.getName() != null && biomes.contains(event.getName().toString())) {
-                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(pair.getFirst(), Integer.parseInt(array[0]), Integer.parseInt(array[1]), Integer.parseInt(array[2])));
+            if (event.getName() != null && storage.getBiomes().contains(event.getName().toString())) {
+                event.getSpawns().addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(storage.getDragon(), storage.getWeight(), storage.getMinCount(), storage.getMaxCount()));
             }
         });
     }
 
-    private static boolean isValidEntry(String dragon, String entry) {
+    private static void addToCacheOrSkip(EntityType<?> dragon, String entry) {
         String trimmed = entry.replaceAll(" ", "");
         String[] array = trimmed.split("\\|");
+        int weight;
+        int minCount;
+        int maxCount;
         // Length check
         if (array.length < 4) {
             System.err.println("Isle of Berk spawn config found less than 4 arguments:");
-            System.err.println("Dragon: " + dragon);
+            System.err.println("Dragon: " + dragon.getRegistryName().getPath());
             System.err.println("Entry: " + entry + "\nSkipping...");
-            return false;
+            return;
         } else if (array.length > 4) {
             System.err.println("Isle of Berk spawn config found more than 4 arguments:");
-            System.err.println("Dragon: " + dragon);
+            System.err.println("Dragon: " + dragon.getRegistryName().getPath());
             System.err.println("Entry: " + entry + "\nSkipping...");
-            return false;
+            return;
         }
         // Weight and Count check
         try {
-            Integer.parseInt(array[0]); // Makes sure the Weight is an int
-            Integer.parseInt(array[1]); // Makes sure the Min Count is an int
-            Integer.parseInt(array[2]); // Makes sure the Max Count is an int
+            weight   = Integer.parseInt(array[0]); // Makes sure the Weight is an int
+            minCount = Integer.parseInt(array[1]); // Makes sure the Min Count is an int
+            maxCount = Integer.parseInt(array[2]); // Makes sure the Max Count is an int
         } catch (Exception ignored) {
             System.err.println("Isle of Berk spawn config found a value that isn't an integer:");
-            System.err.println("Dragon: " + dragon);
+            System.err.println("Dragon: " + dragon.getRegistryName().getPath());
             System.err.println("Entry: " + entry + "\nSkipping...");
-            return false;
+            return;
         }
         // Min needs to be smaller than max
-        if(Integer.parseInt(array[1]) >= Integer.parseInt(array[2])) {
+        if(minCount >= maxCount) {
             System.err.println("Isle of Berk spawn config found Min value that is smaller than Max:");
-            System.err.println("Dragon: " + dragon);
+            System.err.println("Dragon: " + dragon.getRegistryName().getPath());
             System.err.println("Entry: " + entry + "\nSkipping...");
-            return false;
+            return;
         }
         // Values need to be greater than 0
-        if (Integer.parseInt(array[0]) <= 0 || Integer.parseInt(array[1]) <= 0 || Integer.parseInt(array[2]) <= 0) {
+        if (weight <= 0 || minCount <= 0) { // We don't have to check for maxCount, because the check above ensures it's bigger than minCount
             System.err.println("Isle of Berk spawn config found a value that is smaller or equal to 0:");
-            System.err.println("Dragon: " + dragon);
+            System.err.println("Dragon: " + dragon.getRegistryName().getPath());
             System.err.println("Entry: " + entry + "\nSkipping...");
-            return false;
+            return;
         }
         // Check Biome resource location validity
         for(String biome : array[3].split(",")) {
             if (biome.split(":").length != 2) {
                 System.err.println("Isle of Berk spawn config found an invalid Biome:");
-                System.err.println("Dragon: " + dragon);
+                System.err.println("Dragon: " + dragon.getRegistryName().getPath());
                 System.err.println("Biome: " + biome + "\nSkipping...");
-                return false;
+                return;
             }
         }
-        // If no checks triggered the entry is valid
-        return true;
+        // If no checks triggered we add the entry to the cache
+        ModSpawnRegistration.dragonEntries.add(new SpawnDataStorage(dragon, weight, minCount, maxCount, Arrays.asList(array[3].split(","))));
     }
 }

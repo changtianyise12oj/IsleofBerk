@@ -12,6 +12,8 @@ import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.util.math.MathX;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.DefaultedRegistry;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
@@ -22,6 +24,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -43,6 +46,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.entity.PartEntity;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -388,7 +392,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     @Override
     public @NotNull InteractionResult mobInteract(Player pPlayer, InteractionHand pHand) {
         ItemStack stack = pPlayer.getItemInHand(pHand);
-
         if (isGronckleIngredient(stack)) {
             if (getStoneDigestionTicks() <= 0) {
                 if (isTame()) {
@@ -675,5 +678,4 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     protected boolean isGronckleIngredient(ItemStack stack) {
         return Ingredient.of(GRONCKLE_IRON_INGREDIENTS).test(stack);
     }
-
 }
