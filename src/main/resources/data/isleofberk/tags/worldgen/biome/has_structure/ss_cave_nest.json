@@ -5,7 +5,9 @@
     "minecraft:stony_peaks",
     "minecraft:jagged_peaks",
     "minecraft:meadow",
-
-    "biomesoplenty:marsh"
+    {
+      "id": "biomesoplenty:marsh",
+      "required": false
+    }
   ]
 }

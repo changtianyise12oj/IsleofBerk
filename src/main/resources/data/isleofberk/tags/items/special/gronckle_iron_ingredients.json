@@ -1,27 +1,76 @@
 {
-  "replace": false,
   "values": [
     "minecraft:deepslate",
     "minecraft:diorite",
     "minecraft:stone",
     "minecraft:granite",
-
-    "byg:ametrine_ore",
-    "byg:pendorite_ore",
-    "byg:dacite",
-    "byg:dacite_cobblestone",
-    "byg:mossy_stone",
-    "byg:red_rock",
-    "byg:rocky_stone",
-    "byg:travertine",
-    "byg:polished_travertine",
-    "byg:scoria_stone",
-    "byg:scoria_cobblestone",
-    "byg:polished_soapstone",
-    "byg:soapstone",
-    "byg:white_sandstone",
-    "byg:blue_sandstone",
-    "byg:purple_sandstone",
-    "byg:windswept_sandstone"
+    {
+      "id": "byg:ametrine_ore",
+      "required": false
+    },
+    {
+      "id": "byg:pendorite_ore",
+      "required": false
+    },
+    {
+      "id": "byg:dacite",
+      "required": false
+    },
+    {
+      "id": "byg:dacite_cobblestone",
+      "required": false
+    },
+    {
+      "id": "byg:mossy_stone",
+      "required": false
+    },
+    {
+      "id": "byg:red_rock",
+      "required": false
+    },
+    {
+      "id": "byg:rocky_stone",
+      "required": false
+    },
+    {
+      "id": "byg:travertine",
+      "required": false
+    },
+    {
+      "id": "byg:polished_travertine",
+      "required": false
+    },
+    {
+      "id": "byg:scoria_stone",
+      "required": false
+    },
+    {
+      "id": "byg:scoria_cobblestone",
+      "required": false
+    },
+    {
+      "id": "byg:polished_soapstone",
+      "required": false
+    },
+    {
+      "id": "byg:soapstone",
+      "required": false
+    },
+    {
+      "id": "byg:white_sandstone",
+      "required": false
+    },
+    {
+      "id": "byg:blue_sandstone",
+      "required": false
+    },
+    {
+      "id": "byg:purple_sandstone",
+      "required": false
+    },
+    {
+      "id": "byg:windswept_sandstone",
+      "required": false
+    }
   ]
 }

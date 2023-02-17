@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.registery.ModParticles;
@@ -47,6 +48,7 @@ public class IsleofBerk
         GeckoLib.initialize();
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> new ClientModEvent(eventBus,forgeBus));
 
+        ModConfigs.registerConfigs();
     }
 
     private void setup(final FMLCommonSetupEvent event) {
