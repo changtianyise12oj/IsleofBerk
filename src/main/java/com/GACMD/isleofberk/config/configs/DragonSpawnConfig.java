@@ -11,6 +11,14 @@ public class DragonSpawnConfig
 {
     public ConfigValueListener<List<? extends String>> stingerData;
     public ConfigValueListener<List<? extends String>> terribleTerrorData;
+    public ConfigValueListener<List<? extends String>> deadlyNadderData;
+    public ConfigValueListener<List<? extends String>> gronckleData;
+    public ConfigValueListener<List<? extends String>> zipplebackData;
+    public ConfigValueListener<List<? extends String>> lightFuryData;
+    public ConfigValueListener<List<? extends String>> nightFuryData;
+    public ConfigValueListener<List<? extends String>> nightmareData;
+    public ConfigValueListener<List<? extends String>> skrillData;
+    public ConfigValueListener<List<? extends String>> tripleStrykeData;
 
     public DragonSpawnConfig(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber)
     {
@@ -33,6 +41,78 @@ public class DragonSpawnConfig
         terribleTerrorData = subscriber.subscribe(builder
                 .comment(" Usage described at the top.")
                 .defineList("terrible_terror_data", List.of(
+                        "20 | 3 | 6 | minecraft:desert",
+                        "12 | 2 | 4 | minecraft:birch_forest"
+                ), o -> o instanceof String));
+        builder.pop();
+
+        builder.push("Deadly Nadder");
+        deadlyNadderData = subscriber.subscribe(builder
+                .comment(" Usage described at the top.")
+                .defineList("deadly_nadder_data", List.of(
+                        "20 | 3 | 6 | minecraft:desert",
+                        "12 | 2 | 4 | minecraft:birch_forest"
+                ), o -> o instanceof String));
+        builder.pop();
+
+        builder.push("Gronckle");
+        gronckleData = subscriber.subscribe(builder
+                .comment(" Usage described at the top.")
+                .defineList("gronckle_data", List.of(
+                        "20 | 3 | 6 | minecraft:desert",
+                        "12 | 2 | 4 | minecraft:birch_forest"
+                ), o -> o instanceof String));
+        builder.pop();
+
+        builder.push("Hideous Zippleback");
+        zipplebackData = subscriber.subscribe(builder
+                .comment(" Usage described at the top.")
+                .defineList("zippleback_data", List.of(
+                        "20 | 3 | 6 | minecraft:desert",
+                        "12 | 2 | 4 | minecraft:birch_forest"
+                ), o -> o instanceof String));
+        builder.pop();
+
+        builder.push("Light Fury");
+        lightFuryData = subscriber.subscribe(builder
+                .comment(" Usage described at the top.")
+                .defineList("light_fury_data", List.of(
+                        "20 | 3 | 6 | minecraft:desert",
+                        "12 | 2 | 4 | minecraft:birch_forest"
+                ), o -> o instanceof String));
+        builder.pop();
+
+        builder.push("Night Fury");
+        nightFuryData = subscriber.subscribe(builder
+                .comment(" Usage described at the top.")
+                .defineList("night_fury_data", List.of(
+                        "20 | 3 | 6 | minecraft:desert",
+                        "12 | 2 | 4 | minecraft:birch_forest"
+                ), o -> o instanceof String));
+        builder.pop();
+
+        builder.push("Monstrous Nightmare");
+        nightmareData = subscriber.subscribe(builder
+                .comment(" Usage described at the top.")
+                .defineList("nightmare_data", List.of(
+                        "20 | 3 | 6 | minecraft:desert",
+                        "12 | 2 | 4 | minecraft:birch_forest"
+                ), o -> o instanceof String));
+        builder.pop();
+
+        builder.push("Skrill");
+        skrillData = subscriber.subscribe(builder
+                .comment(" Usage described at the top.")
+                .defineList("skrill_data", List.of(
+                        "20 | 3 | 6 | minecraft:desert",
+                        "12 | 2 | 4 | minecraft:birch_forest"
+                ), o -> o instanceof String));
+        builder.pop();
+
+        builder.push("Triple Stryke");
+        tripleStrykeData = subscriber.subscribe(builder
+                .comment(" Usage described at the top.")
+                .defineList("triple_stryke_data", List.of(
                         "20 | 3 | 6 | minecraft:desert",
                         "12 | 2 | 4 | minecraft:birch_forest"
                 ), o -> o instanceof String));

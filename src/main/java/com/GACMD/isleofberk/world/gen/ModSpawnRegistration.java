@@ -26,6 +26,38 @@ public class ModSpawnRegistration {
             for (String terribleTerrorEntry : ModConfigs.spawnConfig.terribleTerrorData.get()) {
                 ModSpawnRegistration.addToCacheOrSkip(ModEntities.TERRIBLE_TERROR.get(), terribleTerrorEntry);
             }
+            // Deadly Nadder
+            for (String deadlyNadderEntry : ModConfigs.spawnConfig.deadlyNadderData.get()) {
+                ModSpawnRegistration.addToCacheOrSkip(ModEntities.DEADLY_NADDER.get(), deadlyNadderEntry);
+            }
+            // Gronckle
+            for (String gronckleEntry : ModConfigs.spawnConfig.gronckleData.get()) {
+                ModSpawnRegistration.addToCacheOrSkip(ModEntities.GRONCKLE.get(), gronckleEntry);
+            }
+            // Zippleback
+            for (String zipplebackEntry : ModConfigs.spawnConfig.zipplebackData.get()) {
+                ModSpawnRegistration.addToCacheOrSkip(ModEntities.ZIPPLEBACK.get(), zipplebackEntry);
+            }
+            // Light Fury
+            for (String lightFuryEntry : ModConfigs.spawnConfig.lightFuryData.get()) {
+                ModSpawnRegistration.addToCacheOrSkip(ModEntities.LIGHT_FURY.get(), lightFuryEntry);
+            }
+            // Night Fury
+            for (String nightFuryEntry : ModConfigs.spawnConfig.nightFuryData.get()) {
+                ModSpawnRegistration.addToCacheOrSkip(ModEntities.NIGHT_FURY.get(), nightFuryEntry);
+            }
+            // Nightmare
+            for (String nightmareEntry : ModConfigs.spawnConfig.nightmareData.get()) {
+                ModSpawnRegistration.addToCacheOrSkip(ModEntities.MONSTROUS_NIGHTMARE.get(), nightmareEntry);
+            }
+            // Skrill
+//            for (String skrillEntry : ModConfigs.spawnConfig.skrillData.get()) {
+//                ModSpawnRegistration.addToCacheOrSkip(ModEntities.SKRILL.get(), skrillEntry);
+//            }
+            // Triple Stryke
+            for (String tripleStrykeEntry : ModConfigs.spawnConfig.tripleStrykeData.get()) {
+                ModSpawnRegistration.addToCacheOrSkip(ModEntities.TRIPLE_STRYKE.get(), tripleStrykeEntry);
+            }
 
             // TODO ##################################
             // TODO add loops for the other Dragons
