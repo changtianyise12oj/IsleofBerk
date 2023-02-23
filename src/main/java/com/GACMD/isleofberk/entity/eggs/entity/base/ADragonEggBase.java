@@ -1,11 +1,10 @@
 package com.GACMD.isleofberk.entity.eggs.entity.base;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
-import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
-import com.GACMD.isleofberk.util.Util;
 import com.GACMD.isleofberk.items.DragonEggItem;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import com.GACMD.isleofberk.util.Util;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -49,6 +48,7 @@ public class ADragonEggBase extends AgeableMob implements IAnimatable {
     private static final EntityDataAccessor<Integer> TICK_HATCH_TIME = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> CAN_HATCH = SynchedEntityData.defineId(ADragonEggBase.class, EntityDataSerializers.BOOLEAN);
     protected ADragonBase dragonResult;
+    public int displayProgressTicks = 0;
 
     AnimationFactory factory = new AnimationFactory(this);
     protected boolean canHatch;
@@ -218,14 +218,15 @@ public class ADragonEggBase extends AgeableMob implements IAnimatable {
                 hatch();
             }
         } else {
-            if (stack.isEmpty()) {
-                String s = "egg.warm.toHatch";
-                String s1 = "egg.cold.toHatch";
-                if (!isCold()) {
-                    pPlayer.displayClientMessage(new TranslatableComponent(s), true);
-                } else {
-                    pPlayer.displayClientMessage(new TranslatableComponent(s1), true);
-                }
+            String s = "egg.warm.toHatch";
+            String s1 = "egg.cold.toHatch";
+            if (!isCold()) {
+                pPlayer.displayClientMessage(new TranslatableComponent(s), true);
+                // We only set this on the client as it's used inside renderer, and we don't need the server
+                if (this.level.isClientSide())
+                    this.displayProgressTicks = 100; // 100 ticks is 5 seconds
+            } else {
+                pPlayer.displayClientMessage(new TranslatableComponent(s1), true);
             }
         }
         InteractionResult ret = super.interact(pPlayer, pHand);
@@ -233,8 +234,8 @@ public class ADragonEggBase extends AgeableMob implements IAnimatable {
         return InteractionResult.SUCCESS;
     }
 
-    protected int getHatchTimeMinecraftDays() {
-        return Util.mcDaysToMinutes(5);
+    protected int getHatchTime() {
+        return 100;
     }
 
     @Override
@@ -254,24 +255,23 @@ public class ADragonEggBase extends AgeableMob implements IAnimatable {
         return i5 < 10;
     }
 
-    protected boolean hatchTickParamters() {
-        return !isCold();
-    }
-
     protected boolean hatchParameters() {
-        return this.getTicksToHatch() >= getHatchTimeMinecraftDays();
+        return this.getTicksToHatch() >= getHatchTime();
     }
 
 
     @Override
     public void tick() {
         super.tick();
-        if (hatchTickParamters() && this.getTicksToHatch() <= getHatchTimeMinecraftDays()) {
+
+        if(this.displayProgressTicks > 0)
+            this.displayProgressTicks--;
+
+        if (!isCold() && this.getTicksToHatch() <= getHatchTime()) {
             this.setTicksToHatch(getTicksToHatch() + 1);
-        } else if (!hatchTickParamters() && getTicksToHatch() > 0) {
+        } else if (isCold() && getTicksToHatch() > 0) {
             this.setTicksToHatch(getTicksToHatch() - 1);
         }
-//        System.out.println("setTicksToHatch " + getTicksToHatch());
 
         if (hatchParameters()) {
             hatch();
@@ -339,6 +339,10 @@ public class ADragonEggBase extends AgeableMob implements IAnimatable {
     }
 
     public float scale() {
-        return 1.1F;
+        return 1.0F;
+    }
+
+    public int getHatchProgress() {
+        return (int) Math.floor(((float) this.getTicksToHatch() / (float) this.getHatchTime()) * 100F);
     }
 }

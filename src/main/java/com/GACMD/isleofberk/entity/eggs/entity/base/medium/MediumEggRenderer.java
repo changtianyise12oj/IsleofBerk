@@ -2,6 +2,8 @@ package com.GACMD.isleofberk.entity.eggs.entity.base.medium;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -16,8 +18,21 @@ public class MediumEggRenderer extends GeoProjectilesRenderer<ADragonMediumEggBa
     }
 
     @Override
-    public void render(ADragonMediumEggBase pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
+    public void render(ADragonMediumEggBase entity, float yaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+        super.render(entity, yaw, partialTicks, poseStack, buffer, packedLight);
+        if (entity.displayProgressTicks != 0) {
+            poseStack.pushPose();
+            poseStack.translate(0.0F, entity.getBbHeight() + 0.0625F, 0.0F);
+            poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
+            poseStack.scale(-0.025F, -0.025F, 0.025F);
+            float scale = 0.5F;
+            poseStack.scale(scale, scale, scale);
+            String text = entity.getHatchProgress() + "%";
+            Font font = Minecraft.getInstance().font;
+            float centerOffset = (float) (-font.width(text) / 2);
+            font.drawInBatch(text, centerOffset, -9, -1, false, poseStack.last().pose(), buffer, false, 0, packedLight);
+            poseStack.popPose();
+        }
     }
 
     @Override
@@ -28,11 +43,5 @@ public class MediumEggRenderer extends GeoProjectilesRenderer<ADragonMediumEggBa
     @Override
     public ResourceLocation getTextureLocation(ADragonMediumEggBase dragonEggBase) {
         return dragonEggBase.getTextureLocation(dragonEggBase);
-    }
-
-    public void renderEarly(ADragonMediumEggBase animatable, PoseStack stackIn, float ticks,
-                            @javax.annotation.Nullable MultiBufferSource renderTypeBuffer, @javax.annotation.Nullable VertexConsumer vertexBuilder, int packedLightIn,
-                            int packedOverlayIn, float red, float green, float blue, float partialTicks) {
-        stackIn.scale(1.1F, 1.1F, 1.1F);
     }
 }

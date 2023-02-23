@@ -27,6 +27,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModEntities {
+    private static final float PIXEL = 0.0625F;
 
     private ModEntities() {
     }
@@ -114,45 +115,44 @@ public class ModEntities {
 
     // Small
     public static final RegistryObject<EntityType<SpeedStingerEgg>> SPEED_STINGER_EGG = ENTITIES.register("speed_stinger_egg",
-            () -> EntityType.Builder.of(SpeedStingerEgg::new, MobCategory.MISC).sized(0.5f, 0.5f).fireImmune()
+            () -> EntityType.Builder.of(SpeedStingerEgg::new, MobCategory.MISC).sized(PIXEL * 5, PIXEL * 7).fireImmune()
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "speed_stinger_egg").toString()));
 
     public static final RegistryObject<EntityType<TerribleTerrorEgg>> TERRIBLE_TERROR_EGG = ENTITIES.register("terrible_terror_egg",
-            () -> EntityType.Builder.of(TerribleTerrorEgg::new, MobCategory.MISC).sized(0.5f, 0.5f).fireImmune()
+            () -> EntityType.Builder.of(TerribleTerrorEgg::new, MobCategory.MISC).sized(PIXEL * 2.5F, PIXEL * 3.5F).fireImmune()
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "speed_stinger_egg").toString()));
-
-    // Large
-
-    public static final RegistryObject<EntityType<MonstrousNightmareEgg>> M_NIGHTMARE_EGG = ENTITIES.register("m_nightmare_egg",
-            () -> EntityType.Builder.of(MonstrousNightmareEgg::new, MobCategory.MISC).sized(0.7f, 0.7f)
-                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "m_nightmare_egg").toString()));
-
-    public static final RegistryObject<EntityType<ZippleBackEgg>> ZIPPLEBACK_EGG = ENTITIES.register("zippleback_egg",
-            () -> EntityType.Builder.of(ZippleBackEgg::new, MobCategory.MISC).sized(0.7f, 0.7f)
-                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "zippleback_egg").toString()));
-
-    public static final RegistryObject<EntityType<StingerEgg>> STINGER_EGG = ENTITIES.register("stinger_egg",
-            () -> EntityType.Builder.of(StingerEgg::new, MobCategory.MISC).sized(0.7f, 0.7f)
-                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "stinger_egg").toString()));
 
     // Medium
     public static final RegistryObject<EntityType<NightFuryEgg>> NIGHT_FURY_EGG = ENTITIES.register("night_fury_egg",
-            () -> EntityType.Builder.of(NightFuryEgg::new, MobCategory.MISC).sized(0.5f, 0.5f)
+            () -> EntityType.Builder.of(NightFuryEgg::new, MobCategory.MISC).sized(PIXEL * 7, PIXEL * 9)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "night_fury_egg").toString()));
 
     public static final RegistryObject<EntityType<LightFuryEgg>> LIGHT_FURY_EGG = ENTITIES.register("light_fury_egg",
-            () -> EntityType.Builder.of(LightFuryEgg::new, MobCategory.MISC).sized(0.5f, 0.5f)
+            () -> EntityType.Builder.of(LightFuryEgg::new, MobCategory.MISC).sized(PIXEL * 7, PIXEL * 9)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "light_fury_egg").toString()));
 
     public static final RegistryObject<EntityType<TripleStrykeEgg>> TRIPLE_STRYKE_EGG = ENTITIES.register("triple_stryke_egg",
-            () -> EntityType.Builder.of(TripleStrykeEgg::new, MobCategory.MISC).sized(0.5f, 0.5f)
+            () -> EntityType.Builder.of(TripleStrykeEgg::new, MobCategory.MISC).sized(PIXEL * 7, PIXEL * 9)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "triple_stryke_egg").toString()));
 
     public static final RegistryObject<EntityType<DeadlyNadderEgg>> NADDER_EGG = ENTITIES.register("nadder_egg",
-            () -> EntityType.Builder.of(DeadlyNadderEgg::new, MobCategory.MISC).sized(0.5f, 0.5f)
+            () -> EntityType.Builder.of(DeadlyNadderEgg::new, MobCategory.MISC).sized(PIXEL * 7, PIXEL * 9)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "nadder_egg").toString()));
 
     public static final RegistryObject<EntityType<GronkleEgg>> GRONCKLE_EGG = ENTITIES.register("gronckle_egg",
-            () -> EntityType.Builder.of(GronkleEgg::new, MobCategory.MISC).sized(0.5f, 0.5f)
+            () -> EntityType.Builder.of(GronkleEgg::new, MobCategory.MISC).sized(PIXEL * 7, PIXEL * 9)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "gronckle_egg").toString()));
+
+    // Large
+    public static final RegistryObject<EntityType<MonstrousNightmareEgg>> M_NIGHTMARE_EGG = ENTITIES.register("m_nightmare_egg",
+            () -> EntityType.Builder.of(MonstrousNightmareEgg::new, MobCategory.MISC).sized(PIXEL * 10, PIXEL * 13)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "m_nightmare_egg").toString()));
+
+    public static final RegistryObject<EntityType<ZippleBackEgg>> ZIPPLEBACK_EGG = ENTITIES.register("zippleback_egg",
+            () -> EntityType.Builder.of(ZippleBackEgg::new, MobCategory.MISC).sized(PIXEL * 10, PIXEL * 13)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "zippleback_egg").toString()));
+
+    public static final RegistryObject<EntityType<StingerEgg>> STINGER_EGG = ENTITIES.register("stinger_egg",
+            () -> EntityType.Builder.of(StingerEgg::new, MobCategory.MISC).sized(PIXEL * 10, PIXEL * 13)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "stinger_egg").toString()));
 }

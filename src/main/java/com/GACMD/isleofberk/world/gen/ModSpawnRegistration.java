@@ -50,31 +50,18 @@ public class ModSpawnRegistration {
             for (String nightmareEntry : ModConfigs.spawnConfig.nightmareData.get()) {
                 ModSpawnRegistration.addToCacheOrSkip(ModEntities.MONSTROUS_NIGHTMARE.get(), nightmareEntry);
             }
-            // Skrill
-//            for (String skrillEntry : ModConfigs.spawnConfig.skrillData.get()) {
-//                ModSpawnRegistration.addToCacheOrSkip(ModEntities.SKRILL.get(), skrillEntry);
-//            }
             // Triple Stryke
             for (String tripleStrykeEntry : ModConfigs.spawnConfig.tripleStrykeData.get()) {
                 ModSpawnRegistration.addToCacheOrSkip(ModEntities.TRIPLE_STRYKE.get(), tripleStrykeEntry);
             }
-
-            // TODO ##################################
-            // TODO add loops for the other Dragons
-            // TODO ##################################
+            // Skrill
+//            for (String skrillEntry : ModConfigs.spawnConfig.skrillData.get()) {
+//                ModSpawnRegistration.addToCacheOrSkip(ModEntities.SKRILL.get(), skrillEntry);
+//            }
         }
 
         // After dragonEntries has been populated we add the Dragons to the Biomes
         ModSpawnRegistration.addDragonSpawns(event);
-
-
-//        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.TRIPLE_STRYKE.get(), 1, 1, 1, 0.03F, ModTags.Biomes.TRIPLE_STRYKE_BIOMES);
-//        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.DEADLY_NADDER.get(), 3, 4, 6, 0.05F, ModTags.Biomes.DEADLY_NADDER_BIOMES);
-//        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.GRONCKLE.get(), 3, 4, 6, 0.05F, ModTags.Biomes.GRONCKLE_BIOMES);
-//        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.NIGHT_FURY.get(), 1, 1, 1, 0.00005F, ModTags.Biomes.NIGHTFURY_BIOMES);
-//        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.LIGHT_FURY.get(), 1, 1, 1, 0.00005F, ModTags.Biomes.LIGHTFURY_BIOMES);
-//        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.MONSTROUS_NIGHTMARE.get(), 1, 2, 3, 0.04F, ModTags.Biomes.MONSTROUS_NIGHTMARE_BIOMES);
-//        addMobSpawnOnSpecificBiomes(event, MobCategory.CREATURE, ModEntities.ZIPPLEBACK.get(), 1, 2, 3, 0.04F, ModTags.Biomes.HIDEOUS_ZIPPLEBACK_BIOMES);
     }
 
     private static void addDragonSpawns(BiomeLoadingEvent event)

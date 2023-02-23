@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.eggs.entity.eggs;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.base.small.ADragonSmallEggBase;
@@ -9,6 +10,7 @@ import com.GACMD.isleofberk.registery.ModItems;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -16,9 +18,11 @@ import net.minecraft.world.level.block.Blocks;
 public class TerribleTerrorEgg extends ADragonSmallEggBase {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation("isleofberk:textures/egg/terrible_terror/terrible_terror_egg.png");
+    private final int hatchTime;
 
     public TerribleTerrorEgg(EntityType<? extends ADragonEggBase> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+        this.hatchTime = ModConfigs.hatchTimeConfig.terribleTerror.get();
     }
 
     @Override
@@ -57,8 +61,13 @@ public class TerribleTerrorEgg extends ADragonSmallEggBase {
     }
 
     @Override
-    protected int getHatchTimeMinecraftDays() {
-        return Util.mcDaysToMinutes(5);
+    protected int getHatchTime() {
+        return this.hatchTime;
+    }
+
+    @Override
+    public ItemStack getPickResult()
+    {
+        return new ItemStack(ModItems.TERRIBLE_TERROR_EGG.get());
     }
 }
-

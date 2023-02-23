@@ -1,14 +1,14 @@
 package com.GACMD.isleofberk.entity.eggs.entity.eggs;
 
 import com.GACMD.isleofberk.IsleofBerk;
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
-import com.GACMD.isleofberk.entity.eggs.entity.base.small.ADragonSmallEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
+import com.GACMD.isleofberk.entity.eggs.entity.base.small.ADragonSmallEggBase;
 import com.GACMD.isleofberk.items.DragonEggItem;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
-import com.GACMD.isleofberk.util.Util;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -26,11 +27,19 @@ public class SpeedStingerEgg extends ADragonSmallEggBase {
     public static final ResourceLocation FLOUTSCOUT = new ResourceLocation("isleofberk:textures/egg/speedstinger/egg_floutscout_1.png");
     public static final ResourceLocation ICE_BREAKER = new ResourceLocation("isleofberk:textures/egg/speedstinger/egg_ice_breaker_2.png");
     public static final ResourceLocation SWEET_STING = new ResourceLocation("isleofberk:textures/egg/speedstinger/egg_sweet_sting_3.png");
+    private final int hatchTime;
+    private final int floutscoutHatchTime;
+    private final int iceBreakerHatchTime;
+    private final int sweetStingHatchTime;
 
     public SpeedStingerEgg(EntityType<? extends ADragonSmallEggBase> animal, Level world) {
         super(animal, world);
         this.dragonResult = new SpeedStinger(ModEntities.SPEED_STINGER.get(), level);
         this.setDragonVariant(0);
+        this.hatchTime = ModConfigs.hatchTimeConfig.speedStinger.get();
+        this.floutscoutHatchTime = ModConfigs.hatchTimeConfig.floutscoutSpeedStinger.get();
+        this.iceBreakerHatchTime = ModConfigs.hatchTimeConfig.iceBreakerSpeedStinger.get();
+        this.sweetStingHatchTime = ModConfigs.hatchTimeConfig.sweetStingSpeedStinger.get();
     }
 
     public ResourceLocation getModelLocation(ADragonBase dragonBase) {
@@ -135,7 +144,23 @@ public class SpeedStingerEgg extends ADragonSmallEggBase {
     }
 
     @Override
-    protected int getHatchTimeMinecraftDays() {
-        return Util.mcDaysToMinutes(6);
+    protected int getHatchTime() {
+        return switch (getDragonVariant()) {
+            default -> this.hatchTime;
+            case 1 -> this.floutscoutHatchTime;
+            case 2 -> this.iceBreakerHatchTime;
+            case 3 -> this.sweetStingHatchTime;
+        };
+    }
+
+    @Override
+    public ItemStack getPickResult()
+    {
+        return switch (getDragonVariant()) {
+            default -> new ItemStack(ModItems.SPEED_STINGER_EGG.get());
+            case 1 -> new ItemStack(ModItems.SPEED_STINGER_EGG_FLOUTSCOOUT.get());
+            case 2 -> new ItemStack(ModItems.SPEED_STINGER_EGG_ICE_BREAKER.get());
+            case 3 -> new ItemStack(ModItems.SPEED_STINGER_EGG_SWEET_STING.get());
+        };
     }
 }

@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.eggs.entity.eggs;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.eggs.entity.base.medium.ADragonMediumEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
@@ -43,9 +44,11 @@ import java.util.*;
 
 public class GronkleEgg extends ADragonMediumEggBase implements IAnimatable {
     public static final ResourceLocation TEXTURE = new ResourceLocation("isleofberk:textures/egg/gronkle/egg_gronk.png");
+    private final int hatchTime;
 
     public GronkleEgg(EntityType<? extends ADragonEggBase> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
+        this.hatchTime = ModConfigs.hatchTimeConfig.gronckle.get();
     }
 
     @Override
@@ -268,7 +271,13 @@ public class GronkleEgg extends ADragonMediumEggBase implements IAnimatable {
     }
 
     @Override
-    protected int getHatchTimeMinecraftDays() {
-        return Util.mcDaysToMinutes(7);
+    protected int getHatchTime() {
+        return this.hatchTime;
+    }
+
+    @Override
+    public ItemStack getPickResult()
+    {
+        return new ItemStack(ModItems.GRONCKLE_EGG.get());
     }
 }
