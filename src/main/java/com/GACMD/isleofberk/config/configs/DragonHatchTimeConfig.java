@@ -1,26 +1,25 @@
 package com.GACMD.isleofberk.config.configs;
 
 import com.GACMD.isleofberk.config.util.ConfigHelper;
-import com.GACMD.isleofberk.config.util.ConfigHelper.ConfigValueListener;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.List;
 
 public class DragonHatchTimeConfig
 {
-    public ConfigValueListener<Integer> terribleTerror;
-    public ConfigValueListener<Integer> speedStinger;
-    public ConfigValueListener<Integer> floutscoutSpeedStinger;
-    public ConfigValueListener<Integer> iceBreakerSpeedStinger;
-    public ConfigValueListener<Integer> sweetStingSpeedStinger;
-    public ConfigValueListener<Integer> deadlyNadder;
-    public ConfigValueListener<Integer> nightFury;
-    public ConfigValueListener<Integer> lightFury;
-    public ConfigValueListener<Integer> gronckle;
-    public ConfigValueListener<Integer> tripleStryke;
-    public ConfigValueListener<Integer> stinger;
-    public ConfigValueListener<Integer> zippleback;
-    public ConfigValueListener<Integer> nightmare;
+    public ConfigHelper.ConfigValueListener<Integer> terribleTerror;
+    public ConfigHelper.ConfigValueListener<Integer> speedStinger;
+    public ConfigHelper.ConfigValueListener<Integer> floutscoutSpeedStinger;
+    public ConfigHelper.ConfigValueListener<Integer> iceBreakerSpeedStinger;
+    public ConfigHelper.ConfigValueListener<Integer> sweetStingSpeedStinger;
+    public ConfigHelper.ConfigValueListener<Integer> deadlyNadder;
+    public ConfigHelper.ConfigValueListener<Integer> nightFury;
+    public ConfigHelper.ConfigValueListener<Integer> lightFury;
+    public ConfigHelper.ConfigValueListener<Integer> gronckle;
+    public ConfigHelper.ConfigValueListener<Integer> tripleStryke;
+    public ConfigHelper.ConfigValueListener<Integer> stinger;
+    public ConfigHelper.ConfigValueListener<Integer> zippleback;
+    public ConfigHelper.ConfigValueListener<Integer> nightmare;
 //    public ConfigValueListener<Integer> skrillData;
 
     public DragonHatchTimeConfig(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber)
