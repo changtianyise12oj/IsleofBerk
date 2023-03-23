@@ -13,6 +13,7 @@ public class ModParticles {
 
     public static RegistryObject<SimpleParticleType> NIGHT_FURY_DUST = REGISTRAR.register("night_fury_dust", () -> new SimpleParticleType(false));
     public static RegistryObject<SimpleParticleType> LIGHT_FURY_DUST = REGISTRAR.register("light_fury_dust", () -> new SimpleParticleType(false));
+    public static RegistryObject<SimpleParticleType> SKRILL_LIGHTNING_PARTICLES = REGISTRAR.register("skrill_lightning_particles", () -> new SimpleParticleType(false));
     public static RegistryObject<SimpleParticleType> FLAME_TAIL = REGISTRAR.register("flame_tail", () -> new SimpleParticleType(false));
     public static RegistryObject<SimpleParticleType> FLAME = REGISTRAR.register("flame", () -> new SimpleParticleType(false));
 

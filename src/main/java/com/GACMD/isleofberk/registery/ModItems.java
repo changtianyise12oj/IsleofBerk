@@ -96,38 +96,18 @@ public final class ModItems {
      * SPAWN EGG ITEMS
      */
 
-    public static final RegistryObject<DragonSpawnEggItem> NIGHT_FURY_SPAWN_EGG = ITEMS.register("nightfury_spawn_egg", () ->
-            new DragonSpawnEggItem(ModEntities.NIGHT_FURY, 0xffffff, 0xffffff,"nightfury_spawn_egg_info",  new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
-
-    public static final RegistryObject<DragonSpawnEggItem> LIGHT_FURY_SPAWN_EGG = ITEMS.register("lightfury_spawn_egg", () ->
-            new DragonSpawnEggItem(ModEntities.LIGHT_FURY, 0xffffff, 0xffffff,"lightfury_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
-
-    public static final RegistryObject<DragonSpawnEggItem> TRIPLE_STRYKE_SPAWN_EGG = ITEMS.register("triple_stryke_spawn_egg", () ->
-            new DragonSpawnEggItem(ModEntities.TRIPLE_STRYKE, 0xffffff, 0xffffff,"triple_stryke_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
-
-    public static final RegistryObject<DragonSpawnEggItem> DEADLY_NADDER_SPAWN_EGG = ITEMS.register("deadly_nadder_spawn_egg", () ->
-            new DragonSpawnEggItem(ModEntities.DEADLY_NADDER, 0xffffff, 0xffffff, "nadder_spawn_egg_info",new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
-
-    public static final RegistryObject<DragonSpawnEggItem> GRONCKLE_SPAWN_EGG = ITEMS.register("gronckle_spawn_egg", () ->
-            new DragonSpawnEggItem(ModEntities.GRONCKLE, 0xffffff, 0xffffff,"gronckle_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
-
-    public static final RegistryObject<DragonSpawnEggItem> MONSTROUS_NIGHTMARE_SPAWN_EGG = ITEMS.register("monstrous_nightmare_spawn_egg", () ->
-            new DragonSpawnEggItem(ModEntities.MONSTROUS_NIGHTMARE, 0xffffff, 0xffffff,"monstrous_nightmare_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
-
-    public static final RegistryObject<DragonSpawnEggItem> ZIPPLEBACK_SPAWN_EGG = ITEMS.register("zippleback_spawn_egg", () ->
-            new DragonSpawnEggItem(ModEntities.ZIPPLEBACK, 0xffffff, 0xffffff,"zippleback_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
-
-    public static final RegistryObject<DragonSpawnEggItem> TERRIBLE_TERROR_SPAWN_EGG = ITEMS.register("terrible_terror_spawn_egg", () ->
-            new DragonSpawnEggItem(ModEntities.TERRIBLE_TERROR, 0xffffff, 0xffffff,"terrible_terror_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
-
-    public static final RegistryObject<DragonSpawnEggItem> SPEED_STINGER_LEADER_SPAWN_EGG = ITEMS.register("speed_stinger_leader_spawn_egg", () ->
-            new DragonSpawnEggItem(ModEntities.SPEED_STINGER_LEADER, 0xffffff, 0xffffff,"speed_stinger_leader_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
-
-    public static final RegistryObject<DragonSpawnEggItem> SPEED_STINGER_SPAWN_EGG = ITEMS.register("speed_stinger_spawn_egg", () ->
-            new DragonSpawnEggItem(ModEntities.SPEED_STINGER, 0xffffff, 0xffffff,"speed_stinger_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
-
-    public static final RegistryObject<DragonSpawnEggItem> STINGER_SPAWN_EGG = ITEMS.register("stinger_spawn_egg", () ->
-            new DragonSpawnEggItem(ModEntities.STINGER, 0xffffff, 0xffffff,"stinger_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> NIGHT_FURY_SPAWN_EGG = ITEMS.register("nightfury_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.NIGHT_FURY, 0xffffff, 0xffffff,"nightfury_spawn_egg_info",  new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> LIGHT_FURY_SPAWN_EGG = ITEMS.register("lightfury_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.LIGHT_FURY, 0xffffff, 0xffffff,"lightfury_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> TRIPLE_STRYKE_SPAWN_EGG = ITEMS.register("triple_stryke_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.TRIPLE_STRYKE, 0xffffff, 0xffffff,"triple_stryke_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> DEADLY_NADDER_SPAWN_EGG = ITEMS.register("deadly_nadder_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.DEADLY_NADDER, 0xffffff, 0xffffff, "nadder_spawn_egg_info",new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> GRONCKLE_SPAWN_EGG = ITEMS.register("gronckle_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.GRONCKLE, 0xffffff, 0xffffff,"gronckle_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> MONSTROUS_NIGHTMARE_SPAWN_EGG = ITEMS.register("monstrous_nightmare_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.MONSTROUS_NIGHTMARE, 0xffffff, 0xffffff,"monstrous_nightmare_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> ZIPPLEBACK_SPAWN_EGG = ITEMS.register("zippleback_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.ZIPPLEBACK, 0xffffff, 0xffffff,"zippleback_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> TERRIBLE_TERROR_SPAWN_EGG = ITEMS.register("terrible_terror_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.TERRIBLE_TERROR, 0xffffff, 0xffffff,"terrible_terror_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> SPEED_STINGER_LEADER_SPAWN_EGG = ITEMS.register("speed_stinger_leader_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.SPEED_STINGER_LEADER, 0xffffff, 0xffffff,"speed_stinger_leader_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> SPEED_STINGER_SPAWN_EGG = ITEMS.register("speed_stinger_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.SPEED_STINGER, 0xffffff, 0xffffff,"speed_stinger_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> STINGER_SPAWN_EGG = ITEMS.register("stinger_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.STINGER, 0xffffff, 0xffffff,"stinger_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+    public static final RegistryObject<DragonSpawnEggItem> SKRILL_SPAWN_EGG = ITEMS.register("skrill_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.SKRILL, 0xffffff, 0xffffff,"skrill_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
 
     /**
      * EGG ITEMS
@@ -146,6 +126,7 @@ public final class ModItems {
     public static final RegistryObject<DragonEggItem> LIGHT_FURY_EGG = ITEMS.register("light_fury_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.LIGHT_FURY_EGG));
     public static final RegistryObject<DragonEggItem> GRONCKLE_EGG = ITEMS.register("gronckle_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.GRONCKLE_EGG));
     public static final RegistryObject<DragonEggItem> TRIPLE_STRYKE_EGG = ITEMS.register("triple_stryke_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.TRIPLE_STRYKE_EGG));
+    public static final RegistryObject<DragonEggItem> SKRILL_EGG = ITEMS.register("skrill_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.SKRILL_EGG));
 
     // Large
     public static final RegistryObject<DragonEggItem> STINGER_EGG = ITEMS.register("stinger_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.STINGER_EGG));

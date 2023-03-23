@@ -16,19 +16,19 @@ public class SkrillModel extends BaseDragonModelFlying<Skrill> {
 
     @Override
     public ResourceLocation getModelLocation(Skrill entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/nightfury.geo.json");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/stinger.geo.json");
 
     }
 
     @Override
     public ResourceLocation getTextureLocation(Skrill entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/night_fury/night_fury.png");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill.png");
 
     }
 
     @Override
     public ResourceLocation getAnimationFileLocation(Skrill entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/nightfury.animation.json");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "animations/dragons/skrill.animation.json");
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
 import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmare;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
+import com.GACMD.isleofberk.entity.dragons.skrill.Skrill;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
 import com.GACMD.isleofberk.entity.dragons.stinger.Stinger;
@@ -19,6 +20,7 @@ import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZippleBackAOECl
 import com.GACMD.isleofberk.entity.projectile.other.nadder_spike.DeadlyNadderSpike;
 import com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt.FireBolt;
 import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBolt;
+import com.GACMD.isleofberk.entity.projectile.proj_user.skrill_lightning.SkrillLightning;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -48,6 +50,10 @@ public class ModEntities {
     public static final RegistryObject<EntityType<TripleStryke>> TRIPLE_STRYKE = ENTITIES.register("triple_stryke",
             () -> EntityType.Builder.of(TripleStryke::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "triple_stryke").toString()));
+
+    public static final RegistryObject<EntityType<Skrill>> SKRILL = ENTITIES.register("skrill",
+            () -> EntityType.Builder.of(Skrill::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "skrill").toString()));
 
     public static final RegistryObject<EntityType<DeadlyNadder>> DEADLY_NADDER = ENTITIES.register("deadly_nadder",
             () -> EntityType.Builder.of(DeadlyNadder::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
@@ -87,6 +93,10 @@ public class ModEntities {
     public static final RegistryObject<EntityType<FuryBolt>> FURY_BOLT = ENTITIES.register("fury_bolt",
             () -> EntityType.Builder.<FuryBolt>of(FuryBolt::new, MobCategory.MISC).sized(2.2F, 2.2F)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "fury_bolt").toString()));
+
+    public static final RegistryObject<EntityType<SkrillLightning>> SKRILL_LIGHTNING = ENTITIES.register("skrill_lightning",
+            () -> EntityType.Builder.<SkrillLightning>of(SkrillLightning::new, MobCategory.MISC).sized(2.2F, 2.2F)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "skrill_lightning").toString()));
 
     public static final RegistryObject<EntityType<DeadlyNadderSpike>> NADDER_SPIKE = ENTITIES.register("nadder_spike",
             () -> EntityType.Builder.<DeadlyNadderSpike>of(DeadlyNadderSpike::new, MobCategory.MISC).sized(0.7F, 0.7f)
@@ -134,6 +144,10 @@ public class ModEntities {
     public static final RegistryObject<EntityType<TripleStrykeEgg>> TRIPLE_STRYKE_EGG = ENTITIES.register("triple_stryke_egg",
             () -> EntityType.Builder.of(TripleStrykeEgg::new, MobCategory.MISC).sized(PIXEL * 7, PIXEL * 9)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "triple_stryke_egg").toString()));
+
+    public static final RegistryObject<EntityType<SkrillEgg>> SKRILL_EGG = ENTITIES.register("skrill_egg",
+            () -> EntityType.Builder.of(SkrillEgg::new, MobCategory.MISC).sized(PIXEL * 7, PIXEL * 9)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "skrill_egg").toString()));
 
     public static final RegistryObject<EntityType<DeadlyNadderEgg>> NADDER_EGG = ENTITIES.register("nadder_egg",
             () -> EntityType.Builder.of(DeadlyNadderEgg::new, MobCategory.MISC).sized(PIXEL * 7, PIXEL * 9)

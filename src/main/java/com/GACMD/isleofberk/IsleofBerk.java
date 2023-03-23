@@ -58,6 +58,7 @@ public class IsleofBerk
         event.enqueueWork(() -> {
             SpawnPlacements.register(ModEntities.NIGHT_FURY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
             SpawnPlacements.register(ModEntities.LIGHT_FURY.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
+            SpawnPlacements.register(ModEntities.SKRILL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
             SpawnPlacements.register(ModEntities.TRIPLE_STRYKE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
             SpawnPlacements.register(ModEntities.DEADLY_NADDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);
             SpawnPlacements.register(ModEntities.GRONCKLE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ADragonBase::checkAnimalSpawnRules);

@@ -46,6 +46,10 @@ public class ModSpawnRegistration {
             for (String nightFuryEntry : ModConfigs.spawnConfig.nightFuryData.get()) {
                 ModSpawnRegistration.addToCacheOrSkip(ModEntities.NIGHT_FURY.get(), nightFuryEntry);
             }
+            // Skrill
+            for (String skrillEntry : ModConfigs.spawnConfig.nightFuryData.get()) {
+                ModSpawnRegistration.addToCacheOrSkip(ModEntities.SKRILL.get(), skrillEntry);
+            }
             // Nightmare
             for (String nightmareEntry : ModConfigs.spawnConfig.nightmareData.get()) {
                 ModSpawnRegistration.addToCacheOrSkip(ModEntities.MONSTROUS_NIGHTMARE.get(), nightmareEntry);
@@ -55,9 +59,9 @@ public class ModSpawnRegistration {
                 ModSpawnRegistration.addToCacheOrSkip(ModEntities.TRIPLE_STRYKE.get(), tripleStrykeEntry);
             }
             // Skrill
-//            for (String skrillEntry : ModConfigs.spawnConfig.skrillData.get()) {
-//                ModSpawnRegistration.addToCacheOrSkip(ModEntities.SKRILL.get(), skrillEntry);
-//            }
+            for (String skrillEntry : ModConfigs.spawnConfig.skrillData.get()) {
+                ModSpawnRegistration.addToCacheOrSkip(ModEntities.SKRILL.get(), skrillEntry);
+            }
         }
 
         // After dragonEntries has been populated we add the Dragons to the Biomes

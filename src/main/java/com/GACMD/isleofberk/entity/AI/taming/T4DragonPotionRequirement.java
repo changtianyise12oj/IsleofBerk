@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
 import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmare;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
+import com.GACMD.isleofberk.entity.dragons.skrill.Skrill;
 import com.GACMD.isleofberk.entity.dragons.zippleback.ZippleBack;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
@@ -59,6 +60,9 @@ public class T4DragonPotionRequirement extends ADragonTamingGoalBase {
             return false;
         }
         if (dragon instanceof ZippleBack && player.hasEffect(MobEffects.DAMAGE_BOOST)) {
+            return false;
+        }
+        if (dragon instanceof Skrill && player.hasEffect(MobEffects.HEALTH_BOOST)) {
             return false;
         }
 

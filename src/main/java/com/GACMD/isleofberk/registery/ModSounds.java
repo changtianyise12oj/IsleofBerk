@@ -63,6 +63,14 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> MONSTROUS_NIGHTMARE_FIRE         = registerSoundEvent("entity.monstrous_nightmare.fire");
     public static final RegistryObject<SoundEvent> MONSTROUS_NIGHTMARE_BITE         = registerSoundEvent("entity.monstrous_nightmare.bite");
 
+    public static final RegistryObject<SoundEvent> SKRILL_GROWL                     = registerSoundEvent("entity.skrill.growl");
+    public static final RegistryObject<SoundEvent> SKRILL_HURT                      = registerSoundEvent("entity.skrill.hurt");
+    public static final RegistryObject<SoundEvent> SKRILL_DEATH                     = registerSoundEvent("entity.skrill.death");
+    public static final RegistryObject<SoundEvent> SKRILL_TAME                      = registerSoundEvent("entity.skrill.tame");
+    public static final RegistryObject<SoundEvent> SKRILL_SLEEP                     = registerSoundEvent("entity.skrill.sleep");
+    public static final RegistryObject<SoundEvent> SKRILL_FIRE                      = registerSoundEvent("entity.skrill.fire");
+    public static final RegistryObject<SoundEvent> SKRILL_BITE                      = registerSoundEvent("entity.skrill.bite");
+
     public static final RegistryObject<SoundEvent> HIDEOUS_ZIPPLEBACK_GROWL         = registerSoundEvent("entity.zippleback.growl");
     public static final RegistryObject<SoundEvent> HIDEOUS_ZIPPLEBACK_HURT          = registerSoundEvent("entity.zippleback.hurt");
     public static final RegistryObject<SoundEvent> HIDEOUS_ZIPPLEBACK_DEATH         = registerSoundEvent("entity.zippleback.death");

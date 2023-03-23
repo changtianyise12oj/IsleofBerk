@@ -20,7 +20,7 @@ public class DragonHatchTimeConfig
     public ConfigHelper.ConfigValueListener<Integer> stinger;
     public ConfigHelper.ConfigValueListener<Integer> zippleback;
     public ConfigHelper.ConfigValueListener<Integer> nightmare;
-//    public ConfigValueListener<Integer> skrillData;
+    public ConfigHelper.ConfigValueListener<Integer> skrill;
 
     public DragonHatchTimeConfig(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber)
     {
@@ -88,6 +88,11 @@ public class DragonHatchTimeConfig
         nightmare = subscriber.subscribe(builder
                 .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
                 .defineInRange("nightmare_time", 72000, 1, 1728000));
+        builder.pop();
+        builder.push("Skrill");
+        skrill = subscriber.subscribe(builder
+                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
+                .defineInRange("skrill_time", 48000, 1, 1728000));
         builder.pop();
     }
 }
