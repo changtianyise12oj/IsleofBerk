@@ -428,10 +428,6 @@ public class ADragonBaseFlyingRideable extends ADragonRideableUtility implements
         if (getTicksFlyWandering() > -10) {
             setTicksFlyWandering(getTicksFlyWandering() - 1);
         }
-
-        if (this.getY() > 500) {
-            this.setDeltaMovement(0, -1, 0);
-        }
     }
 
     protected void onGroundMechanics() {
