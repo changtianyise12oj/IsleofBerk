@@ -31,6 +31,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -507,19 +508,10 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
     @Override
     protected void dropEquipment() {
-        super.dropEquipment();
-        if (this.hasChest()) {
-            if (!this.level.isClientSide) {
-                this.spawnAtLocation(Blocks.CHEST);
-            }
-
-            this.setChest(false);
-        }
-
         if (this.dragonContainer != null) {
-            for (int i = 0; i < this.dragonContainer.getContainerSize(); ++i) {
+            for(int i = 0; i < this.dragonContainer.getContainerSize(); ++i) {
                 ItemStack itemstack = this.dragonContainer.getItem(i);
-                if (!itemstack.isEmpty()) {
+                if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
                     this.spawnAtLocation(itemstack);
                 }
             }
