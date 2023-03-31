@@ -11,8 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Optional;
-
 public class DragonContainerMenu extends AbstractContainerMenu {
     public ADragonRideableUtility dragon;
     public Container dragonContainer;
@@ -22,39 +20,36 @@ public class DragonContainerMenu extends AbstractContainerMenu {
         this.dragon = (ADragonRideableUtility) playerInv.player.level.getEntity(entityID);
         this.dragonContainer = dragon.dragonContainer;
         this.dragon.setIsRenderedOnGUI(true);
-        int i = 3;
         dragonContainer.startOpen(playerInv.player);
-        int j = -18;
+
+        /*
+         * We add all the Slot's to the Container
+         * First Slot is Saddle Slot
+         * Second is Chest Slot
+         * After that we Add the 15 "Chest Contents" Slot's
+         * Followed by the 27 Player inventory Slot's
+         * And lastly the 9 Hot Bar Slot's
+         */
+        // Saddle Slot
         this.addSlot(new Slot(dragonContainer, 0, 8, 18) {
-            /**
-             * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
-             */
+            @Override
             public boolean mayPlace(@NotNull ItemStack itemStack) {
                 return itemStack.is(Items.SADDLE) && !this.hasItem() && dragon.isSaddleable();
             }
 
-            /**
-             * Actualy only call when we want to render the white square effect over the slots. Return always True, except
-             * for the armor slot of the Donkey/Mule (we can't interact with the Undead and Skeleton dragons)
-             */
+            @Override
             public boolean isActive() {
                 return dragon.isSaddleable();
             }
 
-            // don't remove saddle when dragon is chested
             @Override
-            public @NotNull Optional<ItemStack> tryRemove(int pCount, int pDecrement, @NotNull Player pPlayer) {
-                if (!dragon.hasChest()) {
-                    return super.tryRemove(pCount, pDecrement, pPlayer);
-                } else {
-                    return Optional.empty();
-                }
+            public boolean mayPickup(Player pPlayer) {
+                return !dragon.hasChest();
             }
         });
+        // Chest Slot
         this.addSlot(new Slot(dragonContainer, 1, 8, 36) {
-            /**
-             * Check if the stack is allowed to be placed in this slot, used for armor slots as well as furnace fuel.
-             */
+            @Override
             public boolean mayPlace(@NotNull ItemStack itemStack) {
                 if (dragon.isSaddleable()) {
                     if (!dragon.isSaddled()) {
@@ -64,17 +59,13 @@ public class DragonContainerMenu extends AbstractContainerMenu {
                 return itemStack.is(Items.CHEST) && dragon.isChestable();
             }
 
-            /**
-             * Returns the maximum stack size for a given slot (usually the same as getInventoryStackLimit(), but 1 in the
-             * case of armor slots)
-             */
+            @Override
             public int getMaxStackSize() {
                 return 1;
             }
 
             @Override
             public boolean isActive() {
-
                 return dragon.isChestable();
             }
 
@@ -85,67 +76,73 @@ public class DragonContainerMenu extends AbstractContainerMenu {
                     ItemStack itemstack = dragonContainer.getItem(i);
                     if (!itemstack.isEmpty()) items++;
                 }
-                System.out.println("Found Items: " + items);
-
                 return items == 0;
             }
 
         });
-        if (dragon.hasChest()) {
-            for (int k = 0; k < 3; ++k) {
-                for (int l = 0; l < dragon.getInventoryColumns(); ++l) {
-                    this.addSlot(new Slot(dragonContainer, 2 + l + k * dragon.getInventoryColumns(), 80 + l * 18, 18 + k * 18));
-                }
+        // "Chest Contents" Slot's
+        for (int y = 0; y < 3; ++y) {
+            for (int x = 0; x < dragon.getInventoryColumns(); ++x) {
+                this.addSlot(new Slot(dragonContainer, 2 + x + y * dragon.getInventoryColumns(), 80 + x * 18, 18 + y * 18)
+                {
+                    @Override
+                    public boolean isActive() {
+                        return dragon.hasChest();
+                    }
+
+                    @Override
+                    public boolean mayPlace(ItemStack stack) {
+                        return this.isActive();
+                    }
+                });
             }
         }
 
+        // Player Inventory Slot's
         for (int i1 = 0; i1 < 3; ++i1) {
             for (int k1 = 0; k1 < 9; ++k1) {
                 this.addSlot(new Slot(playerInv, k1 + i1 * 9 + 9, 8 + k1 * 18, 102 + i1 * 18 + -18));
             }
         }
-
+        // Player Hot Bar Slot's
         for (int j1 = 0; j1 < 9; ++j1) {
             this.addSlot(new Slot(playerInv, j1, 8 + j1 * 18, 142));
         }
-
     }
 
-    /**
-     * Determines whether supplied player can use this dragonContainer
-     */
+    @Override
     public boolean stillValid(@NotNull Player pPlayer) {
         return !this.dragon.hasInventoryChanged(this.dragonContainer) && this.dragon.isAlive() && this.dragon.distanceTo(pPlayer) < 8.0F;
     }
 
-    private boolean hasChest(ADragonRideableUtility p_150578_) {
-        return p_150578_ != null && ((ADragonRideableUtility) p_150578_).hasChest();
-    }
-
-    /**
-     * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
-     * inventory and the other inventory(s).
-     */
+    @Override
     public @NotNull ItemStack quickMoveStack(@NotNull Player pPlayer, int pIndex) {
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(pIndex);
-        if (slot.hasItem() && dragon.hasChest()) {
+        if (slot.hasItem()) {
             ItemStack itemstack1 = slot.getItem();
             itemstack = itemstack1.copy();
             int i = this.dragonContainer.getContainerSize();
+            // Moving Items out of the Dragon Inventory
             if (pIndex < i) {
                 if (!this.moveItemStackTo(itemstack1, i, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.getSlot(1).mayPlace(itemstack1) && !this.getSlot(1).hasItem()) {
+            }
+            // Called For Moving Chest Into Chest Slot
+            else if (this.getSlot(1).mayPlace(itemstack1) && !this.getSlot(1).hasItem()) {
                 if (!this.moveItemStackTo(itemstack1, 1, 2, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (this.getSlot(0).mayPlace(itemstack1)) {
+            }
+            // Called For Moving Saddle Into Saddle Slot
+            else if (this.getSlot(0).mayPlace(itemstack1)) {
                 if (!this.moveItemStackTo(itemstack1, 0, 1, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (i <= 2 || !this.moveItemStackTo(itemstack1, 2, i, false)) {
+            }
+            // Called For Moving Items into the Container
+            else if (i <= 2 || !this.moveItemStackTo(itemstack1, 2, i, false)) {
                 int j = i + 27;
                 int k = j + 9;
                 if (pIndex >= j && pIndex < k) {
@@ -159,7 +156,6 @@ public class DragonContainerMenu extends AbstractContainerMenu {
                 } else if (!this.moveItemStackTo(itemstack1, j, j, false)) {
                     return ItemStack.EMPTY;
                 }
-
                 return ItemStack.EMPTY;
             }
 
@@ -169,7 +165,6 @@ public class DragonContainerMenu extends AbstractContainerMenu {
                 slot.setChanged();
             }
         }
-
         return itemstack;
     }
 
