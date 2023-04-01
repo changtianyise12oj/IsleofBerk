@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
 import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmare;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
+import com.GACMD.isleofberk.entity.dragons.skrill.Skrill;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
 import com.GACMD.isleofberk.entity.dragons.stinger.Stinger;
@@ -37,6 +38,7 @@ public class CommonModEvent {
         event.put(ModEntities.SPEED_STINGER_LEADER.get(), SpeedStingerLeader.createAttributes().build());
         event.put(ModEntities.SPEED_STINGER.get(), SpeedStinger.createAttributes().build());
         event.put(ModEntities.STINGER.get(), Stinger.createAttributes().build());
+        event.put(ModEntities.SKRILL.get(), Skrill.createAttributes().build());
 
         /**
          * Eggs
@@ -51,7 +53,6 @@ public class CommonModEvent {
         event.put(ModEntities.TERRIBLE_TERROR_EGG.get(), SpeedStingerEgg.createAttributes().build());
         event.put(ModEntities.SPEED_STINGER_EGG.get(), SpeedStingerEgg.createAttributes().build());
         event.put(ModEntities.STINGER_EGG.get(), SpeedStingerEgg.createAttributes().build());
-
+        event.put(ModEntities.SKRILL_EGG.get(), SkrillEgg.createAttributes().build());
     }
-
 }
