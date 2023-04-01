@@ -101,14 +101,9 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected static final EntityDataAccessor<Integer> TICKS_SINCE_LAST_ATTACK = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> TICKS_SINCE_LAST_ROAR = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
 
-    protected int transitionTicks = getTransitionTicks();
-
     // check boolean in config, return 4 or 0 depending on result
-    private int getTransitionTicks() {
-        if (ModConfigs.mainConfig.transitionToggle.get()) {
-            return 0;
-        }
-        return 4;
+    protected int getTransitionTicks() {
+        return ModConfigs.mainConfig.transitionToggle.get() ? 0 : 4;
     }
 
     public static final Predicate<LivingEntity> PREY_SELECTOR = (p_30437_) -> {

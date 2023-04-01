@@ -16,7 +16,7 @@ public class ModConfigs
     public static void registerConfigs() {
         spawnConfig = ConfigHelper.register(ModConfig.Type.COMMON, DragonSpawnConfig::new, createConfigName("spawns"));
         hatchTimeConfig = ConfigHelper.register(ModConfig.Type.COMMON, DragonHatchTimeConfig::new, createConfigName("hatch-times"));
-        mainConfig = ConfigHelper.register(ModConfig.Type.COMMON, IoBMainConfig::new, createConfigName("main"));
+        mainConfig = ConfigHelper.register(ModConfig.Type.CLIENT, IoBMainConfig::new, createConfigName("main"));
     }
 
     /**

@@ -182,7 +182,7 @@ public class SpeedStinger extends ADragonRideableUtility {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<SpeedStinger>(this, "speed_stinger_controller", transitionTicks, this::basicMovementController));
+        data.addAnimationController(new AnimationController<SpeedStinger>(this, "speed_stinger_controller", getTransitionTicks(), this::basicMovementController));
         data.addAnimationController(new AnimationController<SpeedStinger>(this, "speed_stinger_controller_attacks", 0, this::attackController));
     }
 

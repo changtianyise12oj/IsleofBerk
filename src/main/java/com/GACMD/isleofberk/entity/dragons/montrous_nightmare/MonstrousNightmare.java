@@ -174,7 +174,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<MonstrousNightmare>(this, "basic_MovementController", transitionTicks, this::basicMovementController));
+        data.addAnimationController(new AnimationController<MonstrousNightmare>(this, "basic_MovementController", getTransitionTicks(), this::basicMovementController));
         data.addAnimationController(new AnimationController<MonstrousNightmare>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<MonstrousNightmare>(this, "turn_Controller", 35, this::turnController));
     }

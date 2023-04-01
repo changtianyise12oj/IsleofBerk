@@ -212,7 +212,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<TerribleTerror>(this, "terrible_terror_controller", transitionTicks, this::predicate));
+        data.addAnimationController(new AnimationController<TerribleTerror>(this, "terrible_terror_controller", getTransitionTicks(), this::predicate));
         data.addAnimationController(new AnimationController<TerribleTerror>(this, "attack_Controller", 0, this::attackController));
     }
 
