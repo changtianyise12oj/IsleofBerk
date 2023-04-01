@@ -233,7 +233,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_146746_, DifficultyInstance p_146747_, MobSpawnType p_146748_, @Nullable SpawnGroupData p_146749_, @Nullable CompoundTag p_146750_) {
-//        System.out.println("Dragon spawned here: " + this.position() + "" + this.getClass());
         return super.finalizeSpawn(p_146746_, p_146747_, p_146748_, p_146749_, p_146750_);
     }
 
@@ -892,8 +891,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
                 this.modifyPhase1Progress(-1);
             }
         }
-        if (!isDragonIncapacitated() && random.nextInt(150) == 1 && getHealth() < getMaxHealth()) {
-            this.heal(5);
+        if (!level.isClientSide() && getHealth() < getMaxHealth() && random.nextInt(150) == 1) {
+            if (!isDragonIncapacitated() || isTame()) {
+                this.heal(5);
+            }
         }
 
         if (getTarget() instanceof Player player) {
@@ -957,95 +958,20 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     protected void sleepMechanics() {
-        if (!level.isClientSide()) {
-            if (canSleep()) {
-                // speed stingers are nocturnal
-                if (!isNocturnal()) {
-                    if (!level.isDay()) {
-                        setIsDragonSleeping(true);
-                    } else {
-                        setIsDragonSleeping(false);
-                    }
-                } else {
-                    if (level.isDay()) {
-                        setIsDragonSleeping(true);
-                    } else {
-                        setIsDragonSleeping(false);
-                    }
-                }
+        if (!level.isClientSide() && this.isTame()) {
+            if (isDragonSitting()) {
+                setIsDragonSleeping(isNocturnal() ? level.isDay() : !level.isDay());
             } else {
                 setIsDragonSleeping(false);
             }
         }
     }
 
-    /**
-     * put the sleep AI here since tick is the only one kicking them to start
-     *
-     * @return
-     */
-    public boolean canSleep() {
-        LivingEntity lastHurt = this.getLastHurtByMob();
-        LivingEntity target = this.getTarget();
-        boolean canSleep = lastHurt == null && target == null;
-
-        if (!canSleep) {
-            return false;
-        }
-
-        if (getOwner() instanceof Mob mob) {
-            if (mob.getTarget() != null) {
-                return false;
-            } else {
-                return true;
-            }
-
-        }
-
-        // mounted check
-        if (this.isVehicle()) {
-            return false;
-        }
-        // is mounted check
-        if (this.getVehicle() != null) {
-            return false;
-        }
-
-        // only sleep when sitting or wandering
-        if (this.isDragonFollowing()) {
-            return false;
-        }
-
-        if (isDragonSitting() || isDragonWandering()) {
-            return true;
-        }
-
-        if (getVehicle() instanceof Player) {
-            return false;
-        }
-
-        return this.isDragonOnGround();
-    }
-
-//      unused
-//    public static boolean isDarkEnoughToSleep(Level pLevel, BlockPos pPos, Random pRandom) {
-//        return pLevel.getBrightness(LightLayer.BLOCK, pPos) > 0 || pLevel.getBrightness(LightLayer.SKY, pPos) > pRandom.nextInt(32);
-//    }
-
-
     @Override
     public void setYRot(float pYRot) {
         if (!shouldStopMovingIndependently())
             super.setYRot(pYRot);
     }
-
-//      unused
-//    public void ItemOnMouth(ItemStack newItemOnMouth) {
-//        ItemStack stack = this.getItemBySlot(EquipmentSlot.MAINHAND);
-//        if (stack.isEmpty()) {
-//            this.setItemSlot(EquipmentSlot.MAINHAND, newItemOnMouth);
-//        }
-//    }
 
     public boolean canWearArmor() {
         return true;
@@ -1062,17 +988,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         return throatPos;
 
     }
-
-/*    public Vec3 getTailPos(ADragonBase entity) {
-        Vec3 bodyOrigin = position();
-
-        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 2.4;
-        double y = 1.5;
-        double z = Math.cos(this.getYRot() * Math.PI / 180) * 2.4;
-        Vec3 throatPos = bodyOrigin.add(new Vec3(x, y, z));
-        return throatPos;
-
-    } */
 
     private net.minecraftforge.common.util.LazyOptional<?> itemHandler = null;
 
