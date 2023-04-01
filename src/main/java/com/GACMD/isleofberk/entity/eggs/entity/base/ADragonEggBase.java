@@ -213,7 +213,8 @@ public class ADragonEggBase extends AgeableMob implements IAnimatable {
         if (pPlayer.isCreative()) {
             if (stack.is(Items.STICK)) {
                 setCanHatch(!canHatch());
-                pPlayer.displayClientMessage(new TextComponent("canHatch: " + Boolean.toString(canHatch())), false);
+                if(!level.isClientSide())
+                    pPlayer.displayClientMessage(new TextComponent("canHatch: " + canHatch()), false);
             } else {
                 hatch();
             }
