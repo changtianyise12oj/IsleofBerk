@@ -371,11 +371,13 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             ItemStack stack = this.getItemBySlot(EquipmentSlot.MAINHAND);
             if (stack.isEmpty()) {
                 this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(item));
+                itemstack.shrink(1);
             }
             if (!isTame()) {
                 if (isItemStackForTaming(itemstack) && random.nextInt(8) == 1) {
                     this.tameWithName(pPlayer);
                     this.level.broadcastEntityEvent(this, (byte) 7);
+                    itemstack.shrink(1);
                 } else {
                     this.level.broadcastEntityEvent(this, (byte) 6);
                 }
@@ -725,6 +727,14 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     private boolean canEat(ItemStack pItemStack) {
         return pItemStack.getItem().isEdible() && this.getTarget() == null && this.onGround && !this.isSleeping();
+    }
+
+    @Override
+    protected void dropEquipment() {
+        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
+        if (!itemstack.isEmpty() && !EnchantmentHelper.hasVanishingCurse(itemstack)) {
+            this.spawnAtLocation(itemstack);
+        }
     }
 
     @Override
