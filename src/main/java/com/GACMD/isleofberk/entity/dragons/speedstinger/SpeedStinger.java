@@ -797,6 +797,22 @@ public class SpeedStinger extends ADragonRideableUtility {
             super(pMob, pSpeedModifier, pFollowingTargetEvenIfNotSeen);
             this.speedStingerEntity = (SpeedStinger) pMob;
         }
+
+        @Override
+        public boolean canUse()
+        {
+            if(this.speedStingerEntity.isDragonSitting())
+                return false;
+            return super.canUse();
+        }
+
+        @Override
+        public boolean canContinueToUse()
+        {
+            if(this.speedStingerEntity.isDragonSitting())
+                return false;
+            return super.canContinueToUse();
+        }
     }
 
     protected class SpeedStingerCustomLeapAttackGoal extends LeapAtTargetGoal {
@@ -815,7 +831,7 @@ public class SpeedStinger extends ADragonRideableUtility {
          */
         @Override
         public boolean canUse() {
-            if (this.speedStingerEntity.isVehicle()) {
+            if (this.speedStingerEntity.isVehicle() || this.speedStingerEntity.isDragonSitting()) {
                 return false;
             } else {
                 this.target = this.speedStingerEntity.getTarget();
@@ -849,6 +865,13 @@ public class SpeedStinger extends ADragonRideableUtility {
             }
 
             this.speedStingerEntity.setDeltaMovement(vec31.x, (double) this.yd, vec31.z);
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            if(this.speedStingerEntity.isDragonSitting())
+                return false;
+            return super.canContinueToUse();
         }
     }
 
