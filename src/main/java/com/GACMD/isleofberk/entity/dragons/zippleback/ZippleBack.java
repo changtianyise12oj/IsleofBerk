@@ -199,7 +199,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<ZippleBack>(this, "basic_MovementController", 4, this::basicMovementController));
+        data.addAnimationController(new AnimationController<ZippleBack>(this, "basic_MovementController", transitionTicks, this::basicMovementController));
         data.addAnimationController(new AnimationController<ZippleBack>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<ZippleBack>(this, "attack_Controller_Left", 0, this::attackControllerLeft));
         data.addAnimationController(new AnimationController<ZippleBack>(this, "turnController", 35, this::turnController));

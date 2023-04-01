@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.base.dragon;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
@@ -99,6 +100,16 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     protected static final EntityDataAccessor<Integer> CURRENT_ATTACK = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> TICKS_SINCE_LAST_ATTACK = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
     protected static final EntityDataAccessor<Integer> TICKS_SINCE_LAST_ROAR = SynchedEntityData.defineId(ADragonBase.class, EntityDataSerializers.INT);
+
+    protected int transitionTicks = getTransitionTicks();
+
+    // check boolean in config, return 4 or 0 depending on result
+    private int getTransitionTicks() {
+        if (ModConfigs.mainConfig.transitionToggle.get()) {
+            return 0;
+        }
+        return 4;
+    }
 
     public static final Predicate<LivingEntity> PREY_SELECTOR = (p_30437_) -> {
         EntityType<?> entitytype = p_30437_.getType();

@@ -16,6 +16,9 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 public class NightFuryModel extends BaseDragonModelFlying<NightFury> {
 
     @Override
+    protected float getAdultSize() { return 1.1f; }
+
+    @Override
     public ResourceLocation getModelLocation(NightFury entity) {
         return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/night_fury.geo.json");
 

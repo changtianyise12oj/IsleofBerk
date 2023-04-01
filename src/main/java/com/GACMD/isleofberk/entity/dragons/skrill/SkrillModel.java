@@ -9,6 +9,8 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 
 public class SkrillModel extends BaseDragonModelFlying<Skrill> {
 
+    @Override
+    protected float getAdultSize() { return 1.1f; }
 
     public SkrillModel(EntityRendererProvider.Context renderManager) {
 
@@ -16,7 +18,7 @@ public class SkrillModel extends BaseDragonModelFlying<Skrill> {
 
     @Override
     public ResourceLocation getModelLocation(Skrill entity) {
-        return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/stinger.geo.json");
+        return new ResourceLocation(IsleofBerk.MOD_ID, "geo/dragons/skrill.geo.json");
 
     }
 

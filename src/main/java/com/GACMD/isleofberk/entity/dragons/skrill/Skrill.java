@@ -63,15 +63,15 @@ public class Skrill extends ADragonBaseFlyingRideableProjUser {
                 // mounted flying
                 if (this.isVehicle()) {
                     if (this.getXRot() < 8 || isGoingUp() || getPassengers().size() > 2) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Fly", ILoopType.EDefaultLoopTypes.LOOP));
                         setShouldPlayFlapping(true);
                     }
                     if (this.getXRot() >= 8 && this.getXRot() < 33 && !isGoingUp()) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.glide", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Glide", ILoopType.EDefaultLoopTypes.LOOP));
                         setShouldPlayFlapping(false);
                     }
                     if (this.getXRot() >= 33 && !isGoingUp()) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.dive", ILoopType.EDefaultLoopTypes.LOOP));
                         setShouldPlayFlapping(false);
                     }
                     return PlayState.CONTINUE;
@@ -83,40 +83,36 @@ public class Skrill extends ADragonBaseFlyingRideableProjUser {
                     double ydist = this.getY() - owner.getY();
 
                     if (ydist < 10 || dist > 15) {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Fly", ILoopType.EDefaultLoopTypes.LOOP));
                     } else {
-                        event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.dive", ILoopType.EDefaultLoopTypes.LOOP));
+                        event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.dive", ILoopType.EDefaultLoopTypes.LOOP));
                     }
                 }
                 // free flying
                 else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.flap", ILoopType.EDefaultLoopTypes.LOOP));
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Flap", ILoopType.EDefaultLoopTypes.LOOP));
                     setShouldPlayFlapping(true);
                 }
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.hover", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Hover", ILoopType.EDefaultLoopTypes.LOOP));
                 setShouldPlayFlapping(true);
             }
 
             //ground animations
         } else {
             if (this.isDragonSitting() && !this.isDragonSleeping()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.sit", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Sit", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
             if (this.isDragonSleeping()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.sleep", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Sleep", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
             if (event.isMoving() && !shouldStopMovingIndependently()) {
-                if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
-                } else {
-                    event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.walk", ILoopType.EDefaultLoopTypes.LOOP));
-                }
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Walk", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             } else {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.idle", ILoopType.EDefaultLoopTypes.LOOP));
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Idle", ILoopType.EDefaultLoopTypes.LOOP));
             }
         }
         return PlayState.CONTINUE;
@@ -125,11 +121,11 @@ public class Skrill extends ADragonBaseFlyingRideableProjUser {
     //     Attack animations
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
         if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12 && getCurrentAttackType() == 0) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.bite", ILoopType.EDefaultLoopTypes.LOOP));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Bite", ILoopType.EDefaultLoopTypes.LOOP));
             return PlayState.CONTINUE;
         }
         if (isMarkFired()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.breath"));
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Breath"));
             return PlayState.CONTINUE;
         }
         return PlayState.STOP;
@@ -170,7 +166,7 @@ public class Skrill extends ADragonBaseFlyingRideableProjUser {
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<Skrill>(this, "basic_MovementController", 4, this::basicMovementController));
+        data.addAnimationController(new AnimationController<Skrill>(this, "basic_MovementController", transitionTicks, this::basicMovementController));
         data.addAnimationController(new AnimationController<Skrill>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<Skrill>(this, "turnController", 35, this::turnController));
     }
@@ -193,7 +189,7 @@ public class Skrill extends ADragonBaseFlyingRideableProjUser {
 
     @Override
     public int getMaxAmountOfVariants() {
-        return 5;
+        return 9;
     }
 
     public int getMaxAmountOfGlowVariants() {
@@ -432,16 +428,8 @@ public class Skrill extends ADragonBaseFlyingRideableProjUser {
         return true;
     }
 
-    protected double rider1XOffSet() {
-        return 0;
-    }
-
     protected double rider1YOffSet() {
-        return 1.1D;
-    }
-
-    protected double rider1ZOffSet() {
-        return 0;
+        return 0.6D;
     }
 
     protected double extraRidersXOffset() {
@@ -449,7 +437,7 @@ public class Skrill extends ADragonBaseFlyingRideableProjUser {
     }
 
     protected double extraRidersYOffset() {
-        return 1D;
+        return 0.6D;
     }
 
     protected double extraRidersZOffset() {

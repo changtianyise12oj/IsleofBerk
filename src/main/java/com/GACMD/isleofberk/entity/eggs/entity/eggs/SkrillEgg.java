@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.Blocks;
 import software.bernie.geckolib3.core.IAnimatable;
 
 public class SkrillEgg extends ADragonMediumEggBase implements IAnimatable {
-    public static final ResourceLocation TEXTURE = new ResourceLocation("isleofberk:textures/egg/skrill/skrill_egg.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation("isleofberk:textures/egg/skrill/egg_skrill.png");
     private final int hatchTime;
 
     public SkrillEgg(EntityType<? extends ADragonEggBase> pEntityType, Level pLevel) {

@@ -246,7 +246,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<TripleStryke>(this, "basic_MovementController", 4, this::basicMovementController));
+        data.addAnimationController(new AnimationController<TripleStryke>(this, "basic_MovementController", transitionTicks, this::basicMovementController));
         data.addAnimationController(new AnimationController<TripleStryke>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<TripleStryke>(this, "stingAttackController", 0, this::stingAttackController));
         data.addAnimationController(new AnimationController<TripleStryke>(this, "turn_Controller", 35, this::turnController));
@@ -757,20 +757,12 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         return true;
     }
 
-    protected double rider1XOffSet() {
-        return 0;
+    protected double rider1YOffSet() {
+        return 1.55D;
     }
 
-    protected double rider1ZOffSet() {
-        return 0;
-    }
-
-    protected double extraRidersXOffset() {
-        return 0.4D;
-    }
-
-    protected double extraRidersZOffset() {
-        return 1;
+    protected double extraRidersYOffset() {
+        return 1.8D;
     }
 
     /**

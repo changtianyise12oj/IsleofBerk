@@ -96,7 +96,7 @@ public class SpeedStingerLeader extends SpeedStinger {
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<SpeedStingerLeader>(this, "speed_stinger_leader_controller", 5, this::basicMovementController));
+        data.addAnimationController(new AnimationController<SpeedStingerLeader>(this, "speed_stinger_leader_controller", transitionTicks, this::basicMovementController));
         data.addAnimationController(new AnimationController<SpeedStingerLeader>(this, "speed_stinger_leader_controller_attacks", 5, this::attackController));
     }
 

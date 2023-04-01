@@ -14,6 +14,9 @@ import software.bernie.geckolib3.model.provider.data.EntityModelData;
 @OnlyIn(Dist.CLIENT)
 public class TripleStrykeModel extends BaseDragonModelFlying<TripleStryke> {
 
+    @Override
+    protected float getAdultSize() { return 1.3f; }
+
     public TripleStrykeModel(EntityRendererProvider.Context renderManager) {
         super();
     }

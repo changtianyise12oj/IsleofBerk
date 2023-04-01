@@ -187,7 +187,7 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     // Animation
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<DeadlyNadder>(this, "basic_MovementController", 4, this::basicMovementController));
+        data.addAnimationController(new AnimationController<DeadlyNadder>(this, "basic_MovementController", transitionTicks, this::basicMovementController));
         data.addAnimationController(new AnimationController<DeadlyNadder>(this, "attack_Controller", 0, this::attackController));
         data.addAnimationController(new AnimationController<DeadlyNadder>(this, "turnController", 35, this::turnController));
     }
