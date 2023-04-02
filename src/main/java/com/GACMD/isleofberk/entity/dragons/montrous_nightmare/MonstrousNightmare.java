@@ -290,6 +290,13 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
                         0.1525f * (random.nextFloat() - 0.5f),
                         0.1525f * (random.nextFloat() - 0.5f));
             }
+
+            if(this.tickCount % 10 == 0) {
+                level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4)).forEach(livingEntity -> {
+                    if(livingEntity.getEffect(MobEffects.FIRE_RESISTANCE) == null && !(livingEntity instanceof Player player && player.isCreative()))
+                        livingEntity.setSecondsOnFire(4);
+                });
+            }
         }
 
         if (hasDamageResist) {
@@ -368,9 +375,6 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public void positionRider(Entity pPassenger) {
-        if (isOnFireAbility() && (pPassenger instanceof LivingEntity livingEntity && livingEntity.getEffect(MobEffects.FIRE_RESISTANCE) == null)) {
-            pPassenger.setSecondsOnFire(4);
-        }
         super.positionRider(pPassenger);
     }
 
