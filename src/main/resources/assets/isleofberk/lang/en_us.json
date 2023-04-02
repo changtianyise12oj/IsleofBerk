@@ -32,6 +32,7 @@
     "item.isleofberk.speed_stinger_spawn_egg": "§dSpeed Stinger",
     "item.isleofberk.speed_stinger_leader_spawn_egg": "§dLead Speed Stinger",
     "item.isleofberk.stinger_spawn_egg": "§dStinger",
+    "item.isleofberk.skrill_spawn_egg": "§dSkrill",
 
     "entity.isleofberk.night_fury": "Night Fury",
     "entity.isleofberk.light_fury": "Light Fury",
@@ -44,6 +45,7 @@
     "entity.isleofberk.speed_stinger": "Speed Stinger",
     "entity.isleofberk.speed_stinger_leader": "Lead Speed Stinger",
     "entity.isleofberk.stinger": "Stinger",
+    "entity.isleofberk.skrill": "Skrill",
 
     "item.isleofberk.night_fury_egg": "§dNight Fury Egg",
     "item.isleofberk.light_fury_egg": "§dLight Fury Egg",
@@ -58,6 +60,7 @@
     "item.isleofberk.speed_stinger_egg_floutscout": "§dFloutscout Speed Stinger Egg",
     "item.isleofberk.speed_stinger_egg_ice_breaker": "§dIce Breaker Speed Stinger Egg",
     "item.isleofberk.speed_stinger_egg_sweet_sting": "§dSweet Sting Speed Stinger Egg",
+    "item.isleofberk.skrill_egg": "§dSkrill Egg",
 
     "block.isleofberk.belzium_ore": "Belzium Ore",
     "block.isleofberk.belzium_block": "Belzium Block",
@@ -91,7 +94,7 @@
 
     "iob.baby.owned": "You own this baby dragon",
     "iob.baby.not_owned": "You do not own this baby dragon",
-    "iob.only.owner.breed": "Only owner can feed suspicious stew to breed this dragon",
+    "iob.only.owner.breed": "Only owner can breed this dragon",
 
     "key.isleofberk.keyAbility": "Fire Ability",
     "key.isleofberk.keySpecialAbility": "Special Ability",
