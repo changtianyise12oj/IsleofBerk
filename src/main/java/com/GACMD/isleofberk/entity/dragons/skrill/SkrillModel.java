@@ -1,9 +1,7 @@
 package com.GACMD.isleofberk.entity.dragons.skrill;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
-import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -28,32 +26,19 @@ public class SkrillModel extends BaseDragonModelFlying<Skrill> {
 
     @Override
     public ResourceLocation getTextureLocation(Skrill entity) {
-        switch (entity.getDragonVariant()) {
-            default:
-            case 0:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/skrill/skrill.png");
-            case 1:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/skrill/skrill_black.png");
-            case 2:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/skrill/skrill_blue.png");
-            case 3:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/skrill/skrill_brown.png");
-            case 4:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/skrill/skrill_crimson.png");
-            case 5:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/skrill/skrill_cyan.png");
-            case 6:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/skrill/skrill_gold.png");
-            case 7:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/skrill/skrill_green.png");
-            case 8:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/skrill/skrill_red.png");
-            case 9:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/skrill/skrill_yellow.png");
-            case 10:
-                return new ResourceLocation(IsleofBerk.MOD_ID,"textures/dragons/skrill/skrill_albino.png");
-        }
-
+        return switch (entity.getDragonVariant()) {
+            default -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill.png");
+            case 1 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill_black.png");
+            case 2 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill_blue.png");
+            case 3 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill_brown.png");
+            case 4 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill_crimson.png");
+            case 5 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill_cyan.png");
+            case 6 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill_gold.png");
+            case 7 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill_green.png");
+            case 8 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill_red.png");
+            case 9 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill_yellow.png");
+            case 10 -> new ResourceLocation(IsleofBerk.MOD_ID, "textures/dragons/skrill/skrill_albino.png");
+        };
     }
 
     @Override

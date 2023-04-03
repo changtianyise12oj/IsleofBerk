@@ -22,6 +22,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -40,8 +41,8 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import static com.GACMD.isleofberk.registery.ModTags.Items.FURY_TAME_FOOD;
 import static com.GACMD.isleofberk.registery.ModTags.Items.FURY_BREED_FOOD;
+import static com.GACMD.isleofberk.registery.ModTags.Items.FURY_TAME_FOOD;
 
 public class NightFury extends ADragonBaseFlyingRideableProjUser {
 
@@ -191,6 +192,17 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
         }
         this.setGlowVariant(getMaxAmountOfGlowVariants());
         return pSpawnData;
+    }
+
+    @Override
+    public boolean canMate(Animal pOtherAnimal) {
+        if (pOtherAnimal == this) {
+            return false;
+        } else if (!(pOtherAnimal instanceof NightFury)) {
+            return false;
+        } else {
+            return this.isInLove() && pOtherAnimal.isInLove();
+        }
     }
 
     @Override

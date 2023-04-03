@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.base.dragon;
 
+import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
@@ -32,6 +33,7 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
@@ -1145,6 +1147,12 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public void spawnChildFromBreeding(ServerLevel serverLevel, Animal partner) {
         if (partner instanceof ADragonBase dragonPartner) {
             ADragonEggBase egg = this.getBreedEggResult(serverLevel, dragonPartner);
+
+            if(this.getType().getRegistryName() != null)
+                if((this.getType().getRegistryName().equals(new ResourceLocation(IsleofBerk.MOD_ID, "night_fury")) && partner.getType().getRegistryName().equals(new ResourceLocation(IsleofBerk.MOD_ID, "light_fury")) ||
+                   (this.getType().getRegistryName().equals(new ResourceLocation(IsleofBerk.MOD_ID, "light_fury")) && partner.getType().getRegistryName().equals(new ResourceLocation(IsleofBerk.MOD_ID, "night_fury")))))
+                    egg = ModEntities.SKRILL_EGG.get().create(serverLevel);
+
             final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(this, partner, egg);
             final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);
             if (cancelled) {
