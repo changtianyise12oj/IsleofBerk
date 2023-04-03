@@ -24,20 +24,10 @@ public class ModTags {
 
     public static class Biomes
     {
-        public static final TagKey<Biome> DEADLY_NADDER_BIOMES          = tag("spawn_locations/deadly_nadder_biomes");
-        public static final TagKey<Biome> GRONCKLE_BIOMES               = tag("spawn_locations/gronckle_biomes");
-        public static final TagKey<Biome> HIDEOUS_ZIPPLEBACK_BIOMES     = tag("spawn_locations/hideous_zippleback_biomes");
-        public static final TagKey<Biome> MONSTROUS_NIGHTMARE_BIOMES    = tag("spawn_locations/monstrous_nightmare_biomes");
-        public static final TagKey<Biome> TERRIBLE_TERROR_BIOMES        = tag("spawn_locations/terrible_terror_biomes");
         public static final TagKey<Biome> SPEED_STINGER_BIOMES          = tag("spawn_locations/speed_stinger_biomes");
         public static final TagKey<Biome> SWEET_STING_BIOMES            = tag("spawn_locations/sweet_sting_biomes");
         public static final TagKey<Biome> FLOUTSCOUT_BIOMES             = tag("spawn_locations/floutscout_biomes");
         public static final TagKey<Biome> ICE_BREAKER_BIOMES            = tag("spawn_locations/ice_breaker_biomes");
-        public static final TagKey<Biome> NIGHTFURY_BIOMES              = tag("spawn_locations/nightfury_biomes");
-        public static final TagKey<Biome> LIGHTFURY_BIOMES              = tag("spawn_locations/lightfury_biomes");
-        public static final TagKey<Biome> TRIPLE_STRYKE_BIOMES          = tag("spawn_locations/triple_stryke_biomes");
-        public static final TagKey<Biome> STINGER_BIOMES                = tag("spawn_locations/stinger_biomes");
-        public static final TagKey<Biome> SKRILL_BIOMES                 = tag("spawn_locations/skrill_biomes");
 
         // TODO do you need all these tags, now that spawning is config driven?
         // TODO some seem to be used but best I can tell there are no files for them?

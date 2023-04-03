@@ -211,12 +211,12 @@ public class LightFury extends NightFury {
 
     @Override
     protected double rider1YOffSet() {
-        return 1.1D;
+        return 1.0D;
     }
 
     @Override
     protected double extraRidersYOffset() {
-        return 1.1D;
+        return 1.0D;
     }
 
     @Override

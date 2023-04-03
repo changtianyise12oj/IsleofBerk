@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.entity.dragons.tryiple_stryke;
+package com.GACMD.isleofberk.entity.dragons.triple_stryke;
 
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;

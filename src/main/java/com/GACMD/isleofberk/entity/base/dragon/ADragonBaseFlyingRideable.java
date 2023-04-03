@@ -13,7 +13,7 @@ import com.GACMD.isleofberk.entity.AI.water.DragonFloatGoal;
 import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
-import com.GACMD.isleofberk.entity.dragons.tryiple_stryke.TripleStryke;
+import com.GACMD.isleofberk.entity.dragons.triple_stryke.TripleStryke;
 import com.GACMD.isleofberk.network.ControlNetwork;
 import com.GACMD.isleofberk.network.message.MessageDragonFlapSounds;
 import com.GACMD.isleofberk.registery.ModSounds;

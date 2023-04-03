@@ -1,9 +1,7 @@
 package com.GACMD.isleofberk.entity.dragons.montrous_nightmare;
 
 import com.GACMD.isleofberk.IsleofBerk;
-import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModel;
 import com.GACMD.isleofberk.entity.base.render.model.BaseDragonModelFlying;
-import com.GACMD.isleofberk.entity.dragons.tryiple_stryke.TripleStryke;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;

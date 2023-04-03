@@ -12,6 +12,7 @@ public class SkrillRenderer extends BaseRendererFlying<Skrill> {
 
     public SkrillRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new SkrillModel(renderManager));
+        this.addLayer(new SkrillSkillLayer<>(this));
     }
 
     @Override

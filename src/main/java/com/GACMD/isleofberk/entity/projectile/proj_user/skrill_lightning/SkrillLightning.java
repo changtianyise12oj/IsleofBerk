@@ -41,7 +41,7 @@ public class SkrillLightning extends BaseLinearBoltProjectile implements IAnimat
         super(type, level);
     }
 
-    public SkrillLightning(Skrill owner, Vec3 throat, Vec3 end, Level level, int strengthRadius) {
+    public SkrillLightning(ADragonBaseFlyingRideableProjUser owner, Vec3 throat, Vec3 end, Level level, int strengthRadius) {
         super(ModEntities.SKRILL_LIGHTNING.get(), owner, throat, end, level, strengthRadius);
     }
 
