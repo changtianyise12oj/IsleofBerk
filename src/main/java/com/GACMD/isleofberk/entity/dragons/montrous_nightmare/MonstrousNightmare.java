@@ -34,6 +34,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -386,7 +387,8 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
                 .add(Attributes.ARMOR_TOUGHNESS, 10)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
-                .add(Attributes.ATTACK_DAMAGE, 10F);
+                .add(Attributes.ATTACK_DAMAGE, 10F)
+                .add(ForgeMod.SWIM_SPEED.get(), 0.6F);
     }
 
     @Override
