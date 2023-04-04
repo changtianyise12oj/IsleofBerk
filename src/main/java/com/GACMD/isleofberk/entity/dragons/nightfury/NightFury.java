@@ -57,11 +57,9 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
      * @return
      */
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
-
         // flying animations
         if (isFlying()) {
-            if (event.isMoving()){
-
+            if (isDragonMoving()) {
                 // mounted flying
                 if (this.isVehicle()) {
                     if (this.getXRot() < 8 || isGoingUp() || getPassengers().size() > 2) {
@@ -110,7 +108,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.sleep", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (event.isMoving() && !shouldStopMovingIndependently()) {
+            if (isDragonMoving() && !shouldStopMovingIndependently()) {
                 if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("nightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
                 } else {
@@ -122,6 +120,10 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
             }
         }
         return PlayState.CONTINUE;
+    }
+
+    public boolean isDragonMoving() {
+        return this.getX() != xOld || this.getZ() != this.zOld;
     }
 
     //     Attack animations
