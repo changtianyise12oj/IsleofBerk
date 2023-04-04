@@ -18,7 +18,7 @@ import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStingerRender;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeaderRender;
 import com.GACMD.isleofberk.entity.dragons.stinger.StingerRender;
 import com.GACMD.isleofberk.entity.dragons.terrible_terror.TerribleTerrorRender;
-import com.GACMD.isleofberk.entity.dragons.tryiple_stryke.TripleStrykeRenderer;
+import com.GACMD.isleofberk.entity.dragons.triple_stryke.TripleStrykeRenderer;
 import com.GACMD.isleofberk.entity.dragons.zippleback.ZippleBackRenderer;
 import com.GACMD.isleofberk.entity.eggs.entity.base.large.ADragonLargeEggRenderer;
 import com.GACMD.isleofberk.entity.eggs.entity.base.medium.MediumEggRenderer;
