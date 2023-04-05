@@ -7,6 +7,9 @@ import com.GACMD.isleofberk.entity.eggs.entity.base.medium.ADragonMediumEggBase;
 import com.GACMD.isleofberk.items.DragonEggItem;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
+import com.GACMD.isleofberk.registery.ModParticles;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.ItemStack;
@@ -22,6 +25,15 @@ public class SkrillEgg extends ADragonMediumEggBase implements IAnimatable {
     public SkrillEgg(EntityType<? extends ADragonEggBase> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         this.hatchTime = ModConfigs.hatchTimeConfig.skrill.get();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        // Spawn Lightning Particle sometimes
+        if(level.isClientSide() && !this.isCold() && this.tickCount % 40 == 0 && random.nextInt(6) == 0) {
+            level.addParticle(ModParticles.SKRILL_SKILL_PARTICLES.get(), this.position().x() - 0.5F + random.nextFloat(), this.position().y() + 0.2 + random.nextFloat() * 0.6F, this.position().z() - 0.5F + random.nextFloat(), 0, 0, 0);
+        }
     }
 
     @Override
