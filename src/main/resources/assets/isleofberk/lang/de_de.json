@@ -22,6 +22,7 @@
 
     "item.isleofberk.nightfury_spawn_egg": "§dNachtschatten",
     "item.isleofberk.lightfury_spawn_egg": "§dTagschatten",
+    "item.isleofberk.nightlight_spawn_egg": "§dTag-Nacht",
     "item.isleofberk.triple_stryke_spawn_egg": "§dDreifachstachel",
     "item.isleofberk.deadly_nadder_spawn_egg": "§dtödlicher Nadder",
     "item.isleofberk.gronckle_spawn_egg": "§dGronckel",
@@ -34,6 +35,7 @@
 
     "entity.isleofberk.night_fury": "Nachtschatten",
     "entity.isleofberk.light_fury": "Tagschatten",
+    "entity.isleofberk.night_light": "Tag-Nacht",
     "entity.isleofberk.triple_stryke": "Dreifachstachel",
     "entity.isleofberk.deadly_nadder": "tödlicher Nadder",
     "entity.isleofberk.gronckle": "Gronckel",
@@ -46,6 +48,7 @@
 
     "item.isleofberk.night_fury_egg": "§dNachtschatten Ei",
     "item.isleofberk.light_fury_egg": "§dTagschatten Ei",
+    "item.isleofberk.night_light_egg": "§dTag-Nacht Ei",
     "item.isleofberk.triple_stryke_egg": "§dDreifachstachel Ei",
     "item.isleofberk.nadder_egg": "§dtödlicher Nadder Ei",
     "item.isleofberk.gronckle_egg": "§dGronckel Ei",

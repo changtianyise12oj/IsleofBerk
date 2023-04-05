@@ -22,6 +22,7 @@
 
     "item.isleofberk.nightfury_spawn_egg": "§dЯйцо призыва ночной фурии",
     "item.isleofberk.lightfury_spawn_egg": "§dЯйцо призыва дневной фурии",
+    "item.isleofberk.nightlight_spawn_egg": "§dЯйцо призыва Ночное Сияние",
     "item.isleofberk.triple_stryke_spawn_egg": "§dЯйцо призыва тройного удара",
     "item.isleofberk.deadly_nadder_spawn_egg": "§dЯйцо призыва злобного змеевика",
     "item.isleofberk.gronckle_spawn_egg": "§dЯйцо призыва громмеля",
@@ -31,9 +32,11 @@
     "item.isleofberk.speed_stinger_spawn_egg": "§dЯйцо призыва скорожала",
     "item.isleofberk.speed_stinger_leader_spawn_egg": "§Яйцо призыва вожака скорожалов",
     "item.isleofberk.stinger_spawn_egg": "§dЯйцо призыва жала",
+    "item.isleofberk.skrill_spawn_egg": "§dЯйцо призыва Скрилл",
 
     "entity.isleofberk.night_fury": "Ночная фурия",
     "entity.isleofberk.light_fury": "Дневная фурия",
+    "entity.isleofberk.night_light": "Ночное Сияние",
     "entity.isleofberk.triple_stryke": "Тройной удар",
     "entity.isleofberk.deadly_nadder": "Злобный змеевик",
     "entity.isleofberk.gronckle": "Громмель",
@@ -43,9 +46,11 @@
     "entity.isleofberk.speed_stinger": "Скорожал",
     "entity.isleofberk.speed_stinger_leader": "Вожак скорожалов",
     "entity.isleofberk.stinger": "Жало",
+    "entity.isleofberk.skrill": "Скрилл",
 
     "item.isleofberk.night_fury_egg": "§dЯйцо ночной фурии",
     "item.isleofberk.light_fury_egg": "§dЯйцо дневной фурии",
+    "item.isleofberk.night_light_egg": "§dЯйцо Ночное Сияние",
     "item.isleofberk.triple_stryke_egg": "§dЯйцо тройного удара",
     "item.isleofberk.nadder_egg": "§dЯйцо злобного змеевика",
     "item.isleofberk.gronckle_egg": "§dЯйцо громмеля",
@@ -57,6 +62,7 @@
     "item.isleofberk.speed_stinger_egg_floutscout": "§dЯйцо скорожала-проныры",
     "item.isleofberk.speed_stinger_egg_ice_breaker": "§dЯйцо скорожала-ледолома",
     "item.isleofberk.speed_stinger_egg_sweet_sting": "§dЯйцо скорожала-сладкожала",
+    "item.isleofberk.skrill egge": "§dЯйцо Скрилл",
 
     "block.isleofberk.belzium_ore": "Бельзиумовая руда",
     "block.isleofberk.belzium_block": "Бельзиумовый блок",

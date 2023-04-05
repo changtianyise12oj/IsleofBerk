@@ -22,6 +22,7 @@
 
     "item.isleofberk.nightfury_spawn_egg": "§dNocna Furia",
     "item.isleofberk.lightfury_spawn_egg": "§dBiała Furia",
+    "item.isleofberk.nightlight_spawn_egg": "§dNocny Blask",
     "item.isleofberk.triple_stryke_spawn_egg": "§dPotrójny Cios",
     "item.isleofberk.deadly_nadder_spawn_egg": "§dŚmiertnik Zębacz",
     "item.isleofberk.gronckle_spawn_egg": "§dGronkiel",
@@ -31,9 +32,11 @@
     "item.isleofberk.speed_stinger_spawn_egg": "§dSzybki Szpic",
     "item.isleofberk.speed_stinger_leader_spawn_egg": "§dLider Szybki Szpic",
     "item.isleofberk.stinger_spawn_egg": "§dStinger",
+    "item.isleofberk.skrill_spawn_egg": "§dWandersmok",
 
     "entity.isleofberk.night_fury": "Nocna Furia",
     "entity.isleofberk.light_fury": "Biała Furia",
+    "entity.isleofberk.night_light": "Nocny Blask",
     "entity.isleofberk.triple_stryke": "Potrójny Cios",
     "entity.isleofberk.deadly_nadder": "Śmiertnik Zębacz",
     "entity.isleofberk.gronckle": "Gronkiel",
@@ -43,9 +46,11 @@
     "entity.isleofberk.speed_stinger": "Szybki Szpic",
     "entity.isleofberk.speed_stinger_leader": "Lider Szybki Szpic",
     "entity.isleofberk.stinger": "Stinger",
+    "entity.isleofberk.skrill": "§dWandersmok",
 
     "item.isleofberk.night_fury_egg": "§dJajo Nocnej Furii",
     "item.isleofberk.light_fury_egg": "§dJajo Białej Furii",
+    "item.isleofberk.night_light_egg": "§dJajo Nocny Blask",
     "item.isleofberk.triple_stryke_egg": "§dJajo Potrójnego Ciosa",
     "item.isleofberk.nadder_egg": "§dJajo Śmiertnika Zębacza",
     "item.isleofberk.gronckle_egg": "§dJajo Gronkla",
@@ -57,6 +62,7 @@
     "item.isleofberk.speed_stinger_egg_floutscout": "§dJajo Zwiadowcy Szybkiego Szpica",
     "item.isleofberk.speed_stinger_egg_ice_breaker": "§dJajo Lodołamacza Szybkiego Szpica",
     "item.isleofberk.speed_stinger_egg_sweet_sting": "§dJajo Słodkiego Urządlenia Szybkiego Szpica",
+    "item.isleofberk.skrill_egg": "§dJajo Wandersmok",
 
     "block.isleofberk.belzium_ore": "Ruda Belzium",
     "block.isleofberk.belzium_block": "Blok Belzium",

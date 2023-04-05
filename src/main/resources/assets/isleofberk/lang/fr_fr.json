@@ -23,6 +23,7 @@
 
     "item.isleofberk.nightfury_spawn_egg": "§dFurie Nocturne",
     "item.isleofberk.lightfury_spawn_egg": "§dFurie Eclair",
+    "item.isleofberk.nightlight_spawn_egg": "§dEclair Nocturne",
     "item.isleofberk.triple_stryke_spawn_egg": "§dTriplattak",
     "item.isleofberk.deadly_nadder_spawn_egg": "§dDragon Vipère",
     "item.isleofberk.gronckle_spawn_egg": "§dGronk",
@@ -35,6 +36,7 @@
 
     "entity.isleofberk.night_fury": "Furie Nocturne",
     "entity.isleofberk.light_fury": "Furie Eclair",
+    "entity.isleofberk.night_light": "Eclair Nocturne",
     "entity.isleofberk.triple_stryke": "Triplattak",
     "entity.isleofberk.deadly_nadder": "Dragon Vipère",
     "entity.isleofberk.gronckle": "Gronk",
@@ -47,6 +49,7 @@
 
     "item.isleofberk.night_fury_egg": "§dOeuf De Furie Nocturne",
     "item.isleofberk.light_fury_egg": "§dOeuf De Furie Eclair",
+    "item.isleofberk.night_light_egg": "§dOeuf D'Eclair Nocturne",
     "item.isleofberk.triple_stryke_egg": "§dOeuf De Triplattak",
     "item.isleofberk.nadder_egg": "§dOeuf De Dragon Vipère",
     "item.isleofberk.gronckle_egg": "§dOeuf De Gronk",

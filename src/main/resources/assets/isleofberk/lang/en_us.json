@@ -23,6 +23,7 @@
 
     "item.isleofberk.nightfury_spawn_egg": "§dNight Fury",
     "item.isleofberk.lightfury_spawn_egg": "§dLight Fury",
+    "item.isleofberk.nightlight_spawn_egg": "§dNight Light",
     "item.isleofberk.triple_stryke_spawn_egg": "§dTriple Stryke",
     "item.isleofberk.deadly_nadder_spawn_egg": "§dDeadly Nadder",
     "item.isleofberk.gronckle_spawn_egg": "§dGronckle",
@@ -36,6 +37,7 @@
 
     "entity.isleofberk.night_fury": "Night Fury",
     "entity.isleofberk.light_fury": "Light Fury",
+    "entity.isleofberk.night_light": "Nightlight",
     "entity.isleofberk.triple_stryke": "Triple Stryke",
     "entity.isleofberk.deadly_nadder": "Deadly Nadder",
     "entity.isleofberk.gronckle": "Gronckle",
@@ -49,6 +51,7 @@
 
     "item.isleofberk.night_fury_egg": "§dNight Fury Egg",
     "item.isleofberk.light_fury_egg": "§dLight Fury Egg",
+    "item.isleofberk.night_light_egg": "§dNight Light Egg",
     "item.isleofberk.triple_stryke_egg": "§dTriple Stryke Egg",
     "item.isleofberk.nadder_egg": "§dDeadly Nadder Egg",
     "item.isleofberk.gronckle_egg": "§dGronckle Egg",
