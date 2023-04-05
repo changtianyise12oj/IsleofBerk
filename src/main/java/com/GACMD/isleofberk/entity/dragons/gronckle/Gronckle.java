@@ -85,7 +85,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
         // flying animations
         if (isFlying()) {
-            if (event.isMoving()){
+            if (isDragonMoving()){
 
                 // mounted flying
                 if (this.isVehicle()) {
@@ -135,7 +135,7 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Sleep", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (event.isMoving() && !shouldStopMovingIndependently()) {
+            if (isDragonMoving() && !shouldStopMovingIndependently()) {
                 if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("Gronckle.Run", ILoopType.EDefaultLoopTypes.LOOP));
                 } else {

@@ -98,6 +98,8 @@ public final class ModItems {
 
     public static final RegistryObject<DragonSpawnEggItem> NIGHT_FURY_SPAWN_EGG = ITEMS.register("nightfury_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.NIGHT_FURY, 0xffffff, 0xffffff,"nightfury_spawn_egg_info",  new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
     public static final RegistryObject<DragonSpawnEggItem> LIGHT_FURY_SPAWN_EGG = ITEMS.register("lightfury_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.LIGHT_FURY, 0xffffff, 0xffffff,"lightfury_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
+
+    public static final RegistryObject<DragonSpawnEggItem> NIGHT_LIGHT_SPAWN_EGG = ITEMS.register("nightlight_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.NIGHT_LIGHT, 0xffffff, 0xffffff,"nightlight_spawn_egg_info",  new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
     public static final RegistryObject<DragonSpawnEggItem> TRIPLE_STRYKE_SPAWN_EGG = ITEMS.register("triple_stryke_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.TRIPLE_STRYKE, 0xffffff, 0xffffff,"triple_stryke_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
     public static final RegistryObject<DragonSpawnEggItem> DEADLY_NADDER_SPAWN_EGG = ITEMS.register("deadly_nadder_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.DEADLY_NADDER, 0xffffff, 0xffffff, "nadder_spawn_egg_info",new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
     public static final RegistryObject<DragonSpawnEggItem> GRONCKLE_SPAWN_EGG = ITEMS.register("gronckle_spawn_egg", () -> new DragonSpawnEggItem(ModEntities.GRONCKLE, 0xffffff, 0xffffff,"gronckle_spawn_egg_info", new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(64)));
@@ -123,6 +125,8 @@ public final class ModItems {
     // Medium
     public static final RegistryObject<DragonEggItem> NADDER_EGG = ITEMS.register("nadder_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.NADDER_EGG));
     public static final RegistryObject<DragonEggItem> NIGHT_FURY_EGG = ITEMS.register("night_fury_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.NIGHT_FURY_EGG));
+
+    public static final RegistryObject<DragonEggItem> NIGHT_LIGHT_EGG = ITEMS.register("night_light_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.NIGHT_LIGHT_EGG));
     public static final RegistryObject<DragonEggItem> LIGHT_FURY_EGG = ITEMS.register("light_fury_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.LIGHT_FURY_EGG));
     public static final RegistryObject<DragonEggItem> GRONCKLE_EGG = ITEMS.register("gronckle_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.GRONCKLE_EGG));
     public static final RegistryObject<DragonEggItem> TRIPLE_STRYKE_EGG = ITEMS.register("triple_stryke_egg", () -> new DragonEggItem(new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(4), ModEntities.TRIPLE_STRYKE_EGG));

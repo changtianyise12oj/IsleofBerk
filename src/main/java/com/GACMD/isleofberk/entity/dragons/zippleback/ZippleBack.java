@@ -52,7 +52,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
         // flying animations
         if (isFlying()) {
-            if (event.isMoving()){
+            if (isDragonMoving()){
 
                 // mounted flying
                 if (this.isVehicle()) {
@@ -102,7 +102,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.sleep", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (event.isMoving() && !shouldStopMovingIndependently()) {
+            if (isDragonMoving() && !shouldStopMovingIndependently()) {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.walk", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             } else {
@@ -144,7 +144,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         int turnState = this.getRotationState();
         if (turnState != 0 && getControllingPassenger() instanceof Player) {
             if (isFlying()) {
-                boolean diving = getXRot() >= 32 && event.isMoving();
+                boolean diving = getXRot() >= 32 && isDragonMoving();
                 if (isGoingUp() || diving) {
                     event.getController().setAnimationSpeed(4);
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("zippleback.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));

@@ -122,10 +122,6 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
         return PlayState.CONTINUE;
     }
 
-    public boolean isDragonMoving() {
-        return this.getX() != xOld || this.getZ() != this.zOld;
-    }
-
     //     Attack animations
     private <E extends IAnimatable> PlayState attackController(AnimationEvent<E> event) {
         if (getTicksSinceLastAttack() >= 0 && getTicksSinceLastAttack() < 12 && getCurrentAttackType() == 0) {

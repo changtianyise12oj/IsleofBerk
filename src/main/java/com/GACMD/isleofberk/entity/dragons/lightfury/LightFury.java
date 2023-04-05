@@ -51,7 +51,7 @@ public class LightFury extends NightFury {
 
         // flying animations
         if (isFlying()) {
-            if (event.isMoving()){
+            if (isDragonMoving()){
 
                 // mounted flying
                 if (this.isVehicle()) {
@@ -101,7 +101,7 @@ public class LightFury extends NightFury {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.sleep", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (event.isMoving() && !shouldStopMovingIndependently()) {
+            if (isDragonMoving() && !shouldStopMovingIndependently()) {
                 if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("lightfury.run", ILoopType.EDefaultLoopTypes.LOOP));
                 } else {

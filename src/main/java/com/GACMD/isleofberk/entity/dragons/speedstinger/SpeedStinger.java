@@ -119,7 +119,7 @@ public class SpeedStinger extends ADragonRideableUtility {
     protected int jumpTicks = 0;
 
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
-        if (event.isMoving() && !shouldStopMovingIndependently()) {
+        if (isDragonMoving() && !shouldStopMovingIndependently()) {
             if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerRun", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
@@ -159,7 +159,7 @@ public class SpeedStinger extends ADragonRideableUtility {
 
         LivingEntity target = getTarget();
         if (target != null) {
-            if (!isSSOnGround() && event.isMoving() && !target.isDeadOrDying()) {
+            if (!isSSOnGround() && isDragonMoving() && !target.isDeadOrDying()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerPounce", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }

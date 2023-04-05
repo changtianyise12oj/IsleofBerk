@@ -123,7 +123,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         super(animal, world);
         this.maxUpStep = 1;
     }
-
     @Override
     public boolean isInvulnerableTo(@NotNull DamageSource pSource) {
         if (pSource == DamageSource.IN_FIRE || pSource == DamageSource.ON_FIRE || pSource == DamageSource.FALL || pSource == DamageSource.LAVA || pSource == DamageSource.IN_WALL
@@ -134,6 +133,11 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
         } else {
             return super.isInvulnerableTo(pSource);
         }
+    }
+
+    // isMoving check that works on servers
+    public boolean isDragonMoving() {
+        return this.getX() != xOld || this.getZ() != this.zOld;
     }
 
     // no magma block pulling down or up
@@ -911,7 +915,10 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             }
         }
 
-        sleepMechanics();
+        if (this.tickCount % 1200 == 0) {
+            sleepMechanics();
+        }
+
         onGroundMechanics();
         airSpaceMechanics();
     }
@@ -966,7 +973,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     protected void sleepMechanics() {
-        if (!level.isClientSide() && this.isTame()) {
+        if (!level.isClientSide()) { //&& this.isTame()) {      -   cause wild dragons that were already sleeping to never wake up
             if (isDragonSitting()) {
                 setIsDragonSleeping(isNocturnal() ? level.isDay() : !level.isDay());
             } else {
@@ -1151,7 +1158,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
             if(this.getType().getRegistryName() != null)
                 if((this.getType().getRegistryName().equals(new ResourceLocation(IsleofBerk.MOD_ID, "night_fury")) && partner.getType().getRegistryName().equals(new ResourceLocation(IsleofBerk.MOD_ID, "light_fury")) ||
                    (this.getType().getRegistryName().equals(new ResourceLocation(IsleofBerk.MOD_ID, "light_fury")) && partner.getType().getRegistryName().equals(new ResourceLocation(IsleofBerk.MOD_ID, "night_fury")))))
-                    egg = ModEntities.SKRILL_EGG.get().create(serverLevel);
+                    egg = ModEntities.NIGHT_LIGHT_EGG.get().create(serverLevel);
 
             final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(this, partner, egg);
             final boolean cancelled = net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event);

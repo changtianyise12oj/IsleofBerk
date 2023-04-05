@@ -42,7 +42,7 @@ public class SpeedStingerLeader extends SpeedStinger {
 
 
     private <E extends IAnimatable> PlayState basicMovementController(AnimationEvent<E> event) {
-        if (event.isMoving() && !shouldStopMovingIndependently()) {
+        if (isDragonMoving() && !shouldStopMovingIndependently()) {
             if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 8) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerRun", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
@@ -80,7 +80,7 @@ public class SpeedStingerLeader extends SpeedStinger {
             }
         }
         if (getTarget() != null) {
-            if (!isOnGround() && event.isMoving() && !getTarget().isDeadOrDying()) {
+            if (!isOnGround() && isDragonMoving() && !getTarget().isDeadOrDying()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("SpeedStingerPounce", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }

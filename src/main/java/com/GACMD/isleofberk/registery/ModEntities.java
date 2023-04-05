@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
 import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmare;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
+import com.GACMD.isleofberk.entity.dragons.nightlight.NightLight;
 import com.GACMD.isleofberk.entity.dragons.skrill.Skrill;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
@@ -46,6 +47,10 @@ public class ModEntities {
     public static final RegistryObject<EntityType<LightFury>> LIGHT_FURY = ENTITIES.register("light_fury",
             () -> EntityType.Builder.of(LightFury::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "light_fury").toString()));
+
+    public static final RegistryObject<EntityType<NightLight>> NIGHT_LIGHT = ENTITIES.register("night_light",
+            () -> EntityType.Builder.of(NightLight::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "night_light").toString()));
 
     public static final RegistryObject<EntityType<TripleStryke>> TRIPLE_STRYKE = ENTITIES.register("triple_stryke",
             () -> EntityType.Builder.of(TripleStryke::new, MobCategory.CREATURE).sized(1.8f, 1.8f)
@@ -137,6 +142,9 @@ public class ModEntities {
             () -> EntityType.Builder.of(NightFuryEgg::new, MobCategory.MISC).sized(PIXEL * 7, PIXEL * 9)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "night_fury_egg").toString()));
 
+    public static final RegistryObject<EntityType<NightLightEgg>> NIGHT_LIGHT_EGG = ENTITIES.register("night_light_egg",
+            () -> EntityType.Builder.of(NightLightEgg::new, MobCategory.MISC).sized(PIXEL * 7, PIXEL * 9)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "night_light_egg").toString()));
     public static final RegistryObject<EntityType<LightFuryEgg>> LIGHT_FURY_EGG = ENTITIES.register("light_fury_egg",
             () -> EntityType.Builder.of(LightFuryEgg::new, MobCategory.MISC).sized(PIXEL * 7, PIXEL * 9)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "light_fury_egg").toString()));

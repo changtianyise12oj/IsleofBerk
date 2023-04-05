@@ -1,9 +1,9 @@
 package com.GACMD.isleofberk.event;
 
 import com.GACMD.isleofberk.IsleofBerk;
+import com.GACMD.isleofberk.entity.dragons.nightlight.NightLightRender;
 import com.GACMD.isleofberk.entity.dragons.skrill.SkrillRenderer;
-import com.GACMD.isleofberk.entity.projectile.proj_user.skrill_lightning.SkrillLightning;
-import com.GACMD.isleofberk.entity.projectile.proj_user.skrill_lightning.SkrillLightningParticle;
+import com.GACMD.isleofberk.particles.*;
 import com.GACMD.isleofberk.entity.projectile.proj_user.skrill_lightning.SkrillLightningRender;
 import com.GACMD.isleofberk.gui.DragonInventoryScreen;
 import com.GACMD.isleofberk.gui.event.DragonCameraEvent;
@@ -25,13 +25,10 @@ import com.GACMD.isleofberk.entity.eggs.entity.base.medium.MediumEggRenderer;
 import com.GACMD.isleofberk.entity.eggs.entity.base.small.SmallEggRenderer;
 import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathProjectileRenderer;
-import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FlameParticle;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZipBreathProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZippleBackAOECloud;
 import com.GACMD.isleofberk.entity.projectile.other.nadder_spike.DeadlyNadderSpikeRenderer;
-import com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt.FireBoltParticle;
 import com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt.FireBoltRender;
-import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBoltParticle;
 import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBoltRender;
 import com.GACMD.isleofberk.registery.ModContainerTypes;
 import com.GACMD.isleofberk.registery.ModEntities;
@@ -58,6 +55,8 @@ public final class ClientModEvent {
     private void registerParticleFactories(final ParticleFactoryRegisterEvent event) {
         Minecraft.getInstance().particleEngine.register(ModParticles.NIGHT_FURY_DUST.get(), FuryBoltParticle.FuryBoltParticleProvider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.LIGHT_FURY_DUST.get(), FuryBoltParticle.FuryBoltParticleProvider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.SKRILL_SKILL_EMITTER.get(), new SkrillSkillEmitter.Provider());
+        Minecraft.getInstance().particleEngine.register(ModParticles.SKRILL_SKILL_PARTICLES.get(), SkrillSkillParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.SKRILL_LIGHTNING_PARTICLES.get(), SkrillLightningParticle.SkrillLightningParticleProvider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.FLAME_TAIL.get(), FireBoltParticle.FireBoltParticleProvider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.FLAME.get(), FlameParticle.FlameParticleProvider::new);
@@ -70,6 +69,7 @@ public final class ClientModEvent {
          */
         event.registerEntityRenderer(ModEntities.NIGHT_FURY.get(), NightFuryRender::new);
         event.registerEntityRenderer(ModEntities.LIGHT_FURY.get(), LightFuryRender::new);
+        event.registerEntityRenderer(ModEntities.NIGHT_LIGHT.get(), NightLightRender::new);
         event.registerEntityRenderer(ModEntities.SKRILL.get(), SkrillRenderer::new);
         event.registerEntityRenderer(ModEntities.TRIPLE_STRYKE.get(), TripleStrykeRenderer::new);
         event.registerEntityRenderer(ModEntities.DEADLY_NADDER.get(), DeadlyNadderRender::new);
@@ -104,6 +104,7 @@ public final class ClientModEvent {
         event.registerEntityRenderer(ModEntities.TERRIBLE_TERROR_EGG.get(), SmallEggRenderer::new);
         // Medium
         event.registerEntityRenderer(ModEntities.NIGHT_FURY_EGG.get(), MediumEggRenderer::new);
+        event.registerEntityRenderer(ModEntities.NIGHT_LIGHT_EGG.get(), MediumEggRenderer::new);
         event.registerEntityRenderer(ModEntities.LIGHT_FURY_EGG.get(), MediumEggRenderer::new);
         event.registerEntityRenderer(ModEntities.NADDER_EGG.get(), MediumEggRenderer::new);
         event.registerEntityRenderer(ModEntities.GRONCKLE_EGG.get(), MediumEggRenderer::new);

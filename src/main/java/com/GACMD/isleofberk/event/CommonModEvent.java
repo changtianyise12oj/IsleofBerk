@@ -6,6 +6,7 @@ import com.GACMD.isleofberk.entity.dragons.gronckle.Gronckle;
 import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
 import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmare;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
+import com.GACMD.isleofberk.entity.dragons.nightlight.NightLight;
 import com.GACMD.isleofberk.entity.dragons.skrill.Skrill;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
 import com.GACMD.isleofberk.entity.dragons.speedstingerleader.SpeedStingerLeader;
@@ -29,6 +30,7 @@ public class CommonModEvent {
          */
         event.put(ModEntities.NIGHT_FURY.get(), NightFury.createAttributes().build());
         event.put(ModEntities.LIGHT_FURY.get(), LightFury.createAttributes().build());
+        event.put(ModEntities.NIGHT_LIGHT.get(), NightLight.createAttributes().build());
         event.put(ModEntities.TRIPLE_STRYKE.get(), TripleStryke.createAttributes().build());
         event.put(ModEntities.DEADLY_NADDER.get(), DeadlyNadder.createAttributes().build());
         event.put(ModEntities.GRONCKLE.get(), Gronckle.createAttributes().build());
@@ -44,6 +46,7 @@ public class CommonModEvent {
          * Eggs
          */
         event.put(ModEntities.NIGHT_FURY_EGG.get(), NightFuryEgg.createAttributes().build());
+        event.put(ModEntities.NIGHT_LIGHT_EGG.get(), NightFuryEgg.createAttributes().build());
         event.put(ModEntities.LIGHT_FURY_EGG.get(), LightFuryEgg.createAttributes().build());
         event.put(ModEntities.TRIPLE_STRYKE_EGG.get(), SpeedStingerEgg.createAttributes().build());
         event.put(ModEntities.NADDER_EGG.get(), DeadlyNadderEgg.createAttributes().build());

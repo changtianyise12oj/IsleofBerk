@@ -90,13 +90,13 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
                 return PlayState.CONTINUE;
             }
             if (isVehicle()) {
-                if (event.isMoving() && !shouldStopMovingIndependently()) {
+                if (isDragonMoving() && !shouldStopMovingIndependently()) {
                     setIsRammingDamageTrue(true);
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.run", ILoopType.EDefaultLoopTypes.LOOP));
                     return PlayState.CONTINUE;
                 }
             }
-            if (event.isMoving() && !shouldStopMovingIndependently()) {
+            if (isDragonMoving() && !shouldStopMovingIndependently()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("stinger.walk", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }

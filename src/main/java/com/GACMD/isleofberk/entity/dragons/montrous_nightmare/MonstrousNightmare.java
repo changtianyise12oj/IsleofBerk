@@ -63,7 +63,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
         // flying animations
         if (isFlying()) {
-            if (event.isMoving()){
+            if (isDragonMoving()){
 
                 // mounted flying
                 if (this.isVehicle()) {
@@ -113,7 +113,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("nightmare.sleep", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (event.isMoving() && !shouldStopMovingIndependently()) {
+            if (isDragonMoving() && !shouldStopMovingIndependently()) {
                 if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("nightmare.run", ILoopType.EDefaultLoopTypes.LOOP));
                 } else {

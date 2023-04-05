@@ -61,7 +61,7 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private sta
 
         // flying animations
         if (isFlying()) {
-            if (event.isMoving()) {
+            if (isDragonMoving()) {
 
                 // mounted flying
                 if (this.isVehicle()) {
@@ -111,7 +111,7 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private sta
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Sleep", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (event.isMoving() && !shouldStopMovingIndependently()) {
+            if (isDragonMoving() && !shouldStopMovingIndependently()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Skrill.Walk", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }

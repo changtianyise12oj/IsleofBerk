@@ -83,7 +83,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
         // flying animations
         if (isFlying() && !isDragonIncapacitated()) {
-            if (event.isMoving()){
+            if (isDragonMoving()){
 
                 // mounted flying
                 if (this.isVehicle()) {
@@ -133,7 +133,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.sleep", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
-            if (event.isMoving() && !shouldStopMovingIndependently() && !isDragonIncapacitated()) {
+            if (isDragonMoving() && !shouldStopMovingIndependently() && !isDragonIncapacitated()) {
                 if (getTarget() != null && !getTarget().isDeadOrDying() && distanceTo(getTarget()) < 14 || isVehicle()) {
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.run", ILoopType.EDefaultLoopTypes.LOOP));
                 } else {
@@ -191,7 +191,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
         int turnState = this.getRotationState();
         if (turnState != 0 && getControllingPassenger() instanceof Player) {
             if (isFlying()) {
-                boolean diving = getXRot() >= 32 && event.isMoving();
+                boolean diving = getXRot() >= 32 && isDragonMoving();
                 if (isGoingUp() || diving) {
                     event.getController().setAnimationSpeed(4);
                     event.getController().setAnimation(new AnimationBuilder().addAnimation("triple_stryke.tailrot0", ILoopType.EDefaultLoopTypes.LOOP));

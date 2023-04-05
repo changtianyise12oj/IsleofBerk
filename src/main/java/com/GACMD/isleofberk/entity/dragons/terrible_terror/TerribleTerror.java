@@ -116,11 +116,11 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     };
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (isFlying() && !event.isMoving() && !isPassenger()) {
+        if (isFlying() && !isDragonMoving() && !isPassenger()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Hover", ILoopType.EDefaultLoopTypes.LOOP)); // hover
             return PlayState.CONTINUE;
         }
-        if (event.isMoving() && !shouldStopMovingIndependently()) {
+        if (isDragonMoving() && !shouldStopMovingIndependently()) {
             if (!isDragonOnGround()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
