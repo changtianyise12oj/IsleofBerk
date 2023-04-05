@@ -10,6 +10,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.eggs.SkrillEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModMobEffects;
 import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
@@ -246,11 +247,10 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {
     @Override
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = this.position();
-        double x = -Math.sin(this.yBodyRot * Math.PI / 180) * 2.4;
-        double y = 1.5;
-        double z = Math.cos(this.yBodyRot * Math.PI / 180) * 2.4;
-        Vec3 throatPos = bodyOrigin.add(new Vec3(x, y, z));
-        return throatPos;
+        double x = -Math.sin(this.yBodyRot * Math.PI / 180) * 1.8;
+        double y = -0.2;
+        double z = Math.cos(this.yBodyRot * Math.PI / 180) * 1.8;
+        return bodyOrigin.add(new Vec3(x, y, z));
     }
 
     @Override
@@ -298,11 +298,11 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {
                     0.1525f * (random.nextFloat() - 0.5f));
 
 
-            if(this.tickCount % 10 == 0) {
+            if(!level.isClientSide() && this.tickCount % 10 == 0) {
                 level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4)).forEach(livingEntity -> {
-                    if(livingEntity.getEffect(MobEffects.FIRE_RESISTANCE) == null && !(livingEntity instanceof Player player && player.isCreative()))
+                    if(livingEntity != this && !(livingEntity instanceof Player player && player.isCreative()))
                         if(!(this.isSaddled() && this.getPassengers().contains(livingEntity)))
-                            livingEntity.setSecondsOnFire(4);
+                            livingEntity.addEffect(new MobEffectInstance(ModMobEffects.SHOCK.get(), 80, 0, false, false));
                 });
             }
         }

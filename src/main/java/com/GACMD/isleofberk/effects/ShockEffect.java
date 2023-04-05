@@ -16,14 +16,15 @@ public class ShockEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-        if(!livingEntity.getLevel().isClientSide())
-            if (!livingEntity.isInvulnerableTo(DamageSource.ON_FIRE) && livingEntity.tickCount % 10 == 0) {
-                // Spawns Particles
-                ControlNetwork.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> livingEntity), new MessageShockParticle(livingEntity.getId()));
-                // Applies Damage
+        if(!livingEntity.getLevel().isClientSide()) {
+            // Damage
+            if (livingEntity.tickCount % 20 == 0)
                 if (!livingEntity.hasEffect(MobEffects.FIRE_RESISTANCE))
-                    livingEntity.hurt(DamageSource.LIGHTNING_BOLT, 1F);
-            }
+                    livingEntity.hurt(DamageSource.LIGHTNING_BOLT, 2F);
+            // Particles
+            if (livingEntity.tickCount % 8 == 0)
+                ControlNetwork.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> livingEntity), new MessageShockParticle(livingEntity.getId()));
+        }
         super.applyEffectTick(livingEntity, amplifier);
     }
 
