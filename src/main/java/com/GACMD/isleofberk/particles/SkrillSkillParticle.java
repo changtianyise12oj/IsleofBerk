@@ -16,8 +16,8 @@ public class SkrillSkillParticle extends TextureSheetParticle {
 
     SkrillSkillParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pQuadSizeMulitiplier, SpriteSet pSprites) {
         super(pLevel, pX, pY, pZ, 0.0D, 0.0D, 0.0D);
-        this.lifetime = 6 + this.random.nextInt(4);
-        this.quadSize = 2.0F * (1.0F - (float)pQuadSizeMulitiplier * 0.5F);
+        this.lifetime = 10 + this.random.nextInt(4);
+        this.quadSize = 0.5F * (1.0F - (float)pQuadSizeMulitiplier * 0.3F);
         this.sprites = pSprites;
         this.setSpriteFromAge(pSprites);
     }

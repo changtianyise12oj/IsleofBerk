@@ -14,6 +14,7 @@ import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -226,9 +227,9 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private sta
     @Override
     public float getRideCameraDistanceBack() {
         if (isFlying()) {
-            return 15;
+            return 10;
         } else {
-            return 6;
+            return 5;
         }
     }
 
@@ -267,39 +268,47 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private sta
         }
 
         if (ticksUsingSecondAbility > 40) {
-            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(1)));
+            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(1), 0, false, false));
         }
 
         if (isOnFireAbility()) {
             Vec3 t = getBodyPos(this);
 
-            if (this.tickCount % 5 == 0) {
-                ParticleOptions particleOptions = ModParticles.SKRILL_SKILL_EMITTER.get();
-                level.addParticle(particleOptions, true,
-                        t.x, t.y, t.z,
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f));
-/*                level.addParticle(particleOptions, true,
-                        t1.x, t1.y, t1.z,
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f));
 
- */
+
+            double d0 = t.x + (this.random.nextDouble() - this.random.nextDouble()) * 3.0D;
+            double d1 = t.y + (this.random.nextDouble() - this.random.nextDouble()) * 3.0D;
+            double d2 = t.z + (this.random.nextDouble() - this.random.nextDouble()) * 3.0D;
+
+                ParticleOptions particleOptions = ModParticles.SKRILL_SKILL_PARTICLES.get();
+
+           if (this.tickCount % 4 == 0) {
+                level.addParticle(particleOptions, false,
+                        d0, d1, d2,
+                        0.1525f * (random.nextFloat() - 0.5f),
+                        0.1525f * (random.nextFloat() - 0.5f),
+                        0.1525f * (random.nextFloat() - 0.5f));
             }
+
+            level.addParticle(ParticleTypes.ELECTRIC_SPARK, false,
+                    d0, d1, d2,
+                    0.1525f * (random.nextFloat() - 0.5f),
+                    0.1525f * (random.nextFloat() - 0.5f),
+                    0.1525f * (random.nextFloat() - 0.5f));
+
 
             if(this.tickCount % 10 == 0) {
                 level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4)).forEach(livingEntity -> {
                     if(livingEntity.getEffect(MobEffects.FIRE_RESISTANCE) == null && !(livingEntity instanceof Player player && player.isCreative()))
-                        livingEntity.setSecondsOnFire(4);
+                        if(!(this.isSaddled() && this.getPassengers().contains(livingEntity)))
+                            livingEntity.setSecondsOnFire(4);
                 });
             }
         }
 
         if (hasDamageResist) {
             this.setOnFireAbility(true);
-            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5));
+            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5, 0, false, false));
         }
 
         if (!hasDamageResist) {
@@ -324,7 +333,7 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private sta
         }
         if (random.nextInt(24) == 1 && !isInWater()) {
             if (getControllingPassenger() == null) {
-                this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(2)));
+                this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(2), 0, false, false));
             }
         }
         return super.hurt(pSource, pAmount);
@@ -370,11 +379,6 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private sta
 
     protected double extraRidersZOffset() {
         return 1;
-    }
-
-    @Override
-    public float getRideCameraDistanceVert() {
-        return 0.2F;
     }
 
     //  Attributes

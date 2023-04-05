@@ -23,7 +23,7 @@ public class SkrillSkillEmitter extends NoRenderParticle {
             double d0 = this.x + (this.random.nextDouble() - this.random.nextDouble()) * 4.0D;
             double d1 = this.y + (this.random.nextDouble() - this.random.nextDouble()) * 4.0D;
             double d2 = this.z + (this.random.nextDouble() - this.random.nextDouble()) * 4.0D;
-            this.level.addParticle(ModParticles.SKRILL_LIGHTNING_PARTICLES.get(), d0, d1, d2, ((float)this.life / (float)this.lifeTime), 0.0D, 0.0D);
+            this.level.addParticle(ParticleTypes.ELECTRIC_SPARK, d0, d1, d2, ((float)this.life / (float)this.lifeTime), 0.0D, 0.0D);
         }
 
         ++this.life;
