@@ -147,5 +147,7 @@
     "advancement.light_fury.title": "ANOTHER ONE!?",
     "advancement.light_fury.desc": "No, not quite. It's more like a Light... Fury.",
 
-    "taming.phase1.25": "Dragon Taming is at "
+    "taming.phase1.25": "Dragon Taming is at ",
+
+    "effect.isleofberk.shock": "Shock"
 }

@@ -3,14 +3,9 @@ package com.GACMD.isleofberk;
 import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.speedstinger.SpeedStinger;
-import com.GACMD.isleofberk.registery.ModParticles;
+import com.GACMD.isleofberk.registery.*;
 import com.GACMD.isleofberk.network.ControlNetwork;
-import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.event.ClientModEvent;
-import com.GACMD.isleofberk.registery.ModBlocks;
-import com.GACMD.isleofberk.registery.ModContainerTypes;
-import com.GACMD.isleofberk.registery.ModEntities;
-import com.GACMD.isleofberk.registery.ModItems;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.api.distmarker.Dist;
@@ -43,6 +38,7 @@ public class IsleofBerk
         ModParticles.REGISTRAR.register(eventBus);
         ModSounds.SOUND_EVENTS.register(eventBus);
         ModContainerTypes.CONTAINER_TYPES.register(eventBus);
+        ModMobEffects.EFFECTS.register(eventBus);
 
         MinecraftForge.EVENT_BUS.register(this);
         GeckoLib.initialize();
