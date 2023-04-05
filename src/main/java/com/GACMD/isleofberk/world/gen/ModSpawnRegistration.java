@@ -115,8 +115,8 @@ public class ModSpawnRegistration {
             return;
         }
         // Values need to be greater than 0
-        if (weight <= 0 || minCount <= 0) { // We don't have to check for maxCount, because the check above ensures it's bigger than minCount
-            System.err.println("Isle of Berk spawn config found a value that is smaller or equal to 0:");
+        if (weight <= 0 || minCount <= -1) { // We don't have to check for maxCount, because the check above ensures it's bigger than minCount
+            System.err.println("Isle of Berk spawn config found a value that is smaller than 0:");
             System.err.println("Dragon: " + dragon.getRegistryName().getPath());
             System.err.println("Entry: " + entry + "\nSkipping...");
             return;

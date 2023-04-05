@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.entity.projectile;
+package com.GACMD.isleofberk.particles;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.serialization.Codec;

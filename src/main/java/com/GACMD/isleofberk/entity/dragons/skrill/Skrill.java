@@ -1,32 +1,25 @@
 package com.GACMD.isleofberk.entity.dragons.skrill;
 
 import com.GACMD.isleofberk.entity.AI.taming.T3DragonWeakenAndFeedTamingGoal;
-import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableBreathUser;
-import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
-import com.GACMD.isleofberk.entity.dragons.deadlynadder.DeadlyNadder;
 import com.GACMD.isleofberk.entity.dragons.montrous_nightmare.MonstrousNightmare;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
-import com.GACMD.isleofberk.entity.eggs.entity.eggs.MonstrousNightmareEgg;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.SkrillEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathProjectile;
-import com.GACMD.isleofberk.entity.projectile.proj_user.skrill_lightning.SkrillLightning;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -50,10 +43,8 @@ import software.bernie.geckolib3.core.builder.ILoopType;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import static com.GACMD.isleofberk.registery.ModTags.Items.*;
-import static com.GACMD.isleofberk.registery.ModTags.Items.NIGHTMARE_BREED_FOOD;
 
 public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private static final EntityDataAccessor<Boolean> IS_ON_FIRE_ABILITY = SynchedEntityData.defineId(MonstrousNightmare.class, EntityDataSerializers.BOOLEAN);
 
@@ -280,20 +271,22 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private sta
         }
 
         if (isOnFireAbility()) {
-            Vec3 t = getLWingPos(this);
-            Vec3 t1 = getRWingPos(this);
-            for (double j = 0; j < 5; j++) {
-                ParticleOptions particleOptions = ParticleTypes.LAVA;
+            Vec3 t = getBodyPos(this);
+
+            if (this.tickCount % 5 == 0) {
+                ParticleOptions particleOptions = ModParticles.SKRILL_SKILL_EMITTER.get();
                 level.addParticle(particleOptions, true,
                         t.x, t.y, t.z,
                         0.1525f * (random.nextFloat() - 0.5f),
                         0.1525f * (random.nextFloat() - 0.5f),
                         0.1525f * (random.nextFloat() - 0.5f));
-                level.addParticle(particleOptions, true,
+/*                level.addParticle(particleOptions, true,
                         t1.x, t1.y, t1.z,
                         0.1525f * (random.nextFloat() - 0.5f),
                         0.1525f * (random.nextFloat() - 0.5f),
                         0.1525f * (random.nextFloat() - 0.5f));
+
+ */
             }
 
             if(this.tickCount % 10 == 0) {
@@ -337,29 +330,17 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private sta
         return super.hurt(pSource, pAmount);
     }
 
-    public Vec3 getLWingPos(ADragonBase entity) {
+    public Vec3 getBodyPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
-        float angle = (float) ((float) (Math.PI / 180) * this.yBodyRot + (Math.PI / 180 * 95));
-        float angle1 = (float) ((float) (Math.PI / 180) * this.yBodyRot + (Math.PI / 180 * 95));
-        double x = -Math.sin(Math.PI + angle) * 4;
-        double y = 2.4D;
-        double z = Math.cos(Math.PI + angle1) * 4;
+        double x = 0;
+        double y = 0;
+        double z = 0;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
 
         return throatPos;
 
     }
-
-/*
-    public Vec3 circleVec(Vec3 target, float radius, float speed, boolean direction, int circleFrame, float offset, float moveSpeedMultiplier) {
-        int directionInt = direction ? 1 : -1;
-        double t = directionInt * circleFrame * 0.5 * speed / radius + offset;
-        return target.add(radius * Math.cos(t), 0, radius * Math.sin(t));
-
-    }
-
- */
 
     public Vec3 getRWingPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
@@ -502,7 +483,6 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private sta
     protected boolean canCarryCargo() {
         return true;
     }
-
     @Override
     protected boolean isItemStackForTaming(ItemStack stack) {
         return Ingredient.of(SKRILL_TAME_FOOD).test(stack);    }

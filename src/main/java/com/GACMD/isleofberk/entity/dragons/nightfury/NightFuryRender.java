@@ -17,7 +17,6 @@ public class NightFuryRender extends BaseRendererFlying<NightFury> {
 
     public NightFuryRender(EntityRendererProvider.Context renderManager) {
         super(renderManager, new NightFuryModel());
-//        this.addLayer(new NightFuryGlowLayer<>(this));
     }
 
     @Override

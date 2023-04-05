@@ -1,6 +1,5 @@
-package com.GACMD.isleofberk.entity.projectile.proj_user.skrill_lightning;
+package com.GACMD.isleofberk.particles;
 
-import com.GACMD.isleofberk.entity.projectile.proj_user.ABaseScalableGlowParticle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;

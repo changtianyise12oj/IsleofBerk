@@ -6,7 +6,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.TripleStrykeEgg;
-import com.GACMD.isleofberk.entity.projectile.ScalableParticleType;
+import com.GACMD.isleofberk.particles.ScalableParticleType;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModSounds;

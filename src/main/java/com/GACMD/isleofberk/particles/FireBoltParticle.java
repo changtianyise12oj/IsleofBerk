@@ -1,6 +1,5 @@
-package com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt;
+package com.GACMD.isleofberk.particles;
 
-import com.GACMD.isleofberk.entity.projectile.proj_user.ABaseScalableGlowParticle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;

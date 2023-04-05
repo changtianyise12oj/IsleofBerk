@@ -1,4 +1,4 @@
-package com.GACMD.isleofberk.entity.projectile.proj_user;
+package com.GACMD.isleofberk.particles;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.GlowParticle;

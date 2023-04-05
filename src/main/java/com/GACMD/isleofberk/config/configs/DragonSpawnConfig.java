@@ -3,7 +3,6 @@ package com.GACMD.isleofberk.config.configs;
 import com.GACMD.isleofberk.config.util.ConfigHelper;
 import com.GACMD.isleofberk.config.util.ConfigHelper.ConfigValueListener;
 import net.minecraftforge.common.ForgeConfigSpec;
-import org.lwjgl.system.CallbackI;
 
 import java.util.List;
 
