@@ -47,7 +47,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 
 import static com.GACMD.isleofberk.registery.ModTags.Items.*;
 
-public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private static final EntityDataAccessor<Boolean> IS_ON_FIRE_ABILITY = SynchedEntityData.defineId(MonstrousNightmare.class, EntityDataSerializers.BOOLEAN);
+public class Skrill extends ADragonBaseFlyingRideableBreathUser {
+    private static final EntityDataAccessor<Boolean> IS_ON_FIRE_ABILITY = SynchedEntityData.defineId(Skrill.class, EntityDataSerializers.BOOLEAN);
 
     private int ticksUsingSecondAbility;
     private int ticksUsingActiveSecondAbility;
@@ -306,12 +307,12 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {    private sta
             }
         }
 
-        if (hasDamageResist) {
+        if (!level.isClientSide() && hasDamageResist) {
             this.setOnFireAbility(true);
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5, 0, false, false));
         }
 
-        if (!hasDamageResist) {
+        if (!level.isClientSide() && !hasDamageResist) {
             this.setOnFireAbility(false);
         }
 
