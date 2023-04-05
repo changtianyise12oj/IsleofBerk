@@ -295,7 +295,8 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
             if(this.tickCount % 10 == 0) {
                 level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4)).forEach(livingEntity -> {
                     if(livingEntity.getEffect(MobEffects.FIRE_RESISTANCE) == null && !(livingEntity instanceof Player player && player.isCreative()))
-                        livingEntity.setSecondsOnFire(4);
+                        if(!(this.isSaddled() && this.getPassengers().contains(livingEntity)))
+                            livingEntity.setSecondsOnFire(4);
                 });
             }
         }
