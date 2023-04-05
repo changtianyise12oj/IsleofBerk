@@ -301,12 +301,12 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
             }
         }
 
-        if (hasDamageResist) {
+        if (!level.isClientSide() && hasDamageResist) {
             this.setOnFireAbility(true);
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5));
         }
 
-        if (!hasDamageResist) {
+        if (!level.isClientSide() && !hasDamageResist) {
             this.setOnFireAbility(false);
         }
 
