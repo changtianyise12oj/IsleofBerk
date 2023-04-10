@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.projectile.other.nadder_spike;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.google.common.collect.Lists;
@@ -41,7 +42,7 @@ public class DeadlyNadderSpike extends AbstractArrow {
 
     public DeadlyNadderSpike(Level pLevel, LivingEntity pShooter) {
         super(ModEntities.NADDER_SPIKE.get(), pShooter, pLevel);
-        this.setBaseDamage(6);
+        this.setBaseDamage(ModConfigs.statsConfig.nadderSpikes.get());
     }
 
     @Override

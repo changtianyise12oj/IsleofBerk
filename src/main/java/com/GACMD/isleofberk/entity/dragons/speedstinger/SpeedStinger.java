@@ -1,6 +1,7 @@
 package com.GACMD.isleofberk.entity.dragons.speedstinger;
 
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.AI.breed.DragonBreedGoal;
 import com.GACMD.isleofberk.entity.AI.goal.FollowOwnerNoTPGoal;
 import com.GACMD.isleofberk.entity.AI.goal.IOBLookAtPlayerGoal;
@@ -394,10 +395,10 @@ public class SpeedStinger extends ADragonRideableUtility {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 30.0D)
-                .add(Attributes.ARMOR, 2)
+                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.sStingerHealth.get())
+                .add(Attributes.ARMOR, ModConfigs.statsConfig.sStingerArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.sStingerBite.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
-                .add(Attributes.ATTACK_DAMAGE, 8F)
                 .add(Attributes.FOLLOW_RANGE, 5F)
                 .add(ForgeMod.SWIM_SPEED.get(), 10);
 

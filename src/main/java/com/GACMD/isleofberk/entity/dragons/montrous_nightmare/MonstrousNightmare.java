@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.montrous_nightmare;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
@@ -247,9 +248,9 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
-        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 2.8;
-        double y = isFlying() ? -1D : 1D;
-        double z = Math.cos(this.getYRot() * Math.PI / 180) * 2.8;
+        double x = -Math.sin(this.getYRot() * Math.PI / 180) * 5;
+        double y = 1D;
+        double z = Math.cos(this.getYRot() * Math.PI / 180) * 5;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
         return throatPos;
@@ -383,12 +384,11 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 200.0D)
-                .add(Attributes.ARMOR, 6)
-                .add(Attributes.ARMOR_TOUGHNESS, 10)
+                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.nightmareHealth.get())
+                .add(Attributes.ARMOR, ModConfigs.statsConfig.nightmareArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.nightmareBite.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
-                .add(Attributes.ATTACK_DAMAGE, 10F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.6F);
     }
 
@@ -421,18 +421,18 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     protected int breathBarRegenSpeed() {
-        return 30;
+        return ModConfigs.statsConfig.nightmareBreathRegenSpeed.get();
     }
 
     @Override
     protected int breathBarRegenAmount() {
-        return 4;
+        return ModConfigs.statsConfig.nightmareBreathRegenAmount.get();
     }
 
 
     @Override
     public int getMaxFuel() {
-        return 350;
+        return ModConfigs.statsConfig.nightmareBreathCapacity.get();
     }
 
     @Override

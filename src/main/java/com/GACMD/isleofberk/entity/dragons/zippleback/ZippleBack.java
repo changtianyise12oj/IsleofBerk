@@ -264,9 +264,9 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
         Vec3 bodyOrigin = position();
 
         float angle = (float) ((float) (Math.PI / 180) * this.yBodyRot + (Math.PI / 180 * 10));
-        double x = Math.sin(Math.PI + angle) * 4;
-        double y = 3.8D;
-        double z = Math.cos(angle) * 4;
+        double x = Math.sin(Math.PI + angle) * 6;
+        double y = 2D;
+        double z = Math.cos(angle) * 6;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
         return throatPos;

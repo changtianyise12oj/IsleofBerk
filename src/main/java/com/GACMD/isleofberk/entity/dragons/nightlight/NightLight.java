@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.nightlight;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.dragons.lightfury.LightFury;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
@@ -33,12 +34,11 @@ public class NightLight extends LightFury {
     // Night Fury attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0D)
-                .add(Attributes.ARMOR, 1)
-                .add(Attributes.ARMOR_TOUGHNESS, 16)
+                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.nightLightHealth.get())
+                .add(Attributes.ARMOR, ModConfigs.statsConfig.nightLightArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.nightLightBite.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
-                .add(Attributes.ATTACK_DAMAGE, 8F)
                 .add(Attributes.FOLLOW_RANGE, 32F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
 

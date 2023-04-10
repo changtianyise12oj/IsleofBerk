@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.skrill;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.AI.taming.T3DragonWeakenAndFeedTamingGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
@@ -259,7 +260,7 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {
         boolean hasDamageResist = getEffect(MobEffects.DAMAGE_RESISTANCE) != null;
 
         if (isUsingSECONDAbility()) {
-            if (!hasDamageResist && !isInWater() && !isInWaterRainOrBubble()) {
+            if (!hasDamageResist) {
                 ticksUsingSecondAbility++;
                 ticksUsingActiveSecondAbility = 0;
             } else {
@@ -316,7 +317,7 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {
             this.setOnFireAbility(false);
         }
 
-        if (isInWater() || isInWaterRainOrBubble() || ticksUsingActiveSecondAbility > 40) {
+        if (ticksUsingActiveSecondAbility > 40) {
             if (hasDamageResist) {
                 this.removeEffect(MobEffects.DAMAGE_RESISTANCE);
                 ticksUsingSecondAbility = 0;
@@ -385,13 +386,11 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0D)
-                .add(Attributes.ARMOR, 6)
-                .add(Attributes.ARMOR_TOUGHNESS, 16)
+                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.skrillHealth.get())
+                .add(Attributes.ARMOR, ModConfigs.statsConfig.skrillArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.skrillBite.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.2F)
                 .add(Attributes.FLYING_SPEED, 0.17F)
-                .add(Attributes.ATTACK_DAMAGE, 6F)
-                .add(Attributes.FOLLOW_RANGE, 32F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
 
     }
@@ -425,19 +424,18 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {
     }
 
     @Override
+    public int getMaxFuel() {
+        return ModConfigs.statsConfig.skrillBreathCapacity.get();
+    }
+
+    @Override
     protected int breathBarRegenSpeed() {
-        return 30;
+        return ModConfigs.statsConfig.skrillBreathRegenSpeed.get();
     }
 
     @Override
     protected int breathBarRegenAmount() {
-        return 4;
-    }
-
-
-    @Override
-    public int getMaxFuel() {
-        return 350;
+        return ModConfigs.statsConfig.skrillBreathRegenAmount.get();
     }
 
     @org.jetbrains.annotations.Nullable

@@ -105,7 +105,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
 
     // check boolean in config, return 4 or 0 depending on result
     protected int getTransitionTicks() {
-        return ModConfigs.mainConfig.transitionToggle.get() ? 0 : 4;
+        return ModConfigs.clientConfig.transitionToggle.get() ? 0 : 4;
     }
 
     public static final Predicate<LivingEntity> PREY_SELECTOR = (p_30437_) -> {
@@ -601,9 +601,9 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 120.0D)
+//                .add(Attributes.MAX_HEALTH, 120.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
-                .add(Attributes.ATTACK_DAMAGE, 4.5F)
+//                .add(Attributes.ATTACK_DAMAGE, 4.5F)
                 .add(Attributes.FOLLOW_RANGE, 7F)
                 .add(ForgeMod.SWIM_SPEED.get(), 1);
 

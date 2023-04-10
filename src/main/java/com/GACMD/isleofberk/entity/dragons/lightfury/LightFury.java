@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.lightfury;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
@@ -200,12 +201,11 @@ public class LightFury extends NightFury {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 80.0D)
-                .add(Attributes.ARMOR, 0.5)
-                .add(Attributes.ARMOR_TOUGHNESS, 22)
+                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.lightFuryHealth.get())
+                .add(Attributes.ARMOR, ModConfigs.statsConfig.lightFuryArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.lightFuryBite.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
-                .add(Attributes.ATTACK_DAMAGE, 6F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
     }
 
@@ -254,6 +254,16 @@ public class LightFury extends NightFury {
                 livingEntity.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, 5));
             }
         }
+    }
+
+    @Override
+    public Vec3 getThroatPos(ADragonBase entity) {
+        Vec3 bodyOrigin = this.position();
+        double x = -Math.sin(this.yBodyRot * Math.PI / 180) * 2.4;
+        double y = 1.3;
+        double z = Math.cos(this.yBodyRot * Math.PI / 180) * 2.4;
+        Vec3 throatPos = bodyOrigin.add(new Vec3(x, y, z));
+        return throatPos;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.gronckle;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.AI.taming.T2DragonFeedTamingGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
@@ -464,12 +465,11 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.37F)
-                .add(Attributes.ARMOR, 8)
-                .add(Attributes.ARMOR_TOUGHNESS, 10)
+                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.groncleHealth.get())
+                .add(Attributes.ARMOR, ModConfigs.statsConfig.groncleArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.groncleBite.get())
                 .add(Attributes.FLYING_SPEED, 0.08F)
-                .add(Attributes.ATTACK_DAMAGE, 8F)
+                .add(Attributes.MOVEMENT_SPEED, 0.37F)
                 .add(Attributes.FOLLOW_RANGE, 32F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.25F);
     }

@@ -116,7 +116,26 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     };
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        if (isFlying() && !isDragonMoving() && !isPassenger()) {
+
+        if (isPassenger()) {
+            Entity vehicle = getVehicle();
+            if (vehicle instanceof Player player) {
+                if (player.isOnGround() || player.isInWater() || player.isInLava()) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("PlayerHeadIdle", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (player.isFallFlying()) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                } else if (!player.isOnGround()) {
+                    event.getController().setAnimation(new AnimationBuilder().addAnimation("PlayerHeadFlying", ILoopType.EDefaultLoopTypes.LOOP));
+                    return PlayState.CONTINUE;
+                }
+            } else {
+                event.getController().setAnimation(new AnimationBuilder().addAnimation("Sit", ILoopType.EDefaultLoopTypes.LOOP));
+                return PlayState.CONTINUE;
+            }
+        }
+        if (isFlying() && !isDragonMoving()) {
             event.getController().setAnimation(new AnimationBuilder().addAnimation("Hover", ILoopType.EDefaultLoopTypes.LOOP)); // hover
             return PlayState.CONTINUE;
         }
@@ -127,24 +146,8 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
             } else if (shouldPlayFlapping()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Hover", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
-            } else if (!isDragonSitting() && !isDragonIncapacitated()) {
+            } else if (!isDragonSitting()) {
                 event.getController().setAnimation(new AnimationBuilder().addAnimation("Walk", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
-            }
-        }
-        Entity vehicle = getVehicle();
-        if (vehicle instanceof Player player) {
-            if (player.isOnGround() || player.isInWater() || player.isInLava()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("PlayerHeadIdle", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
-            } else if (player.getVehicle() != null) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("PlayerHeadIdle", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
-            } else if (player.isFallFlying()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("Flap", ILoopType.EDefaultLoopTypes.LOOP));
-                return PlayState.CONTINUE;
-            } else if (!player.isOnGround()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation("PlayerHeadFlying", ILoopType.EDefaultLoopTypes.LOOP));
                 return PlayState.CONTINUE;
             }
         }

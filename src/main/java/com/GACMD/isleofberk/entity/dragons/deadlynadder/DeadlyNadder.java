@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.deadlynadder;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.AI.taming.T2DragonFeedTamingGoal;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
@@ -236,13 +237,14 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 80.0D)
-                .add(Attributes.ARMOR, 2)
-                .add(Attributes.ARMOR_TOUGHNESS, 10)
+                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.nadderHealth.get())
+                .add(Attributes.ARMOR, ModConfigs.statsConfig.nadderArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.nadderBite.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
-                .add(Attributes.ATTACK_DAMAGE, 6F)
+                .add(Attributes.FOLLOW_RANGE, 32F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
+
     }
 
     @Override
@@ -256,9 +258,9 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
-        double x = -Math.sin(this.yBodyRot * Math.PI / 180) * 1.4D;
-        double y = getLookAngle().y * 2 + 1;
-        double z = Math.cos(this.yBodyRot * Math.PI / 180) * 1.4D;
+        double x = -Math.sin(this.yBodyRot * Math.PI / 180) * 6D;
+        double y = 1.6D;
+        double z = Math.cos(this.yBodyRot * Math.PI / 180) * 6D;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x, y, z));
         return throatPos;
 
@@ -388,6 +390,21 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     public int getMaxAmountOfVariants() {
         return 11;
+    }
+
+    @Override
+    public int getMaxFuel() {
+        return ModConfigs.statsConfig.nadderBreathCapacity.get();
+    }
+
+    @Override
+    protected int breathBarRegenSpeed() {
+        return ModConfigs.statsConfig.nadderBreathRegenSpeed.get();
+    }
+
+    @Override
+    protected int breathBarRegenAmount() {
+        return ModConfigs.statsConfig.nadderBreathRegenAmount.get();
     }
 
     @Override

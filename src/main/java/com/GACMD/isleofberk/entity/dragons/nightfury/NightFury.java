@@ -1,5 +1,6 @@
 package com.GACMD.isleofberk.entity.dragons.nightfury;
 
+import com.GACMD.isleofberk.config.ModConfigs;
 import com.GACMD.isleofberk.entity.AI.taming.T4DragonPotionRequirement;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
@@ -263,12 +264,11 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 100.0D)
-                .add(Attributes.ARMOR, 1)
-                .add(Attributes.ARMOR_TOUGHNESS, 16)
+                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.nightFuryHealth.get())
+                .add(Attributes.ARMOR, ModConfigs.statsConfig.nightFuryArmor.get())
+                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.nightFuryBite.get())
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
-                .add(Attributes.ATTACK_DAMAGE, 8F)
                 .add(Attributes.FOLLOW_RANGE, 32F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
 
