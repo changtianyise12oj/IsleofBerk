@@ -4,6 +4,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseGroundRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
+import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZipBreathProjectile;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -212,7 +213,8 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                         float damage1 = entity instanceof Player || entity instanceof ADragonBaseFlyingRideable || entity instanceof ADragonBaseGroundRideable ? damage / 3 : damage;
                         if (mobGriefing) {
                             entity.hurt(DamageSource.mobAttack(dragon), damage1);
-                            entity.setSecondsOnFire(7);
+                            if(!(this instanceof ZipBreathProjectile))
+                                entity.setSecondsOnFire(7);
                             this.discard();
                             this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
 
@@ -229,7 +231,8 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                                 return;
                             } else {
                                 entity.hurt(DamageSource.mobAttack(dragon), damage1);
-                                entity.setSecondsOnFire(7);
+                                if(!(this instanceof ZipBreathProjectile))
+                                    entity.setSecondsOnFire(7);
                                 this.discard();
                                 this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
                             }
