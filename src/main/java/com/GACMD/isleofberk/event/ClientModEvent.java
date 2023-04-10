@@ -60,6 +60,7 @@ public final class ClientModEvent {
         Minecraft.getInstance().particleEngine.register(ModParticles.SKRILL_LIGHTNING_PARTICLES.get(), SkrillLightningParticle.SkrillLightningParticleProvider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.FLAME_TAIL.get(), FireBoltParticle.FireBoltParticleProvider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.FLAME.get(), FlameParticle.FlameParticleProvider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.GAS.get(), GasParticle.GasParticleProvider::new);
     }
 
     @SubscribeEvent

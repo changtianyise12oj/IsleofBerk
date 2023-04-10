@@ -14,6 +14,9 @@ import java.util.List;
 
 public class SkrillLightning {
 
+    //       for (int i = 0; i < 1; i++) {
+//            for (double j = 0; j < dist; j++) {
+
     public ADragonBaseFlyingRideableBreathUser skrill;
     public EntityHitResult hitEntity;
     public HitResult hitResult;

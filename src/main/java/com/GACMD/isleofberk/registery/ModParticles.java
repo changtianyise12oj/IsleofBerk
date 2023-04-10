@@ -21,4 +21,7 @@ public class ModParticles {
     public static RegistryObject<SimpleParticleType> FLAME_TAIL = REGISTRAR.register("flame_tail", () -> new SimpleParticleType(false));
     public static RegistryObject<SimpleParticleType> FLAME = REGISTRAR.register("flame", () -> new SimpleParticleType(false));
 
+    public static RegistryObject<SimpleParticleType> GAS = REGISTRAR.register("gas", () -> new SimpleParticleType(false));
+
+
 }

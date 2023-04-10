@@ -1,5 +1,10 @@
 {
   "textures": [
-    "minecraft:flame"
+    "isleofberk:fire_tail_3",
+    "isleofberk:fire_tail_4",
+    "isleofberk:fire_tail_3",
+    "isleofberk:fire_tail_2",
+    "isleofberk:fire_tail_1",
+    "isleofberk:fire_tail_0"
   ]
 }

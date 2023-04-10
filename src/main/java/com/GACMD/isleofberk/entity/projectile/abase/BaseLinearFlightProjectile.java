@@ -13,13 +13,10 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
@@ -115,6 +112,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
 
     }
 
+
     /**
      * Entity and block collisions have different sizes of inflated hitboxes (bounding boxes), so the proejctile won't explode early when hitting a block
      *
@@ -138,10 +136,6 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
         }
 
         return hitresult;
-    }
-
-    protected boolean needsTier2ToDamage() {
-        return true;
     }
 
     @org.jetbrains.annotations.Nullable
@@ -206,9 +200,11 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
 
                     // if not a dragon or an instance of a projectile, hit it
                     if (dragon != null && entity != dragon && entity != owner && !(entity instanceof BaseLinearFlightProjectile)) {
-                        if ((entity instanceof LivingEntity livingEntity && livingEntity.getEffect(MobEffects.FIRE_RESISTANCE) != null)) {
+               /*        if ((entity instanceof LivingEntity livingEntity && livingEntity.getEffect(MobEffects.FIRE_RESISTANCE) != null)) {
                             return;
                         }
+
+                */
 
                         boolean mobGriefing = ForgeEventFactory.getMobGriefingEvent(this.level, this.getOwner());
                         float damage = dragon.getProjectileDamage(dragon, entity, this);
@@ -272,16 +268,6 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
         }
     }
 
-    protected void addParticlesAroundSelf(ParticleOptions p_36209_) {
-        for (int i = 0; i < 4; ++i) {
-            double d0 = this.random.nextGaussian() * 0.02D;
-            double d1 = this.random.nextGaussian() * 0.02D;
-            double d2 = this.random.nextGaussian() * 0.02D;
-//            this.level.addParticle(p_36209_, getRandomX(0.4D), 0.4, getRandomZ(0.4D), d0, d1, d2);
-        }
-
-    }
-
     /**
      * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
      */
@@ -339,27 +325,6 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
     }
 
     protected abstract Explosion explode(ADragonBase dragon, double x, double y, double z, float explosionStrength, boolean flag, Explosion.BlockInteraction blockInteraction);
-
-//    public void playParticles() {
-//        for (int i = 0; i < 1; i++) {
-//            Vec3 vec3 = this.getDeltaMovement();
-//            double deltaX = vec3.x;
-//            double deltaY = vec3.y;
-//            double deltaZ = vec3.z;
-//            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
-////                scaleParticleSize(getTrailParticle(), this);
-//            for (double j = 0; j < dist; j++) {
-//                double coeff = j / dist;
-//                level.addParticle(getTrailParticle(), true,
-//                        (float) (xo + deltaX * coeff),
-//                        (float) (yo + deltaY * coeff) + 0.1,
-//                        (float) (zo + deltaZ * coeff),
-//                        0.0225f * (random.nextFloat() - 0.5f),
-//                        0.0225f * (random.nextFloat() - 0.5f),
-//                        0.0225f * (random.nextFloat() - 0.5f));
-//            }
-//        }
-//    }
 
     public void playParticles() {
         if (getProjectileSize() == 0) {

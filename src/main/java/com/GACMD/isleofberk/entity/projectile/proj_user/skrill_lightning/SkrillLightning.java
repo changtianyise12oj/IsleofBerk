@@ -2,20 +2,14 @@ package com.GACMD.isleofberk.entity.projectile.proj_user.skrill_lightning;
 
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
-import com.GACMD.isleofberk.entity.dragons.nightfury.NightFury;
-import com.GACMD.isleofberk.entity.dragons.skrill.Skrill;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearBoltProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModParticles;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -99,11 +93,6 @@ public class SkrillLightning extends BaseLinearBoltProjectile implements IAnimat
         this.setXRot((float) (Mth.atan2(this.getDeltaMovement().y(), horizontalDistance) * (180D / Math.PI)));
         this.yRotO = this.getYRot();
         this.xRotO = this.getXRot();
-    }
-
-    @Override
-    protected boolean needsTier2ToDamage() {
-        return false;
     }
 
     @Override

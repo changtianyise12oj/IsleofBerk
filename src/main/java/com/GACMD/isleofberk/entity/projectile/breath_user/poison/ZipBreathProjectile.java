@@ -4,10 +4,8 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBase;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.util.Util;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.particles.ParticleOptions;
@@ -58,49 +56,25 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
         return false;
     }
 
-    public float getColorR(int color) {
-        return ((color >> 16) & 0xFF) / 255f;
-    }
-
-    public float getColorG(int color) {
-        return ((color >> 8) & 0xFF) / 255f;
-    }
-
-    public float getColorB(int color) {
-        return (color & 0xFF) / 255f;
-    }
-
     @Override
     public void playParticles() {
-        for (int i = 0; i < 1; i++) {
-            Vec3 vec3 = this.getDeltaMovement();
-            double deltaX = vec3.x;
-            double deltaY = vec3.y;
-            double deltaZ = vec3.z;
-            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
-            for (double j = 0; j < dist; j++) {
-                double coeff = j / dist;
-                int colorGreen = 0x4e8b2e;
 
-                if (level.isClientSide()) {
-                    ParticleOptions particleOptions = ParticleTypes.INSTANT_EFFECT;
-                    LevelRenderer levelRenderer = Minecraft.getInstance().levelRenderer;
-                    ;
-                    Particle particle = levelRenderer.addParticleInternal(particleOptions, true,
-                            (double) (xo + deltaX * coeff),
-                            (double) (yo + deltaY * coeff) + 0.1,
-                            (double) (zo + deltaZ * coeff),
-                            0.0525f * (random.nextFloat() - 0.5f),
-                            0.0525f * (random.nextFloat() - 0.5f),
-                            0.0525f * (random.nextFloat() - 0.5f));
-                    if (particle != null) {
-                        double d23 = random.nextDouble() * 4.0D;
-                        particle.setColor(getColorR(colorGreen), getColorG(colorGreen), getColorB(colorGreen));
-//                        particle.setPower((float) d23);
-                    }
-                }
-            }
-        }
+        // size increasing with projectile age
+        float scale = (float)ticksExisted * 2 + 5;
+
+        // position randomness increasing with projectile age
+        double posX = this.xo + (this.random.nextDouble() - this.random.nextDouble()) * ticksExisted;
+        double posY = this.yo + (this.random.nextDouble() - this.random.nextDouble()) * ticksExisted;
+        double posZ = this.zo + (this.random.nextDouble() - this.random.nextDouble()) * ticksExisted;
+
+        ParticleOptions particleOptions = ModParticles.GAS.get();
+        level.addParticle(particleOptions, true,
+                posX,
+                posY,
+                posZ,
+                scale + 0.1 * (random.nextFloat() - 0.5f),
+                scale + 0.1 * (random.nextFloat() - 0.5f),
+                scale + 0.1 * (random.nextFloat() - 0.5f));
     }
 
     @Override
@@ -121,7 +95,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
                     if (entity != dragon) {
                         if (mobGriefing) {
                             entity.hurt(DamageSource.explosion(this.dragon), 14);
-//                            entity.setSecondsOnFire(7);
+                            ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.POISON, 80, 0, false, false));
                             this.discard();
                             this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
 
@@ -132,7 +106,6 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
                         } else if (!mobGriefing && !entity.hasCustomName()) {
                             if (entity instanceof TamableAnimal tamableAnimal && !tamableAnimal.isTame()) {
                                 entity.hurt(DamageSource.explosion(this.dragon), 8);
-//                                entity.setSecondsOnFire(0);
                                 if (entity.isOnFire()) {
                                     this.explode(getOwner(), entity.getX(), entity.getY(), entity.getZ(), 4, true, Explosion.BlockInteraction.NONE);
                                 }
@@ -168,11 +141,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
                 inertia = 0.8F;
             }
 
-            double d3 = x * 1.8;
-            double d4 = y * 1.8;
-            double d5 = z * 1.8;
             this.setDeltaMovement(deltaMovement.add(this.xPower, this.yPower, this.zPower).scale(inertia));
-//            this.level.addParticle(this.getTrailParticle(), d3, d4 + 0.5D, d5, 1.1D, 1.1D, 1.0D);
             this.setPos(x, y, z);
         }
 
@@ -180,13 +149,12 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
 
         // kill entity when ticks exceed 250 to remove lag
         ticksExisted++;
-        if (ticksExisted > 75) {
+        if (ticksExisted > 7) {
             this.discard();
             ticksExisted = 0;
         }
 
     }
-
     @Override
     protected boolean canHitEntity(Entity hitEntity) {
         return super.canHitEntity(hitEntity) && hitEntity != dragon;

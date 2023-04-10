@@ -14,26 +14,21 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class FlameParticle extends TextureSheetParticle {
+public class GasParticle extends TextureSheetParticle {
 
     private final SpriteSet sprites;
     private final int rotation;
     private final boolean isFlipped;
 
-    FlameParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pQuadSizeMulitiplier, SpriteSet pSprites) {
+    GasParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pQuadSizeMulitiplier, SpriteSet pSprites) {
         super(pLevel, pX, pY, pZ, 0.0D, 0.0D, 0.0D);
         this.lifetime = 15 + this.random.nextInt(10);
         this.quadSize = 0.6F * (1.0F - (float)pQuadSizeMulitiplier * 0.3F);
         this.sprites = pSprites;
-        this.setSpriteFromAge(pSprites);
+        this.pickSprite(pSprites);
         Random random = new Random();
         this.rotation = random.nextInt(4) * 90;
         this.isFlipped = random.nextInt(2) == 0;
-    }
-
-    public float getQuadSize(float pScaleFactor) {
-        float f = ((float)this.age + pScaleFactor) / (float)this.lifetime;
-        return this.quadSize * (1F - f * f * 0.9F);
     }
 
     @Override
@@ -86,17 +81,18 @@ public class FlameParticle extends TextureSheetParticle {
         return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
-    public static class FlameParticleProvider implements ParticleProvider<SimpleParticleType> {
+    public static class GasParticleProvider implements ParticleProvider<SimpleParticleType> {
         SpriteSet spriteSet;
 
-        public FlameParticleProvider (SpriteSet spriteSet) {
+        public GasParticleProvider (SpriteSet spriteSet) {
             this.spriteSet = spriteSet;
         }
 
         @Nullable
         @Override
         public Particle createParticle(SimpleParticleType pType, ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed) {
-            return new FlameParticle(pLevel, pX, pY, pZ, pXSpeed, this.spriteSet);
+            return new GasParticle(pLevel, pX, pY, pZ, pXSpeed, this.spriteSet);
         }
     }
 }
+

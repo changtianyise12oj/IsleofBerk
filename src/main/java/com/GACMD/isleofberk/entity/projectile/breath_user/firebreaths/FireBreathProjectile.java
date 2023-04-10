@@ -9,8 +9,6 @@ import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -52,63 +50,32 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
     }
 
     public void playParticles() {
-        if (getProjectileSize() == 0) {
-            for (int i = 0; i < 1; i++) {
-                Vec3 vec3 = this.getDeltaMovement();
-                double deltaX = vec3.x;
-                double deltaY = vec3.y;
-                double deltaZ = vec3.z;
-                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 1);
-                for (double j = 0; j < dist; j++) {
-                    double coeff = j / dist;
-                    ParticleOptions particleOptions = ParticleTypes.SMALL_FLAME;
-                    level.addParticle(particleOptions, true,
-                            (double) (xo + deltaX * coeff),
-                            (double) (yo + deltaY * coeff),
-                            (double) (zo + deltaZ * coeff),
-                            0.001525f * (random.nextFloat() - 0.3f),
-                            0.001525f * (random.nextFloat() - 0.3f),
-                            0.001525f * (random.nextFloat() - 0.3f));
-                }
-            }
-        } else if (getProjectileSize() == 1) {
-            for (int i = 0; i < 1; i++) {
-                Vec3 vec3 = this.getDeltaMovement();
-                double deltaX = vec3.x;
-                double deltaY = vec3.y;
-                double deltaZ = vec3.z;
-                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 6);
-                for (double j = 0; j < dist; j++) {
-                    double coeff = j / dist;
-                    ParticleOptions particleOptions = ParticleTypes.FLAME;
-                    level.addParticle(particleOptions, true,
-                            (double) (xo + deltaX * coeff),
-                            (double) (yo + deltaY * coeff) + 1.0F,
-                            (double) (zo + deltaZ * coeff),
-                            0.1525f * (random.nextFloat() - 0.5f),
-                            0.1525f * (random.nextFloat() - 0.5f),
-                            0.1525f * (random.nextFloat() - 0.5f));
-                }
-            }
-        } else if (getProjectileSize() == 2) {
-            for (int i = 0; i < 1; i++) {
-                Vec3 vec3 = this.getDeltaMovement();
-                double deltaX = vec3.x;
-                double deltaY = vec3.y;
-                double deltaZ = vec3.z;
-                double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 12);
-                for (double j = 0; j < dist; j++) {
-                    double coeff = j / dist;
-                    ParticleOptions particleOptions = ParticleTypes.FLAME;
-                    level.addParticle(particleOptions, true,
-                            (double) (xo + deltaX * coeff),
-                            (double) (yo + deltaY * coeff) + 1.0F,
-                            (double) (zo + deltaZ * coeff),
-                            0.1525f * (random.nextFloat() - 0.5f),
-                            0.1525f * (random.nextFloat() - 0.5f),
-                            0.1525f * (random.nextFloat() - 0.5f));
-                }
-            }
+
+        // size increasing with projectile age
+        float scale = (float)ticksExisted * 2 + 5;
+
+        // position randomness increasing with projectile age
+        double posX = this.xo + (this.random.nextDouble() - this.random.nextDouble()) * (ticksExisted / 2);
+        double posY = this.yo + (this.random.nextDouble() - this.random.nextDouble()) * (ticksExisted / 2);
+        double posZ = this.zo + (this.random.nextDouble() - this.random.nextDouble()) * (ticksExisted / 2);
+
+        ParticleOptions particleOptions = ModParticles.FLAME.get();
+        level.addParticle(particleOptions, true,
+                posX,
+                posY,
+                posZ,
+                (scale * 0.8) + 0.1 * (random.nextFloat() - 0.5f),
+                (scale * 0.8) * 0.1 * (random.nextFloat() - 0.5f),
+                (scale * 0.8) + 0.1 * (random.nextFloat() - 0.5f));
+
+        if (this.tickCount % 5 == 0) {
+            level.addParticle(ParticleTypes.LAVA, true,
+                    posX,
+                    posY,
+                    posZ,
+                    0.2f * (random.nextFloat() - 0.5f),
+                    0.2f * (random.nextFloat() - 0.5f),
+                    0.2f * (random.nextFloat() - 0.5f));
         }
     }
 
@@ -124,11 +91,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
 
     @Override
     protected int threshHoldForDeletion() {
-        if (getProjectileSize() == 0) {
-            return 10;
-        } else {
-            return 180;
-        }
+    return 20;
     }
 
     @Override
@@ -251,7 +214,6 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
                             double d14 = (double) getSeenPercent(vec3, entity);
                             double d10 = (1.0D - d12) * d14;
                             entity.hurt(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
-//                            entity.hurt(this.getDamageSource(), 22F);
                             double d11 = d10;
                             if (entity instanceof LivingEntity) {
                                 d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10 / 2);
@@ -283,42 +245,6 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
                     this.level.addParticle(ParticleTypes.EXPLOSION, this.x, this.y, this.z, 1.0D, 0.0D, 0.0D);
                 }
             }
-
-//            if (flag) {
-//                ObjectArrayList<Pair<ItemStack, BlockPos>> objectarraylist = new ObjectArrayList<>();
-//                Collections.shuffle(this.toBlow, this.level.random);
-//
-//                for (BlockPos blockpos : this.toBlow) {
-//                    BlockState blockstate = this.level.getBlockState(blockpos);
-//                    Block block = blockstate.getBlock();
-//                    if (!blockstate.isAir()) {
-//                        BlockPos blockpos1 = blockpos.immutable();
-//                        this.level.getProfiler().push("explosion_blocks");
-//                        if (blockstate.canDropFromExplosion(this.level, blockpos, this) && this.level instanceof ServerLevel) {
-//                            BlockEntity blockentity = blockstate.hasBlockEntity() ? this.level.getBlockEntity(blockpos) : null;
-//                            LootContext.Builder lootcontext$builder = (new LootContext.Builder((ServerLevel) this.level)).
-//                                    withRandom(this.level.random).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(blockpos)).
-//                                    withParameter(LootContextParams.TOOL, ItemStack.EMPTY).
-//                                    withOptionalParameter(LootContextParams.BLOCK_ENTITY, blockentity).
-//                                    withOptionalParameter(LootContextParams.THIS_ENTITY, this.source);
-//                            if (this.blockInteraction == Explosion.BlockInteraction.DESTROY) {
-//                                lootcontext$builder.withParameter(LootContextParams.EXPLOSION_RADIUS, this.radius);
-//                            }
-//
-//                            blockstate.getDrops(lootcontext$builder).forEach((p_46074_) -> {
-//                                addBlockDrops(objectarraylist, p_46074_, blockpos1);
-//                            });
-//                        }
-//
-//                        blockstate.onBlockExploded(this.level, blockpos, this);
-//                        this.level.getProfiler().pop();
-//                    }
-//                }
-//
-//                for (Pair<ItemStack, BlockPos> pair : objectarraylist) {
-//                    Block.popResource(this.level, pair.getSecond(), pair.getFirst());
-//                }
-//            }
 
             if (this.fire) {
                 for (BlockPos blockpos2 : this.toBlow) {
