@@ -10,11 +10,11 @@ import com.GACMD.isleofberk.entity.eggs.entity.eggs.MonstrousNightmareEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
+import com.GACMD.isleofberk.registery.ModParticles;
 import com.GACMD.isleofberk.registery.ModSounds;
 import com.GACMD.isleofberk.util.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -30,7 +30,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -273,25 +272,32 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         }
 
         if (ticksUsingSecondAbility > 40) {
-            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(1)));
+            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(1), 0, false, false));
         }
 
         if (isOnFireAbility()) {
             Vec3 t = getLWingPos(this);
             Vec3 t1 = getRWingPos(this);
-            for (double j = 0; j < 5; j++) {
-                ParticleOptions particleOptions = ParticleTypes.LAVA;
+
+            double posXL = t.x + (this.random.nextDouble() - this.random.nextDouble()) * 2.5D;
+            double posYL = t.y + (this.random.nextDouble() - this.random.nextDouble()) * 2.5D;
+            double posZL = t.z + (this.random.nextDouble() - this.random.nextDouble()) * 2.5D;
+
+            double posXR = t1.x + (this.random.nextDouble() - this.random.nextDouble()) * 2.5D;
+            double posYR = t1.y + (this.random.nextDouble() - this.random.nextDouble()) * 2.5D;
+            double posZR = t1.z + (this.random.nextDouble() - this.random.nextDouble()) * 2.5D;
+
+                ParticleOptions particleOptions = ModParticles.FIRE_COAT.get();
                 level.addParticle(particleOptions, true,
-                        t.x, t.y, t.z,
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f));
+                        posXL, posYL, posZL,
+                        0.3 * (random.nextFloat() - 0.5f),
+                        0.3 * (random.nextFloat() - 0.5f),
+                        0.3 * (random.nextFloat() - 0.5f));
                 level.addParticle(particleOptions, true,
-                        t1.x, t1.y, t1.z,
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f));
-            }
+                        posXR, posYR, posZR,
+                        0.3 * (random.nextFloat() - 0.5f),
+                        0.3 * (random.nextFloat() - 0.5f),
+                        0.3 * (random.nextFloat() - 0.5f));
 
             if(this.tickCount % 10 == 0) {
                 level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(4)).forEach(livingEntity -> {
@@ -304,7 +310,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
         if (!level.isClientSide() && hasDamageResist) {
             this.setOnFireAbility(true);
-            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5));
+            this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5, 0, false, false));
         }
 
         if (!level.isClientSide() && !hasDamageResist) {
@@ -334,7 +340,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         }
         if (random.nextInt(24) == 1 && !isInWater()) {
             if (getControllingPassenger() == null) {
-                this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(2)));
+                this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, Util.minutesToSeconds(2), 0, false, false));
             }
         }
         return super.hurt(pSource, pAmount);
@@ -344,9 +350,9 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
         Vec3 bodyOrigin = position();
         float angle = (float) ((float) (Math.PI / 180) * this.yBodyRot + (Math.PI / 180 * 95));
         float angle1 = (float) ((float) (Math.PI / 180) * this.yBodyRot + (Math.PI / 180 * 95));
-        double x = -Math.sin(Math.PI + angle) * 4;
-        double y = 2.4D;
-        double z = Math.cos(Math.PI + angle1) * 4;
+        double x = -Math.sin(Math.PI + angle) * 3;
+        double y = 2D;
+        double z = Math.cos(Math.PI + angle1) * 3;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
 
@@ -367,9 +373,9 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
         float angle = (float) ((float) (Math.PI / 180) * this.yBodyRot - (Math.PI / 180 * 95));
         float angle1 = (float) ((float) (Math.PI / 180) * this.yBodyRot - (Math.PI / 180 * 95));
-        double x = -Math.sin(Math.PI + angle) * 4;
-        double y = 2.4D;
-        double z = Math.cos(Math.PI + angle1) * 4;
+        double x = -Math.sin(Math.PI + angle) * 3;
+        double y = 2D;
+        double z = Math.cos(Math.PI + angle1) * 3;
         float scale = isBaby() ? 0.2F : 1;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x * scale, y * scale, z * scale));
 
@@ -384,9 +390,9 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.nightmareHealth.get())
-                .add(Attributes.ARMOR, ModConfigs.statsConfig.nightmareArmor.get())
-                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.nightmareBite.get())
+                .add(Attributes.MAX_HEALTH, 120)
+                .add(Attributes.ARMOR, 4)
+                .add(Attributes.ATTACK_DAMAGE, 8)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.6F);
@@ -416,23 +422,23 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
-        return 3;
+        return 3F;
     }
 
     @Override
     protected int breathBarRegenSpeed() {
-        return ModConfigs.statsConfig.nightmareBreathRegenSpeed.get();
+        return 20;
     }
 
     @Override
     protected int breathBarRegenAmount() {
-        return ModConfigs.statsConfig.nightmareBreathRegenAmount.get();
+        return 1;
     }
 
 
     @Override
     public int getMaxFuel() {
-        return ModConfigs.statsConfig.nightmareBreathCapacity.get();
+        return 80;
     }
 
     @Override
@@ -443,7 +449,7 @@ public class MonstrousNightmare extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     protected int getInLoveCoolDownInMCDays() {
-        return 22;
+        return 4;
     }
 
     protected SoundEvent getAmbientSound() {

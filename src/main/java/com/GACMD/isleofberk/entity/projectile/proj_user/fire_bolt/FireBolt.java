@@ -57,6 +57,13 @@ public class FireBolt extends BaseLinearBoltProjectile implements IAnimatable {
         super.tick();
     }
 
+    protected int threshHoldForDeletion() {
+        if (this.getDamageTier() > 2) {
+            return 30;
+        } else {
+            return 15;
+        }
+    }
     @Override
     protected ParticleOptions getTrailParticle() {
         return ModParticles.FLAME_TAIL.get();

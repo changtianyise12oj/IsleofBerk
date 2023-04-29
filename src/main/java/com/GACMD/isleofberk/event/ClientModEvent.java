@@ -3,8 +3,9 @@ package com.GACMD.isleofberk.event;
 import com.GACMD.isleofberk.IsleofBerk;
 import com.GACMD.isleofberk.entity.dragons.nightlight.NightLightRender;
 import com.GACMD.isleofberk.entity.dragons.skrill.SkrillRenderer;
+import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathSmallProjectileRenderer;
+import com.GACMD.isleofberk.entity.projectile.breath_user.skrill_lightning.LightningRender;
 import com.GACMD.isleofberk.particles.*;
-import com.GACMD.isleofberk.entity.projectile.proj_user.skrill_lightning.SkrillLightningRender;
 import com.GACMD.isleofberk.gui.DragonInventoryScreen;
 import com.GACMD.isleofberk.gui.event.DragonCameraEvent;
 import com.GACMD.isleofberk.gui.event.ModGuiOverlays;
@@ -35,6 +36,7 @@ import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModKeyBinds;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.particle.HugeExplosionSeedParticle;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
@@ -55,12 +57,14 @@ public final class ClientModEvent {
     private void registerParticleFactories(final ParticleFactoryRegisterEvent event) {
         Minecraft.getInstance().particleEngine.register(ModParticles.NIGHT_FURY_DUST.get(), FuryBoltParticle.FuryBoltParticleProvider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.LIGHT_FURY_DUST.get(), FuryBoltParticle.FuryBoltParticleProvider::new);
-        Minecraft.getInstance().particleEngine.register(ModParticles.SKRILL_SKILL_EMITTER.get(), new SkrillSkillEmitter.Provider());
         Minecraft.getInstance().particleEngine.register(ModParticles.SKRILL_SKILL_PARTICLES.get(), SkrillSkillParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.SKRILL_LIGHTNING_PARTICLES.get(), SkrillLightningParticle.SkrillLightningParticleProvider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.FLAME_TAIL.get(), FireBoltParticle.FireBoltParticleProvider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.FLAME.get(), FlameParticle.FlameParticleProvider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.FIRE_COAT.get(), FireCoatParticle.FireCoatParticleProvider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.GAS.get(), GasParticle.GasParticleProvider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.LIGHTNING_AOE_EMITTER.get(), new LightningAoEEmitter.Provider());
+        Minecraft.getInstance().particleEngine.register(ModParticles.GAS_AOE_EMITTER.get(), new GasAoEEmitter.Provider());
     }
 
     @SubscribeEvent
@@ -86,11 +90,12 @@ public final class ClientModEvent {
          * Dragon Breathe
          */
         event.registerEntityRenderer(ModEntities.FURY_BOLT.get(), FuryBoltRender::new);
-        event.registerEntityRenderer(ModEntities.SKRILL_LIGHTNING.get(), SkrillLightningRender::new);
+        event.registerEntityRenderer(ModEntities.SKRILL_LIGHTNING.get(), LightningRender::new);
         event.registerEntityRenderer(ModEntities.FIRE_BOLT.get(), FireBoltRender::new);
         event.registerEntityRenderer(ModEntities.NADDER_SPIKE.get(), DeadlyNadderSpikeRenderer::new);
         event.registerEntityRenderer(ModEntities.ZIP_POISON.get(), ZipBreathProjectile.ZipBreathProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.FIRE_PROJ.get(), FireBreathProjectileRenderer::new);
+        event.registerEntityRenderer(ModEntities.FIRE_SMALL_PROJ.get(), FireBreathSmallProjectileRenderer::new);
 
         /**
          * Misc

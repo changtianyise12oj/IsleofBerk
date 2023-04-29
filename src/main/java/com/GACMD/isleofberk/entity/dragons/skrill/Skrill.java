@@ -10,6 +10,7 @@ import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.SkrillEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathProjectile;
+import com.GACMD.isleofberk.entity.projectile.breath_user.skrill_lightning.SkrillLightning;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModMobEffects;
 import com.GACMD.isleofberk.registery.ModParticles;
@@ -313,7 +314,7 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {
             this.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 5, 0, false, false));
         }
 
-        if (!level.isClientSide() && !hasDamageResist) {
+        if (!level.isClientSide() && !hasDamageResist || isDragonIncapacitated()) {
             this.setOnFireAbility(false);
         }
 
@@ -386,9 +387,9 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.skrillHealth.get())
-                .add(Attributes.ARMOR, ModConfigs.statsConfig.skrillArmor.get())
-                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.skrillBite.get())
+                .add(Attributes.MAX_HEALTH, 60)
+                .add(Attributes.ARMOR, 2)
+                .add(Attributes.ATTACK_DAMAGE, 4)
                 .add(Attributes.MOVEMENT_SPEED, 0.2F)
                 .add(Attributes.FLYING_SPEED, 0.17F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
@@ -405,7 +406,7 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {
     @Override
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
         if (random.nextInt(3) == 1) {
-            FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
+            SkrillLightning fireProj = new SkrillLightning(this, throat, riderLook, level);
             fireProj.setProjectileSize(2);
             fireProj.shoot(riderLook, 1F, 4F);
             playProjectileSound();
@@ -425,17 +426,17 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public int getMaxFuel() {
-        return ModConfigs.statsConfig.skrillBreathCapacity.get();
+        return 50;
     }
 
     @Override
     protected int breathBarRegenSpeed() {
-        return ModConfigs.statsConfig.skrillBreathRegenSpeed.get();
+        return 20;
     }
 
     @Override
     protected int breathBarRegenAmount() {
-        return ModConfigs.statsConfig.skrillBreathRegenAmount.get();
+        return 1;
     }
 
     @org.jetbrains.annotations.Nullable
@@ -446,7 +447,7 @@ public class Skrill extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     protected int getInLoveCoolDownInMCDays() {
-        return 10;
+        return 3;
     }
 
     protected SoundEvent getAmbientSound() {

@@ -283,11 +283,13 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     public void modifyCommand(int limit, Player player) {
-        if (getCommand() >= limit) {
-            this.setCommands(0);
-        } else {
-            this.setCommands(getCommand() + 1);
-        }
+
+            if (getCommand() >= limit) {
+                this.setCommands(0);
+            } else {
+                this.setCommands(getCommand() + 1);
+            }
+
 
         String wandering = "iob.command.wandering";
         String sitting = "iob.command.sitting";
@@ -650,7 +652,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     protected int getInLoveCoolDownInMCDays() {
-        return 4;
+        return 2;
     }
 
     @Override
@@ -666,7 +668,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     public @NotNull InteractionResult mobInteract(Player pPlayer, @NotNull InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         Item item = itemstack.getItem();
-        if (isCommandItems(itemstack) && isOwnedBy(pPlayer)) {
+        if (isCommandItems(itemstack) && isOwnedBy(pPlayer) && this.isTame()) {
             modifyCommand(2, pPlayer);
             return InteractionResult.SUCCESS;
         }
@@ -1128,7 +1130,7 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
     }
 
     protected void performInCapacitate() {
-        if (getHealth() < getMaxHealth() * 0.30) {
+        if (getHealth() < getMaxHealth() * 0.30 && !isTame()) {
             setIsDragonIncapacitated(true);
         } else {
             setIsDragonIncapacitated(false);
@@ -1215,7 +1217,6 @@ public abstract class ADragonBase extends TamableAnimal implements IAnimatable, 
      * @return
      */
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
-//        return 22;
         return 15;
     }
 

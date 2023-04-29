@@ -130,36 +130,33 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
                 }
             }
             // regen fuel regardless of hunger bar
-            else if (getRandom().nextInt(breathBarRegenSpeed()) == 1) {
+            else if (this.tickCount % breathBarRegenSpeed() == 0) {
                 modifyFuel(breathBarRegenAmount());
             }
-        }
 
-
-        // regen secondary fuel regardless, it only holds 25 units
-        if (getRandom().nextInt(secondAbilityRegenSpeed()) == 1) {
-            modifySecondaryFuel(4);
-        }
-
-        if (getControllingPassenger() != null && getControllingPassenger() instanceof Player rider && canUseBreathNormally()) {
-            Vec3 throat = getThroatPos(this);
-            Vec3 riderLook = rider.getViewVector(1);
-
-            if (isUsingAbility() && canUseBreath()) {
-                firePrimary(riderLook, throat);
+            // regen secondary fuel regardless, it only holds 25 units
+            if (this.tickCount % secondAbilityRegenSpeed() == 0) {
+                modifySecondaryFuel(4);
             }
 
-            if (isUsingSECONDAbility() && canSpamSecondaryFire()) {
-                fireSecondary(riderLook, throat);
+
+            if (getControllingPassenger() != null && getControllingPassenger() instanceof Player rider && canUseBreathNormally()) {
+                Vec3 throat = getThroatPos(this);
+                Vec3 riderLook = rider.getViewVector(1);
+
+                if (isUsingAbility() && canUseBreath()) {
+                    firePrimary(riderLook, throat);
+                }
+
+                if (isUsingSECONDAbility() && canSpamSecondaryFire()) {
+                    fireSecondary(riderLook, throat);
+                }
             }
-        }
 
+            if (getFRemainingTicks() > 0) {
+                setFRemainingTicks(getFRemainingTicks() - 1);
+            }
 
-        if (getFRemainingTicks() > 0) {
-            setFRemainingTicks(getFRemainingTicks() - 1);
-        }
-
-        if (!level.isClientSide()) {
             if (getTarget() != null && getTarget().getMaxHealth() > 18 && !(getTarget() instanceof AbstractFish)) {
                 if (!(getControllingPassenger() instanceof Player) || (!(getVehicle() instanceof Player) && this instanceof TerribleTerror)) {
                     if (getRandom().nextInt(8) == 1 && getFRemainingTicks() <= 0 && getRemainingFuel() > 0) {
@@ -173,14 +170,11 @@ public class ADragonBaseFlyingRideableBreathUser extends ADragonBaseFlyingRideab
                     }
                 }
             }
-        }
-
-        if (this instanceof TerribleTerror terribleTerror) {
-            if (getFRemainingTicks() <= 0 && !(getVehicle() instanceof Player)) {
+            if (this instanceof TerribleTerror && getVehicle() instanceof Player) {
+                setIsUsingAbility(false);
+            } else if (getFRemainingTicks() <= 0 && (getControllingPassenger() == null)) {
                 setIsUsingAbility(false);
             }
-        } else if (getFRemainingTicks() <= 0 && (getControllingPassenger() == null)) {
-            setIsUsingAbility(false);
         }
     }
 

@@ -32,7 +32,7 @@ public class DragonSpawnConfig
                 If there is a different desired value of weight/counts simply add a new list entry.""".indent(1))
                 .defineList("stinger_data", List.of(
                         "10 | 2 | 4 | minecraft:sunflower_plains, minecraft:savanna, minecraft:savanna_plateau",
-                        "1 | 0 | 3 | minecraft:badlands, minecraft:wooded_badlands, minecraft:eroded_badlands"
+                        "2 | 0 | 2 | minecraft:badlands, minecraft:wooded_badlands, minecraft:eroded_badlands"
                 ), o -> o instanceof String));
         builder.pop();
 
@@ -79,7 +79,7 @@ public class DragonSpawnConfig
         lightFuryData = subscriber.subscribe(builder
                 .comment(" Usage described at the top.")
                 .defineList("light_fury_data", List.of(
-                        "1 | 0 | 1 | minecraft:jagged_peaks, minecraft:frozen_peaks, minecraft:windswept_forest, minecraft:birch_forest, minecraft:old_growth_birch_forest"
+                        "3 | 0 | 1 | minecraft:jagged_peaks, minecraft:frozen_peaks, minecraft:windswept_forest, minecraft:birch_forest, minecraft:old_growth_birch_forest"
                 ), o -> o instanceof String));
         builder.pop();
 
@@ -87,7 +87,7 @@ public class DragonSpawnConfig
         nightFuryData = subscriber.subscribe(builder
                 .comment(" Usage described at the top.")
                 .defineList("night_fury_data", List.of(
-                        "1 | 0 | 1 | minecraft:snowy_slopes, minecraft:jagged_peaks, minecraft:frozen_peaks, minecraft:windswept_hills, minecraft:windswept_gravelly_hills, minecraft:stony_peaks"
+                        "2 | 0 | 1 | minecraft:snowy_slopes, minecraft:jagged_peaks, minecraft:frozen_peaks, minecraft:windswept_hills, minecraft:windswept_gravelly_hills, minecraft:stony_peaks"
                 ), o -> o instanceof String));
         builder.pop();
 
@@ -104,7 +104,7 @@ public class DragonSpawnConfig
         skrillData = subscriber.subscribe(builder
                 .comment(" Usage described at the top.")
                 .defineList("skrill_data", List.of(
-                        "2 | 0 | 1 | minecraft:snowy_slopes, minecraft:jagged_peaks, minecraft:frozen_peaks, minecraft:stony_peaks"
+                        "5 | 0 | 1 | minecraft:snowy_slopes, minecraft:jagged_peaks, minecraft:frozen_peaks, minecraft:stony_peaks"
                 ), o -> o instanceof String));
         builder.pop();
 

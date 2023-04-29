@@ -268,10 +268,12 @@ public class ADragonEggBase extends AgeableMob implements IAnimatable {
         if(this.displayProgressTicks > 0)
             this.displayProgressTicks--;
 
-        if (!isCold() && this.getTicksToHatch() <= getHatchTime()) {
-            this.setTicksToHatch(getTicksToHatch() + 1);
-        } else if (isCold() && getTicksToHatch() > 0) {
-            this.setTicksToHatch(getTicksToHatch() - 1);
+        if (!level.isClientSide() && this.tickCount % 20 == 0) {
+            if (!isCold() && this.getTicksToHatch() <= getHatchTime()) {
+                this.setTicksToHatch(getTicksToHatch() + 1);
+            } else if (isCold() && getTicksToHatch() > 0) {
+                this.setTicksToHatch(getTicksToHatch() - 1);
+            }
         }
 
         if (hatchParameters()) {

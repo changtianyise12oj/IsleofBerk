@@ -406,10 +406,9 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 120.0D)
+                .add(Attributes.MAX_HEALTH, 70)
                 .add(Attributes.FOLLOW_RANGE, 32F)
                 .add(Attributes.ARMOR, 4)
-                .add(Attributes.ARMOR_TOUGHNESS, 14)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.10F)
                 .add(Attributes.ATTACK_DAMAGE, 6F)
@@ -630,16 +629,16 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
      */
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
         if (projectile.getDamageTier() == 1) {
-            return 20F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+            return 10F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
         } else if (projectile.getDamageTier() == 2) {
-            return 22F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+            return 12F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
         } else if (projectile.getDamageTier() == 3) {
-            return 24F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+            return 14F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
         } else if (projectile.getDamageTier() == 4) {
-            return 25F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+            return 16F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
         }
 
-        return 20;
+        return 10;
     }
 
     public boolean tier1() {
@@ -792,7 +791,7 @@ public class TripleStryke extends ADragonBaseFlyingRideableProjUser {
 
     @Override
     protected int getInLoveCoolDownInMCDays() {
-        return 22;
+        return 3;
     }
 
 //    protected SoundEvent getAmbientSound() {

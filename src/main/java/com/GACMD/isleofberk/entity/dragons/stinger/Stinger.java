@@ -358,12 +358,11 @@ public class Stinger extends ADragonBaseGroundRideable implements IAnimatable {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 140.0D)
+                .add(Attributes.MAX_HEALTH, 80)
                 .add(Attributes.ARMOR, 2)
-                .add(Attributes.ARMOR_TOUGHNESS, 14)
                 .add(Attributes.FLYING_SPEED, 0.14D)
                 .add(Attributes.MOVEMENT_SPEED, 0.55F)
-                .add(Attributes.ATTACK_DAMAGE, 10F)
+                .add(Attributes.ATTACK_DAMAGE, 8)
                 .add(Attributes.JUMP_STRENGTH, 4)
                 .add(Attributes.FOLLOW_RANGE, 32F)
                 .add(ForgeMod.SWIM_SPEED.get(), 10);

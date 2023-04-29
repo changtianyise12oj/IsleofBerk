@@ -198,10 +198,6 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
 
         setSleepDisturbTicks(Util.secondsToTicks(38));
 
-        if (pPlayer.isCrouching() && ownedByPlayer && !guiLocked() && !isCommandItems(itemstack)) {
-            this.openGUI(pPlayer);
-            return InteractionResult.SUCCESS;
-        }
 
         if (isBaby()) {
             if (itemstack.isEmpty()) {
@@ -215,28 +211,37 @@ public class ADragonRideableUtility extends ADragonBase implements ContainerList
             }
         }
 
-        if (this.isFoodEdibleToDragon(itemstack) && canEatWithFoodOnHand(true)) {
-            foodTamingInteraction(pPlayer, pHand, itemstack);
-            this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
-            return InteractionResult.SUCCESS;
-        }
 
 
-        if (isCommandItems(itemstack)) {
-            if (isOwnedBy(pPlayer)) {
-                if (pPlayer.isShiftKeyDown()) {
-                    String seatLockOn = "iob.command.seatLock.on";
-                    String seatLockOff = "iob.command.seatLock.off";
-                    setSeatLocked(!isSeatLocked());
-                    if (isSeatLocked()) {
-                        pPlayer.displayClientMessage(new TranslatableComponent(seatLockOn, isSeatLocked()), true);
+        if (!level.isClientSide()) {
+
+            if (this.isFoodEdibleToDragon(itemstack) && canEatWithFoodOnHand(true)) {
+                foodTamingInteraction(pPlayer, pHand, itemstack);
+                this.gameEvent(GameEvent.MOB_INTERACT, this.eyeBlockPosition());
+                return InteractionResult.SUCCESS;
+            }
+
+            if (pPlayer.isCrouching() && ownedByPlayer && !guiLocked() && !isCommandItems(itemstack)) {
+                this.openGUI(pPlayer);
+                return InteractionResult.SUCCESS;
+            }
+
+            if (this.isTame() && isCommandItems(itemstack)) {
+                if (isOwnedBy(pPlayer)) {
+                    if (pPlayer.isShiftKeyDown()) {
+                        String seatLockOn = "iob.command.seatLock.on";
+                        String seatLockOff = "iob.command.seatLock.off";
+                        setSeatLocked(!isSeatLocked());
+                        if (isSeatLocked()) {
+                            pPlayer.displayClientMessage(new TranslatableComponent(seatLockOn, isSeatLocked()), true);
+                        } else {
+                            pPlayer.displayClientMessage(new TranslatableComponent(seatLockOff, !isSeatLocked()), true);
+                        }
+                        return InteractionResult.SUCCESS;
                     } else {
-                        pPlayer.displayClientMessage(new TranslatableComponent(seatLockOff, !isSeatLocked()), true);
+                        modifyCommand(2, pPlayer);
+                        return InteractionResult.SUCCESS;
                     }
-                    return InteractionResult.SUCCESS;
-                } else {
-                    modifyCommand(2, pPlayer);
-                    return InteractionResult.SUCCESS;
                 }
             }
         }

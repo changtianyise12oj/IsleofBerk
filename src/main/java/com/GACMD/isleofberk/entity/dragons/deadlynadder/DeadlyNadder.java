@@ -237,9 +237,9 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.nadderHealth.get())
-                .add(Attributes.ARMOR, ModConfigs.statsConfig.nadderArmor.get())
-                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.nadderBite.get())
+                .add(Attributes.MAX_HEALTH, 50D)
+                .add(Attributes.ARMOR, 2D)
+                .add(Attributes.ATTACK_DAMAGE, 4D)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
                 .add(Attributes.FOLLOW_RANGE, 32F)
@@ -394,17 +394,17 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public int getMaxFuel() {
-        return ModConfigs.statsConfig.nadderBreathCapacity.get();
+        return 40;
     }
 
     @Override
     protected int breathBarRegenSpeed() {
-        return ModConfigs.statsConfig.nadderBreathRegenSpeed.get();
+        return 10;
     }
 
     @Override
     protected int breathBarRegenAmount() {
-        return ModConfigs.statsConfig.nadderBreathRegenAmount.get();
+        return 3;
     }
 
     @Override
@@ -481,12 +481,12 @@ public class DeadlyNadder extends ADragonBaseFlyingRideableBreathUser {
      * @return
      */
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
-        return 2;
+        return 7F;
     }
 
     @Override
     protected int getInLoveCoolDownInMCDays() {
-        return 14;
+        return 2;
     }
 
     protected SoundEvent getAmbientSound() {

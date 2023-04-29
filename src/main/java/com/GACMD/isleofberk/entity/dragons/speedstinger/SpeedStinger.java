@@ -395,9 +395,9 @@ public class SpeedStinger extends ADragonRideableUtility {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.sStingerHealth.get())
-                .add(Attributes.ARMOR, ModConfigs.statsConfig.sStingerArmor.get())
-                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.sStingerBite.get())
+                .add(Attributes.MAX_HEALTH, 40)
+                .add(Attributes.ARMOR, 0)
+                .add(Attributes.ATTACK_DAMAGE, 4)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FOLLOW_RANGE, 5F)
                 .add(ForgeMod.SWIM_SPEED.get(), 10);
@@ -547,7 +547,7 @@ public class SpeedStinger extends ADragonRideableUtility {
     }
 
     protected int getInLoveCoolDownInMCDays() {
-        return 5;
+        return 1;
     }
 
     public void circleEntity(Entity target, float radius, float speed, boolean direction, int circleFrame, float offset, float moveSpeedMultiplier) {

@@ -11,10 +11,8 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
@@ -89,6 +87,18 @@ public class FuryBolt extends BaseLinearBoltProjectile implements IAnimatable {
     @Override
     public void tick() {
         super.tick();
+        if (ticksExisted > threshHoldForDeletion()) {
+            this.discard();
+            ticksExisted = 0;
+        }
+    }
+
+    protected int threshHoldForDeletion() {
+        if (this.getDamageTier() > 2) {
+            return 45;
+        } else {
+            return 25;
+        }
     }
 
     @Override
@@ -103,7 +113,6 @@ public class FuryBolt extends BaseLinearBoltProjectile implements IAnimatable {
 
     @Override
     protected void callExplosionEffects(boolean flag, ADragonRideableUtility dragon) {
-//        level.explode(dragon, this.getX(), this.getY(), this.getZ(), dragon.getExplosionStrength(), flag, flag ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE);
         super.callExplosionEffects(flag, dragon);
     }
 
@@ -112,13 +121,15 @@ public class FuryBolt extends BaseLinearBoltProjectile implements IAnimatable {
         return super.canHitEntity(p_36842_) && p_36842_ != this.getOwner(); //  && p_36842_ instanceof ADragonBase
     }
 
-    public void updateHeading() {
+/*    public void updateHeading() {
         double horizontalDistance = this.getDeltaMovement().horizontalDistance();
         this.setYRot((float) (Mth.atan2(this.getDeltaMovement().x(), this.getDeltaMovement().z()) * (180D / Math.PI)));
         this.setXRot((float) (Mth.atan2(this.getDeltaMovement().y(), horizontalDistance) * (180D / Math.PI)));
         this.yRotO = this.getYRot();
         this.xRotO = this.getXRot();
     }
+
+ */
     @Override
     public boolean isNoGravity() {
         return true;

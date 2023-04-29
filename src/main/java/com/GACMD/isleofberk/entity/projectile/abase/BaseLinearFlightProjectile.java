@@ -5,6 +5,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseGroundRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonRideableUtility;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZipBreathProjectile;
+import com.GACMD.isleofberk.entity.projectile.breath_user.skrill_lightning.SkrillLightning;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -213,7 +214,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                         float damage1 = entity instanceof Player || entity instanceof ADragonBaseFlyingRideable || entity instanceof ADragonBaseGroundRideable ? damage / 3 : damage;
                         if (mobGriefing) {
                             entity.hurt(DamageSource.mobAttack(dragon), damage1);
-                            if(!(this instanceof ZipBreathProjectile))
+                            if(!(this instanceof ZipBreathProjectile || this instanceof SkrillLightning))
                                 entity.setSecondsOnFire(7);
                             this.discard();
                             this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
@@ -231,7 +232,7 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
                                 return;
                             } else {
                                 entity.hurt(DamageSource.mobAttack(dragon), damage1);
-                                if(!(this instanceof ZipBreathProjectile))
+                                if(!(this instanceof ZipBreathProjectile || this instanceof SkrillLightning))
                                     entity.setSecondsOnFire(7);
                                 this.discard();
                                 this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
@@ -330,76 +331,30 @@ public abstract class BaseLinearFlightProjectile extends AbstractHurtingProjecti
     protected abstract Explosion explode(ADragonBase dragon, double x, double y, double z, float explosionStrength, boolean flag, Explosion.BlockInteraction blockInteraction);
 
     public void playParticles() {
-        if (getProjectileSize() == 0) {
-            Vec3 vec3 = this.getDeltaMovement();
-            double deltaX = vec3.x;
-            double deltaY = vec3.y;
-            double deltaZ = vec3.z;
-            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 0.7F);
-            for (double j = 0; j < dist; j++) {
-                double coeff = j / dist;
-                ParticleOptions particleOptions = getTrailParticle();
-                level.addParticle(particleOptions, true,
-                        (double) (xo + deltaX * coeff),
-                        (double) (yo + deltaY * coeff) + 0.1,
-                        (double) (zo + deltaZ * coeff),
-                        0.001525f * (random.nextFloat() - 0.3f),
-                        0.001525f * (random.nextFloat() - 0.3f),
-                        0.001525f * (random.nextFloat() - 0.3f));
-            }
 
-        } else if (getProjectileSize() == 1) {
-            Vec3 vec3 = this.getDeltaMovement();
-            double deltaX = vec3.x;
-            double deltaY = vec3.y;
-            double deltaZ = vec3.z;
-            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 4);
-            for (double j = 0; j < dist; j++) {
-                double coeff = j / dist;
-                ParticleOptions particleOptions = getTrailParticle();
-                level.addParticle(particleOptions, true,
-                        (double) (xo + deltaX * coeff),
-                        (double) (yo + deltaY * coeff) + 0.1,
-                        (double) (zo + deltaZ * coeff),
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f),
-                        0.1525f * (random.nextFloat() - 0.5f));
-            }
-        } else if (getProjectileSize() == 2) {
-            Vec3 vec3 = this.getDeltaMovement();
-            double deltaX = vec3.x;
-            double deltaY = vec3.y;
-            double deltaZ = vec3.z;
-            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 14);
-            for (double j = 0; j < dist; j++) {
-                double coeff = j / dist;
-                ParticleOptions particleOptions = getTrailParticle();
-                level.addParticle(particleOptions, true,
-                        (double) (xo + deltaX * coeff),
-                        (double) (yo + deltaY * coeff) + 0.1,
-                        (double) (zo + deltaZ * coeff),
-                        0.41525f * (random.nextFloat() - 1.7f),
-                        0.41525f * (random.nextFloat() - 1.7f),
-                        0.41525f * (random.nextFloat() - 1.7f));
-            }
-        } else if (getProjectileSize() == 3) {
-            Vec3 vec3 = this.getDeltaMovement();
-            double deltaX = vec3.x;
-            double deltaY = vec3.y;
-            double deltaZ = vec3.z;
-            double dist = Math.ceil(Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ) * 32);
-            for (double j = 0; j < dist; j++) {
-                double coeff = j / dist;
-                ParticleOptions particleOptions = getTrailParticle();
-                level.addParticle(particleOptions, true,
-                        (double) (xo + deltaX * coeff),
-                        (double) (yo + deltaY * coeff) + 0.1,
-                        (double) (zo + deltaZ * coeff),
-                        0.41525f * (random.nextFloat() - 1.7f),
-                        0.41525f * (random.nextFloat() - 1.7f),
-                        0.41525f * (random.nextFloat() - 1.7f));
-            }
+        float scale = (float) ticksExisted * 2 + 8;
+        float scaleMultiplier;
+
+        switch (getProjectileSize()) {
+            default -> scaleMultiplier = 0.3F;
+            case 1 -> scaleMultiplier = 0.4F;
+            case 2 -> scaleMultiplier = 0.5F;
+            case 3 -> scaleMultiplier = 0.6F;
         }
+
+        double posX = this.xo + (this.random.nextDouble() - this.random.nextDouble()) * (ticksExisted / 15);
+        double posY = this.yo + (this.random.nextDouble() - this.random.nextDouble()) * (ticksExisted / 15);
+        double posZ = this.zo + (this.random.nextDouble() - this.random.nextDouble()) * (ticksExisted / 15);
+
+        ParticleOptions particleOptions = getTrailParticle();
+        level.addParticle(particleOptions, true,
+                posX,
+                posY,
+                posZ,
+                (scale * scaleMultiplier) + 0.1 * (random.nextFloat() - 0.5f),
+                (scale * scaleMultiplier) * 0.1 * (random.nextFloat() - 0.5f),
+                (scale * scaleMultiplier) + 0.1 * (random.nextFloat() - 0.5f));
+
     }
 
     @Override

@@ -42,7 +42,7 @@ public class DeadlyNadderSpike extends AbstractArrow {
 
     public DeadlyNadderSpike(Level pLevel, LivingEntity pShooter) {
         super(ModEntities.NADDER_SPIKE.get(), pShooter, pLevel);
-        this.setBaseDamage(ModConfigs.statsConfig.nadderSpikes.get());
+        this.setBaseDamage(4F);
     }
 
     @Override

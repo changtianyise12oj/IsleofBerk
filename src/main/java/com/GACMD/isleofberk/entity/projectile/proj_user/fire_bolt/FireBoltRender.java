@@ -20,21 +20,21 @@ public class FireBoltRender extends GeoProjectilesRenderer<FireBolt> {
     public RenderType getRenderType(FireBolt animatable, float partialTicks, PoseStack stack,
                                     MultiBufferSource renderTypeBuffer, VertexConsumer vertexBuilder, int packedLightIn,
                                     ResourceLocation textureLocation) {
-        return RenderType.entityCutoutNoCull(getTextureLocation(animatable));
+        return RenderType.eyes(getTextureLocation(animatable));
     }
 
     @Override
     public void renderEarly(FireBolt animatable, PoseStack stackIn, float ticks, @Nullable MultiBufferSource renderTypeBuffer, @Nullable VertexConsumer vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float partialTicks) {
         super.renderEarly(animatable, stackIn, ticks, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, partialTicks);
-        if(animatable.getProjectileSize() == 0) {
-            stackIn.scale(2.2F, 2.2F, 2.2F);
-        } else if(animatable.getProjectileSize() == 1) {
-            stackIn.scale(2.6F, 2.6F, 2.6F);
-        } else if(animatable.getProjectileSize() == 2) {
-            stackIn.scale(3.1F, 3.1F, 3.1F);
-        } else if(animatable.getProjectileSize() == 3) {
-            stackIn.scale(3.1F, 3.1F, 3.1F);
+
+        float scale;
+        switch (animatable.getProjectileSize()) {
+            default -> scale = 1.5F;
+            case 1 -> scale = 2.0F;
+            case 2 -> scale = 2.5F;
+            case 3 -> scale = 3.0F;
         }
+        stackIn.scale(scale, scale, scale);
     }
 
     @Override

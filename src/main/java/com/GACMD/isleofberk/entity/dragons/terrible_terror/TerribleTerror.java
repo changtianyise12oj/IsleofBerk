@@ -15,7 +15,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.TerribleTerrorEgg;
 import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
-import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathProjectile;
+import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathSmallProjectile;
 import com.GACMD.isleofberk.network.ControlNetwork;
 import com.GACMD.isleofberk.network.message.ControlMessageJumping;
 import com.GACMD.isleofberk.network.message.ControlMessageSECONDAbility;
@@ -288,7 +288,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.ARMOR, 0.5)
+                .add(Attributes.ARMOR, 0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3F)
                 .add(Attributes.FOLLOW_RANGE, 12F)
                 .add(ForgeMod.SWIM_SPEED.get(), 4F)
@@ -403,7 +403,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     }
 
     protected int getInLoveCoolDownInMCDays() {
-        return 3;
+        return 1;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -564,9 +564,9 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public Vec3 getThroatPos(ADragonBase entity) {
         Vec3 bodyOrigin = position();
 
-        double x = -Math.sin(this.yBodyRot * Math.PI / 180) * 0.5D;
-        double y = 0.5D;
-        double z = Math.cos(this.yBodyRot * Math.PI / 180) * 0.5D;
+        double x = -Math.sin(this.yBodyRot * Math.PI / 180) * 0.9D;
+        double y = 0.1D;
+        double z = Math.cos(this.yBodyRot * Math.PI / 180) * 0.9D;
         Vec3 throatPos = bodyOrigin.add(new Vec3(x, y, z));
         return throatPos;
     }
@@ -574,10 +574,10 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public Vec3 getTerror0ThroatPosViaPlayer(Player entity) {
         Vec3 vehiclePosition = entity.position();
         double offsetX, offsetY, offsetZ;
-        float radius = 0.4F;
-        offsetX = (radius * -Math.sin(((Player) entity).yBodyRot * Math.PI / 180));
-        offsetZ = (radius * Math.cos(((Player) entity).yBodyRot * Math.PI / 180));
-        offsetY = 2.2D;
+        float radius = 0.9F;
+        offsetX = (radius * -Math.sin(entity.yBodyRot * Math.PI / 180));
+        offsetZ = (radius * Math.cos(entity.yBodyRot * Math.PI / 180));
+        offsetY = 2.1D;
         Vec3 throatPos = new Vec3(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
         return throatPos;
     }
@@ -585,11 +585,11 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public Vec3 getTerror1ThroatPosViaPlayer(Player entity) {
         Vec3 vehiclePosition = entity.position();
         double offsetX, offsetY, offsetZ;
-        float radius = 0.4F;
-        float angle = (float) (Math.PI / 180) * ((Player) entity).yBodyRot - 95;
+        float radius = 1.5F;
+        float angle = (float) (Math.PI / 180) * entity.yBodyRot - 95;
         offsetX = (radius * Math.sin(Math.PI + angle));
         offsetZ = (radius * Math.cos(angle));
-        offsetY = 1.4D;
+        offsetY = 1.7D;
         Vec3 throatPos = new Vec3(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
         return throatPos;
 
@@ -598,11 +598,11 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     public Vec3 getTerror2ThroatPosViaPlayer(Player entity) {
         Vec3 vehiclePosition = entity.position();
         double offsetX, offsetY, offsetZ;
-        float radius = 0.4F;
-        float angle = (float) (Math.PI / 180) * ((Player) entity).yBodyRot + 95;
+        float radius = 1.5F;
+        float angle = (float) (Math.PI / 180) * entity.yBodyRot + 95;
         offsetX = (radius * Math.sin(Math.PI + angle));
         offsetZ = (radius * Math.cos(angle));
-        offsetY = 1.4D;
+        offsetY = 1.7D;
         Vec3 throatPos = new Vec3(vehiclePosition.x + offsetX, vehiclePosition.y + offsetY, vehiclePosition.z + offsetZ);
         return throatPos;
 
@@ -610,7 +610,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
 
     @Override
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
-        return 3;
+        return 4;
     }
 
     @Override
@@ -663,7 +663,7 @@ public class TerribleTerror extends ADragonBaseFlyingRideableBreathUser implemen
     @Override
     public void firePrimary(Vec3 riderLook, Vec3 throat) {
         if (random.nextInt(2) == 1) {
-            FireBreathProjectile fireProj = new FireBreathProjectile(this, throat, riderLook, level);
+            FireBreathSmallProjectile fireProj = new FireBreathSmallProjectile(this, throat, riderLook, level);
             fireProj.setProjectileSize(0);
             fireProj.shootNoScaling(riderLook, 1F, 7F);        // make the breath sound play less
             playProjectileSound();

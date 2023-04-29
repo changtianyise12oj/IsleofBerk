@@ -11,7 +11,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.AbstractFish;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -129,14 +128,14 @@ public class ADragonBaseFlyingRideableProjUser extends ADragonBaseFlyingRideable
                     }
                 }
             }
-        }
-        if (getTicksSinceLastFire() > 0) {
-            setTicksSinceLastFire(getTicksSinceLastFire() - 1);
-        }
-        if (getTicksSinceLastFire() < 2) {
-            setMarkFired(false);
-        } else {
-            setMarkFired(true);
+            if (getTicksSinceLastFire() > 0) {
+                setTicksSinceLastFire(getTicksSinceLastFire() - 1);
+            }
+            if (getTicksSinceLastFire() < 2) {
+                setMarkFired(false);
+            } else {
+                setMarkFired(true);
+            }
         }
     }
 

@@ -201,9 +201,9 @@ public class LightFury extends NightFury {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.lightFuryHealth.get())
-                .add(Attributes.ARMOR, ModConfigs.statsConfig.lightFuryArmor.get())
-                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.lightFuryBite.get())
+                .add(Attributes.MAX_HEALTH, 60D)
+                .add(Attributes.ARMOR, 0D)
+                .add(Attributes.ATTACK_DAMAGE, 2D)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
@@ -335,9 +335,9 @@ public class LightFury extends NightFury {
         } else if (projectile.getDamageTier() == 2) {
             return 22F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
         } else if (projectile.getDamageTier() == 3) {
-            return 23F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.11F) : 0F);
+            return 24F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.11F) : 0F);
         } else if (projectile.getDamageTier() == 4) {
-            return 24F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.12F) : 0F);
+            return 30F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.12F) : 0F);
         }
 
         return 20;

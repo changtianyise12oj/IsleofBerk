@@ -250,13 +250,12 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 160.0D)
-                .add(Attributes.ARMOR, 14)
-                .add(Attributes.ARMOR_TOUGHNESS, 6)
+                .add(Attributes.MAX_HEALTH, 100)
+                .add(Attributes.ARMOR, 0)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.14F)
                 .add(Attributes.FOLLOW_RANGE, 32F)
-                .add(Attributes.ATTACK_DAMAGE, 8F)
+                .add(Attributes.ATTACK_DAMAGE, 6)
                 .add(ForgeMod.SWIM_SPEED.get(), 0.8F);
     }
 
@@ -404,7 +403,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     public int getMaxFuel() {
-        return 250;
+        return 60;
     }
 
     @Override
@@ -414,12 +413,12 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     protected int breathBarRegenSpeed() {
-        return 75;
+        return 20;
     }
 
     @Override
     protected int breathBarRegenAmount() {
-        return 32;
+        return 2;
     }
 
 
@@ -442,7 +441,7 @@ public class ZippleBack extends ADragonBaseFlyingRideableBreathUser {
 
     @Override
     protected int getInLoveCoolDownInMCDays() {
-        return 22;
+        return 4;
     }
 
     protected SoundEvent getAmbientSound() {

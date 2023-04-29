@@ -95,7 +95,6 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
                     if (entity != dragon) {
                         if (mobGriefing) {
                             entity.hurt(DamageSource.explosion(this.dragon), 14);
-                            ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.POISON, 80, 0, false, false));
                             this.discard();
                             this.gameEvent(GameEvent.PROJECTILE_LAND, this.getOwner());
 
@@ -176,6 +175,7 @@ public class ZipBreathProjectile extends BaseLinearFlightProjectile {
         areaeffectcloud.setWaitTime(10);
         areaeffectcloud.setRadiusPerTick(-areaeffectcloud.getRadius() / (float) areaeffectcloud.getDuration());
         areaeffectcloud.setPotion(Potions.POISON);
+        areaeffectcloud.setParticle(ModParticles.GAS_AOE_EMITTER.get());
         areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.POISON, Util.secondsToTicks(25)));
 
         this.level.addFreshEntity(areaeffectcloud);

@@ -22,6 +22,7 @@
     "item.isleofberk.belzium_hammer": "§dReinforced Hooligan Hammer",
 
     "item.isleofberk.nightfury_spawn_egg": "§dNight Fury",
+    "item.isleofberk.nightlight_spawn_egg": "§dNight Light",
     "item.isleofberk.lightfury_spawn_egg": "§dLight Fury",
     "item.isleofberk.nightlight_spawn_egg": "§dNight Light",
     "item.isleofberk.triple_stryke_spawn_egg": "§dTriple Stryke",
@@ -36,6 +37,7 @@
     "item.isleofberk.skrill_spawn_egg": "§dSkrill",
 
     "entity.isleofberk.night_fury": "Night Fury",
+    "entity.isleofberk.night_light": "Night Light",
     "entity.isleofberk.light_fury": "Light Fury",
     "entity.isleofberk.night_light": "Nightlight",
     "entity.isleofberk.triple_stryke": "Triple Stryke",
@@ -50,6 +52,7 @@
     "entity.isleofberk.skrill": "Skrill",
 
     "item.isleofberk.night_fury_egg": "§dNight Fury Egg",
+    "item.isleofberk.night_light_egg": "§dNight Light Egg",
     "item.isleofberk.light_fury_egg": "§dLight Fury Egg",
     "item.isleofberk.night_light_egg": "§dNight Light Egg",
     "item.isleofberk.triple_stryke_egg": "§dTriple Stryke Egg",
@@ -104,6 +107,7 @@
     "key.isleofberk.keyDown": "Fly Down",
 
     "nightfury_spawn_egg_info": "Tier 4 §5§lStrike Class §rDragon",
+    "nightlight_spawn_egg_info": "Tier 4 §5§lStrike Class §rDragon",
     "lightfury_spawn_egg_info": "Tier 4 §5§lStrike Class §rDragon",
     "zippleback_spawn_egg_info": "Tier 4 §5§lMystery Class §rDragon",
     "monstrous_nightmare_spawn_egg_info": "Tier 4 §5§lStoker Class §rDragon",
@@ -114,6 +118,7 @@
     "terrible_terror_spawn_egg_info": "Tier 1 §c§lStoker Class §rDragon",
     "speed_stinger_spawn_egg_info": "Tier 4 §6§lSharp Class §rDragon",
     "speed_stinger_leader_spawn_egg_info": "Tier 5 §6§lSharp Class §rDragon",
+    "skrill_spawn_egg_info": "Tier 3 §5§lStrike Class §rDragon",
 
     "advancement.gronckle_iron.title": "The Iron Gronckle",
     "advancement.gronckle_iron.desc": "Extremely strong yet lightweight!",

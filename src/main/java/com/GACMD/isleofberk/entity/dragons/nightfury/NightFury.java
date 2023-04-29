@@ -264,9 +264,9 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.nightFuryHealth.get())
-                .add(Attributes.ARMOR, ModConfigs.statsConfig.nightFuryArmor.get())
-                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.nightFuryBite.get())
+                .add(Attributes.MAX_HEALTH, 80)
+                .add(Attributes.ARMOR, 0)
+                .add(Attributes.ATTACK_DAMAGE, 4)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
                 .add(Attributes.FOLLOW_RANGE, 32F)
@@ -297,7 +297,7 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
     }
 
     protected int getInLoveCoolDownInMCDays() {
-        return 10;
+        return 4;
     }
 
     @Override
@@ -435,16 +435,16 @@ public class NightFury extends ADragonBaseFlyingRideableProjUser {
     @Override
     public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
         if (projectile.getDamageTier() == 1) {
-            return 22F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+            return 16F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
         } else if (projectile.getDamageTier() == 2) {
-            return 23F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+            return 18F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
         } else if (projectile.getDamageTier() == 3) {
-            return 24F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.12F) : 0F);
+            return 20F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.12F) : 0F);
         } else if (projectile.getDamageTier() == 4) {
             return 25F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.12F) : 0F);
         }
 
-        return 22;
+        return 16;
     }
 
     @Override

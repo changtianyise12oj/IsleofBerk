@@ -34,9 +34,9 @@ public class NightLight extends LightFury {
     // Night Fury attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.nightLightHealth.get())
-                .add(Attributes.ARMOR, ModConfigs.statsConfig.nightLightArmor.get())
-                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.nightLightBite.get())
+                .add(Attributes.MAX_HEALTH, 70)
+                .add(Attributes.ARMOR, 0)
+                .add(Attributes.ATTACK_DAMAGE, 4)
                 .add(Attributes.MOVEMENT_SPEED, 0.4F)
                 .add(Attributes.FLYING_SPEED, 0.20F)
                 .add(Attributes.FOLLOW_RANGE, 32F)

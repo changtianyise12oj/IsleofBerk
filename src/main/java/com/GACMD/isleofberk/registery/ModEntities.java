@@ -16,12 +16,13 @@ import com.GACMD.isleofberk.entity.dragons.triple_stryke.TripleStryke;
 import com.GACMD.isleofberk.entity.dragons.zippleback.ZippleBack;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.*;
 import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathProjectile;
+import com.GACMD.isleofberk.entity.projectile.breath_user.firebreaths.FireBreathSmallProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZipBreathProjectile;
 import com.GACMD.isleofberk.entity.projectile.breath_user.poison.ZippleBackAOECloud;
+import com.GACMD.isleofberk.entity.projectile.breath_user.skrill_lightning.SkrillLightning;
 import com.GACMD.isleofberk.entity.projectile.other.nadder_spike.DeadlyNadderSpike;
 import com.GACMD.isleofberk.entity.projectile.proj_user.fire_bolt.FireBolt;
 import com.GACMD.isleofberk.entity.projectile.proj_user.furybolt.FuryBolt;
-import com.GACMD.isleofberk.entity.projectile.proj_user.skrill_lightning.SkrillLightning;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -123,6 +124,11 @@ public class ModEntities {
     public static final RegistryObject<EntityType<FireBreathProjectile>> FIRE_PROJ = ENTITIES.register("fire_proj",
             () -> EntityType.Builder.<FireBreathProjectile>of(FireBreathProjectile::new, MobCategory.MISC).sized(2.2F, 2.2F)
                     .build(new ResourceLocation(IsleofBerk.MOD_ID, "fire_proj").toString()));
+
+    public static final RegistryObject<EntityType<FireBreathSmallProjectile>> FIRE_SMALL_PROJ = ENTITIES.register("fire_small_proj",
+            () -> EntityType.Builder.<FireBreathSmallProjectile>of(FireBreathSmallProjectile::new, MobCategory.MISC).sized(1.5F, 1.5F)
+                    .build(new ResourceLocation(IsleofBerk.MOD_ID, "fire_small_proj").toString()));
+
 
     /**
      * Eggs

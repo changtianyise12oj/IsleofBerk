@@ -49,7 +49,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
         return false;
     }
 
-    public void playParticles() {
+   public void playParticles() {
 
         // size increasing with projectile age
         float scale = (float)ticksExisted * 2 + 5;
@@ -78,6 +78,7 @@ public class FireBreathProjectile extends BaseLinearFlightProjectile {
                     0.2f * (random.nextFloat() - 0.5f));
         }
     }
+
 
     @Override
     protected boolean canHitEntity(Entity hitEntity) {

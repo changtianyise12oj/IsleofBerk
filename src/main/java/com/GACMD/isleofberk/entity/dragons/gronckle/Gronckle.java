@@ -7,6 +7,7 @@ import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideable;
 import com.GACMD.isleofberk.entity.base.dragon.ADragonBaseFlyingRideableProjUser;
 import com.GACMD.isleofberk.entity.eggs.entity.base.ADragonEggBase;
 import com.GACMD.isleofberk.entity.eggs.entity.eggs.GronkleEgg;
+import com.GACMD.isleofberk.entity.projectile.abase.BaseLinearFlightProjectile;
 import com.GACMD.isleofberk.registery.ModEntities;
 import com.GACMD.isleofberk.registery.ModItems;
 import com.GACMD.isleofberk.registery.ModSounds;
@@ -465,9 +466,9 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     //  Attributes
     public static AttributeSupplier.Builder createAttributes() {
         return Mob.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, ModConfigs.statsConfig.groncleHealth.get())
-                .add(Attributes.ARMOR, ModConfigs.statsConfig.groncleArmor.get())
-                .add(Attributes.ATTACK_DAMAGE, ModConfigs.statsConfig.groncleBite.get())
+                .add(Attributes.MAX_HEALTH, 60D)
+                .add(Attributes.ARMOR, 10D)
+                .add(Attributes.ATTACK_DAMAGE, 6D)
                 .add(Attributes.FLYING_SPEED, 0.08F)
                 .add(Attributes.MOVEMENT_SPEED, 0.37F)
                 .add(Attributes.FOLLOW_RANGE, 32F)
@@ -620,7 +621,21 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
 
     @Override
     protected int getInLoveCoolDownInMCDays() {
-        return 14;
+        return 2;
+    }
+
+    public float getProjectileDamage(ADragonBase dragon, Entity entity, BaseLinearFlightProjectile projectile) {
+        if (projectile.getDamageTier() == 1) {
+            return 10F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+        } else if (projectile.getDamageTier() == 2) {
+            return 12F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+        } else if (projectile.getDamageTier() == 3) {
+            return 14F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+        } else if (projectile.getDamageTier() == 4) {
+            return 16F + (entity instanceof LivingEntity livingEntity ? (float) Math.floor(livingEntity.getMaxHealth() * 0.10F) : 0F);
+        }
+
+        return 10;
     }
 
     protected SoundEvent getAmbientSound() {

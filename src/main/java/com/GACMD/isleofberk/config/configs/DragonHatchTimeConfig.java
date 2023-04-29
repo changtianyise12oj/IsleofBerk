@@ -26,73 +26,73 @@ public class DragonHatchTimeConfig
     {
         builder.comment(" Dragon Hatch Time Config").push("Terrible Terror");
         terribleTerror = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("terrible_terror_time", 12000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("terrible_terror_time", 300, 1, 1728000));
         builder.pop();
         builder.push("Speed Stinger");
         speedStinger = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("speed_stinger_time", 12000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("speed_stinger_time", 300, 1, 1728000));
         builder.pop();
         builder.push("Floutscout Speed Stinger");
         floutscoutSpeedStinger = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("floutscout_speed_stinger_time", 12000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("floutscout_speed_stinger_time", 300, 1, 1728000));
         builder.pop();
         builder.push("Ice Breaker Speed Stinger");
         iceBreakerSpeedStinger = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("ice_breaker_speed_stinger_time", 12000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("ice_breaker_speed_stinger_time", 300, 1, 1728000));
         builder.pop();
         builder.push("Sweet Sting Speed Stinger");
         sweetStingSpeedStinger = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("sweet_stinger_speed_stinger_time", 12000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("sweet_stinger_speed_stinger_time", 300, 1, 1728000));
         builder.pop();
         builder.push("Deadly Nadder");
         deadlyNadder = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("deadly_nadder_time", 24000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("deadly_nadder_time", 600, 1, 1728000));
         builder.pop();
         builder.push("Night Fury");
         nightFury = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("night_fury_time", 36000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("night_fury_time", 1200, 1, 1728000));
         builder.pop();
         builder.push("Light Fury");
         lightFury = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("light_fury_time", 36000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("light_fury_time", 1200, 1, 1728000));
         builder.pop();
         builder.push("Gronckle");
         gronckle = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("gronckle_time", 24000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("gronckle_time", 600, 1, 1728000));
         builder.pop();
         builder.push("Triple Stryke");
         tripleStryke = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("triple_stryke_time", 24000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("triple_stryke_time", 1200, 1, 1728000));
         builder.pop();
         builder.push("Stinger");
         stinger = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("stinger_time", 48000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("stinger_time", 1200, 1, 1728000));
         builder.pop();
         builder.push("Zippleback");
         zippleback = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("zippleback_time", 72000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("zippleback_time", 2400, 1, 1728000));
         builder.pop();
         builder.push("Nightmare");
         nightmare = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("nightmare_time", 72000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("nightmare_time", 2400, 1, 1728000));
         builder.pop();
         builder.push("Skrill");
         skrill = subscriber.subscribe(builder
-                .comment(" The amount of Ticks it takes for the Dragon to hatch. (20 ticks = 1 second)")
-                .defineInRange("skrill_time", 48000, 1, 1728000));
+                .comment(" The amount of seconds it takes for the Dragon to hatch.")
+                .defineInRange("skrill_time", 1200, 1, 1728000));
         builder.pop();
     }
 }
