@@ -410,7 +410,6 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             }
             return InteractionResult.SUCCESS;
         } else {
-
             return super.mobInteract(pPlayer, pHand);
         }
 
@@ -493,14 +492,19 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
     @Override
     public void tick() {
         super.tick();
+
         ItemStack itemStack = new ItemStack(ModItems.RAW_GRONCKLE_IRON.get(), 1);
 
-        if (getStoneDigestionTicks() == 10) {
-            if (random.nextInt(35) == 1) {
+        if (getStoneDigestionTicks() == 5) {
+            if (random.nextInt(20) == 1) {
                 this.playSound(ModSounds.GRONCKLE_SPIT_IRON.get(), 4, 1);
                 this.playSound(SoundEvents.GENERIC_BURN, 4, 1);
-                this.shootGronckIron(itemStack);
-                setTicksSinceLastFire(20);
+
+                if (!level.isClientSide()) {
+                    this.shootGronckIron(itemStack);
+                    setTicksSinceLastFire(20);
+                }
+
                 addParticlesAroundSelf(ParticleTypes.LAVA);
                 addParticlesAroundSelf(ParticleTypes.LARGE_SMOKE);
             } else {
@@ -509,9 +513,15 @@ public class Gronckle extends ADragonBaseFlyingRideableProjUser implements IAnim
             }
         }
 
-        if (getStoneDigestionTicks() > 0) {
-            setTicksSincelastStoneFed(getStoneDigestionTicks() - 1);
+        if (!level.isClientSide()) {
+            if (getStoneDigestionTicks() > 0) {
+                setTicksSincelastStoneFed(getStoneDigestionTicks() - 1);
+            }
         }
+
+
+
+
 
         if (getTicksSinceLastFire() > 0) {
             setTicksSinceLastFire(getTicksSinceLastFire() - 1);

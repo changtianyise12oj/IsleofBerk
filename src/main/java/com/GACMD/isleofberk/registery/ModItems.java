@@ -37,59 +37,59 @@ public final class ModItems {
      */
 
     public static final RegistryObject<Item> GRONCKLE_IRON_PICKAXE = ITEMS.register("gronckle_iron_pickaxe",
-            () -> new PickaxeItem(ModToolTiers.GRONCKLE_IRON, 2, 3f,
+            () -> new PickaxeItem(ModToolTiers.GRONCKLE_IRON, 2, -2.8F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> GRONCKLE_IRON_AXE = ITEMS.register("gronckle_iron_axe",
-            () -> new AxeItem(ModToolTiers.GRONCKLE_IRON, 7, 3f,
+            () -> new AxeItem(ModToolTiers.GRONCKLE_IRON, 7, -3.1F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> GRONCKLE_IRON_DOUBLEAXE = ITEMS.register("gronckle_iron_doubleaxe",
-            () -> new AxeItem(ModToolTiers.GRONCKLE_IRON, 8, 1f,
+            () -> new AxeItem(ModToolTiers.GRONCKLE_IRON, 8, -3.2F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> GRONCKLE_IRON_SWORD = ITEMS.register("gronckle_iron_sword",
-            () -> new SwordItem(ModToolTiers.GRONCKLE_IRON, 5, 3f,
+            () -> new SwordItem(ModToolTiers.GRONCKLE_IRON, 5, -2.4F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> GRONCKLE_IRON_DAGGER = ITEMS.register("gronckle_iron_dagger",
-            () -> new SwordItem(ModToolTiers.GRONCKLE_IRON, 1, 7f,
+            () -> new SwordItem(ModToolTiers.GRONCKLE_IRON, 1, -1.2F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> GRONCKLE_IRON_MACE = ITEMS.register("gronckle_iron_mace",
-            () -> new SwordItem(ModToolTiers.GRONCKLE_IRON, 5, 3f,
+            () -> new SwordItem(ModToolTiers.GRONCKLE_IRON, 5, -2.4F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> GRONCKLE_IRON_HAMMER = ITEMS.register("gronckle_iron_hammer",
-            () -> new PickaxeItem(ModToolTiers.GRONCKLE_IRON, 5, 3f,
+            () -> new PickaxeItem(ModToolTiers.GRONCKLE_IRON, 8, -3.2F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> BELZIUM_PICKAXE = ITEMS.register("belzium_pickaxe",
-            () -> new PickaxeItem(ModToolTiers.BELZIUM, 3, 4f,
+            () -> new PickaxeItem(ModToolTiers.BELZIUM, 3, -2.8F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> BELZIUM_AXE = ITEMS.register("belzium_axe",
-            () -> new AxeItem(ModToolTiers.BELZIUM, 8, 2f,
+            () -> new AxeItem(ModToolTiers.BELZIUM, 8, -3.1F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> BELZIUM_DOUBLEAXE = ITEMS.register("belzium_doubleaxe",
-            () -> new AxeItem(ModToolTiers.BELZIUM, 9, 4f,
+            () -> new AxeItem(ModToolTiers.BELZIUM, 9, -3.2F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> BELZIUM_SWORD = ITEMS.register("belzium_sword",
-            () -> new SwordItem(ModToolTiers.BELZIUM, 6, 4f,
+            () -> new SwordItem(ModToolTiers.BELZIUM, 6, -2.4F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> BELZIUM_DAGGER = ITEMS.register("belzium_dagger",
-            () -> new SwordItem(ModToolTiers.BELZIUM, 2, 8f,
+            () -> new SwordItem(ModToolTiers.BELZIUM, 2, -1.2F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> BELZIUM_MACE = ITEMS.register("belzium_mace",
-            () -> new SwordItem(ModToolTiers.BELZIUM, 6, 4f,
+            () -> new SwordItem(ModToolTiers.BELZIUM, 6, -2.4F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> BELZIUM_HAMMER = ITEMS.register("belzium_hammer",
-            () -> new PickaxeItem(ModToolTiers.BELZIUM, 6, 4f,
+            () -> new PickaxeItem(ModToolTiers.BELZIUM, 9, -3.2F,
                     new Item.Properties().tab(ModTab.IOB_TAB).stacksTo(1)));
 
     /**
